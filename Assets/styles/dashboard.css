@@ -93,7 +93,7 @@ body {
   font-weight: 700;
 }
 /* Tables */
-thead th {
+/* thead th {
   background-color: #607274;
   color: #faeed1;
   font-weight: 600;
@@ -121,7 +121,7 @@ tbody tr:hover {
 .badge-danger {
   background-color: #8b857f;
   color: #faeed1;
-}
+} */
 /* Buttons */
 .btn-primary {
   background-color: #607274;
