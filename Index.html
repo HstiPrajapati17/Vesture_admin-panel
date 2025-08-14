@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClothMan Admin Panel</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom Dashboard CSS -->
+    <link rel="stylesheet" href="Assets/styles/dashboard.css">
+</head>
+
+<body>
+    <div class="d-flex flex-wrap flex-lg-nowrap">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="d-flex flex-column p-3">
+            <div class="sidebar-header">ClothMan Admin</div>
+            <ul class="nav nav-pills flex-column mb-auto mt-3">
+                <li class="nav-item">
+                    <a href="pages/Dashboard/Dashboard.html" class="nav-link active" aria-current="page">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/Inventory/Inventory.html" class="nav-link">
+                        <i class="bi bi-box-seam me-2"></i> Stock / Inventory
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/Sales/Sales.html" class="nav-link">
+                        <i class="bi bi-cart-check me-2"></i> Sales
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/Purchases/Purchases.html" class="nav-link">
+                        <i class="bi bi-bag-plus me-2"></i> Purchases
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/Reports/Reports.html" class="nav-link">
+                        <i class="bi bi-graph-up me-2"></i> Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/Settings/Settings.html" class="nav-link">
+                        <i class="bi bi-gear me-2"></i> Settings
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Content -->
+        <main id="content" class="flex-grow-1">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg rounded shadow-sm">
+                <div class="container-fluid px-0">
+                    <form class="d-flex w-50" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search orders, stock, customers..."
+                            aria-label="Search" autocomplete="off" />
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+
+                    <div class="dropdown ms-auto">
+                        <a href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                            class="d-flex align-items-center text-decoration-none dropdown-toggle">
+                            <img src="https://via.placeholder.com/35" alt="User" class="rounded-circle me-2" width="35"
+                                height="35" />
+                            <strong>Admin</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main content will be loaded here -->
+            <div id="main-content" class="p-4">
+                <h2>Welcome to ClothMan Admin Panel</h2>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+   <script>
+    // Function to load page content
+    function loadContent(url) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error('Page not found: ' + url);
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('main-content').innerHTML = html;
+
+                // Update active link
+                document.querySelectorAll('#sidebar .nav-link').forEach(l => l.classList.remove('active'));
+                const activeLink = document.querySelector(`#sidebar .nav-link[href="${url}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            })
+            .catch(err => console.error(err));
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Determine default page: either URL path or Dashboard
+        const defaultUrl = window.location.hash ? window.location.hash.slice(1) : 'pages/Dashboard/Dashboard.html';
+        loadContent(defaultUrl);
+
+        // Handle sidebar link clicks
+        document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    // Load clicked page
+                    loadContent(href);
+
+                    // Update browser URL without reloading
+                    history.pushState({ page: href }, '', '#' + href);
+                }
+            });
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function (event) {
+            const url = event.state && event.state.page ? event.state.page : '/pages/Dashboard/Dashboard.html';
+            loadContent(url);
+        });
+    });
+</script>
+
+
+
+
+</body>
+
+</html>

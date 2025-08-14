@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Textile Manufacturing - Sign In</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/Assets/styles/auth.css">
+	<style>
+		.otp-input {
+			width: 50px;
+			height: 50px;
+			font-size: 20px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Top-Right Yellow Wave -->
+	<div class="corner-wave wave-tr" aria-hidden="true">
+		<svg viewBox="0 0 500 500" preserveAspectRatio="none">
+			<path fill="#dedbd5" d="M500,0 
+           Q400,100 320,80
+           Q200,60 150,150
+           Q100,240 0,220
+           L0,0 Z" />
+		</svg>
+	</div>
+
+	<!-- Sign In Section (centered) -->
+	<div class="d-flex align-items-center signin-container m-auto">
+		<div class="text-section w-100">
+			<h1>OTP Verification</h1>
+			<p>Enter the verification code sent to your registered email</p>
+
+			<!-- START: Sign-in form (added fields only) -->
+			<form id="signinForm" class="mt-3" onsubmit="return false;">
+				<!-- OTP -->
+				<div class="mb-3">
+					<div class="d-flex justify-content-center gap-2">
+						<input type="text" maxlength="1" class="form-control otp-input" inputmode="numeric"
+							pattern="[0-9]*" id="otp1" required placeholder="*" title="Enter first digit of OTP" />
+						<input type="text" maxlength="1" class="form-control otp-input" inputmode="numeric"
+							pattern="[0-9]*" id="otp2" required placeholder="*" title="Enter second digit of OTP" />
+						<input type="text" maxlength="1" class="form-control otp-input" inputmode="numeric"
+							pattern="[0-9]*" id="otp3" required placeholder="*" title="Enter third digit of OTP" />
+						<input type="text" maxlength="1" class="form-control otp-input" inputmode="numeric"
+							pattern="[0-9]*" id="otp4" required placeholder="*" title="Enter fourth digit of OTP" />
+					</div>
+				</div>
+				<!-- Primary Sign In -->
+				<div class="d-grid mb-3">
+					<button type="submit" class="btn btn-signin">Reset Password</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Bottom-Left Red Wave -->
+	<div class="corner-wave wave-bl" aria-hidden="true">
+		<svg viewBox="0 0 500 500" preserveAspectRatio="none">
+			<path fill="#607274" d="M0,500 
+           Q100,400 180,420
+           Q280,440 320,360
+           Q380,260 500,280
+           L500,500 Z" />
+		</svg>
+	</div>
+
+	<script>
+		(function () {
+			const form = document.getElementById('signinForm');
+
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+
+				if (!form.checkValidity()) {
+					form.classList.add('was-validated');
+					return;
+				}
+				window.location.href = 'ResetPass.html';
+			});
+
+			const otpInputs = document.querySelectorAll(".otp-input");
+			otpInputs.forEach((input, index) => {
+				input.addEventListener("input", () => {
+					input.value = input.value.replace(/[^0-9]/g, ""); // remove non-numbers
+					if (input.value.length === 1 && index < otpInputs.length - 1) {
+						otpInputs[index + 1].focus();
+					}
+				});
+
+				input.addEventListener("keydown", (e) => {
+					if (e.key === "Backspace" && !input.value && index > 0) {
+						otpInputs[index - 1].focus();
+					}
+				});
+			});
+		
+		})();
+	</script>
+</body>
+
+</html>

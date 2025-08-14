@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Textile Manufacturing - Sign In</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/Assets/styles/auth.css">
+</head>
+
+<body>
+	<!-- Top-Right gray Wave -->
+	<div class="corner-wave wave-tr" aria-hidden="true">
+		<svg viewBox="0 0 500 500" preserveAspectRatio="none">
+			<path fill="#dedbd5" d="M500,0 
+           Q400,100 320,80
+           Q200,60 150,150
+           Q100,240 0,220
+           L0,0 Z" />
+		</svg>
+	</div>
+
+	<!-- Sign Up Section (centered) -->
+	<div class="d-flex align-items-center signin-container m-auto">
+		<div class="text-section w-100">
+			<h1>Sign Up</h1>
+			<p>Fill in your details to activate your admin privileges.</p>
+
+			<!-- START: Sign-up form (added fields only) -->
+			<form id="signinForm" class="mt-3" onsubmit="return false;">
+				<!-- Name -->
+				<div class="mb-3">
+					<label for="name" class="form-label small">Full Name</label>
+					<input id="name" type="text" class="form-control" placeholder="Full Name" required>
+				</div>
+				<!-- Email -->
+				<div class="mb-3">
+					<label for="email" class="form-label small">Email address</label>
+					<input id="email" type="email" class="form-control" placeholder="Email address" required>
+				</div>
+
+				<!-- Password -->
+				<div class="mb-3">
+					<label for="password" class="form-label small">Password</label>
+
+					<div class="position-relative">
+						<input id="password" type="password" class="form-control mb-1 pe-5" placeholder="Password"
+							required>
+						<span class="toggle-password" id="togglePassword">
+							<i class="fa-solid fa-eye-slash"></i>
+						</span>
+					</div>
+				</div>
+
+				<!-- Primary Sign Up -->
+				<div class="d-grid mb-3">
+					<button type="submit" class="btn btn-signin">Sign Up</button>
+				</div>
+
+				<!-- OR and Continue with Google -->
+				<div class="text-center mb-3 or-sep"><span>or continue with</span></div>
+
+				<!-- Social Buttons Row (added ids for each button) -->
+				<div class="social-icons text-center mb-3">
+					<button type="button" class="social-btn" id="appleBtn" aria-label="Continue with Apple">
+						<i class="fa-brands fa-apple"></i>
+					</button>
+					<button type="button" class="social-btn" id="googleBtn" aria-label="Continue with Google">
+						<img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" alt="Google" height="20"
+							width="20">
+					</button>
+					<button type="button" class="social-btn" id="facebookBtn" aria-label="Continue with Facebook">
+						<i class="fa-brands fa-facebook-f"></i>
+					</button>
+				</div>
+				<p class="small text-center mt-2 ">Already have an account? <a href="/pages/Auth/Signin.html"
+						class="link-primary forgot-link small">Sign In</a></p>
+			</form>
+		</div>
+	</div>
+
+	<!-- Bottom-Left green Wave -->
+	<div class="corner-wave wave-bl" aria-hidden="true">
+		<svg viewBox="0 0 500 500" preserveAspectRatio="none">
+			<path fill="#607274" d="M0,500 
+           Q100,400 180,420
+           Q280,440 320,360
+           Q380,260 500,280
+           L500,500 Z" />
+		</svg>
+	</div>
+
+	<script>
+		(function () {
+			const form = document.getElementById('signinForm');
+			const togglePassword = document.getElementById('togglePassword');
+			const passwordInput = document.getElementById('password');
+
+			// Form submit
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+
+				if (!form.checkValidity()) {
+					form.classList.add('was-validated');
+					return;
+				}
+				window.location.href = '/App.html';
+			});
+
+			const toggle = document.querySelector('.toggle-password');
+			const pwd = document.querySelector('#password');
+
+			toggle?.addEventListener('click', () => {
+				const type = pwd.type === 'password' ? 'text' : 'password';
+				pwd.type = type;
+				toggle.querySelector('i').classList.toggle('fa-eye');
+				toggle.querySelector('i').classList.toggle('fa-eye-slash');
+			});
+		})();
+	</script>
+
+
+
+</body>
+
+</html>
