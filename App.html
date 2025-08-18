@@ -24,22 +24,23 @@
       <div class="sidebar-header">Vesture</div>
       <ul class="nav nav-pills flex-column mb-auto mt-3">
         <li class="nav-item">
-          <a href="#" class="nav-link active">
-            <i class="bi bi-speedometer2 me-2"></i> <span>Dashboard</span>
+          <a href="#" id="nav-dashboard" data-path="/pages/Dashboard/Dashboard.html" class="nav-link active" aria-current="page">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
           </a>
         </li>
-        <li><a href="#" class="nav-link"><i class="bi bi-box-seam me-2"></i> <span>Stock / Inventory</span></a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-cart-check me-2"></i> <span>Sales</span></a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-bag-plus me-2"></i> <span>Purchases</span></a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-graph-up me-2"></i> <span>Reports</span></a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-gear me-2"></i> <span>Settings</span></a></li>
+        <li><a href="#" id="nav-stock" data-path="/pages/Stock/Category.html" class="nav-link"><i class="bi bi-box-seam me-2"></i>Category</a></li>
+        <li><a href="#" class="nav-link"><i class="bi bi-box-seam me-2"></i> Stock / Inventory</a></li>
+        <li><a href="#" class="nav-link"><i class="bi bi-cart-check me-2"></i> Sales</a></li>
+        <li><a href="#" class="nav-link"><i class="bi bi-bag-plus me-2"></i> Purchases</a></li>
+        <li><a href="#" class="nav-link"><i class="bi bi-graph-up me-2"></i> Reports</a></li>
+        <li><a href="#" class="nav-link"><i class="bi bi-gear me-2"></i> Settings</a></li>
       </ul>
     </nav>
 
     <!-- Content -->
     <main id="content" class="flex-grow-1">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg rounded">
+      <nav class="navbar navbar-expand-lg rounded p-2">
         <div class="container-fluid px-0">
           <!-- Search form -->
           <form id="searchForm" class="d-flex w-50">
@@ -75,6 +76,8 @@
       <div id="dashboard-container">
         <div id="dashboard-loading">Loading dashboard…</div>
       </div>
+      <!-- Include Dashboard -->
+      <div id="dashboard-container"></div>
     </main>
   </div>
 
@@ -151,6 +154,33 @@
         }
       }, 200);
     })();
+  <!-- JS to load pages into container -->
+    const pageContainer = document.getElementById('dashboard-container');
+
+    function loadPage(path) {
+      fetch(path)
+        .then(response => response.text())
+        .then(html => {
+          pageContainer.innerHTML = html;
+        })
+        .catch(err => console.error('Failed to load page:', err));
+    }
+
+    const navLinks = document.querySelectorAll('#sidebar .nav-link');
+    navLinks.forEach(link => {
+      const path = link.getAttribute('data-path');
+      if (path) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          loadPage(path);
+        });
+      }
+    });
+
+    // Initial load: Dashboard
+    loadPage('/pages/Dashboard/Dashboard.html');
   </script>
 
 </body>
