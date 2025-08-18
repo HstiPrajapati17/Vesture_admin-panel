@@ -21,8 +21,8 @@ body.collapsed #sidebar .h_sidebar-header .brand-text {
 body.collapsed #sidebar .h_sidebar-header img {
   display: block;
   margin: 0 auto;      /* center horizontally inside collapsed narrow sidebar */
-  height: 36px;        /* slightly smaller on collapsed state */
-  width: 36px;
+  height: 60px;        /* slightly smaller on collapsed state */
+  width: 60px;
 }
 
 /* When hover-expandable (sidebar expands on hover) show text again */

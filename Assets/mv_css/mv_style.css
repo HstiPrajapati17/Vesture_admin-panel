@@ -1,4 +1,4 @@
-.ds_page_input{
+.mv_page_input{
     width: 280px;
     height: 44px;
     border: none;
@@ -7,12 +7,16 @@
     font-size: 14px;
     border-radius: 4px;
  }
- .ds_page_icon {
+.mv_page_input:focus{
+    box-shadow: none;
+    background: #1414140F;
+ }
+.mv_page_icon {
     position: absolute;
     top: 14px;
     left: 7px;
 }
-.sp_Add_btn {
+.mv_Add_btn {
     width: 150px;
     min-width: 150px;
     background-color: #1E2131;
@@ -25,26 +29,25 @@
     transition: 0.2s;
 }
 
-.sp_Add_btn:hover {
+.mv_Add_btn:hover {
     background-color: transparent;
     color: #1E2131;
 }
-.ds_customer_table{
+.mv_customer_table{
   color: #212529;
 }
-.ds_customer_table table thead tr th{
+.mv_customer_table table thead tr th{
     padding: 15px 20px 20px 20px;
     white-space: nowrap;
     border-bottom: 1px solid rgba(20, 20, 20, 0.2);
     font-weight: 700;
 }
-
-.ds_customer_table table tbody tr td{
+.mv_customer_table table tbody tr td{
     padding: 13px 20px;
     white-space: nowrap;
     font-weight: 400;
 }
-.sp_table_action button {
+.mv_table_action button {
     width: 30px;
     height: 30px;
     min-width: 30px;
@@ -56,10 +59,10 @@
     margin-right: 10px;
     cursor: pointer;
 }
-.sp_table_action button:hover {
+.mv_table_action button:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
-.sp_table_img img {
+.mv_table_img img {
     width: 40px;
     height: 40px;
     border-radius: 4px;
@@ -75,7 +78,7 @@
   color: rgba(30, 33, 49, 1);
   font-weight: 600;
 }
-.ds_user_select{
+.mv_user_select{
     background: rgba(20, 20, 20, 0.06);
     font-size: 13px;
     padding: 0px 12px;
@@ -83,11 +86,11 @@
     border: none;
     border-radius: 4px;
 }
-.ds_user_select:focus-visible {
+.mv_user_select:focus-visible {
     outline: none;
     box-shadow: none;
 }
-.ds_user_select{
+.mv_user_select{
     appearance: none;
     background-image: url(../../Assets/mv_img/arrow.svg);
     background-repeat: no-repeat;
@@ -95,14 +98,14 @@
     background-size: 1.2rem auto;
     border: 1px solid #ced4da;
 }
-.ds_popup_input{
+.mv_popup_input{
     background: rgba(20, 20, 20, 0.06);
     font-size: 14px;
     padding: 9px 12px;
     border: none;
     border: 1px solid #ced4da;
 }
-.ds_popup_input:focus{
+.mv_popup_input:focus{
     box-shadow: none;
 }
 .mv_img_input{
@@ -111,7 +114,7 @@
 .mv_img_input:focus{
     box-shadow: none;
 }
-.ds_user_cancel{
+.mv_user_cancel{
     border: 1px solid rgba(30, 33, 49, 1);
     height: 45px;
     width: 160px;
@@ -120,12 +123,12 @@
     margin-right: 30px;
     transition: 0.3s ease-in-out;
 }
-.ds_user_cancel:hover{
+.mv_user_cancel:hover{
     background-color: rgba(30, 33, 49, 1);
     color: white;
     border: 1px solid rgba(30, 33, 49, 1);
 }
-.ds_user_add{
+.mv_user_add{
     border: 1px solid rgba(30, 33, 49, 1);
     height: 45px;
     width: 160px;
@@ -134,7 +137,7 @@
     color: white;
     transition: 0.3s ease-in-out;
 }
-.ds_user_add:hover{
+.mv_user_add:hover{
     border: 1px solid rgba(30, 33, 49, 1);
     background-color: transparent;
     color: rgba(20, 20, 20, 1);
@@ -142,8 +145,8 @@
 .mv_modal_footer{
     border-top: none !important;
 }
-/* sp_pagination */
-.sp_pagination {
+/* mv_pagination */
+.mv_pagination {
     width: 32px;
     height: 32px;
     min-width: 32px;
@@ -155,15 +158,15 @@
     cursor: pointer;
 }
 
-.sp_pagination:hover {
+.mv_pagination:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.sp_pagination.disabled {
+.mv_pagination.disabled {
     opacity: 0.1;
 }
 
-.sp_pagination1 {
+.mv_pagination1 {
     width: 32px;
     height: 32px;
     min-width: 32px;
@@ -176,22 +179,22 @@
     cursor: pointer;
 }
 @media(max-width:576px) {
-    .sp_Add_btn {
+    .mv_Add_btn {
         min-width: 100px;
         width: 100px;
     }
-    .ds_user_cancel{
+    .mv_user_cancel{
         height: 40px;
         width: 120px;
         margin-right: 30px;
         font-size: 14px;
     }
-    .ds_user_add{
+    .mv_user_add{
         height: 40px;
         width: 120px;
         font-size: 14px;
     }
-    .sp_pagination {
+    .mv_pagination {
         width: 28px;
         height: 28px;
         min-width: 28px;
@@ -199,7 +202,7 @@
         font-size: 14px;
         margin-right: 5px;
     }
-    .sp_pagination1 {
+    .mv_pagination1 {
         width: 28px;
         height: 28px;
         min-width: 28px;
@@ -209,18 +212,18 @@
     }
 }
 @media (max-width:426px) {
-    .ds_page_input{
+    .mv_page_input{
         width: 180px;
     }
 }
  @media (max-width:375px) {
-    .ds_user_cancel{
+    .mv_user_cancel{
         height: 40px;
         width: 100px;
         margin-right: 30px;
         font-size: 14px;
     }
-    .ds_user_add{
+    .mv_user_add{
         height: 40px;
         width: 100px;
         font-size: 14px;
