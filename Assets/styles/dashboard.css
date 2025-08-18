@@ -1,22 +1,124 @@
-/* ===================== App CSS ===================== */
+
+:root {
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 78px;
+  --sidebar-bg: #dedbd5;
+  --sidebar-text: #607274;
+  --content-pad: 36px;
+}
+
+/* =========================
+   Global reset & base
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  background-color: #fffaf1;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
-  color: #465556;
-}
 html,
 body {
   height: 100%;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  background: #fffaf1;
+  color: var(--sidebar-text);
 }
+body {
+  min-height: 100vh;
+  color: #465556;
+}
+
+/* App layout */
+.app {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =========================
+   Sidebar
+   ========================= */
+
+
+/* mobile off-canvas adjustments */
+
+
+/* =========================
+   Content area
+   ========================= */
+#content {
+  margin-left: var(--sidebar-width);
+  padding: var(--content-pad);
+  flex: 1 1 auto;
+  transition: margin-left 0.25s ease, padding 0.2s ease;
+  color: #607274;
+}
+
+/* navbar */
+.navbar {
+  background-color: #607274;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
+  border-radius: 0.5rem;
+  padding: 8px 12px;
+  margin-bottom: 24px;
+}
+.navbar .form-control {
+  background-color: #fffaf1;
+  border: 1px solid #607274;
+  color: #607274;
+  font-weight: 500;
+  height: 38px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.h_search_btn {
+  background-color: #607274;
+  color: #fffaf1;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  height: 38px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#userAvatar img {
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+}
+
+/* responsive search form fix (from app.css) */
+#searchForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#searchForm .form-control {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#searchForm .h_search_btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 6px 12px;
+}
+#searchForm .form-control:focus {
+  box-shadow: 0 0 0 0.125rem rgba(96, 114, 116, 0.18);
+  border-color: #607274;
+}
+
+/* =========================
+   Dashboard specific styles (from dashboard.css)
+   ========================= */
 .h_dashboad_main_title {
   font-size: 24px;
+  color: #465556;
 }
 .h_search_btn {
   border: 1px solid #fffaf1;
@@ -76,55 +178,54 @@ body {
   width: 100%;
 }
 
-/* Card shell */
-.recent-orders {
+/* Card shell + recent orders */
+.recent-orders,
+.card.h_recent-orders {
   border: 1px solid #e6e9ef;
   border-radius: 10px;
   background: #fff;
   overflow: hidden;
 }
-
-.recent-orders .card-body {
+.recent-orders .card-body,
+.card.h_recent-orders .card-body {
   padding: 14px 16px;
 }
-
-/* Header */
-.recent-orders h6 {
-  font-weight: 600;
-  color: #1f2937;
-}
-.recent-orders .btn.btn-sm {
+.recent-orders .btn.btn-sm,
+.card.h_recent-orders .btn.btn-sm {
   border-radius: 8px;
   padding: 4px 10px;
   line-height: 1.2;
 }
-.recent-orders .btn-light.border {
+.recent-orders .btn-light.border,
+.card.h_recent-orders .btn-light.border {
   background: #f8fafc;
   border-color: #e6e9ef !important;
 }
 
-/* Table look same as screenshot */
+/* Table base look */
 .recent-orders-table {
   width: 100%;
   border: 1px solid #eef1f6;
   border-radius: 8px;
-  overflow: hidden; /* keep rounded edges */
+  overflow: hidden;
+  background: #fff;
 }
 .recent-orders-table thead th {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: #374151;
   background: #ffffff;
   border-bottom: 1px solid #eef1f6;
+  text-align: left;
 }
 .recent-orders-table tbody tr {
   border-bottom: 1px solid #f2f4f8;
 }
 .recent-orders-table tbody tr:nth-child(odd) {
-  background: #fafbff; /* subtle zebra like image */
+  background: #fafbff;
 }
 .recent-orders-table tbody tr:hover {
-  background: #f2f6ff; /* hover highlight */
+  background: #f2f6ff;
 }
 .recent-orders-table td,
 .recent-orders-table th {
@@ -132,11 +233,11 @@ body {
   vertical-align: middle;
   color: #4b5563;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
 }
 
-/* Pill stage badge */
+/* badge */
 .badge-chip {
   display: inline-block;
   padding: 6px 10px;
@@ -147,188 +248,70 @@ body {
   color: #334155;
 }
 
-/* Responsive tweak for small screens */
-@media (max-width: 576px) {
-  .recent-orders .d-flex.gap-2 {
-    gap: 0.25rem !important;
+/* Responsive scroller for tables */
+.h_table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+}
+.h_table-responsive .table-scroll {
+  min-width: 100%;
+  overflow-y: auto;
+  max-height: 320px;
+  border-radius: 8px;
+}
+.h_table-responsive table {
+  min-width: 760px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.h_table-responsive,
+.h_table-responsive .table-scroll {
+  background: transparent;
+}
+
+/* custom scrollbars (webkit) */
+.h_table-responsive::-webkit-scrollbar,
+.h_table-responsive .table-scroll::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.h_table-responsive::-webkit-scrollbar-thumb,
+.h_table-responsive .table-scroll::-webkit-scrollbar-thumb {
+  background: rgba(96, 114, 116, 0.18);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.h_table-responsive::-webkit-scrollbar-track,
+.h_table-responsive .table-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+/* firefox scrollbar */
+@-moz-document url-prefix() {
+  .h_table-responsive,
+  .h_table-responsive .table-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(96, 114, 116, 0.18) rgba(0, 0, 0, 0.02);
   }
-  .recent-orders-table td,
-  .recent-orders-table th {
-    padding: 10px 12px;
-  }
 }
 
-/* ===== Production Status (all custom classes prefixed with h_) ===== */
-.h_ps {
-  border: 1px solid #e9eef5;
-  border-radius: 14px;
-  background: #fff;
+/* keep table cells single-line */
+.recent-orders-table td,
+.recent-orders-table th {
+  white-space: nowrap;
 }
 
-.h_ps-title {
-  font-weight: 700;
-  color: #182235;
-}
-
-/* grid/row container that also draws the vertical spine */
-.h_ps-grid {
-  position: relative;
-  padding-left: 0.25rem;
-}
-
-/* one logical step row with left + right cards */
-.h_step {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  position: relative;
-}
-
-/* left side card (stage name) */
-.h_step-left {
-  position: relative;
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  align-items: center;
-  gap: 12px;
-  background: #f6f8fc;
-  border: 1px solid #edf2fa;
-  border-radius: 12px;
-  padding: 12px 14px;
-}
-
-/* subtle green tint for some left items (as in image) */
-.h_left-soft {
-  background: linear-gradient(0deg, #eef9f1, #eef9f1);
-  border-color: #def3e4;
-}
-
-/* right side card (status + bar) */
-.h_step-right {
-  position: relative;
-  background: #ffffff;
-  border: 1px solid #eef2f7;
-  border-radius: 12px;
-  padding: 12px 14px;
-}
-
-.h_state-soft {
-  background: #fbfbfe;
-  border-color: #eef1fb;
-}
-.h_state-muted {
-  background: #fafbfc;
-}
-
-/* icons bubble */
-.h_icon-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(22, 37, 66, 0.06);
-  color: #3b5bdb;
-  font-size: 18px;
-}
-
-/* step text */
-.h_step-title {
-  font-weight: 600;
-  color: #2a3345;
-  line-height: 1.2;
-}
-.h_step-sub {
-  font-size: 12px;
-  color: #7a889b;
-  margin-top: 2px;
-}
-
-/* head line on the right card (icon + label) */
-.h_state-head {
-  display: flex;
-  align-items: center;
+/* small helper: */
+.card.h_recent-orders .d-flex.justify-content-between {
   gap: 8px;
-  font-weight: 600;
-  color: #1b3c2e; /* deep green tint like screenshot */
 }
-.h_state-head i {
-  color: #19a974; /* green icon tone */
-}
-
-/* progress */
-.h_progress {
-  height: 8px;
-  border-radius: 999px;
-  background: #e9eef5;
-  overflow: hidden;
-  margin-top: 10px;
-}
-.h_progress-bar {
-  height: 100%;
-  width: 0;
-  background: #c7cfe1;
-  border-radius: inherit;
-}
-.h_progress-green {
-  background: #20c997;
-}
-.h_progress-blue {
-  background: #3b82f6;
-}
-
-/* connectors between left and right cards */
-.h_connector {
-  position: absolute;
-  right: -18px; /* gap between left and right */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 14px;
-}
-.h_connector::before,
-.h_connector::after {
-  content: "";
-  position: absolute;
-  background: #cfd7e6;
-  border-radius: 6px;
-}
-.h_connector::before {
-  left: 0;
-  top: 6px;
-  width: 18px;
-  height: 2px; /* horizontal bit */
-}
-.h_connector::after {
-  right: 0;
-  top: -40px;
-  width: 2px;
-  height: 40px; /* little vertical nub (to mimic nodes) */
-}
-
-.h_connector-last::after {
-  height: 54px; /* tail that bends down on last row */
-}
-
-/* soft shadow for both cards */
-.h_step-left.shadow-sm,
-.h_step-right.shadow-sm {
-  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06);
-}
-
-/* responsive: stack left/right on small screens */
-@media (max-width: 768px) {
-  .h_step {
-    grid-template-columns: 1fr;
-  }
-  .h_connector,
-  .h_connector::after {
-    display: none;
-  }
-  .h_step-right {
-    margin-top: 6px;
-  }
+.card.h_recent-orders .h_table-responsive {
+  padding: 6px;
+  background: transparent;
 }
 
 /* Responsive tweaks */
@@ -366,5 +349,29 @@ body {
   }
   .h_dashboad_main_title {
     font-size: 20px;
+  }
+}
+@media (max-width: 420px) {
+  .h_table-responsive table {
+    min-width: 640px;
+  }
+  .h_table-responsive .table-scroll {
+    max-height: 260px;
+  }
+  .recent-orders-table td,
+  .recent-orders-table th {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  .badge-chip {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+  :root {
+    --content-pad: 14px;
+  }
+  .h_sidebar-header {
+    font-size: 20px;
+    padding-bottom: 8px;
   }
 }
