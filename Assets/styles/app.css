@@ -1,63 +1,58 @@
-body {
-  background-color: #fffaf1;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
-  color: #465556;
-}
-#dashboard-loading {
-  padding: 40px 0;
-  text-align: center;
-  color: #666;
+:root {
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 78px;
+  --sidebar-bg: #dedbd5;
+  --sidebar-text: #607274;
+  --content-pad: 36px;
 }
 
-.chart-container {
-  position: relative;
+html,
+body {
   height: 100%;
-  min-height: 180px;
+  margin: 0;
 }
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.h_sidebar-header {
+  border-bottom: 3px solid #607274;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  padding-bottom: 16px;
+}
+/* Sidebar */
 #sidebar {
-  position: fixed; /* pin to viewport */
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 260px; /* adjust width as needed */
-  padding: 36px;
-  overflow-y: auto; /* allow sidebar to scroll internally if it's tall */
-  background: #0b2a4a; /* keep your style - change if needed */
-  color: #fff;
-  z-index: 1020;
+  width: var(--sidebar-width);
+  padding: 36px 20px;
+  overflow-y: auto;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  z-index: 1030;
+  transition: width 0.25s ease, transform 0.25s ease;
 }
-
-/* Make sure the content area clears the fixed sidebar */
-#content {
-  margin-left: 260px; /* same as sidebar width */
-  min-height: 100vh;
-  padding: 36px;
-}
-
-/* Optional: keep navbar inside content fixed at top of content (not viewport) */
-#content .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-/* Sidebar */
-#sidebar {
-  width: 260px;
-  min-height: 100vh;
-  background-color: #dedbd5;
-  color: #607274;
+#sidebarToggleMobile, #sidebarToggle {
+  color: #fffaf1;
 }
 #sidebar .sidebar-header {
-  padding: 1.5rem 1rem;
-  font-size: 1.75rem;
+  padding: 1rem 0;
+  font-size: 1.6rem;
   font-weight: 700;
   text-align: center;
-  border-bottom: 3px solid #607274;
   letter-spacing: 1.5px;
-  user-select: none;
-  color: #607274;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1rem;
+}
+#sidebar li{
+  width: 100%;
 }
 #sidebar .nav-link {
   color: #607274;
@@ -73,107 +68,120 @@ body {
   color: #fffaf1;
   font-weight: 700;
 }
+
+.sidebar-footer {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+}
+
 /* Content */
 #content {
-  flex-grow: 1;
-  padding: 32px;
-  overflow-x: auto;
+  margin-left: var(--sidebar-width);
+  padding: var(--content-pad);
+  flex: 1 1 auto;
+  transition: margin-left 0.25s ease, padding 0.2s ease;
   color: #607274;
 }
 
 /* Navbar */
 .navbar {
   background-color: #607274;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
   border-radius: 0.5rem;
   padding: 8px 12px;
-  margin-bottom: 32px;
-  align-items: center;
+  margin-bottom: 24px;
 }
 .navbar .form-control {
   background-color: #fffaf1;
   border: 1px solid #607274;
   color: #607274;
-  box-shadow: none;
   font-weight: 500;
 }
-.navbar .form-control::placeholder {
-  color: #9b8e86;
-  font-style: italic;
+
+/* Collapsed */
+.collapsed #sidebar {
+  width: var(--sidebar-collapsed-width);
+  padding: 12px 8px !important;
 }
-.navbar .btn-outline-primary {
-  border-color: #fffaf1;
-  color: #fffaf1;
-  font-weight: 600;
+.collapsed #sidebar .sidebar-header,
+.collapsed #sidebar .nav-link span.text {
+  display: none;
 }
-.navbar .btn-outline-primary:hover {
-  background-color: #fffaf1;
-  color: #607274;
-  border-color: #fffaf1;
+.collapsed #sidebar .nav-link {
+  justify-content: center;
+  padding: 12px;
 }
-.form-control .h_search_btn {
-  color: #fffaf1;
-  border-color: #fffaf1;
+.collapsed #content {
+  margin-left: var(--sidebar-collapsed-width);
+  padding: 20px;
 }
 
-/* Responsive: max-width 540px */
-@media (max-width: 540px) {
-  #searchForm {
-    display: none !important;
-  }
-  #mobileSearchBtn {
-    display: inline-block !important;
-  }
-  #userAvatar strong {
-    display: none; /* remove admin text if any */
-  }
-  #userAvatar img {
-    cursor: default;
-  }
-  /* Style for mobile search bar */
-  #mobileSearchBar {
-    background-color: #607274;
-  }
-  #mobileSearchBar .form-control {
-    background-color: #fffaf1;
-    color: #607274;
-  }
+/* Hover expandable */
+#sidebar.hover-expandable:hover {
+  width: var(--sidebar-width);
+}
+#sidebar.hover-expandable:hover + #content {
+  margin-left: var(--sidebar-width);
+}
+#sidebar.hover-expandable:hover .sidebar-header,
+#sidebar.hover-expandable:hover .nav-link span.text {
+  display: inline;
 }
 
-/* Sidebar Responsive Collapse */
-/* Sidebar - icon only view at <=1024px */
-@media (max-width: 1024px) {
+/* Mobile off-canvas */
+@media (max-width: 768px) {
   #sidebar {
-    transition: all 0.3s ease-in-out;
-    width: 100px;
-    padding: 8px !important;
-    align-items: center;
+    transform: translateX(0); /* Ensure the sidebar remains visible */
+    width: var(--sidebar-width);
+    padding: 22px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    position: fixed; /* Keep it fixed for better UX */
+    z-index: 1030;
   }
-
-  /* Hide the text part but keep icons */
-  #sidebar .nav-link span,
-  #sidebar .sidebar-header {
+  body.mobile-open #sidebar {
+    transform: translateX(0);
+  }
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1025;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  body.mobile-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #content {
+    margin-left: var(
+      --sidebar-width
+    ); /* Ensure content adjusts to sidebar width */
+    padding: 16px;
+  }
+  .mobile-toggle {
+    display: inline-block;
+  }
+  .desktop-toggle {
     display: none;
   }
-
-  /* Center icons vertically */
-  #sidebar .nav-link {
-    justify-content: center;
-    padding: 12px;
-  }
-
-  #sidebar .nav-link i {
-    font-size: 1.4rem;
-    margin: 0;
+  .mobile-hidden {
+    display: none;
   }
 }
-@media (max-width: 768px) {
-  #content {
-    padding: 24px;
+
+/* Desktop buttons */
+@media (min-width: 769px) {
+  .sidebar-backdrop {
+    display: none;
   }
-}
-@media (max-width: 540px) {
-  #content {
-    padding: 16px;
+  .mobile-toggle {
+    display: none;
+  }
+  .desktop-toggle {
+    display: inline-block;
   }
 }

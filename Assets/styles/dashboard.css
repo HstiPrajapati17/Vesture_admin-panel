@@ -18,11 +18,11 @@ body {
 .h_dashboad_main_title {
   font-size: 24px;
 }
-.h_search_btn{
+.h_search_btn {
   border: 1px solid #fffaf1;
   color: #fffaf1;
 }
-.h_search_btn:hover{
+.h_search_btn:hover {
   background-color: #fffaf1;
   color: #607274;
   font-weight: 600;
@@ -49,7 +49,7 @@ body {
 }
 
 /* Chart Cards */
-.h_chart_section_01 .chart-card {
+.h_dashboard_root .h_chart-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 0.75rem;
@@ -57,54 +57,278 @@ body {
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.h_chart_section_01 .chart-title {
+.h_dashboard_root .h_chart-title {
   font-size: 1.4rem;
   font-weight: 700;
   color: #607274;
-  margin-bottom: 1rem;
+  margin-bottom: 22px;
   text-align: center;
+  text-decoration: underline;
 }
 .h_chart_section_01 .h_chart-container {
   position: relative;
   height: 350px;
   width: 100%;
 }
- .h_small-chart-container {
+.h_small-chart-container {
   position: relative;
   height: 180px;
   width: 100%;
 }
 
-
-
-
-
-.table-lowstock td,
-.table-lowstock th {
-  vertical-align: middle;
+/* Card shell */
+.recent-orders {
+  border: 1px solid #e6e9ef;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
 }
-.low-stock-card {
-  border: 1px solid #e5e5e5;
+
+.recent-orders .card-body {
+  padding: 14px 16px;
+}
+
+/* Header */
+.recent-orders h6 {
+  font-weight: 600;
+  color: #1f2937;
+}
+.recent-orders .btn.btn-sm {
   border-radius: 8px;
+  padding: 4px 10px;
+  line-height: 1.2;
+}
+.recent-orders .btn-light.border {
+  background: #f8fafc;
+  border-color: #e6e9ef !important;
 }
 
-.low-stock-list {
-  border-top: 1px solid #f0f0f0;
-  padding-top: 8px;
+/* Table look same as screenshot */
+.recent-orders-table {
+  width: 100%;
+  border: 1px solid #eef1f6;
+  border-radius: 8px;
+  overflow: hidden; /* keep rounded edges */
+}
+.recent-orders-table thead th {
+  font-weight: 600;
+  font-size: 18px;
+  color: #374151;
+  background: #ffffff;
+  border-bottom: 1px solid #eef1f6;
+}
+.recent-orders-table tbody tr {
+  border-bottom: 1px solid #f2f4f8;
+}
+.recent-orders-table tbody tr:nth-child(odd) {
+  background: #fafbff; /* subtle zebra like image */
+}
+.recent-orders-table tbody tr:hover {
+  background: #f2f6ff; /* hover highlight */
+}
+.recent-orders-table td,
+.recent-orders-table th {
+  padding: 12px 14px;
+  vertical-align: middle;
+  color: #4b5563;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.low-stock-item {
-  padding: 6px 0;
-  border-bottom: 1px solid #f8f9fa;
-  font-size: 0.9rem;
+/* Pill stage badge */
+.badge-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: #d5d5d5;
+  color: #334155;
 }
 
-.low-stock-item:last-child {
-  border-bottom: none;
+/* Responsive tweak for small screens */
+@media (max-width: 576px) {
+  .recent-orders .d-flex.gap-2 {
+    gap: 0.25rem !important;
+  }
+  .recent-orders-table td,
+  .recent-orders-table th {
+    padding: 10px 12px;
+  }
 }
 
-.low-stock-item .sku {
-  font-weight: 500;
+/* ===== Production Status (all custom classes prefixed with h_) ===== */
+.h_ps {
+  border: 1px solid #e9eef5;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.h_ps-title {
+  font-weight: 700;
+  color: #182235;
+}
+
+/* grid/row container that also draws the vertical spine */
+.h_ps-grid {
+  position: relative;
+  padding-left: 0.25rem;
+}
+
+/* one logical step row with left + right cards */
+.h_step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  position: relative;
+}
+
+/* left side card (stage name) */
+.h_step-left {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 12px;
+  background: #f6f8fc;
+  border: 1px solid #edf2fa;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+/* subtle green tint for some left items (as in image) */
+.h_left-soft {
+  background: linear-gradient(0deg, #eef9f1, #eef9f1);
+  border-color: #def3e4;
+}
+
+/* right side card (status + bar) */
+.h_step-right {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.h_state-soft {
+  background: #fbfbfe;
+  border-color: #eef1fb;
+}
+.h_state-muted {
+  background: #fafbfc;
+}
+
+/* icons bubble */
+.h_icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 37, 66, 0.06);
+  color: #3b5bdb;
+  font-size: 18px;
+}
+
+/* step text */
+.h_step-title {
+  font-weight: 600;
+  color: #2a3345;
+  line-height: 1.2;
+}
+.h_step-sub {
+  font-size: 12px;
+  color: #7a889b;
+  margin-top: 2px;
+}
+
+/* head line on the right card (icon + label) */
+.h_state-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #1b3c2e; /* deep green tint like screenshot */
+}
+.h_state-head i {
+  color: #19a974; /* green icon tone */
+}
+
+/* progress */
+.h_progress {
+  height: 8px;
+  border-radius: 999px;
+  background: #e9eef5;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.h_progress-bar {
+  height: 100%;
+  width: 0;
+  background: #c7cfe1;
+  border-radius: inherit;
+}
+.h_progress-green {
+  background: #20c997;
+}
+.h_progress-blue {
+  background: #3b82f6;
+}
+
+/* connectors between left and right cards */
+.h_connector {
+  position: absolute;
+  right: -18px; /* gap between left and right */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 14px;
+}
+.h_connector::before,
+.h_connector::after {
+  content: "";
+  position: absolute;
+  background: #cfd7e6;
+  border-radius: 6px;
+}
+.h_connector::before {
+  left: 0;
+  top: 6px;
+  width: 18px;
+  height: 2px; /* horizontal bit */
+}
+.h_connector::after {
+  right: 0;
+  top: -40px;
+  width: 2px;
+  height: 40px; /* little vertical nub (to mimic nodes) */
+}
+
+.h_connector-last::after {
+  height: 54px; /* tail that bends down on last row */
+}
+
+/* soft shadow for both cards */
+.h_step-left.shadow-sm,
+.h_step-right.shadow-sm {
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.06);
+}
+
+/* responsive: stack left/right on small screens */
+@media (max-width: 768px) {
+  .h_step {
+    grid-template-columns: 1fr;
+  }
+  .h_connector,
+  .h_connector::after {
+    display: none;
+  }
+  .h_step-right {
+    margin-top: 6px;
+  }
 }
 
 /* Responsive tweaks */
@@ -144,4 +368,3 @@ body {
     font-size: 20px;
   }
 }
-

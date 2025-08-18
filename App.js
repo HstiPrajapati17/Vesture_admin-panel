@@ -1,4 +1,98 @@
 
+/***** Sidebar behaviour *****/
+(function () {
+	const body = document.body;
+	const sidebar = document.getElementById('sidebar');
+	const toggle = document.getElementById('sidebarToggle');       // desktop toggle (collapse)
+	const toggleMobile = document.getElementById('sidebarToggleMobile'); // mobile open
+	const backdrop = document.getElementById('sidebarBackdrop');
+	const navLinks = document.querySelectorAll('#sidebar .nav-link');
+
+	// Helper: is mobile width
+	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+	// Desktop collapse/expand toggle
+	toggle.addEventListener('click', () => {
+		body.classList.toggle('collapsed');
+		// Update toggle icon
+		const icon = toggle.querySelector('i');
+		if (body.classList.contains('collapsed')) icon.className = 'bi bi-chevron-right';
+		else icon.className = 'bi bi-chevron-left';
+	});
+
+	// On first load, if width <= 1024, make collapsed by default for compact UI
+	const initAdaptive = () => {
+		if (window.matchMedia('(max-width: 1024px)').matches) {
+			body.classList.add('collapsed');
+		} else {
+			body.classList.remove('collapsed');
+		}
+	};
+	initAdaptive();
+	window.addEventListener('resize', initAdaptive);
+
+	// Mobile: open sidebar as overlay
+	toggleMobile.addEventListener('click', () => {
+		body.classList.add('mobile-open'); // CSS shows sidebar and backdrop
+		// ensure content is scrolled to top for clean overlay experience
+		document.getElementById('content').scrollTop = 0;
+	});
+
+	// Clicking backdrop closes mobile sidebar
+	backdrop.addEventListener('click', () => {
+		body.classList.remove('mobile-open');
+	});
+
+	// Close mobile sidebar when a nav link is clicked (better UX)
+	navLinks.forEach(link => {
+		link.addEventListener('click', (e) => {
+			const path = link.getAttribute('data-path');
+			// if path exists, load page into container (keeps your loadPage logic)
+			if (path) {
+				loadPage(path); // uses the loadPage defined later
+			}
+			if (isMobile()) body.classList.remove('mobile-open');
+			// update active class
+			document.querySelectorAll('#sidebar .nav-link').forEach(n => n.classList.remove('active'));
+			link.classList.add('active');
+			e.preventDefault();
+		});
+	});
+
+	// Allow closing mobile sidebar with Escape key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') body.classList.remove('mobile-open');
+	});
+})();
+
+
+/* JS to load pages into container (keeps your previous logic) */
+const pageContainer = document.getElementById('dashboard-container');
+
+function loadPage(path) {
+	fetch(path)
+		.then(response => {
+			if (!response.ok) throw new Error('Network response was not ok');
+			return response.text();
+		})
+		.then(html => {
+			pageContainer.innerHTML = html;
+
+			// Call initCharts after the content is loaded
+			if (path.includes('Dashboard.html')) {
+				setTimeout(initCharts, 100); // Add a slight delay to ensure DOM is ready
+			}
+		})
+		.catch(err => console.error('Failed to load page:', err));
+}
+
+// wire up links that have data-path (some added in sidebar code too)
+document.querySelectorAll('#sidebar .nav-link[data-path]').forEach(link => {
+	link.addEventListener('click', (e) => e.preventDefault()); // actual click handled earlier in navLinks
+});
+
+// Initial load: Dashboard
+loadPage('/pages/Dashboard/Dashboard.html');
 
 
 
@@ -99,7 +193,7 @@ function initCharts() {
 
 // Load dashboard.html and initialize charts
 function loadDashboard() {
-	fetch('/pages/Dashboard/dashboard.html')
+	fetch('/pages/Dashboard/Dashboard.html')
 		.then(response => {
 			if (!response.ok) throw new Error('Dashboard load failed');
 			return response.text();
