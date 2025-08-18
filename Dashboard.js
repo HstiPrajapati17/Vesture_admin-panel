@@ -1,7 +1,3 @@
-
-
-
-
 // Chart initialization function (called after dashboard HTML is injected)
 function initCharts() {
 	if (typeof Chart === 'undefined') return;
@@ -74,54 +70,4 @@ function initCharts() {
 		},
 		options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
 	});
-
-	// Small gauge-like doughnuts
-	const gaugeOptions = { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false } } };
-
-	new Chart(document.getElementById('productionRateChart'), {
-		type: 'doughnut',
-		data: { datasets: [{ data: [85, 15], backgroundColor: ['#607274', '#e0e0e0'], borderWidth: 0 }] },
-		options: gaugeOptions
-	});
-
-	new Chart(document.getElementById('qualityChart'), {
-		type: 'doughnut',
-		data: { datasets: [{ data: [92, 8], backgroundColor: ['#D1A980', '#e0e0e0'], borderWidth: 0 }] },
-		options: gaugeOptions
-	});
-
-	new Chart(document.getElementById('materialChart'), {
-		type: 'doughnut',
-		data: { datasets: [{ data: [68, 32], backgroundColor: ['#a0a0a0', '#e0e0e0'], borderWidth: 0 }] },
-		options: gaugeOptions
-	});
 }
-
-// Load dashboard.html and initialize charts
-function loadDashboard() {
-	fetch('/pages/Dashboard/dashboard.html')
-		.then(response => {
-			if (!response.ok) throw new Error('Dashboard load failed');
-			return response.text();
-		})
-		.then(html => {
-			document.getElementById('dashboard-container').innerHTML = html;
-			// a tiny delay so canvases are laid out, then init charts
-			setTimeout(initCharts, 120);
-		})
-		.catch(err => {
-			console.error(err);
-			document.getElementById('dashboard-container').innerHTML = '<div class="p-4 text-danger">Failed to load dashboard.</div>';
-		});
-}
-
-
-// searchbar active when screen size is maximum-540px
-const mobileSearchBtn = document.getElementById("mobileSearchBtn");
-const mobileSearchBar = document.getElementById("mobileSearchBar");
-
-mobileSearchBtn.addEventListener("click", () => {
-	mobileSearchBar.classList.toggle("d-none");
-});
-
-window.addEventListener('load', loadDashboard);
