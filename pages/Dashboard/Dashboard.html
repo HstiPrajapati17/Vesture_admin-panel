@@ -15,13 +15,13 @@
   <link rel="stylesheet" href="/pages/sidebar.css">
 </head>
 
-<body class="app">
+<body class="ab_main_app">
 
   <!-- Sidebar -->
   <div id="sidebar-container"></div>
 
   <!-- Content -->
-  <main id="h_dashboard_content">
+  <main id="ab_main_content">
     <!-- Top navbar (search + avatar) -->
     <nav class="navbar d-flex align-items-center mb-4">
       <div class="d-flex align-items-center w-100">
@@ -214,27 +214,19 @@
       }
     });
 
-
     // <!-- search-bar onclick show / hide code -->
-
   </script>
 
 
   <script>
-    // simple loader: fetch partial and insert into container
     (function loadSidebar() {
-      const path = '/pages/sidebar.html'; // adjust path if needed
+      const path = '/pages/sidebar.html';
       const container = document.getElementById('sidebar-container');
 
       fetch(path)
-        .then(res => {
-          if (!res.ok) throw new Error('Sidebar not found: ' + res.status);
-          return res.text();
-        })
+        .then(res => { if (!res.ok) throw new Error('Sidebar not found: ' + res.status); return res.text(); })
         .then(html => {
           container.innerHTML = html;
-
-          // After injection, you may want to run small init: e.g. highlight active based on current URL
           initInjectedSidebar();
         })
         .catch(err => {
@@ -243,38 +235,88 @@
         });
 
       function initInjectedSidebar() {
-        // keep active nav item in sync with current page (simple heuristic)
         const links = container.querySelectorAll('a.nav-link');
+        const pathname = location.pathname;
+
+        // make Dashboard active on / and /Dashboard.html
+        const dashLink = container.querySelector('#nav-dashboard');
+        if (dashLink) {
+          const isDash = pathname === '/' || pathname.endsWith('/Dashboard.html') || pathname.endsWith('\\Dashboard.html');
+          if (isDash) {
+            links.forEach(x => x.classList.remove('active'));
+            dashLink.classList.add('active');
+          }
+        }
+
+        // generic active matcher for other pages
         links.forEach(a => {
-          // mark active if href matches location path (or any custom logic)
-          try {
-            const href = a.getAttribute('href');
-            if (href && href !== '#' && location.pathname.endsWith(href.split('/').pop())) {
-              links.forEach(x => x.classList.remove('active'));
-              a.classList.add('active');
-            }
-          } catch (e) { /* ignore */ }
+          const href = a.getAttribute('href');
+          if (href && href !== '#' && pathname.endsWith(href.split('/').pop())) {
+            links.forEach(x => x.classList.remove('active'));
+            a.classList.add('active');
+          }
         });
 
-        // optional: dispatch an event so other scripts know sidebar is ready
         document.dispatchEvent(new CustomEvent('sidebar:loaded', { detail: { container } }));
       }
     })();
   </script>
 
+
   <!-- Optional: small script to toggle collapsed class for sidebar -->
   <script>
-    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-      document.body.classList.toggle('collapsed');
+    (function () {
+      const toggleBtn = document.getElementById('sidebarToggle');
+      const sidebarContainer = document.getElementById('sidebar-container');
 
-      // resize charts after animation
-      setTimeout(() => {
-        if (typeof window.initCharts === 'function') {
-          window.initCharts();
+      // safe-guard: if not present, do nothing
+      if (!toggleBtn || !sidebarContainer) return;
+
+      function closeAllSubmenus() {
+        // Use Bootstrap collapse if available; otherwise hide via class
+        const collapseEls = sidebarContainer.querySelectorAll('.collapse');
+        collapseEls.forEach(el => {
+          // if bootstrap Collapse is present:
+          if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+            try { bootstrap.Collapse.getOrCreateInstance(el).hide(); } catch (e) { }
+          } else {
+            el.classList.remove('show');
+            el.style.display = 'none';
+          }
+        });
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        const isCollapsed = document.body.classList.toggle('collapsed');
+
+        if (isCollapsed) {
+          // when collapsing: immediately close submenus to avoid them showing behind icons
+          closeAllSubmenus();
+        } else {
+          // when expanding: nothing special (submenus will open by click)
         }
-      }, 310); // slightly longer than CSS transition
-    });
+
+        // reflow charts / UI if needed
+        setTimeout(() => {
+          if (typeof window.initCharts === 'function') window.initCharts();
+        }, 320);
+      });
+
+      // Optional: on page load, if body has collapsed class, ensure submenus closed
+      document.addEventListener('DOMContentLoaded', function () {
+        if (document.body.classList.contains('collapsed')) closeAllSubmenus();
+      });
+
+      // When using hover-expandable behaviour: reveal labels on hover only (CSS handles this)
+      // Optional: add tooltip titles for each nav-link so users can see label on hover
+      sidebarContainer.querySelectorAll('.nav-link').forEach(a => {
+        const label = a.querySelector('.text')?.textContent?.trim();
+        if (label && !a.getAttribute('title')) a.setAttribute('title', label);
+      });
+
+    })();
   </script>
+
 
   <script src="/Dashboard.js"></script>
   <script>
