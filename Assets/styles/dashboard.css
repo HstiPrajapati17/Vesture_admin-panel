@@ -49,7 +49,7 @@ body {
 }
 
 /* App layout */
-.app {
+.h_app {
   display: flex;
   min-height: 100vh;
   overflow-x: hidden;
