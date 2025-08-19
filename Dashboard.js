@@ -1,36 +1,45 @@
-// Chart initialization function (called after dashboard HTML is injected)
-function initCharts() {
-	if (typeof Chart === 'undefined') return;
-	if (!document.getElementById('salesTrendChart')) return; // avoid errors if not present
+// /scripts/dashboard.js
+// Attach to window so other scripts can call it after sidebar-injection
+window.initCharts = function initCharts() {
+  if (typeof Chart === 'undefined') {
+    console.warn('Chart.js not loaded yet.');
+    return;
+  }
+  if (!document.getElementById('salesTrendChart')) {
+    console.warn('Chart canvases not found in DOM.');
+    return;
+  }
 
-	// Monthly Sales Trend Line Chart (with larger points)
-	new Chart(document.getElementById('salesTrendChart'), {
-		type: 'line',
-		data: {
-			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-			datasets: [{
-				label: 'Sales (CA$)',
-				data: [45000, 52000, 48000, 61000, 58000, 67000, 71000, 75430],
-				borderColor: '#607274',
-				backgroundColor: 'rgba(96,114,116,0.08)',
-				tension: 0.4,
-				fill: true,
-				pointRadius: 8,       // bigger points
-				pointHoverRadius: 11,  // bigger on hover
-				pointBackgroundColor: '#607274',
-				pointBorderColor: '#fff',
-				pointBorderWidth: 2
-			}]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			plugins: { legend: { display: false } },
-			scales: { y: { beginAtZero: true, ticks: { callback: v => 'CA$' + v.toLocaleString() } } }
-		}
-	});
+  // (paste your chart initialization code here exactly as before)
+  // Example: Monthly Sales Trend
+  new Chart(document.getElementById('salesTrendChart'), {
+    type: 'line',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],
+      datasets:[{
+        label:'Sales (CA$)',
+        data:[45000,52000,48000,61000,58000,67000,71000,75430],
+        borderColor:'#607274',
+        backgroundColor:'rgba(96,114,116,0.08)',
+        tension:0.4,
+        fill:true,
+        pointRadius:8,
+        pointHoverRadius:11,
+        pointBackgroundColor:'#607274',
+        pointBorderColor:'#fff',
+        pointBorderWidth:2
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{ y:{ beginAtZero:true, ticks:{ callback: v => 'CA$'+v.toLocaleString() } } }
+    }
+  });
 
-	// Category Distribution Donut Chart
+
+  // Category Distribution Donut Chart
 	new Chart(document.getElementById('categoryDonutChart'), {
 		type: 'doughnut',
 		data: {
@@ -70,4 +79,10 @@ function initCharts() {
 		},
 		options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
 	});
-}
+
+  // ...repeat for the other charts (donut, pie, bar) exactly as in your code
+};
+
+
+	
+
