@@ -43,7 +43,6 @@
               placeholder="Search orders, SKUs, customers..." aria-label="Search">
             <button class="btn h_search_btn ms-2" type="submit">Search</button>
           </div>
-
         </div>
 
 
@@ -190,134 +189,212 @@
   </main>
   <!-- Bootstrap JS (optional for some components) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <!-- Chart.js library -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-  <!-- search-bar code -->
   <script>
-    const mobileSearchBtn = document.getElementById('mobileSearchToggle');
-    const mobileSearchContainer = document.getElementById('mobileSearchContainer');
-    const mobileSearchInput = document.getElementById('mobileSearchInput');
-
-    mobileSearchBtn?.addEventListener('click', function (e) {
-      e.stopPropagation(); // prevent triggering document click
-      mobileSearchContainer.classList.toggle('mobile-hidden');
-
-      if (!mobileSearchContainer.classList.contains('mobile-hidden')) {
-        mobileSearchInput.focus(); // focus when visible
-      }
-    });
-
-    // Hide search if clicked outside
-    document.addEventListener('click', function (e) {
-      if (!mobileSearchContainer.contains(e.target) && !mobileSearchBtn.contains(e.target)) {
-        mobileSearchContainer.classList.add('mobile-hidden');
-      }
-    });
-
-    // <!-- search-bar onclick show / hide code -->
-  </script>
-
-
-  <script>
-    (function loadSidebar() {
+    (function () {
+      // PATH: change if your sidebar.html is located elsewhere
       const path = '/pages/sidebar.html';
       const container = document.getElementById('sidebar-container');
 
-      fetch(path)
-        .then(res => { if (!res.ok) throw new Error('Sidebar not found: ' + res.status); return res.text(); })
-        .then(html => {
-          container.innerHTML = html;
-          initInjectedSidebar();
-        })
-        .catch(err => {
-          console.error(err);
-          container.innerHTML = '<div style="padding:20px;color:#b00">Failed to load sidebar</div>';
-        });
+      // Breakpoints
+      const DESKTOP_BREAK = 992;
+      const MOBILE_BREAK = 768;
 
+      // Load sidebar HTML then init
+      function loadSidebarAndInit() {
+        if (!container) {
+          console.error('Sidebar container #sidebar-container not found.');
+          return init(); // still init script to avoid blocking
+        }
+
+        fetch(path, { cache: 'no-store' })
+          .then(res => {
+            if (!res.ok) throw new Error('Sidebar not found: ' + res.status + ' ' + res.statusText);
+            return res.text();
+          })
+          .then(html => {
+            container.innerHTML = html;
+            // run small init for active links inside injected HTML
+            initInjectedSidebar();
+            // dispatch event for other listeners (charts etc.)
+            document.dispatchEvent(new CustomEvent('sidebar:loaded', { detail: { container } }));
+            // now run the behavior init
+            init();
+          })
+          .catch(err => {
+            console.error('Failed to load sidebar HTML:', err);
+            container.innerHTML = '<div style="padding:20px;color:#b00">Failed to load sidebar</div>';
+            // still run init so toggle/backdrop logic doesn't break
+            init();
+          });
+      }
+
+      // Helper to mark active links in the injected sidebar
       function initInjectedSidebar() {
-        const links = container.querySelectorAll('a.nav-link');
-        const pathname = location.pathname;
-
-        // make Dashboard active on / and /Dashboard.html
-        const dashLink = container.querySelector('#nav-dashboard');
-        if (dashLink) {
-          const isDash = pathname === '/' || pathname.endsWith('/Dashboard.html') || pathname.endsWith('\\Dashboard.html');
-          if (isDash) {
-            links.forEach(x => x.classList.remove('active'));
-            dashLink.classList.add('active');
+        try {
+          const links = container.querySelectorAll('a.nav-link');
+          const pathname = location.pathname;
+          const dashLink = container.querySelector('#nav-dashboard');
+          if (dashLink) {
+            const isDash = pathname === '/' || pathname.endsWith('/Dashboard.html') || pathname.endsWith('\\Dashboard.html');
+            if (isDash) {
+              links.forEach(x => x.classList.remove('active'));
+              dashLink.classList.add('active');
+            }
           }
+          links.forEach(a => {
+            const href = a.getAttribute('href');
+            if (href && href !== '#' && pathname.endsWith(href.split('/').pop())) {
+              links.forEach(x => x.classList.remove('active'));
+              a.classList.add('active');
+            }
+          });
+        } catch (e) { /* ignore */ }
+      }
+
+      // MAIN: sets up toggle / hover / mobile overlay behaviour
+      function init() {
+        const sidebar = document.getElementById('sidebar-container');
+        const toggleBtn = document.getElementById('sidebarToggle');
+
+        // if no toggle found, nothing to do
+        if (!sidebar || !toggleBtn) {
+          // still dispatch sidebar:loaded for other code
+          document.dispatchEvent(new CustomEvent('sidebar:loaded', { detail: { container: sidebar } }));
+          return;
         }
 
-        // generic active matcher for other pages
-        links.forEach(a => {
-          const href = a.getAttribute('href');
-          if (href && href !== '#' && pathname.endsWith(href.split('/').pop())) {
-            links.forEach(x => x.classList.remove('active'));
-            a.classList.add('active');
-          }
+        // ensure backdrop exists
+        let backdrop = document.querySelector('.h_sidebar-backdrop');
+        if (!backdrop) {
+          backdrop = document.createElement('div');
+          backdrop.className = 'h_sidebar-backdrop';
+          document.body.appendChild(backdrop);
+        }
+
+        // close all bootstrap collapse submenus (fallback if bootstrap missing)
+        function closeAllSubmenus() {
+          sidebar.querySelectorAll('.collapse').forEach(el => {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+              try { bootstrap.Collapse.getOrCreateInstance(el).hide(); } catch (e) { }
+            } else {
+              el.classList.remove('show');
+            }
+          });
+        }
+
+        // add titles for icons-only mode
+        sidebar.querySelectorAll('.nav-link').forEach(a => {
+          const txt = a.querySelector('.text')?.textContent?.trim();
+          if (txt && !a.getAttribute('title')) a.setAttribute('title', txt);
         });
 
-        document.dispatchEvent(new CustomEvent('sidebar:loaded', { detail: { container } }));
-      }
-    })();
-  </script>
+        function isTouch() {
+          return ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+        }
 
+        // apply initial layout states according to current width
+        function applyInitialState() {
+          const w = window.innerWidth;
 
-  <!-- Optional: small script to toggle collapsed class for sidebar -->
-  <script>
-    (function () {
-      const toggleBtn = document.getElementById('sidebarToggle');
-      const sidebarContainer = document.getElementById('sidebar-container');
-
-      // safe-guard: if not present, do nothing
-      if (!toggleBtn || !sidebarContainer) return;
-
-      function closeAllSubmenus() {
-        // Use Bootstrap collapse if available; otherwise hide via class
-        const collapseEls = sidebarContainer.querySelectorAll('.collapse');
-        collapseEls.forEach(el => {
-          // if bootstrap Collapse is present:
-          if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
-            try { bootstrap.Collapse.getOrCreateInstance(el).hide(); } catch (e) { }
+          if (w <= MOBILE_BREAK) {
+            // mobile: overlay hidden by default
+            document.body.classList.remove('collapsed');
+            sidebar.classList.remove('expanded');
+            document.body.classList.remove('mobile-open');
+            sidebar.classList.remove('hover-expandable');
+          } else if (w <= DESKTOP_BREAK) {
+            // tablet: icon-only by default
+            document.body.classList.add('collapsed');
+            sidebar.classList.remove('expanded');
+            if (!isTouch()) sidebar.classList.add('hover-expandable'); else sidebar.classList.remove('hover-expandable');
+            document.body.classList.remove('mobile-open');
           } else {
-            el.classList.remove('show');
-            el.style.display = 'none';
+            // desktop: full by default
+            document.body.classList.remove('collapsed');
+            sidebar.classList.remove('expanded');
+            if (!isTouch()) sidebar.classList.add('hover-expandable'); else sidebar.classList.remove('hover-expandable');
+            document.body.classList.remove('mobile-open');
           }
-        });
-      }
-
-      toggleBtn.addEventListener('click', function () {
-        const isCollapsed = document.body.classList.toggle('collapsed');
-
-        if (isCollapsed) {
-          // when collapsing: immediately close submenus to avoid them showing behind icons
-          closeAllSubmenus();
-        } else {
-          // when expanding: nothing special (submenus will open by click)
         }
 
-        // reflow charts / UI if needed
-        setTimeout(() => {
-          if (typeof window.initCharts === 'function') window.initCharts();
-        }, 320);
-      });
+        // toggle button click behaviour
+        toggleBtn.addEventListener('click', () => {
+          const w = window.innerWidth;
 
-      // Optional: on page load, if body has collapsed class, ensure submenus closed
-      document.addEventListener('DOMContentLoaded', function () {
-        if (document.body.classList.contains('collapsed')) closeAllSubmenus();
-      });
+          if (w <= MOBILE_BREAK) {
+            // mobile overlay
+            document.body.classList.remove('collapsed');
+            closeAllSubmenus();
+            const open = document.body.classList.toggle('mobile-open');
+            if (open) {
+              sidebar.classList.add('expanded');
+            } else {
+              sidebar.classList.remove('expanded');
+            }
+            return;
+          }
 
-      // When using hover-expandable behaviour: reveal labels on hover only (CSS handles this)
-      // Optional: add tooltip titles for each nav-link so users can see label on hover
-      sidebarContainer.querySelectorAll('.nav-link').forEach(a => {
-        const label = a.querySelector('.text')?.textContent?.trim();
-        if (label && !a.getAttribute('title')) a.setAttribute('title', label);
-      });
+          // tablet (641–992px) and desktop (≥993px)
+          if (sidebar.classList.contains('expanded')) {
+            // collapse to icon-only
+            sidebar.classList.remove('expanded');
+            document.body.classList.add('collapsed');
+          } else {
+            closeAllSubmenus();
+            sidebar.classList.add('expanded');
+            document.body.classList.remove('collapsed');
+          }
+
+          // reflow charts if present
+          setTimeout(() => {
+            if (typeof window.initCharts === 'function') window.initCharts();
+          }, 320);
+        });
+        // clicking backdrop closes mobile overlay
+        backdrop.addEventListener('click', () => {
+          document.body.classList.remove('mobile-open');
+          sidebar.classList.remove('expanded');
+        });
+
+        // clicking a normal nav link will close overlay on mobile
+        sidebar.addEventListener('click', (ev) => {
+          const a = ev.target.closest('a.nav-link');
+          if (!a) return;
+          const href = a.getAttribute('href') || '';
+          if (window.innerWidth <= MOBILE_BREAK && href && !href.startsWith('#')) {
+            document.body.classList.remove('mobile-open');
+            sidebar.classList.remove('expanded');
+          }
+        });
+
+        // resize handler (throttled)
+        let rt;
+        window.addEventListener('resize', () => {
+          clearTimeout(rt);
+          rt = setTimeout(() => {
+            applyInitialState();
+          }, 120);
+        }, { passive: true });
+
+        // init once
+        applyInitialState();
+
+        // announce init complete
+        document.dispatchEvent(new CustomEvent('sidebar:init-complete', { detail: { sidebar } }));
+      } // end init
+
+      // Start
+      loadSidebarAndInit();
 
     })();
   </script>
 
 
+
+  <!-- ================= Dashboard charts init ================= -->
   <script src="/Dashboard.js"></script>
   <script>
     function tryInitCharts() {
@@ -333,17 +410,15 @@
       }
     }
 
-    // When sidebar & dashboard injection emits 'sidebar:loaded' your code already dispatches it
     document.addEventListener('sidebar:loaded', function () {
-      // Slight delay to ensure injected DOM is painted
       setTimeout(tryInitCharts, 20);
     }, { once: true });
 
-    // Fallback: if sidebar already loaded or no event, try on DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function () {
       setTimeout(tryInitCharts, 20);
     });
   </script>
+
 
 
 </body>
