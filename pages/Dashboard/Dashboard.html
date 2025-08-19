@@ -21,19 +21,37 @@
   <div id="sidebar-container"></div>
 
   <!-- Content -->
-  <main id="content">
+  <main id="h_dashboard_content">
     <!-- Top navbar (search + avatar) -->
-    <nav class="navbar d-flex align-items-center mb-3">
+    <nav class="navbar d-flex align-items-center mb-4">
       <div class="d-flex align-items-center w-100">
-        <button id="sidebarToggle" class="btn btn-sm desktop-toggle me-2">Toggle</button>
+        <!-- Sidebar Toggle Button with Icon -->
+        <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
+          <i class="bi bi-list sidebar-toggle"></i>
+        </button>
 
-        <form id="searchForm" class="d-flex ms-2 w-100">
-          <input class="form-control" type="search" placeholder="Search orders, SKUs, customers..." aria-label="Search">
-          <button class="btn h_search_btn ms-2" type="submit">Search</button>
-        </form>
+        <div class="d-flex align-items-center ms-2 w-100">
 
-        <div id="userAvatar" class="ms-3">
-          <img src="https://via.placeholder.com/38" alt="avatar" class="rounded-circle" width="38" height="38">
+          <!-- Mobile search toggle button (icon) -->
+          <button id="mobileSearchToggle" class="btn btn-sm d-md-none h_mobile-search-toggle me-2">
+            <i class="bi bi-search"></i>
+          </button>
+
+          <!-- Search container -->
+          <div id="mobileSearchContainer" class="d-flex w-100 mobile-hidden">
+            <input id="mobileSearchInput" class="form-control" type="search"
+              placeholder="Search orders, SKUs, customers..." aria-label="Search">
+            <button class="btn h_search_btn ms-2" type="submit">Search</button>
+          </div>
+
+        </div>
+
+
+        <div id="userAvatar" class="ms-3 d-flex align-items-center">
+          <img
+            src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg"
+            alt="avatar" class="rounded-circle h_avatar_img" width="38" height="38">
+          <span class="h_admin_text ms-2 d-none">Admin</span>
         </div>
       </div>
     </nav>
@@ -42,6 +60,10 @@
     <div id="dashboard-root" class="h_dashboard_root">
       <!-- Dashboard Overview -->
       <h2 class="mb-4 h_dashboad_main_title">Dashboard Overview</h2>
+      <div class="h_chart-card h_dashboard_intro">
+        <h4>Vesture Admin Panel — Your Hub for Clothing Production Management</h4>
+        <p>Easily manage categories, products, orders, and users — all from one intuitive dashboard</p>
+      </div>
 
       <div class="h_main-cards">
         <div class="row g-4 mb-5">
@@ -99,7 +121,6 @@
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <h6 class="mb-0 h_chart-title h_dashboad_main_title">Recent Orders</h6>
                 <div class="d-flex gap-2">
-                  <button class="btn btn-sm btn-light border">Export CSV</button>
                   <button class="btn btn-sm btn-outline-secondary">View All</button>
                 </div>
               </div>
@@ -142,7 +163,6 @@
                   </table>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -166,12 +186,39 @@
           </div>
         </div>
       </div>
-
     </div>
-    <!-- ====== /Dashboard content ====== -->
   </main>
   <!-- Bootstrap JS (optional for some components) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+  <!-- search-bar code -->
+  <script>
+    const mobileSearchBtn = document.getElementById('mobileSearchToggle');
+    const mobileSearchContainer = document.getElementById('mobileSearchContainer');
+    const mobileSearchInput = document.getElementById('mobileSearchInput');
+
+    mobileSearchBtn?.addEventListener('click', function (e) {
+      e.stopPropagation(); // prevent triggering document click
+      mobileSearchContainer.classList.toggle('mobile-hidden');
+
+      if (!mobileSearchContainer.classList.contains('mobile-hidden')) {
+        mobileSearchInput.focus(); // focus when visible
+      }
+    });
+
+    // Hide search if clicked outside
+    document.addEventListener('click', function (e) {
+      if (!mobileSearchContainer.contains(e.target) && !mobileSearchBtn.contains(e.target)) {
+        mobileSearchContainer.classList.add('mobile-hidden');
+      }
+    });
+
+
+    // <!-- search-bar onclick show / hide code -->
+
+  </script>
+
 
   <script>
     // simple loader: fetch partial and insert into container
@@ -219,9 +266,44 @@
   <script>
     document.getElementById('sidebarToggle')?.addEventListener('click', function () {
       document.body.classList.toggle('collapsed');
+
+      // resize charts after animation
+      setTimeout(() => {
+        if (typeof window.initCharts === 'function') {
+          window.initCharts();
+        }
+      }, 310); // slightly longer than CSS transition
     });
   </script>
+
+  <script src="/Dashboard.js"></script>
+  <script>
+    function tryInitCharts() {
+      if (typeof window.initCharts !== 'function') return false;
+      if (typeof Chart === 'undefined') return false;
+      if (!document.getElementById('salesTrendChart')) return false;
+      try {
+        window.initCharts();
+        return true;
+      } catch (e) {
+        console.error('initCharts() error', e);
+        return false;
+      }
+    }
+
+    // When sidebar & dashboard injection emits 'sidebar:loaded' your code already dispatches it
+    document.addEventListener('sidebar:loaded', function () {
+      // Slight delay to ensure injected DOM is painted
+      setTimeout(tryInitCharts, 20);
+    }, { once: true });
+
+    // Fallback: if sidebar already loaded or no event, try on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(tryInitCharts, 20);
+    });
+  </script>
+
+
 </body>
-<script src="/App.js"></script>
 
 </html>
