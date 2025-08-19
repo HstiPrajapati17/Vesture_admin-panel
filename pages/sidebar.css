@@ -1,249 +1,172 @@
-/* ensure :root vars exist (if not already) */
+/* ====== Sidebar Layout ====== */
+
 :root {
-  --sidebar-width: 260px;
-  --sidebar-collapsed-width: 78px;
-  --sidebar-bg: #f1eee8;
+  --sidebar-expanded-width: 260px;
+  --sidebar-collapsed-width: 80px;
+  --sidebar-bg: #fff;
   --sidebar-text: #607274;
 }
 
-/* Header layout (icon + text inline) */
+/* Sidebar base */
+#sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-expanded-width);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  overflow-y: auto;
+  z-index: 1000;
+  transition: width 0.3s ease;
+  border-right: 1px solid #ddd;
+}
+
+/* Main content wrapper */
+.h_main-content,
+#ab_main_content,
+#h_dashboard_content {
+  margin-left: var(--sidebar-expanded-width);
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+/* ====== Collapsed State (icons only) ====== */
+body.collapsed #sidebar-container {
+  width: var(--sidebar-collapsed-width) !important;
+}
+
+body.collapsed .h_main-content,
+body.collapsed #ab_main_content,
+body.collapsed #h_dashboard_content {
+  margin-left: var(--sidebar-collapsed-width) !important;
+}
+
+/* hide labels and chevrons */
+body.collapsed #sidebar-container .nav-link .text,
+body.collapsed #sidebar-container .nav-link i.bi-chevron-down {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* hide submenus entirely */
+body.collapsed #sidebar-container .nav .collapse {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* center icons */
+body.collapsed #sidebar-container .nav-link {
+  justify-content: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+body.collapsed #sidebar-container .nav-link i {
+  font-size: 1.25rem;
+}
+
+/* collapsed header */
+body.collapsed #sidebar-container .h_sidebar-header .h_brand-text {
+  display: none !important;
+}
+body.collapsed #sidebar-container .h_sidebar-header img {
+  display: block;
+  margin: 0 auto;
+  height: 60px;
+  width: 60px;
+}
+
+/* ====== Hover Expandable (optional) ====== */
+#sidebar-container.hover-expandable:hover {
+  width: var(--sidebar-expanded-width) !important;
+}
+#sidebar-container.hover-expandable:hover .nav-link .text,
+#sidebar-container.hover-expandable:hover .nav-link i.bi-chevron-down,
+#sidebar-container.hover-expandable:hover .h_sidebar-header .h_brand-text {
+  display: inline-block !important;
+  visibility: visible !important;
+}
+#sidebar-container.hover-expandable:hover + .h_main-content,
+#sidebar-container.hover-expandable:hover + #ab_main_content,
+#sidebar-container.hover-expandable:hover + #h_dashboard_content {
+  margin-left: var(--sidebar-expanded-width) !important;
+}
+
+/* ====== Header inside sidebar ====== */
 .h_sidebar-header {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* When collapsed: hide brand text and center the image */
-body.collapsed #sidebar .h_sidebar-header .h_brand-text {
-  display: none !important;
-}
-body.collapsed #sidebar .h_sidebar-header img {
-  display: block;
-  margin: 0 auto;      /* center horizontally inside collapsed narrow sidebar */
-  height: 60px;        /* slightly smaller on collapsed state */
-  width: 60px;
-}
-
-/* When hover-expandable (sidebar expands on hover) show text again */
-#sidebar.hover-expandable:hover .h_sidebar-header .h_brand-text {
-  display: inline-block !important;
-}
-#sidebar.hover-expandable:hover .h_sidebar-header img {
-  margin: 0; /* restore original alignment */
-  height: 50px;
-  width: 50px;
-}
-
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: var(--sidebar-width);
-  padding: 36px 20px;
-  overflow-y: auto;
-  background: var(--sidebar-bg);
-  color: var(--sidebar-text);
-  z-index: 1030;
-  transition: width 0.25s ease, transform 0.25s ease;
-  box-shadow: none;
-}
-.h_brand-text {
-  font-size: 32px;
-}
-/* header inside sidebar */
-.h_sidebar-header {
-  border-bottom: 3px solid #607274;
+  border-bottom: 3px solid var(--sidebar-text);
   text-align: center;
   font-size: 26px;
   font-weight: 700;
-  padding-bottom: 16px;
+  padding: 12px 0 16px;
+}
+.h_brand-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--sidebar-text);
 }
 
-/* nav styles */
-#sidebar .nav-link {
-  color: #607274;
+/* ====== Nav styles ====== */
+#sidebar-container .nav-link {
+  color: var(--sidebar-text);
   font-weight: 600;
-  padding: 12px 8px;
-  margin-bottom: 0.2rem;
+  padding: 12px 10px;
+  margin-bottom: 0.25rem;
   border-radius: 0.375rem;
   transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;
 }
-
-#sidebar .nav-link .text {
-  display: inline-block;
-}
-
-#sidebar .nav-link:hover,
-#sidebar .nav-link.active {
-  background-color: #607274;
+#sidebar-container .nav-link:hover,
+#sidebar-container .nav-link.active {
+  background-color: var(--sidebar-text);
   color: #fffaf1;
   font-weight: 700;
 }
-
-#sidebar .nav .collapse .nav-link {
+#sidebar-container .nav .collapse .nav-link {
   padding-left: 2rem;
   font-weight: 500;
   font-size: 0.95rem;
 }
-
-#sidebar .collapse .nav-link:hover {
+#sidebar-container .collapse .nav-link:hover {
   background: rgba(96, 114, 116, 0.15);
-  color: #607274;
+  color: var(--sidebar-text);
 }
 
-/* sidebar footer */
-.sidebar-footer {
-  margin-top: 0.8rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-}
-
-/* collapsed behavior */
-.collapsed #sidebar {
-  width: var(--sidebar-collapsed-width);
-  padding: 12px 8px !important;
-}
-
-.collapsed #sidebar .sidebar-header,
-.collapsed #sidebar .nav-link span.text {
-  display: none;
-}
-
-.collapsed #sidebar .nav-link {
-  padding: 12px;
-}
-
-.collapsed#h_main_content {
-  margin-left: var(--sidebar-collapsed-width);
-  padding: 20px;
-}
-
-/* hover-expandable behavior */
-#sidebar.hover-expandable:hover {
-  width: var(--sidebar-width);
-}
-
-#sidebar.hover-expandable:hover + #h_main_content {
-  margin-left: var(--sidebar-width);
-}
-
-#sidebar.hover-expandable:hover .sidebar-header,
-#sidebar.hover-expandable:hover .nav-link span.text {
-  display: inline !important;
-}
-/* Hide chevron arrows in collapsed sidebar */
-body.collapsed #sidebar .nav-link i.bi-chevron-down {
-  display: none !important;
-}
-
-/* Optional: hide submenu items completely if you want only icons visible */
-body.collapsed #sidebar .nav .collapse {
-  display: none !important;
-}
-
-/* Keep only the main icons visible */
-body.collapsed #sidebar .nav-link i {
-  font-size: 1.2rem; /* optional: make icons a bit bigger */
-}
-
-#sidebar.hover-expandable:hover .nav-link .text,
-#sidebar.hover-expandable:hover .nav-link i.bi-chevron-down {
-  display: inline-block;
-}
-
-/* Collapse sidebar to icons only for tablets / small desktops */
-@media (max-width: 1140px) {
-  body:not(.collapsed) #sidebar {
-    width: var(--sidebar-collapsed-width); /* narrow */
-  }
-
-  body:not(.collapsed) #sidebar .h_sidebar-header .h_brand-text,
-  body:not(.collapsed) #sidebar .nav-link .text {
-    display: none; /* hide text */
-  }
-
-  body:not(.collapsed) #content {
-    margin-left: var(--sidebar-collapsed-width); /* shift content */
-  }
-
-  /* Hover-expandable behavior: show full width on hover */
-  #sidebar.hover-expandable:hover {
-    width: var(--sidebar-width);
-  }
-
-  #sidebar.hover-expandable:hover .h_sidebar-header .h_brand-text,
-  #sidebar.hover-expandable:hover .nav-link .text {
-    display: inline-block;
-  }
-
-  #sidebar.hover-expandable:hover + #content {
-    margin-left: var(--sidebar-width);
-  }
-}
-
+/* ====== Responsive ====== */
 @media (max-width: 768px) {
-  #sidebar {
-    transform: translateX(0);
-    width: var(--sidebar-width);
-    padding: 22px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  #sidebar-container {
     position: fixed;
-    z-index: 1030;
+    width: var(--sidebar-expanded-width);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
   }
-
-  body.mobile-open #sidebar {
+  body.mobile-open #sidebar-container {
     transform: translateX(0);
   }
-
+  .h_main-content,
+  #ab_main_content,
+  #h_dashboard_content {
+    margin-left: 0 !important;
+  }
   .h_sidebar-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1025;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
   }
-
   body.mobile-open .h_sidebar-backdrop {
     opacity: 1;
     pointer-events: auto;
-  }
-
-  #h_main_content {
-    margin-left: var(--sidebar-width);
-    padding: 16px;
-    transition: margin-left 0.3s ease;
-    min-height: 100vh;
-  }
-
-  .h_mobile-toggle {
-    display: inline-block;
-  }
-
-  .h_desktop-toggle {
-    display: none;
-  }
-
-  .h_mobile-hidden {
-    display: none;
-  }
-}
-
-@media (min-width: 769px) {
-  .h_sidebar-backdrop {
-    display: none;
-  }
-
-  .h_mobile-toggle {
-    display: none;
-  }
-
-  .h_desktop-toggle {
-    display: inline-block;
   }
 }
