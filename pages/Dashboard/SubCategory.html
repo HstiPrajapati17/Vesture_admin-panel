@@ -17,25 +17,43 @@
   <link rel="stylesheet" href="../../Assets/mv_css/mv_style.css">
 </head>
 
-<body class="app">
+<body class="ab_main_app">
 
   <!-- Sidebar -->
   <div id="sidebar-container"></div>
 
   <!-- Content -->
-  <main id="content">
+  <main id="ab_main_content">
 
     <!-- Top navbar -->
-    <nav class="navbar d-flex align-items-center mb-3">
+    <nav class="navbar d-flex align-items-center mb-4">
       <div class="d-flex align-items-center w-100">
-        <button id="sidebarToggle" class="btn btn-sm desktop-toggle me-2">Toggle</button>
-          <form id="searchForm" class="d-flex ms-2 w-100">
-            <input class="form-control" type="search" placeholder="Search orders, SKUs, customers..." aria-label="Search">
+        <!-- Sidebar Toggle Button with Icon -->
+        <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
+          <i class="bi bi-list sidebar-toggle"></i>
+        </button>
+
+        <div class="d-flex align-items-center ms-2 w-100">
+
+          <!-- Mobile search toggle button (icon) -->
+          <button id="mobileSearchToggle" class="btn btn-sm d-md-none h_mobile-search-toggle me-2">
+            <i class="bi bi-search"></i>
+          </button>
+          <!-- Search container -->
+          <div id="mobileSearchContainer" class="d-flex w-100 mobile-hidden">
+            <input id="mobileSearchInput" class="form-control" type="search"
+              placeholder="Search orders, SKUs, customers..." aria-label="Search">
             <button class="btn h_search_btn ms-2" type="submit">Search</button>
-          </form>
-          <div id="userAvatar" class="ms-3">
-            <img src="https://via.placeholder.com/38" alt="avatar" class="rounded-circle" width="38" height="38">
           </div>
+          
+        </div>
+
+        <div id="userAvatar" class="ms-3 d-flex align-items-center">
+          <img
+            src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg"
+            alt="avatar" class="rounded-circle h_avatar_img" width="38" height="38">
+          <span class="h_admin_text ms-2 d-none">Admin</span>
+        </div>
       </div>
     </nav>
 
