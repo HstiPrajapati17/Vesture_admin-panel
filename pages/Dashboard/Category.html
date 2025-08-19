@@ -26,7 +26,7 @@
   <main id="ab_main_content">
 
     <!-- Top navbar -->
-    <nav class="navbar d-flex align-items-center mb-4">
+    <nav class="navbar d-flex align-items-center mb-4 ms-1 me-1">
       <div class="d-flex align-items-center w-100">
         <!-- Sidebar Toggle Button with Icon -->
         <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
@@ -58,7 +58,7 @@
     </nav>
 
     <!-- Category Page -->
-    <div class="d-flex flex-wrap justify-content-between">
+    <div class="d-flex flex-wrap justify-content-between ms-1 me-1">
       <div class="mt-3">
         <h4 class="mb-0">Category</h4>
         <p class="mb-0">Dashboard <span style="color: rgba(20, 20, 20, 1)">/ Category</span></p>
@@ -68,10 +68,9 @@
           <input type="text" id="searchInput" class="form-control mv_page_input" placeholder="Search...">
           <img src="../../Assets/mv_img/search_icon.svg" alt="" class="mv_page_icon"/>
         </div>
-        <!-- <button class="btn btn-outline-secondary mt-3 me-2" data-bs-toggle="offcanvas" data-bs-target="#filterCanvas">
-          Filter
-        </button> -->
-        <div class="mv_Add_btn mv_cursor mv_btn_manage mt-3" data-bs-toggle="modal" data-bs-target="#addModal">+ Add</div>
+        <a class="mv_a_add_btn" href="/pages/Dashboard/Addcategory.html">
+          <div class="mv_Add_btn mv_cursor mv_btn_manage mt-3">+ Add</div>
+        </a>
       </div>
     </div>
     <div class="mv_customer_table  overflow-x-auto position-relative mt-4">
@@ -82,6 +81,7 @@
             <th>Image</th>
             <th>Category</th>
             <th>Description</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -92,8 +92,18 @@
             <td>Mean's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -104,8 +114,18 @@
             <td>Women's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -116,8 +136,18 @@
             <td>Kids Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -128,8 +158,18 @@
             <td>Mean's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -140,8 +180,18 @@
             <td>Women's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -152,8 +202,18 @@
             <td>Kids Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -164,8 +224,18 @@
             <td>Mean's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -176,8 +246,18 @@
             <td>Women's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -188,8 +268,18 @@
             <td>Kids Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -200,8 +290,18 @@
             <td>Mean's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -212,8 +312,18 @@
             <td>Women's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -224,8 +334,18 @@
             <td>Kids Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -236,8 +356,18 @@
             <td>Mean's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -248,8 +378,18 @@
             <td>Women's Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html?mode=edit">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
@@ -260,83 +400,24 @@
             <td>Kids Wear</td>
             <td>New Product</td>
             <td>
+              <label class="mv_switch">
+                  <input type="checkbox" checked={true}/>
+                  <span class="mv_slider mv_round"></span>
+              </label>
+            </td>
+            <td>
               <div class="mv_table_action d-flex">
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal"><img src="../../Assets/mv_img/edit.svg" alt=""/></button>
+                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <a href="/pages/Dashboard/Addcategory.html">
+                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
+                  </a>
+                </button>
                 <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-
-    <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content mv_modal_content">
-          <div class="modal-header"><h5 style="color: rgba(30, 33, 49, 1);" class="mb-0">Add Category</h5><button type="button" class="btn-close mv_btn_close" data-bs-dismiss="modal"></button></div>
-          <div class="modal-body">
-            <!-- <div class="mb-3">
-              <label class="mv_popup_label">Main Category</label>
-              <select class="form-select mv_user_select w-100 mt-2">
-                <option disabled selected>Select MainCategory</option>
-                <option>Main Cat 1</option>
-                <option>Main Cat 2</option>
-              </select>
-            </div> -->
-            <div class="mb-3">
-              <label class="mv_popup_label">Category</label>
-              <input type="text" class="form-control mv_popup_input mt-2" placeholder="Enter category"/>
-            </div>
-            <div class="mb-3">
-              <label class="mv_popup_label">Description</label>
-              <input type="text" class="form-control mv_popup_input mt-2" placeholder="Enter Description"/>
-            </div>
-            <!-- <div class="mb-3">
-              <label class="mv_popup_label">Image</label>
-              <input type="file" class="form-control mv_img_input mt-2"/>
-            </div> -->
-          </div>
-          <div class="d-flex justify-content-center modal-footer mv_modal_footer">
-            <button type='button' class="mv_user_cancel" data-bs-dismiss="modal">Cancel</button>
-            <button type='submit' class="mv_user_add">Add</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Edit Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content mv_modal_content">
-          <div class="modal-header"><h5 style="color: rgba(30, 33, 49, 1);" class="mb-0">Edit Category</h5><button type="button" class="btn-close mv_btn_close" data-bs-dismiss="modal"></button></div>
-          <div class="modal-body">
-            <!-- <div class="mb-3">
-              <label class="mv_popup_label">Main Category</label>
-              <select class="form-select mv_user_select w-100 mt-2">
-                <option>Main Cat 1</option>
-                <option>Main Cat 2</option>
-              </select>
-            </div> -->
-            <div class="mb-3">
-              <label class="mv_popup_label">Category</label>
-              <input type="text" class="form-control mv_popup_input mt-2" value="Category Name"/>
-            </div>
-            <div class="mb-3">
-              <label class="mv_popup_label">Description</label>
-              <input type="text" class="form-control mv_popup_input mt-2" placeholder="Enter Description"/>
-            </div>
-            <!-- <div class="mb-3">
-              <label class="mv_popup_label">Image</label>
-              <input type="file" class="form-control mv_img_input mt-2"/>
-            </div> -->
-          </div>
-          <div class="d-flex justify-content-center modal-footer mv_modal_footer">
-            <button type='button' class="mv_user_cancel" data-bs-dismiss="modal">Cancel</button>
-            <button type='submit' class="mv_user_add">Update</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Delete Modal -->

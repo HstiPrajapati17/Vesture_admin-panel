@@ -60,21 +60,21 @@
     <!-- Header Title -->
     <div class="">
       <div id="mvAddHeader" class="mt-3 mb-3">
-        <h4 class="mb-0">Add Category</h4>
-        <p class="mb-0">Dashboard / Category <span style="color: rgba(20, 20, 20, 1)">/ Add Category</span></p>
+        <h4 class="mb-0">Add Sub Category</h4>
+        <p class="mb-0">Dashboard / Sub Category <span style="color: rgba(20, 20, 20, 1)">/ Add Sub Category</span></p>
       </div>
       <div id="mvEditHeader" class="mt-3 mb-3">
-        <h4 class="mb-0">Edit Category</h4>
-        <p class="mb-0">Dashboard / Category <span style="color: rgba(20, 20, 20, 1)">/ Edit Category</span></p>
+        <h4 class="mb-0">Edit Sub Category</h4>
+        <p class="mb-0">Dashboard / Sub Category <span style="color: rgba(20, 20, 20, 1)">/ Edit Sub Category</span></p>
       </div>
     </div>
 
-    <!-- Add Category (scoped dark layout) -->
+    <!-- Add Sub Category (scoped dark layout) -->
     <section class="container-fluid mv_addcategory_root">
       <div class="row g-3">
         <div class="col-12">
           <div class="mv_dark_card">
-            <div id="mvPhotoTitle" class="mv_section_title">Add Category Photo</div>
+            <div id="mvPhotoTitle" class="mv_section_title">Add Sub Category Photo</div>
             <div class="mv_upload_zone" id="mvUploadZone">
               <div class="mv_upload_inner text-center">
                 <i class="bi bi-cloud-arrow-up mv_upload_icon"></i>
@@ -91,10 +91,25 @@
 
         <div class="col-12">
           <div class="mv_dark_card">
-            <div class="mv_section_title">Category Information</div>
-            <div class="mv_form_group">
-              <label class="mv_label">Category Title</label>
-              <input id="categoryTitle" type="text" class="form-control mv_dark_input" placeholder="Enter Category Title">
+            <div class="mv_section_title">Sub Category Information</div>
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="mb-3">
+                  <label class="mv_label">Category</label>
+                  <select class="form-select mv_dark_input mv_cet_select w-100">
+                    <option disabled selected>Select Category</option>
+                    <option>Mean's Wear</option>
+                    <option>Women's Wear</option>
+                    <option>Kids Wear</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <div class="mv_form_group">
+                  <label class="mv_label">Sub Category Title</label>
+                  <input id="categoryTitle" type="text" class="form-control mv_dark_input" placeholder="Enter Category Title">
+                </div>
+              </div>
             </div>
             <div class="mv_form_group">
               <label class="mv_label">Description</label>
@@ -105,7 +120,7 @@
 
         <div class="col-12">
           <div class="mv_dark_card mv_addcategory_btn gap-2">
-            <a href="/pages/Dashboard/Category.html">
+            <a href="/pages/Dashboard/SubCategory.html">
               <button id="createCategoryBtn" class="mv_btn_primary" type="button">Add</button>
             </a>
             <button id="cancelCreateBtn" class="mv_btn_cancel" type="button">Cancel</button>
@@ -176,7 +191,7 @@
         if (!titleEl) return;
         var params = new URLSearchParams(window.location.search || '');
         var isEdit = (params.get('mode') === 'edit');
-        titleEl.textContent = isEdit ? 'Edit Category Photo' : 'Add Category Photo';
+        titleEl.textContent = isEdit ? 'Edit Sub Category Photo' : 'Add Sub Category Photo';
         var primaryBtn = document.getElementById('createCategoryBtn');
         if (primaryBtn) {
           primaryBtn.textContent = isEdit ? 'Edit' : 'Add';
