@@ -39,10 +39,10 @@
 					<i class="bi bi-caret-down-fill toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="Category/Category">
+					<li class="menu-item" data-page="Category">
 						<h5><i class="bi bi-list-ul me-2"></i><span>All Categories</span></h5>
 					</li>
-					<li class="menu-item" data-page="Category/Addcategory">
+					<li class="menu-item" data-page="Addcategory">
 						<h5><i class="bi bi-plus-circle me-2"></i><span>Add Category</span></h5>
 					</li>
 				</ul>
@@ -99,10 +99,10 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="Users/UserList">
+					<li class="menu-item" data-page="UserList">
 						<h5><i class="bi bi-list-ul"></i><span>Coupon List</span></h5>
 					</li>
-					<li class="menu-item" data-page="Users/AddUser">
+					<li class="menu-item" data-page="AddUser">
 						<h5><i class="bi bi-plus-circle"></i><span>Add Coupon</span></h5>
 					</li>
 				</ul>
@@ -118,16 +118,16 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="Stock/ProductList">
+					<li class="menu-item" data-page="ProductList">
 						<h5><i class="bi bi-list-ul"></i><span>Order List</span></h5>
 					</li>
-					<li class="menu-item" data-page="Stock/ViewProduct">
+					<li class="menu-item" data-page="ViewProduct">
 						<h5><i class="bi bi-cart-check"></i><span>Shopping Cart</span></h5>
 					</li>
-					<li class="menu-item" data-page="Stock/AddProduct">
+					<li class="menu-item" data-page="AddProduct">
 						<h5><i class="bi bi-heart"></i><span>Wishlist</span></h5>
 					</li>
-					<li class="menu-item" data-page="Stock/AddProduct">
+					<li class="menu-item" data-page="AddProduct">
 						<h5><i class="bi bi-bag-check"></i><span>Checkout</span></h5>
 					</li>
 				</ul>
@@ -143,10 +143,10 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="Users/UserList">
+					<li class="menu-item" data-page="UserList">
 						<h5><i class="bi bi-list-ul"></i><span>User List</span></h5>
 					</li>
-					<li class="menu-item" data-page="Users/AddUser">
+					<li class="menu-item" data-page="AddUser">
 						<h5><i class="bi bi-person-plus"></i><span>Add User</span></h5>
 					</li>
 				</ul>
@@ -164,8 +164,7 @@
 
 	<button class="toggle-btn" id="toggleBtn"><i class="fas fa-arrow-left"></i></button>
 
-	<div>
-	</div>
+
 
 	<div class="content" id="content">
 		<!-- Dashboard content directly -->
@@ -315,76 +314,147 @@
 	</script>
 	<!-- sidebar collapse and expand code -->
 	<script>
-		const sidebar = document.getElementById('sidebar');
-		const toggleBtn = document.getElementById('toggleBtn');
-		const menuItems = document.querySelectorAll('.menu-item[data-page]');
-		const dashboardRoot = document.getElementById('dashboard-root');
-		const pageFrame = document.getElementById('pageFrame');
+		document.addEventListener('DOMContentLoaded', () => {
+			const sidebar = document.getElementById('sidebar');
+			const toggleBtn = document.getElementById('toggleBtn');
+			const menuItems = Array.from(document.querySelectorAll('.menu-item[data-page]'));
+			const dashboardRoot = document.getElementById('dashboard-root');
+			const pageFrame = document.getElementById('pageFrame');
 
-		// Dropdown toggle
-		document.querySelectorAll('.menu-item.dropdown').forEach(menu => {
-			const submenu = menu.querySelector('.submenu');
-			menu.addEventListener('click', e => {
-				if (window.innerWidth > 768) {
+			// Dropdown toggles
+			document.querySelectorAll('.menu-item.dropdown > h5').forEach(header => {
+				header.addEventListener('click', e => {
 					e.stopPropagation();
+					const menu = header.parentElement;
+					const submenu = menu.querySelector('.submenu');
+					if (!submenu) return;
 					submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-				}
+				});
 			});
-		});
 
-		// Load iframe hidden by default (Dashboard shows first)
-		pageFrame.style.display = 'none';
+			// Utility: set active menu item
+			function setActiveByPage(page) {
+				menuItems.forEach(item => {
+					item.classList.toggle('active', item.getAttribute('data-page').toLowerCase() === page.toLowerCase());
+				});
+			}
 
-		// Menu item click
-		menuItems.forEach(item => {
-			item.addEventListener('click', e => {
-				e.stopPropagation();
+			// Show dashboard
+			function showDashboard(updateHistory = false) {
+				dashboardRoot.style.display = 'block';
+				pageFrame.style.display = 'none';
+				pageFrame.src = '';
+				setActiveByPage('Dashboard/Dashboard');
+				if (updateHistory) {
+					try { history.pushState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard'); } catch (e) { /* ignore */ }
+				}
+			}
 
-				// Remove active class from all items
-				menuItems.forEach(i => i.classList.remove('active'));
-				item.classList.add('active');
+			// Show page in iframe
+			function showPage(page, updateHistory = false) {
+				dashboardRoot.style.display = 'none';
+				pageFrame.style.display = 'block';
 
-				const page = item.getAttribute('data-page');
+				// Correct path build: ensure only 1 folder + file.html
+				pageFrame.src = `/pages/components/${page}.html`;
 
-				if (page.toLowerCase().includes('dashboard')) {
-					// Show dashboard, hide iframe
-					dashboardRoot.style.display = 'block';
-					pageFrame.style.display = 'none';
-					pageFrame.src = '';
+				setActiveByPage(page);
+				if (updateHistory) {
+					try { history.pushState({ page }, '', `/components/${page}`); } catch (e) { /* ignore */ }
+				}
+			}
+
+			// Robustly determine a route from location.pathname (works for file:// on Windows too)
+			function getRouteFromPath() {
+				let path = location.pathname.replace(/^\/+/, ''); // remove leading slashes
+				// If running from file:// on Windows, path might contain "C:/" — treat as root
+				if (!path || /[a-zA-Z]:\\|[a-zA-Z]:\//.test(path)) return 'Dashboard/Dashboard';
+
+				// If last segment is index.html or empty -> dashboard
+				const segments = path.split('/');
+				const last = segments[segments.length - 1] || '';
+				if (last.toLowerCase() === 'index.html' || last === '') return 'Dashboard/Dashboard';
+
+				// remove .html if present
+				if (path.toLowerCase().endsWith('.html')) path = path.slice(0, -5);
+
+				// final sanity: if path contains only a file name without folder, use it; otherwise return as-is
+				return path;
+			}
+
+			// Load according to current path
+			function loadFromPath() {
+				const route = getRouteFromPath();
+				if (!route || route.toLowerCase().includes('dashboard')) {
+					showDashboard();
+					// if URL is not already correct, replace it (don't create history entry)
+					try {
+						if (!location.pathname.toLowerCase().includes('/dashboard/dashboard')) {
+							history.replaceState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard');
+						}
+					} catch (err) { /* ignore */ }
+					return;
+				}
+
+				// otherwise show the requested page
+				showPage(route);
+			}
+
+			// Click handlers for menu items
+			menuItems.forEach(item => {
+				item.addEventListener('click', e => {
+					e.preventDefault();
+					e.stopPropagation();
+					const page = item.getAttribute('data-page');
+
+					if (page.toLowerCase().includes('dashboard')) {
+						showDashboard(true); // update history
+					} else {
+						showPage(page, true); // update history
+					}
+				});
+			});
+
+			// Handle back / forward
+			window.addEventListener('popstate', () => {
+				loadFromPath();
+			});
+
+			// Toggle sidebar behaviour
+			toggleBtn.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					sidebar.classList.toggle('show');
+					toggleBtn.classList.toggle('active');
 				} else {
-					// Show iframe, hide dashboard
-					dashboardRoot.style.display = 'none';
-					pageFrame.style.display = 'block';
-					pageFrame.src = `${page}.html`;
+					sidebar.classList.toggle('collapsed');
+					toggleBtn.classList.toggle('moved');
 				}
+				updateToggleIcon();
 			});
-		});
 
-		// Toggle
-		toggleBtn.addEventListener('click', () => {
-			if (window.innerWidth <= 768) {
-				sidebar.classList.toggle('show');
-				toggleBtn.classList.toggle('active');
-			} else {
-				sidebar.classList.toggle('collapsed');
-				toggleBtn.classList.toggle('moved');
+			function updateToggleIcon() {
+				if (window.innerWidth <= 768) {
+					toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+				} else {
+					toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '<i class="fas fa-arrow-right"></i>' : '<i class="fas fa-arrow-left"></i>';
+				}
 			}
+			window.addEventListener('resize', updateToggleIcon);
 			updateToggleIcon();
+
+			// Ensure there is a sensible initial history state for direct opens
+			try {
+				// If nothing meaningful in path, set a replaceState to dashboard
+				if (!location.pathname.replace(/^\/+/, '')) {
+					history.replaceState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard');
+				}
+			} catch (err) { /* ignore */ }
+
+			// Initial load
+			loadFromPath();
 		});
-
-		// Update toggle icon
-		function updateToggleIcon() {
-			if (window.innerWidth <= 768) {
-				toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-			} else {
-				toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '<i class="fas fa-arrow-right"></i>' : '<i class="fas fa-arrow-left"></i>';
-			}
-		}
-
-		// Init
-		window.addEventListener('resize', updateToggleIcon);
-		window.addEventListener('DOMContentLoaded', updateToggleIcon);
 	</script>
+
 	<script src="/Dashboard.js"></script>
 
 </body>
