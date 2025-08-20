@@ -23,7 +23,7 @@
 		</div>
 		<ul class="menu-items">
 			<!-- Dashboard -->
-			<li class="menu-item active" data-page="Dashboard/Dashboard">
+			<li class="menu-item active" data-page="Dashboard">
 				<h5>
 					<i class="bi bi-speedometer2"></i><span>Dashboard</span>
 				</h5>
@@ -58,10 +58,10 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="SubCategory/SubCategory">
+					<li class="menu-item" data-page="SubCategory">
 						<h5><i class="bi bi-list-ul"></i><span>All Subcategories</span></h5>
 					</li>
-					<li class="menu-item" data-page="SubCategory/Addsubcategory">
+					<li class="menu-item" data-page="Addsubcategory">
 						<h5><i class="bi bi-plus-circle"></i><span>Add Subcategory</span></h5>
 					</li>
 				</ul>
@@ -77,13 +77,13 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="Products/ProductList">
+					<li class="menu-item" data-page="ProductList">
 						<h5><i class="bi bi-list-ul"></i><span>Product List</span></h5>
 					</li>
-					<li class="menu-item" data-page="Products/ViewProduct">
+					<li class="menu-item" data-page="ViewProduct">
 						<h5><i class="bi bi-eye"></i><span>View Product</span></h5>
 					</li>
-					<li class="menu-item" data-page="Products/AddProduct">
+					<li class="menu-item" data-page="AddProduct">
 						<h5><i class="bi bi-plus-circle"></i><span>Add Product</span></h5>
 					</li>
 				</ul>
@@ -99,10 +99,10 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="UserList">
+					<li class="menu-item" data-page="CouponList">
 						<h5><i class="bi bi-list-ul"></i><span>Coupon List</span></h5>
 					</li>
-					<li class="menu-item" data-page="AddUser">
+					<li class="menu-item" data-page="AddCoupon">
 						<h5><i class="bi bi-plus-circle"></i><span>Add Coupon</span></h5>
 					</li>
 				</ul>
@@ -118,16 +118,16 @@
 					<i class="fas fa-caret-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
-					<li class="menu-item" data-page="ProductList">
+					<li class="menu-item" data-page="OrderList">
 						<h5><i class="bi bi-list-ul"></i><span>Order List</span></h5>
 					</li>
-					<li class="menu-item" data-page="ViewProduct">
+					<li class="menu-item" data-page="ShoppingCart">
 						<h5><i class="bi bi-cart-check"></i><span>Shopping Cart</span></h5>
 					</li>
-					<li class="menu-item" data-page="AddProduct">
+					<li class="menu-item" data-page="Whishlist">
 						<h5><i class="bi bi-heart"></i><span>Wishlist</span></h5>
 					</li>
-					<li class="menu-item" data-page="AddProduct">
+					<li class="menu-item" data-page="Checkout">
 						<h5><i class="bi bi-bag-check"></i><span>Checkout</span></h5>
 					</li>
 				</ul>
@@ -153,7 +153,7 @@
 			</li>
 
 			<!-- Settings -->
-			<li class="menu-item" data-page="setting">
+			<li class="menu-item" data-page="Setting">
 				<h5>
 					<i class="bi bi-gear"></i><span>Setting</span>
 				</h5>
@@ -172,7 +172,7 @@
 		<div id="pageContainer">
 			<div id="dashboard-root" class="h_dashboard_root">
 				<!-- Dashboard Overview -->
-				<h2 class="mb-4 h_dashboad_main_title">Dashboard Overview</h2>
+				<h2 class="mb-4 h_dashboad_main_title" style="margin-left: 40px;">Dashboard Overview</h2>
 				<div class="h_chart-card h_dashboard_intro">
 					<h4>Vesture Admin Panel — Your Hub for Clothing Production Management</h4>
 					<p>Easily manage categories, products, orders, and users — all from one intuitive dashboard</p>
@@ -313,6 +313,7 @@
 		});
 	</script>
 	<!-- sidebar collapse and expand code -->
+	<!-- replace your sidebar JS with this -->
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			const sidebar = document.getElementById('sidebar');
@@ -332,93 +333,61 @@
 				});
 			});
 
-			// Utility: set active menu item
 			function setActiveByPage(page) {
 				menuItems.forEach(item => {
+					// Compare lowercased without leading slash/hash
 					item.classList.toggle('active', item.getAttribute('data-page').toLowerCase() === page.toLowerCase());
 				});
 			}
 
-			// Show dashboard
-			function showDashboard(updateHistory = false) {
+			function showDashboard(updateHash = false) {
 				dashboardRoot.style.display = 'block';
 				pageFrame.style.display = 'none';
 				pageFrame.src = '';
 				setActiveByPage('Dashboard/Dashboard');
-				if (updateHistory) {
-					try { history.pushState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard'); } catch (e) { /* ignore */ }
-				}
+				if (updateHash) location.hash = '#Dashboard/Dashboard';
 			}
 
-			// Show page in iframe
-			function showPage(page, updateHistory = false) {
+			function showPage(page, updateHash = false) {
 				dashboardRoot.style.display = 'none';
 				pageFrame.style.display = 'block';
-
-				// Correct path build: ensure only 1 folder + file.html
+				// iframe points to actual file
 				pageFrame.src = `/pages/components/${page}.html`;
-
 				setActiveByPage(page);
-				if (updateHistory) {
-					try { history.pushState({ page }, '', `/components/${page}`); } catch (e) { /* ignore */ }
-				}
+				if (updateHash) location.hash = `#${page}`;
 			}
 
-			// Robustly determine a route from location.pathname (works for file:// on Windows too)
-			function getRouteFromPath() {
-				let path = location.pathname.replace(/^\/+/, ''); // remove leading slashes
-				// If running from file:// on Windows, path might contain "C:/" — treat as root
-				if (!path || /[a-zA-Z]:\\|[a-zA-Z]:\//.test(path)) return 'Dashboard/Dashboard';
-
-				// If last segment is index.html or empty -> dashboard
-				const segments = path.split('/');
-				const last = segments[segments.length - 1] || '';
-				if (last.toLowerCase() === 'index.html' || last === '') return 'Dashboard/Dashboard';
-
-				// remove .html if present
-				if (path.toLowerCase().endsWith('.html')) path = path.slice(0, -5);
-
-				// final sanity: if path contains only a file name without folder, use it; otherwise return as-is
-				return path;
+			// Read route from hash (like #Category or #Dashboard/Dashboard)
+			function getRouteFromHash() {
+				const hash = (location.hash || '').replace(/^#/, '');
+				return hash || 'Dashboard/Dashboard';
 			}
 
-			// Load according to current path
-			function loadFromPath() {
-				const route = getRouteFromPath();
+			function loadFromHash() {
+				const route = getRouteFromHash();
 				if (!route || route.toLowerCase().includes('dashboard')) {
-					showDashboard();
-					// if URL is not already correct, replace it (don't create history entry)
-					try {
-						if (!location.pathname.toLowerCase().includes('/dashboard/dashboard')) {
-							history.replaceState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard');
-						}
-					} catch (err) { /* ignore */ }
+					showDashboard(false);
 					return;
 				}
-
-				// otherwise show the requested page
-				showPage(route);
+				showPage(route, false);
 			}
 
-			// Click handlers for menu items
+			// Click handlers
 			menuItems.forEach(item => {
 				item.addEventListener('click', e => {
 					e.preventDefault();
 					e.stopPropagation();
 					const page = item.getAttribute('data-page');
-
 					if (page.toLowerCase().includes('dashboard')) {
-						showDashboard(true); // update history
+						showDashboard(true);
 					} else {
-						showPage(page, true); // update history
+						showPage(page, true);
 					}
 				});
 			});
 
-			// Handle back / forward
-			window.addEventListener('popstate', () => {
-				loadFromPath();
-			});
+			// When user navigates with back/forward or refresh (hashchange fires on back/forward and refresh)
+			window.addEventListener('hashchange', loadFromHash);
 
 			// Toggle sidebar behaviour
 			toggleBtn.addEventListener('click', () => {
@@ -442,18 +411,11 @@
 			window.addEventListener('resize', updateToggleIcon);
 			updateToggleIcon();
 
-			// Ensure there is a sensible initial history state for direct opens
-			try {
-				// If nothing meaningful in path, set a replaceState to dashboard
-				if (!location.pathname.replace(/^\/+/, '')) {
-					history.replaceState({ page: 'Dashboard/Dashboard' }, '', '/Dashboard/Dashboard');
-				}
-			} catch (err) { /* ignore */ }
-
-			// Initial load
-			loadFromPath();
+			// Initial load from hash (works on refresh too)
+			loadFromHash();
 		});
 	</script>
+
 
 	<script src="/Dashboard.js"></script>
 
