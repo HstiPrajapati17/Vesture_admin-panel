@@ -2,7 +2,7 @@
 :root {
   --sidebar-exp-w: 260px;
   --sidebar-coll-w: 80px;
-  --sidebar-bg: #dedbd5;
+  --sidebar-bg: #edeae2;
   --sidebar-text: #607274;
 }
 
@@ -27,7 +27,7 @@ body {
   left: 0;
   width: var(--sidebar-exp-w);
   height: 100vh;
-  background: #dedbd58a;
+  background: #edeae2;
   color: var(--sidebar-text);
   overflow-y: auto;
   border-right: 1px solid #e6e6e6;
