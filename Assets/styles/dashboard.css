@@ -1,9 +1,30 @@
 :root {
   --sidebar-width: 260px;
   --sidebar-collapsed-width: 78px;
-  
+
   --sidebar-text: #607274;
   --content-pad: 36px;
+}
+
+/* Avatar size */
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+/* Make navbar full-width on smaller screens (when sidebar collapses) */
+@media (max-width: 992px) {
+  .navbar {
+    margin-left: 0 !important;
+  }
+}
+
+/* Keep search usable on very small screens */
+@media (max-width: 576px) {
+  .navbar .input-group > .form-control {
+    min-width: 140px;
+  }
 }
 
 /* Mobile search behavior */
