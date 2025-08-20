@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ClothMan Admin — Dashboard</title>
+
+  <!-- Bootstrap (used by markup classes) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+  <!-- Merged external stylesheet -->
+  <link rel="stylesheet" href="/Assets/styles/dashboard.css">
+  <link rel="stylesheet" href="/pages/sidebar.css">
+  <link rel="stylesheet" href="../../Assets/mv_css/mv_style.css">
+</head>
+
+<body class="ab_main_app">
+
+  <!-- Content -->
+  <main id="ab_main_content">
+
+    <!-- Top navbar -->
+    <nav class="navbar d-flex align-items-center mb-4">
+      <div class="d-flex align-items-center w-100">
+        <!-- Sidebar Toggle Button with Icon -->
+        <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
+          <i class="bi bi-list sidebar-toggle"></i>
+        </button>
+
+        <div class="d-flex align-items-center ms-2 w-100">
+
+          <!-- Mobile search toggle button (icon) -->
+          <button id="mobileSearchToggle" class="btn btn-sm d-md-none h_mobile-search-toggle me-2">
+            <i class="bi bi-search"></i>
+          </button>
+          <!-- Search container -->
+          <div id="mobileSearchContainer" class="d-flex w-100 mobile-hidden">
+            <input id="mobileSearchInput" class="form-control" type="search"
+              placeholder="Search orders, SKUs, customers..." aria-label="Search">
+            <button class="btn h_search_btn ms-2" type="submit">Search</button>
+          </div>
+
+        </div>
+
+        <div id="userAvatar" class="ms-3 d-flex align-items-center">
+          <img
+            src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg"
+            alt="avatar" class="rounded-circle h_avatar_img" width="38" height="38">
+          <span class="h_admin_text ms-2 d-none">Admin</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header Title -->
+    <div class="">
+      <div id="mvAddHeader" class="mt-3 mb-3">
+        <h4 class="mb-0">Add Category</h4>
+        <p class="mb-0">Dashboard / Category <span style="color: rgba(20, 20, 20, 1)">/ Add Category</span></p>
+      </div>
+      <div id="mvEditHeader" class="mt-3 mb-3">
+        <h4 class="mb-0">Edit Category</h4>
+        <p class="mb-0">Dashboard / Category <span style="color: rgba(20, 20, 20, 1)">/ Edit Category</span></p>
+      </div>
+    </div>
+
+    <!-- Add Category (scoped dark layout) -->
+    <section class="container-fluid mv_addcategory_root">
+      <div class="row g-3">
+        <div class="col-12">
+          <div class="mv_dark_card">
+            <div id="mvPhotoTitle" class="mv_section_title">Add Category Photo</div>
+            <div class="mv_upload_zone" id="mvUploadZone">
+              <div class="mv_upload_inner text-center">
+                <i class="bi bi-cloud-arrow-up mv_upload_icon"></i>
+                <div class="mv_upload_text">Drop your images here, or
+                  <label for="categoryImage" class="mv_browse">click to browse</label>
+                </div>
+                <div class="mv_upload_hint">Maximum file size: 5MB. Allowed formats: PNG, JPG, JPEG</div>
+                <input id="categoryImage" type="file" accept="image/png, image/jpeg" multiple class="d-none">
+                <div id="mvSelectedFiles" class="mv_selected_files mt-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="mv_dark_card">
+            <div class="mv_section_title">Category Information</div>
+            <div class="mv_form_group">
+              <label class="mv_label">Category Title</label>
+              <input id="categoryTitle" type="text" class="form-control mv_dark_input" placeholder="Enter Category Title">
+            </div>
+            <div class="mv_form_group">
+              <label class="mv_label">Description</label>
+              <textarea id="categoryDescription" class="form-control mv_dark_input mv_textarea" placeholder="Category Description"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="mv_dark_card mv_addcategory_btn gap-2">
+            <a href="/pages/Category/Category.html">
+              <button id="createCategoryBtn" class="mv_btn_primary" type="button">Add</button>
+            </a>
+            <button id="cancelCreateBtn" class="mv_btn_cancel" type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- toggle collapsed -->
+    <script>
+      document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.body.classList.toggle('collapsed');
+      });
+    </script>
+
+    <!-- Title Category Photo and Header Toggle -->  
+    <script>
+      (function () {
+        var titleEl = document.getElementById('mvPhotoTitle');
+        if (!titleEl) return;
+        var params = new URLSearchParams(window.location.search || '');
+        var isEdit = (params.get('mode') === 'edit');
+        titleEl.textContent = isEdit ? 'Edit Category Photo' : 'Add Category Photo';
+        var primaryBtn = document.getElementById('createCategoryBtn');
+        if (primaryBtn) {
+          primaryBtn.textContent = isEdit ? 'Edit' : 'Add';
+        }
+
+        // Toggle top headers
+        var addHeader = document.getElementById('mvAddHeader');
+        var editHeader = document.getElementById('mvEditHeader');
+        if (addHeader && editHeader) {
+          addHeader.style.display = isEdit ? 'none' : '';
+          editHeader.style.display = isEdit ? '' : 'none';
+        }
+      })();
+    </script>
+
+    <!-- Minimal JS for upload area -->
+    <script>
+      (function () {
+        const zone = document.getElementById('mvUploadZone');
+        const input = document.getElementById('categoryImage');
+        const out = document.getElementById('mvSelectedFiles');
+        const inner = zone?.querySelector('.mv_upload_inner');
+        if (!zone || !input || !out || !inner) return;
+
+        zone.addEventListener('click', () => input.click());
+        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('mv_dragover'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('mv_dragover'));
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('mv_dragover');
+          // Note: assigning FileList to input.files is not supported in all browsers,
+          // but we keep it to match prior behavior in this page.
+          try { input.files = e.dataTransfer.files; } catch (_) {}
+          renderFiles();
+        });
+        input.addEventListener('change', renderFiles);
+
+        function renderFiles() {
+          const files = Array.from(input.files || []);
+          out.innerHTML = '';
+          if (!files.length) {
+            inner.classList.remove('has-preview');
+            zone.classList.remove('mv_has_preview');
+            out.classList.remove('mv_preview_grid');
+            return;
+          }
+
+          inner.classList.add('has-preview');
+          zone.classList.add('mv_has_preview');
+          out.classList.add('mv_preview_grid');
+
+          files.forEach((file) => {
+            if (!file.type || !file.type.startsWith('image/')) return;
+            const url = URL.createObjectURL(file);
+            const wrap = document.createElement('div');
+            wrap.className = 'mv_thumb';
+            const img = document.createElement('img');
+            img.className = 'mv_thumb_img';
+            img.alt = file.name;
+            img.src = url;
+            img.onload = () => URL.revokeObjectURL(url);
+            wrap.appendChild(img);
+            out.appendChild(wrap);
+          });
+        }
+      })();
+    </script>
+
+</body>
+</html>
