@@ -239,9 +239,9 @@
 
 
 /*********** Category Page ***********/
-.mv_addcategory_root { 
+/* .mv_addcategory_root { 
     padding: 6px; 
-}
+} */
 .mv_dark_card {
     background: #607274;
     border: 1px solid rgba(255,255,255,0.06);
