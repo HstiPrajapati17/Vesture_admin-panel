@@ -57,7 +57,7 @@
 }
 html,
 body {
-  height: 100%;
+  height: 99%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial;
@@ -65,8 +65,8 @@ body {
   color: var(--sidebar-text);
 }
 body {
-  min-height: 100vh;
-  color: #465556;
+  min-height: 88vh;
+  /* color: #465556; */
 }
 
 /* App layout */
@@ -88,6 +88,55 @@ body {
   transition: width 0.3s ease;
   float: left;
 }
+
+/* =========================
+        Navbar Styles
+   ========================= */
+
+.h_main_topbar {
+  margin: 16px 20px 20px 324px;
+  /* margin: 10px 0 20px; */
+  padding: 8px 16px;
+  background: #607274;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.sidebar.collapsed ~ .h_main_topbar {
+  margin-left: 143px;
+}
+.h_navbar_hello-icon {
+  height: 28px;
+  width: 28px;
+}
+.h_main_topbar h2 {
+  color: #fffaf1;
+  margin-bottom: 6px;
+  font-size: 22px;
+  line-height: 16px;
+}
+.h_topbar_admin-img {
+  height: 32px;
+  width: 32px;
+  border: 2px solid #fff;
+}
+.h_navbar_badge {
+  font-size: 12px;
+  padding: 0px 6px;
+  top: 6px;
+}
+.h_topbar_notification .h_topbar_notif-count {
+  font-size: 11px;
+  padding: 0px 6px;
+}
+.h_navbar_dropdown-menu {
+  top: 134%;
+  right: 0;
+}
+.h_topbar_admin-dropdown{
+  font-size: 12px;
+}
+
+
 /* =========================
    Dashboard specific styles (from dashboard.css)
    ========================= */
@@ -100,8 +149,8 @@ body {
   margin-bottom: 16px;
 }
 .h_dashboad_main_title {
-  font-size: 24px;
-  color: #465556;
+  font-size: 26px;
+  color: #607274;
 }
 .h_search_btn {
   border: 1px solid #fffaf1;
@@ -111,6 +160,9 @@ body {
   background-color: #fffaf1;
   color: #607274;
   font-weight: 600;
+}
+.h_topbar_icon {
+  font-size: 20px;
 }
 
 /* Cards */
@@ -360,6 +412,36 @@ body {
   .h_dashboard_root .h_chart-title {
     font-size: 18px;
   }
+  .h_navbar_hello-icon {
+    height: 22px;
+    width: 22px;
+  }
+  .h_main_topbar h2 {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+  .h_topbar-main-title,
+  .h_topbar_admin {
+    gap: 4px !important;
+  }
+  .h_topbar_main-last {
+    gap: 12px !important;
+  }
+  .h_topbar_admin-img {
+    height: 26px;
+    width: 26px;
+    border: 2px solid #fff;
+  }
+  .h_topbar_admin-name {
+    font-size: 14px;
+  }
+  .h_topbar_icon {
+    font-size: 15px;
+  }
+  .h_topbar_notification .h_topbar_notif-count {
+    font-size: 9px;
+    padding: 0px 4px;
+  }
 }
 @media (max-width: 767px) {
   .h_main-cards .card h5 {
@@ -399,5 +481,18 @@ body {
   .recent-orders .btn.btn-sm,
   .card.h_recent-orders .btn.btn-sm {
     font-size: 12px;
+  }
+  .h_topbar_admin-name {
+    display: none;
+  }
+  .h_navbar_hello-icon {
+    height: 20px;
+    width: 20px;
+  }
+  .h_main_topbar h2 {
+    font-size: 16px;
+  }
+  .h_main_topbar {
+    padding: 8px 8px;
   }
 }

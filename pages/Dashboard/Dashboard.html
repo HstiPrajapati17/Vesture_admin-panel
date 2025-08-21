@@ -36,7 +36,7 @@
 						<i class="bi bi-tags me-2"></i>
 						<span>Category</span>
 					</span>
-					<i class="bi bi-caret-down-fill toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="Category">
@@ -55,7 +55,7 @@
 						<i class="bi bi-diagram-3 me-2"></i>
 						<span>Subcategory</span>
 					</span>
-					<i class="fas fa-caret-down toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="SubCategory">
@@ -74,7 +74,7 @@
 						<i class="bi bi-box-seam me-2"></i>
 						<span>Products</span>
 					</span>
-					<i class="fas fa-caret-down toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="ProductList">
@@ -96,7 +96,7 @@
 						<i class="bi bi-ticket-perforated"></i>
 						<span>Coupons</span>
 					</span>
-					<i class="fas fa-caret-down toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="CouponList">
@@ -115,7 +115,7 @@
 						<i class="bi bi-cart4 me-2"></i>
 						<span>Purchases / Order</span>
 					</span>
-					<i class="fas fa-caret-down toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="OrderList">
@@ -140,7 +140,7 @@
 						<i class="bi bi-people"></i>
 						<span>Users</span>
 					</span>
-					<i class="fas fa-caret-down toggle-icon"></i>
+					<i class="bi bi-chevron-down toggle-icon"></i>
 				</h5>
 				<ul class="submenu">
 					<li class="menu-item" data-page="UserList">
@@ -164,7 +164,49 @@
 
 	<button class="toggle-btn" id="toggleBtn"><i class="fas fa-arrow-left"></i></button>
 
+	<!-- Topbar Section -->
+	<div class="h_main_topbar">
+		<div class="d-flex justify-content-between align-items-center">
+			<div class="h_topbar-main-title d-flex gap-2 align-items-center">
+				<h2>Good Morning!</h2>
+				<img src="https://cdn-user-icons.flaticon.com/206639/206639390/1755728671230.svg?token=exp=1755684519~hmac=e724cad1f23642c87dfd5da3d4fb268d"
+					alt="" class="text-white mb-0 h_navbar_hello-icon">
+			</div>
+			<div class="h_topbar_main-last d-flex align-items-center gap-3 text-white">
 
+				<!-- Notification Icon -->
+				<div class="h_topbar_notification position-relative">
+					<i class="bi bi-bell h_topbar_icon" style="cursor:pointer;"></i>
+					<span
+						class="h_topbar_notif-count position-absolute start-100 translate-middle h_navbar_badge rounded-pill bg-danger">
+						2
+					</span>
+				</div>
+
+				<!-- Admin Section -->
+				<div class="h_topbar_admin d-flex align-items-center gap-2 dropdown" style="cursor: pointer;">
+					<!-- Admin image -->
+					<img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Admin"
+						class="h_topbar_admin-img rounded-circle">
+					<!-- Admin name -->
+					<span class="h_topbar_admin-name">Admin</span>
+					<!-- Dropdown arrow -->
+					<i class="bi bi-chevron-down h_topbar_admin-dropdown" style="cursor:pointer;"></i>
+
+					<!-- Dropdown menu -->
+					<ul class="h_navbar_dropdown-menu dropdown-menu dropdown-menu-start" id="adminDropdown" style="display:none;">
+						<li><a class="dropdown-item" href="#">Profile</a></li>
+						<li><a class="dropdown-item" href="#">Settings</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li><a class="dropdown-item" href="#">Logout</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 	<div class="content" id="content">
 		<!-- Dashboard content directly -->
@@ -172,7 +214,7 @@
 		<div id="pageContainer">
 			<div id="dashboard-root" class="h_dashboard_root">
 				<!-- Dashboard Overview -->
-				<h2 class="mb-4 h_dashboad_main_title" style="margin-left: 40px;">Dashboard Overview</h2>
+				<h2 class="mb-4 h_dashboad_main_title">Dashboard Overview</h2>
 				<div class="h_chart-card h_dashboard_intro">
 					<h4>Vesture Admin Panel — Your Hub for Clothing Production Management</h4>
 					<p>Easily manage categories, products, orders, and users — all from one intuitive dashboard</p>
@@ -306,6 +348,8 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 	<!-- chart activate code -->
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
@@ -413,6 +457,27 @@
 
 			// Initial load from hash (works on refresh too)
 			loadFromHash();
+		});
+	</script>
+
+	<!-- navbar admin dropdown code -->
+	<script>
+		const dropdownArrow = document.querySelector('.h_topbar_admin');
+		const dropdownMenu = document.getElementById('adminDropdown');
+
+		dropdownArrow.addEventListener('click', () => {
+			if (dropdownMenu.style.display === 'block') {
+				dropdownMenu.style.display = 'none';
+			} else {
+				dropdownMenu.style.display = 'block';
+			}
+		});
+
+		// Optional: hide dropdown when clicking outside
+		document.addEventListener('click', (e) => {
+			if (!dropdownArrow.contains(e.target) && !dropdownMenu.contains(e.target)) {
+				dropdownMenu.style.display = 'none';
+			}
 		});
 	</script>
 
