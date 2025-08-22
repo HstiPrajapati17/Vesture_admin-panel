@@ -41,7 +41,7 @@
     .btn-outline-primary-custom { background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color);}
     .btn-outline-primary-custom:hover{ background-color: var(--primary-color); color: var(--card-bg);}
     .btn-danger-custom { background: #ff6b6b; color: white; border: none; }
-    .btn-danger-custom:hover{ background-color: transparent; border: 1px solid #ff6b6b; color: var(--primary-color); }
+    .btn-danger-custom:hover{ background-color: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; }
 
     .small-muted { font-size: .9rem; color: var(--muted); }
 
@@ -209,7 +209,7 @@
 
 <script>
 let coupons = [
-  { id: 'CUP-001', code: 'FLAT100', discount:'₹100', startDate: '2024-12-31', endDate: '2025-12-30', isActive: true, description: 'Flat ₹100 off on orders above ₹1000' },
+  { id: 'CUP-001', code: 'FLAT100', discount:'CA$100', startDate: '2024-12-31', endDate: '2025-12-30', isActive: true, description: 'Flat CA$100 off on orders above CA$1000' },
   { id: 'CUP-002', code: 'SUMMER25', discount:'25%', startDate: '2025-05-31', endDate: '2025-09-29', isActive: true, description: 'Summer collection discount' },
   { id: 'CUP-003', code: 'WELCOME10', discount:'10%', startDate: '2023-12-31', endDate: '2026-12-30', isActive: false, description: 'New customer coupon' }
 ];
@@ -357,7 +357,7 @@ function updateSelectAllCheckbox(){
 // helpers
 function escapeHtml(text){ return text.replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]; }); }
 
-// Event listeners
+ // Event listeners
 searchInput.addEventListener('input',e=>{ query=e.target.value; currentPage=1; renderTable(); });
 statusFilterEl.addEventListener('change',e=>{ statusFilter=e.target.value; currentPage=1; renderTable(); });
 perPageEl.addEventListener('change',e=>{ perPage=parseInt(e.target.value); currentPage=1; renderTable(); });

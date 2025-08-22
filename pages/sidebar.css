@@ -43,7 +43,6 @@ body {
 .h_sidebar-header {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
   padding: 16px 12px;
   border-bottom: 3px solid rgba(96, 114, 116, 0.12);
   justify-content: center;
@@ -56,7 +55,7 @@ body {
 }
 
 .h_sidebar-header span {
-  font-size: 20px;
+  font-size: 34px;
   font-weight: 700;
   color: var(--sidebar-text);
 }
@@ -89,7 +88,7 @@ body {
   align-items: center;
   gap: 8px;
   padding: 0.6rem 0.8rem;
-  transition: 0.1s;
+  transition: 0.3s;
 }
 
 .menu-item i {
@@ -229,9 +228,14 @@ body {
     left: 16px !important;
   }
 }
+@media (max-width: 540px) {
+  .content {
+    padding: 14px;
+  }
+}
 
 iframe {
   width: 100%;
-  height: 82vh;
+  height: 86vh;
   border: none;
 }
