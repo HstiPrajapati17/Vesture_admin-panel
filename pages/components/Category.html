@@ -27,12 +27,12 @@
     }
 
     .container-fluid {
-      padding: 2rem;
+      padding: 32px;
     }
 
     .dashboard-card {
       padding: 20px;
-      background: var(--primary-color);
+      background: #8e9a98;
       border-radius: 16px;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
       color: #fffaf1;
@@ -40,28 +40,6 @@
 
     h4 {
       font-weight: 600;
-    }
-
-    .search-container {
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .search-container input {
-      width: 250px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      outline: none;
-    }
-
-    .search-container img {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
     }
 
     .category-table {
@@ -72,7 +50,7 @@
 
     .category-table thead th {
       background: var(--row-bg);
-      color: var(--primary-color);
+      color: #272727;
       font-weight: 600;
       text-align: center;
       padding: 12px;
@@ -81,7 +59,7 @@
 
     .category-table tbody tr {
       background: var(--row-bg);
-      color: var(--primary-color);
+      color: #272727;
       border-radius: 12px;
       transition: transform 0.2s;
     }
@@ -105,15 +83,33 @@
     .action-btn {
       padding: 6px 12px;
       border-radius: 6px;
-      font-size: 14px;
-      border: 1px solid var(--primary-color);
+      font-size: 15px;
+      border: 1px solid #fffaf1;
       background-color: transparent;
-      color: var(--primary-color);
+      color: #fffaf1;
+      text-decoration: none;
       cursor: pointer;
       margin: 0 2px;
     }
 
     .action-btn:hover {
+      background-color: var(--accent-bg);
+      color: var(--primary-color);
+    }
+
+    .h_action-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 15px;
+      border: 1px solid #607274;
+      background-color: transparent;
+      color: #272727;
+      text-decoration: none;
+      cursor: pointer;
+      margin: 0 2px;
+    }
+
+    .h_action-btn:hover {
       background-color: var(--primary-color);
       color: var(--accent-bg);
     }
@@ -156,12 +152,18 @@
       border-radius: 50%;
     }
 
-    input:checked + .mv_slider {
+    input:checked+.mv_slider {
       background-color: var(--primary-color);
     }
 
-    input:checked + .mv_slider:before {
+    input:checked+.mv_slider:before {
       transform: translateX(20px);
+    }
+
+    @media (max-width: 768px) {
+      .container-fluid {
+        padding: 0px;
+      }
     }
   </style>
 </head>
@@ -172,11 +174,6 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h4>Categories</h4>
         <a href="/pages/components/Addcategory.html" class="action-btn">+ Add Category</a>
-      </div>
-
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search categories...">
-        <img src="../../Assets/mv_img/search_icon.svg" alt="search">
       </div>
 
       <div class="table-responsive">
@@ -229,20 +226,14 @@
               <span class="mv_slider"></span>
             </label>
           </td>
-          <td>
-            <button class="action-btn" onclick="editCategory(${cat.id})">Edit</button>
-            <button class="action-btn" onclick="deleteCategory(${cat.id})">Delete</button>
+          <td class="d-flex justify-content-center align-items-center">
+            <button class="h_action-btn" onclick="editCategory(${cat.id})">Edit</button>
+            <button class="h_action-btn" onclick="deleteCategory(${cat.id})">Delete</button>
           </td>
         `;
         tableBody.appendChild(tr);
       });
     }
-
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("input", () => {
-      const term = searchInput.value.toLowerCase();
-      renderTable(categoryData.filter(c => c.name.toLowerCase().includes(term)));
-    });
 
     renderTable(categoryData);
 

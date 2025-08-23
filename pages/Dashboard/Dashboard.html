@@ -195,9 +195,12 @@
 					<!-- Dropdown menu -->
 					<ul class="h_navbar_dropdown-menu dropdown-menu dropdown-menu-start" id="adminDropdown"
 						style="display:none;">
-						<li><a class="dropdown-item" href="/pages/">Profile</a></li>
+						<!-- use data-page so our SPA loader opens this inside the dashboard content area -->
+						<li><a class="dropdown-item" href="#" data-page="Profile">Profile</a></li>
+						<!-- keep logout as a normal link (or change to data-page if you want it loaded in iframe too) -->
 						<li><a class="dropdown-item" href="/pages/Auth/Signin.html">Logout</a></li>
 					</ul>
+
 				</div>
 
 			</div>
@@ -502,28 +505,68 @@
 		});
 	</script>
 
-
-
 	<!-- navbar admin dropdown code -->
 	<script>
-		const dropdownArrow = document.querySelector('.h_topbar_admin');
-		const dropdownMenu = document.getElementById('adminDropdown');
+		// --- Admin dropdown behaviour integrated with SPA loader ---
+		// NOTE: This code expects the page loader functions (showPage, showDashboard)
+		// to be defined in the same DOMContentLoaded scope as in your sidebar script.
+		// If your loader functions are inside a DOMContentLoaded closure (as in your file),
+		// we add an event to wire the admin menu after that closure runs.
 
-		dropdownArrow.addEventListener('click', () => {
-			if (dropdownMenu.style.display === 'block') {
-				dropdownMenu.style.display = 'none';
-			} else {
-				dropdownMenu.style.display = 'block';
-			}
-		});
+		document.addEventListener('DOMContentLoaded', () => {
+			const dropdownToggle = document.querySelector('.h_topbar_admin');
+			const dropdownMenu = document.getElementById('adminDropdown');
 
-		// Optional: hide dropdown when clicking outside
-		document.addEventListener('click', (e) => {
-			if (!dropdownArrow.contains(e.target) && !dropdownMenu.contains(e.target)) {
-				dropdownMenu.style.display = 'none';
-			}
+			// toggle dropdown open/close
+			dropdownToggle.addEventListener('click', (e) => {
+				e.stopPropagation();
+				dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+			});
+
+			// hide dropdown when clicking outside
+			document.addEventListener('click', (e) => {
+				if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+					dropdownMenu.style.display = 'none';
+				}
+			});
+
+			// wire admin dropdown items that have data-page to open inside dashboard area
+			dropdownMenu.querySelectorAll('[data-page]').forEach(link => {
+				link.addEventListener('click', (ev) => {
+					ev.preventDefault();
+					ev.stopPropagation();
+					const page = link.getAttribute('data-page');
+
+					// If your showPage is inside the other DOMContentLoaded closure, it should be globally available.
+					// If it's not global, we call a small helper that replicates its behavior here.
+					if (typeof showPage === 'function') {
+						showPage(page, true); // updateHash true so URL reflects it
+					} else {
+						// fallback: implement minimal behavior to load profile into iframe
+						const dashboardRoot = document.getElementById('dashboard-root');
+						const pageFrame = document.getElementById('pageFrame');
+
+						dashboardRoot.style.display = 'none';
+						pageFrame.style.display = 'block';
+
+						// special mapping for Profile page (your file path)
+						let src;
+						if ((page || '').toLowerCase() === 'profile') {
+							src = '/pages/My Profile/Profile.html';
+						} else {
+							src = `/pages/components/${page}.html`;
+						}
+						pageFrame.src = encodeURI(src);
+						if (page) location.hash = `#${page}`;
+					}
+
+					// close the dropdown visually
+					dropdownMenu.style.display = 'none';
+				});
+			});
 		});
 	</script>
+
 
 
 	<script src="/Dashboard.js"></script>

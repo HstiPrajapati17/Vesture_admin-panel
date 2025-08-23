@@ -22,7 +22,7 @@
 		}
 
 		body {
-			background: #c4cac6;
+			background: #8e9a98;
 			/* background: linear-gradient(180deg, var(--primary) 0%, #536266 40%, #46565A 100%); */
 			color: var(--ink);
 			font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -33,6 +33,7 @@
 		body::-webkit-scrollbar {
 			display: none;
 		}
+
 		/* container / sheet */
 		.h_wrapper {
 			max-width: 1200px;
@@ -41,7 +42,7 @@
 		}
 
 		.h_sheet {
-			background: var(--primary);
+			background: #8e9a98;
 			/* border-radius: 18px; */
 			box-shadow: 0 14px 40px rgba(0, 0, 0, .25);
 			overflow: hidden;
@@ -148,7 +149,7 @@
 		.h_custom-textarea {
 			width: 100%;
 			padding: 10px 14px;
-			border: 1.6px solid var(--soft);
+			border: 1.6px solid rgb(96 114 116 / 52%);
 			border-radius: 10px;
 			background-color: #fff;
 			font-size: 0.95rem;
@@ -289,6 +290,12 @@
 			.h_adduser_basic_info {
 				padding: 18px !important;
 			}
+			.h_adduser_input-fields{
+				flex-wrap: wrap;
+			}
+			.h_adduser_input-fields .h_icon-input{
+				width: 100%;
+			}
 		}
 	</style>
 </head>
@@ -352,7 +359,7 @@
 								required>
 							<div class="invalid-feedback">Please enter first name.</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6 mt-0">
 							<label for="lastName" class="h_custom-label">Last Name</label>
 							<input type="text" class="h_custom-input" id="lastName" placeholder="Enter last name"
 								required>
@@ -406,20 +413,23 @@
 						</div>
 
 						<h6 class="h_section-label mt-3">Security</h6>
-						<div class="col-md-6 h_icon-input mt-0">
-							<label for="password" class="h_custom-label">Password</label>
-							<input type="password" class="h_custom-input" id="password" placeholder="Create password"
-								required>
-							<i class="bi bi-eye-slash" id="togglePass"></i>
-							<div class="invalid-feedback">Please set a password.</div>
+						<div class="col-md-12 d-flex justify-content-between align-items-center gap-3 h_adduser_input-fields">
+							<div class="col-md-6 h_icon-input mt-0">
+								<label for="password" class="h_custom-label">Password</label>
+								<input type="password" class="h_custom-input" id="password"
+									placeholder="Create password" required>
+								<i class="bi bi-eye-slash" id="togglePass"></i>
+								<div class="invalid-feedback">Please set a password.</div>
+							</div>
+							<div class="col-md-6 h_icon-input">
+								<label for="confirmPassword" class="h_custom-label">Confirm Password</label>
+								<input type="password" class="h_custom-input" id="confirmPassword"
+									placeholder="Re-enter password" required>
+								<i class="bi bi-eye-slash" id="togglePass2"></i>
+								<div class="invalid-feedback">Passwords must match.</div>
+							</div>
 						</div>
-						<div class="col-md-6 h_icon-input">
-							<label for="confirmPassword" class="h_custom-label">Confirm Password</label>
-							<input type="password" class="h_custom-input" id="confirmPassword"
-								placeholder="Re-enter password" required>
-							<i class="bi bi-eye-slash" id="togglePass2"></i>
-							<div class="invalid-feedback">Passwords must match.</div>
-						</div>
+
 
 						<div class="col-12 d-flex justify-content-end gap-2 pt-2">
 							<button type="button" class="btn btn-outline-primary" onclick="history.back()">

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>My Profile — Clothing Manufacturing Admin</title>
+
+	<!-- Bootstrap & Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+	<style>
+		:root {
+			--bg: #fffaf1;
+			/* your light background */
+			--primary: #607472;
+			/* your brand color */
+			--primary-600: #556869;
+			--primary-700: #495c5d;
+			--ink: #1e2525;
+			--muted: #6b7a7b;
+			--card: #ffffff;
+			--ring: rgba(96, 116, 114, .35);
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--ink);
+			font-smooth: always;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		/* Shell */
+		.page-wrap {
+			min-height: 100%;
+			padding: 16px 0px;
+		}
+
+		/* Profile Card */
+		.profile-card {
+			border: 1px solid rgba(96, 116, 114, .15);
+			border-radius: 16px;
+			overflow: hidden;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 12px;
+		}
+
+		.h_myprofile-content {
+			background: #d8d8d8;
+		}
+
+		.h_my-profile_main-content {
+			background-color: #8e9a98;
+			border-radius: 16px;
+			padding: 18px;
+		}
+
+		.profile-header {
+			background: #d8d8d8;
+			color: #272727;
+			padding: 20px 20px;
+		}
+
+		.profile-header .subtitle {
+			opacity: .85;
+			font-size: .94rem;
+		}
+
+		.btn-ghost {
+			border: 1px solid #607472;
+			color: #607472;
+			transition: .2s;
+			padding: 10px;
+			font-weight: 600;
+		}
+
+		.btn-ghost:hover {
+			background: #607472;
+			color: #fffaf1;
+		}
+
+		.avatar {
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			border: 6px solid #fff;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+			object-fit: cover;
+			background: #e9ecef;
+		}
+
+		.role-badge {
+			display: inline-block;
+			padding: .25rem .65rem;
+			border-radius: 999px;
+			background: rgba(96, 116, 114, .12);
+			color: var(--primary-700);
+			border: 1px solid rgba(96, 116, 114, .25);
+			font-size: .8rem;
+			font-weight: 600;
+		}
+
+		/* Info fields */
+		.info-label {
+			font-size: 16px;
+			color: var(--muted);
+			margin-bottom: .35rem;
+			font-weight: 600;
+			letter-spacing: .2px;
+		}
+
+		.info-box {
+			border: 1px solid rgb(96 116 114 / 47%);
+			border-radius: 12px;
+			padding: 12px;
+			background: #fff;
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+		}
+
+		.info-box i {
+			color: var(--primary-600);
+		}
+
+		/* Modal styling */
+		.modal-content {
+			border-radius: 16px;
+			border: 1px solid rgba(96, 116, 114, .2);
+			box-shadow: 0 12px 40px rgba(0, 0, 0, .12);
+		}
+
+		.modal-header {
+			background: linear-gradient(135deg, var(--primary), var(--primary-700));
+			color: #fff;
+			border-bottom: 0;
+		}
+
+		.form-control,
+		.form-select {
+			border-radius: 12px;
+			border: 1px solid rgba(96, 116, 114, .35);
+		}
+
+		.form-control:focus,
+		.form-select:focus {
+			border-color: var(--primary);
+			box-shadow: 0 0 0 .2rem var(--ring);
+		}
+
+		.h_btn-primary {
+			--bs-btn-bg: var(--primary);
+			color: #fffaf1;
+			--bs-btn-border-color: var(--primary);
+			--bs-btn-hover-bg: transparent;
+			--bs-btn-hover-color: var(--primary);
+			--bs-btn-hover-border-color: var(--primary);
+			font-weight: 600;
+		}
+
+		.h_btn-outline-secondary {
+			background-color: transparent;
+			border: 1px solid #607472;
+			color: #607472;
+			font-weight: 600;
+		}
+
+		.h_btn-outline-secondary:hover {
+			background: #607472;
+			color: #fffaf1;
+		}
+
+		/* Small utilities */
+		.soft {
+			color: var(--muted);
+		}
+
+		.ring {
+			box-shadow: 0 2px 0 rgba(0, 0, 0, .02);
+		}
+
+		.gap-12 {
+			gap: 3rem;
+		}
+
+		/* Responsive tweaks */
+		@media (max-width: 991.98px) {
+			.gap-12 {
+				gap: 1.5rem;
+			}
+
+			.avatar {
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		@media (max-width: 575.98px) {
+			.profile-header {
+				padding: 16px;
+			}
+
+			.h_myprofile-content {
+				padding: 14px !important;
+			}
+
+			.info-box {
+				padding: 8px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page-wrap">
+		<div class="container">
+			<div class="h_my-profile_main-content">
+
+				<div class="profile-card">
+
+					<!-- Header -->
+					<div
+						class="profile-header d-flex align-items-start justify-content-between flex-wrap rounded-top-3">
+						<div>
+							<h4 class="mb-1">Profile Settings</h4>
+							<div class="subtitle mb-2">Manage your account information</div>
+						</div>
+						<button class="btn btn-sm btn-ghost d-flex align-items-center gap-2" data-bs-toggle="modal"
+							data-bs-target="#editProfileModal">
+							<i class="bi bi-pencil-square"></i> Edit Profile
+						</button>
+					</div>
+
+					<!-- Body -->
+					<div class="p-4 p-lg-5 h_myprofile-content">
+						<div class="row g-4 g-lg-5 align-items-start">
+							<!-- Left: Avatar + name -->
+							<div class="col-12 col-md-4 col-lg-3 text-center text-md-start">
+								<img id="profileAvatar" class="avatar"
+									src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop"
+									alt="Avatar">
+								<div class="mt-3">
+									<h6 id="profileName" class="mb-1">Admin User</h6>
+									<div id="profileRole" class="role-badge">Administrator</div>
+								</div>
+							</div>
+
+							<!-- Right: Fields -->
+							<div class="col-12 col-md-8 col-lg-9">
+								<div class="row g-4">
+									<div class="col-12 col-md-6">
+										<div class="info-label">Full Name <span class="text-danger">*</span></div>
+										<div class="info-box"><i class="bi bi-person"></i><span id="info-name">Admin
+												User</span></div>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="info-label">Email Address <span class="text-danger">*</span></div>
+										<div class="info-box"><i class="bi bi-envelope"></i><span
+												id="info-email">admin@example.com</span></div>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="info-label">Phone Number</div>
+										<div class="info-box"><i class="bi bi-telephone"></i><span id="info-phone">+1
+												234
+												567 8900</span></div>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="info-label">Company</div>
+										<div class="info-box"><i class="bi bi-building"></i><span
+												id="info-company">Stock
+												Admin Inc.</span></div>
+									</div>
+
+									<div class="col-12">
+										<div class="info-label">Address <span class="text-danger">*</span></div>
+										<div class="info-box"><i class="bi bi-geo-alt"></i>
+											<span id="info-address">123 Admin Street, Suite 400, Mumbai, IN</span>
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="info-label">New Password</div>
+										<div class="info-box"><i class="bi bi-lock"></i><span
+												class="soft">••••••••</span>
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="info-label">Confirm Password</div>
+										<div class="info-box"><i class="bi bi-shield-check"></i><span
+												class="soft">••••••••</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> <!-- /body -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Edit Profile Modal -->
+	<div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title d-flex align-items-center gap-2">
+						<i class="bi bi-sliders"></i> Edit Profile
+					</h6>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<form id="editForm">
+					<div class="modal-body">
+						<div class="row g-4">
+							<div class="col-12 col-md-4 text-center">
+								<img id="editAvatarPreview" class="avatar mb-3"
+									src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop"
+									alt="Avatar preview">
+								<div class="d-grid">
+									<label class="btn h_btn-outline-secondary">
+										<i class="bi bi-image"></i> Change Avatar
+										<input id="avatarInput" type="file" accept="image/*" hidden>
+									</label>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-8">
+								<div class="row g-3">
+									<div class="col-md-6">
+										<label class="form-label">Full Name <span class="text-danger">*</span></label>
+										<input type="text" class="form-control" id="editName" value="Admin User"
+											required>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Email Address <span
+												class="text-danger">*</span></label>
+										<input type="email" class="form-control" id="editEmail"
+											value="admin@example.com" required>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Phone Number</label>
+										<input type="tel" class="form-control" id="editPhone" value="+1 234 567 8900">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Company</label>
+										<input type="text" class="form-control" id="editCompany"
+											value="Stock Admin Inc.">
+									</div>
+									<div class="col-12">
+										<label class="form-label">Address <span class="text-danger">*</span></label>
+										<input type="text" class="form-control" id="editAddress"
+											value="123 Admin Street, Suite 400, Mumbai, IN" required>
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">New Password</label>
+										<input type="password" class="form-control" id="editPassword"
+											placeholder="Enter new password">
+									</div>
+									<div class="col-md-6">
+										<label class="form-label">Confirm Password</label>
+										<input type="password" class="form-control" id="editConfirm"
+											placeholder="Confirm password">
+									</div>
+									<div class="col-12">
+										<label class="form-label">Role</label>
+										<select id="editRole" class="form-select">
+											<option selected>Administrator</option>
+											<option>Manager</option>
+											<option>Editor</option>
+											<option>Viewer</option>
+										</select>
+									</div>
+								</div>
+							</div> <!-- /right -->
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn h_btn-outline-secondary" data-bs-dismiss="modal"><i
+								class="bi bi-x-circle me-1"></i>Cancel</button>
+						<button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i>Save
+							Changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Avatar live preview
+		const avatarInput = document.getElementById('avatarInput');
+		const avatarPreview = document.getElementById('editAvatarPreview');
+		const profileAvatar = document.getElementById('profileAvatar');
+
+		avatarInput?.addEventListener('change', e => {
+			const file = e.target.files?.[0];
+			if (!file) return;
+			const reader = new FileReader();
+			reader.onload = () => {
+				avatarPreview.src = reader.result;
+			};
+			reader.readAsDataURL(file);
+		});
+
+		// Pre-fill form from profile info (if reopened)
+		const editModal = document.getElementById('editProfileModal');
+		editModal.addEventListener('show.bs.modal', () => {
+			document.getElementById('editName').value = document.getElementById('info-name').textContent.trim();
+			document.getElementById('editEmail').value = document.getElementById('info-email').textContent.trim();
+			document.getElementById('editPhone').value = document.getElementById('info-phone').textContent.trim();
+			document.getElementById('editCompany').value = document.getElementById('info-company').textContent.trim();
+			document.getElementById('editAddress').value = document.getElementById('info-address').textContent.trim();
+			avatarPreview.src = profileAvatar.src;
+		});
+
+		// Save -> update visible profile (front-end only)
+		document.getElementById('editForm').addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			const pwd = document.getElementById('editPassword').value;
+			const cfm = document.getElementById('editConfirm').value;
+			if (pwd || cfm) {
+				if (pwd !== cfm) {
+					alert('Passwords do not match.');
+					return;
+				}
+			}
+
+			// Update text fields
+			document.getElementById('info-name').textContent = document.getElementById('editName').value;
+			document.getElementById('profileName').textContent = document.getElementById('editName').value;
+			document.getElementById('info-email').textContent = document.getElementById('editEmail').value;
+			document.getElementById('info-phone').textContent = document.getElementById('editPhone').value || '—';
+			document.getElementById('info-company').textContent = document.getElementById('editCompany').value || '—';
+			document.getElementById('info-address').textContent = document.getElementById('editAddress').value;
+
+			// Role + Avatar
+			document.getElementById('profileRole').textContent = document.getElementById('editRole').value;
+			profileAvatar.src = avatarPreview.src;
+
+			// Clear password inputs after "saving"
+			document.getElementById('editPassword').value = '';
+			document.getElementById('editConfirm').value = '';
+
+			// Close modal
+			const modal = bootstrap.Modal.getInstance(editModal);
+			modal.hide();
+		});
+	</script>
+</body>
+
+</html>

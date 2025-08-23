@@ -139,6 +139,12 @@ body::-webkit-scrollbar {
 .h_topbar_admin-dropdown {
   font-size: 12px;
 }
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fffaf1 !important;
+  text-decoration: none !important;
+  background-color: #607274 !important;
+}
 
 /* =========================
    Dashboard specific styles (from dashboard.css)
