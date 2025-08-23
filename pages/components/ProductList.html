@@ -1,690 +1,375 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ClothMan Admin — Dashboard</title>
-
-  <!-- Bootstrap (used by markup classes) -->
+  <title>Products — Clothing Manufacturing Admin (dynamic)</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <style>
+    :root{--p:#607274;--bg:#fffaf1}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--p)}
+    .container-app{max-width:1280px;margin:28px auto;padding:0 18px}
 
-  <!-- Merged external stylesheet -->
-  <link rel="stylesheet" href="/Assets/styles/dashboard.css">
-  <link rel="stylesheet" href="/pages/sidebar.css">
-  <link rel="stylesheet" href="../../Assets/mv_css/mv_style.css">
+    /* Header */
+    .page-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .title{font-size:1.5rem;font-weight:700;margin:0}
+    .subtitle{color:var(--p);opacity:.85}
+
+    /* Controls */
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .search{min-width:220px;flex:1}
+    .search input{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(96,114,116,0.12);background:transparent;color:var(--p)}
+    .select,.btn{border-radius:10px}
+    .btn-primary-custom{background:var(--p);color:var(--bg);border:none;padding:10px 14px}
+    .btn-ghost{background:transparent;border:1px solid rgba(96,114,116,0.12);color:var(--p);padding:8px 12px}
+
+    /* View toggle */
+    .view-toggle{display:flex;gap:8px;padding:6px;border-radius:10px;border:1px solid rgba(96,114,116,0.08);background:transparent}
+    .view-toggle button{border:0;background:transparent;padding:6px;border-radius:8px;display:inline-grid;place-items:center;cursor:pointer}
+    .view-toggle button.active{background:var(--p);color:var(--bg)}
+    .view-toggle svg{width:18px;height:18px}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    @media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:992px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:576px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--bg);border:1px solid rgba(96,114,116,0.08);border-radius:14px;padding:14px;transition:transform .16s ease,box-shadow .16s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(96,114,116,0.08)}
+
+    .media-wrap{width:100%;aspect-ratio:1;border-radius:12px;display:grid;place-items:center;border:1px dashed rgba(96,114,116,0.06);margin-bottom:12px;overflow:hidden}
+    .media-wrap img{width:100%;height:100%;object-fit:cover}
+
+    .product-name{font-weight:700;margin-bottom:2px}
+    .product-meta{font-size:.9rem;opacity:.86;margin-bottom:10px}
+
+    .row-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .price{font-weight:700;padding:6px 10px;border-radius:10px;border:1px solid rgba(96,114,116,0.08)}
+    .stock{font-size:.9rem;opacity:.9}
+
+    /* LIST view styles */
+    .list-view .grid{display:block}
+    .list-view .card{display:flex;gap:14px;align-items:center}
+    .list-view .media-wrap{width:140px;aspect-ratio:1/1;margin:0;border-radius:10px}
+    .list-view .card .product-details{flex:1}
+    .list-view .row-bottom{flex-direction:column;align-items:flex-end;gap:6px}
+
+    /* Table (desktop) */
+    .table-compact{margin-top:18px;border-radius:12px;overflow:hidden;border:1px solid rgba(96,114,116,0.08)}
+    table{width:100%;border-collapse:collapse}
+    thead th{padding:12px 14px;text-align:left;border-bottom:1px solid rgba(96,114,116,0.06)}
+    tbody td{padding:12px 14px;border-bottom:1px solid rgba(96,114,116,0.04);vertical-align:middle}
+    .tbl-img{display:block;margin-bottom:8px;width:56px;height:56px;border-radius:8px;object-fit:cover}
+
+    .pager{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+    .muted{opacity:.86}
+
+    .fab{display:none}
+    @media(max-width:992px){.fab{display:inline-block;position:fixed;right:18px;bottom:18px;background:var(--p);color:var(--bg);border:none;padding:12px 14px;border-radius:12px;box-shadow:0 12px 30px rgba(96,114,116,0.08)}}
+
+    .actions .btn{padding:6px 8px;border-radius:8px}
+
+    /* small helpers */
+    .disabled{opacity:.5;pointer-events:none}
+  </style>
 </head>
+<body>
+  <main class="container-app">
+    <header class="page-header">
+      <div>
+        <h1 class="title">Products</h1>
+        <div class="subtitle">Modern responsive product manager — two view modes included.</div>
+      </div>
 
-<body class="ab_main_app">
+      <div class="controls">
+        <div class="search" style="min-width:260px;max-width:520px">
+          <input id="search" type="search" placeholder="Search products, SKU or category" aria-label="Search products">
+        </div>
 
-  <!-- Content -->
-  <main id="ab_main_content">
-
-    <!-- Top navbar -->
-    <nav class="navbar d-flex align-items-center mb-4">
-      <div class="d-flex align-items-center w-100">
-        <!-- Sidebar Toggle Button with Icon -->
-        <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
-          <i class="bi bi-list sidebar-toggle"></i>
-        </button>
-
-        <div class="d-flex align-items-center ms-2 w-100">
-
-          <!-- Mobile search toggle button (icon) -->
-          <button id="mobileSearchToggle" class="btn btn-sm d-md-none h_mobile-search-toggle me-2">
-            <i class="bi bi-search"></i>
+        <div class="view-toggle" role="tablist" aria-label="View mode">
+          <button id="btn-grid" class="active" title="Grid view" aria-pressed="true" aria-label="Grid view">
+            <!-- grid icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
           </button>
-          <!-- Search container -->
-          <div id="mobileSearchContainer" class="d-flex w-100 mobile-hidden">
-            <input id="mobileSearchInput" class="form-control" type="search"
-              placeholder="Search orders, SKUs, customers..." aria-label="Search">
-            <button class="btn h_search_btn ms-2" type="submit">Search</button>
-          </div>
-          
+          <button id="btn-list" title="List view" aria-pressed="false" aria-label="List view">
+            <!-- list icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
 
-        <div id="userAvatar" class="ms-3 d-flex align-items-center">
-          <img
-            src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg"
-            alt="avatar" class="rounded-circle h_avatar_img" width="38" height="38">
-          <span class="h_admin_text ms-2 d-none">Admin</span>
-        </div>
-      </div>
-    </nav>
+        <select id="sort" class="form-select select" style="min-width:140px;border:1px solid rgba(96,114,116,0.08)">
+          <option value="newest" selected>Sort: Newest</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
 
-    <!-- Products Page -->
-    <div class="d-flex flex-wrap justify-content-between">
-      <div class="mt-3">
-        <h4 class="mb-0">Products</h4>
-        <p class="mb-0">Dashboard <span style="color: rgba(20, 20, 20, 1)">/ Products</span></p>
+        <button id="importBtn" class="btn btn-ghost">Import</button>
+        <button id="addBtn" class="btn btn-primary-custom">+ Add product</button>
       </div>
-      <div class="d-flex flex-wrap">
-        <div class="position-relative me-4 mt-3">
-          <input type="text" id="searchInput" class="form-control mv_page_input" placeholder="Search...">
-          <img src="../../Assets/mv_img/search_icon.svg" alt="" class="mv_page_icon"/>
-        </div>
-        <a class="mv_a_add_btn" href="/pages/.html">
-          <div class="mv_Add_btn mv_cursor mv_btn_manage mt-3">+ Add</div>
-        </a>
-      </div>
-    </div>
-    <div class="mv_customer_table  overflow-x-auto position-relative mt-4">
-      <table class="w-100 mv_customer_manage">
+    </header>
+
+    <section id="products" class="grid" aria-live="polite">
+      <!-- dynamically rendered cards -->
+    </section>
+
+    <div id="tableWrap" class="table-compact d-none " aria-live="polite">
+      <table>
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Sub Category</th>
-            <th>Name</th>
-            <th>Selling Price</th>
-            <th>Stock</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
+          <tr><th>Product</th><th>SKU</th><th>Category</th><th>Price</th><th class="text-end">Stock</th><th class="text-end">Actions</th></tr>
         </thead>
-        <tbody id="categoryTableBody">
-          <tr>
-            <td>1</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Mean's Wear</td>
-            <td>T-shirt</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Top</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Gown</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Mean's Wear</td>
-            <td>Jeans</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Trousers</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Kids Wear</td>
-            <td>Shorts</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Mean's Wear</td>
-            <td>Jacket</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Kids Wear</td>
-            <td>Capri</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Kurti</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Mean's Wear</td>
-            <td>Cargo pants</td>
-            <td>New Product</td>
-			<td>$99</td> 
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>11</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Sarees</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>12</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Kids Wear</td>
-            <td>Jeans</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Mean's Wear</td>
-            <td>Blazer</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Kids Wear</td>
-            <td>T-shirt</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>15</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Shirt</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>16</td>
-            <td class="mv_table_img"><img src="../../Assets/mv_img/Jeans.webp" alt=""/></td>
-            <td>Women's Wear</td>
-            <td>Shirt</td>
-            <td>New Product</td>
-			<td>$99</td>
-			<td>123</td>
-            <td>
-              <label class="mv_switch">
-                  <input type="checkbox" checked={true}/>
-                  <span class="mv_slider mv_round"></span>
-              </label>
-            </td>
-            <td>
-              <div class="mv_table_action d-flex">
-				<a href="/pages/Products/ViewProduct.html">
-					<button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-					  <img src="../../Assets/mv_img/eye.svg" alt=""/>
-					</button>
-				</a>
-                <button class="" data-bs-toggle="modal" data-bs-target="#editModal">
-                  <a href="/pages/Products/Addproduct.html?mode=edit">
-                    <img src="../../Assets/mv_img/edit.svg" alt=""/>
-                  </a>
-                </button>
-                <button class="" data-bs-toggle="modal" data-bs-target="#deleteModal"><img src="../../Assets/mv_img/delete.svg" alt=""/></button>
-              </div>
-            </td>
-          </tr>
+        <tbody id="tableBody">
+          <!-- dynamically rendered rows -->
         </tbody>
       </table>
     </div>
 
-    <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content mv_modal_content">
-          <div class="modal-header"><h5 style="color: rgba(30, 33, 49, 1);" class="mb-0">Delete</h5><button type="button" class="btn-close mv_btn_close" data-bs-dismiss="modal"></button></div>
-          <div class="modal-body text-center">
-            <p style="color: rgba(30, 33, 49, 1);">Are you sure you want to delete this sub category?</p>
-          </div>
-          <div class="d-flex justify-content-center modal-footer mv_modal_footer">
-            <button type='button' class="mv_user_cancel" data-bs-dismiss="modal">Cancel</button>
-            <button type='submit' class="mv_user_add">Delete</button>
-          </div>
-        </div>
-      </div>
+    <div class="pager">
+      <div id="pagerInfo" class="muted">Showing 0–0 of 0</div>
+      <div class="d-flex gap-2"><button id="prevBtn" class="btn btn-ghost">Prev</button><button id="nextBtn" class="btn btn-ghost">Next</button></div>
     </div>
-
-    <!-- Pagination -->
-    <div id="pagination" class="py-3 d-flex justify-content-center justify-content-md-end"></div>
-
   </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <button class="fab d-lg-none" id="fabAdd">+ Add</button>
 
-    <!-- Pagination -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var tableBody = document.getElementById('categoryTableBody');
-        if (!tableBody) return;
-    
-        var allRows = Array.prototype.slice.call(tableBody.querySelectorAll('tr'));
-        var filteredRows = allRows.slice();
-        var rowsPerPage = 10;
-        var currentPage = 1;
-        var paginationContainer = document.getElementById('pagination');
-        var searchInput = document.getElementById('searchInput');
-    
-        function renderPage(pageNumber) {
-          var startIndex = (pageNumber - 1) * rowsPerPage;
-          var endIndex = startIndex + rowsPerPage;
-    
-          // hide all rows first
-          allRows.forEach(function (row) { row.style.display = 'none'; });
-          // show only the slice for current page from the filtered set
-          filteredRows.slice(startIndex, endIndex).forEach(function (row) {
-            row.style.display = '';
-          });
-    
-          currentPage = pageNumber;
-          renderPagination();
-        }
-    
-        function renderPagination() {
-          if (!paginationContainer) return;
-          var totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
-          paginationContainer.innerHTML = '';
-    
-          var prev = document.createElement('div');
-          prev.className = 'mv_pagination text-center' + (currentPage === 1 ? ' disabled' : '');
-          prev.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-          prev.addEventListener('click', function () {
-            if (currentPage > 1) {
-              renderPage(currentPage - 1);
-            }
-          });
-          paginationContainer.appendChild(prev);
-    
-          for (var i = 1; i <= totalPages; i++) {
-            (function (page) {
-              var btn = document.createElement('div');
-              btn.className = (page === currentPage ? 'mv_pagination1' : 'mv_pagination') + ' text-center';
-              btn.textContent = page;
-              btn.addEventListener('click', function () { renderPage(page); });
-              paginationContainer.appendChild(btn);
-            })(i);
-          }
-    
-          var next = document.createElement('div');
-          next.className = 'mv_pagination text-center' + (currentPage === totalPages ? ' disabled' : '');
-          next.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-          next.addEventListener('click', function () {
-            if (currentPage < totalPages) {
-              renderPage(currentPage + 1);
-            }
-          });
-          paginationContainer.appendChild(next);
-        }
-    
-        function applyFilter() {
-          var term = (searchInput && searchInput.value ? searchInput.value : '').toLowerCase().trim();
-          if (!term) {
-            filteredRows = allRows.slice();
-          } else {
-            filteredRows = allRows.filter(function (row) {
-              return row.textContent.toLowerCase().indexOf(term) !== -1;
-            });
-          }
-          renderPage(1);
-        }
-    
-        // live filter on input
-        if (searchInput) {
-          searchInput.addEventListener('input', applyFilter);
-        }
-    
-        renderPage(1);
+  <script>
+    // --- Data store (in-memory). You can replace this with server calls later. ---
+    let productsData = [
+      {sku: 'TS-001', name: 'Classic T-shirt', category: 'Men', material: 'Cotton', price: 499, stock: 120, imgColor: '#FDE68A', img:'https://chriscross.in/cdn/shop/products/ChrisCrossChocolateBrownTshirtClassicBikes-min.jpg?v=1751433144&width=1000'},
+      {sku: 'HD-045', name: 'Hooded Sweatshirt', category: 'Unisex', material: 'Fleece', price: 1299, stock: 58, imgColor: '#FBCFE8',img:'https://www.globalrepublic.in/cdn/shop/products/1_32cb8577-c630-4e43-ac47-8f7f0d35e07a.jpg?v=1648815314&width=1080'},
+      {sku: 'DJ-212', name: 'Denim Jacket', category: 'Women', material: 'Denim', price: 2499, stock: 6, imgColor: '#BFDBFE', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJsYP1DiCwP4g20X1OyNju3_oMuX4WHupxkQ&s'},
+      {sku: 'SK-010', name: 'Summer Skirt', category: 'Women', material: 'Polyester', price: 799, stock: 200, imgColor: '#C7F9CC', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJXsj9tddRWhzcXP7_8ea4CrrTd0Jv-niebQ&s'},
+      {sku: 'SH-111', name: 'Casual Shirt', category: 'Men', material: 'Cotton', price: 899, stock: 32, imgColor: '#FFDAB9', img:'https://myraymond.com/cdn/shop/files/CMSS30011-B3-1.jpg?v=1725608561'},
+      {sku: 'PT-007', name: 'Pleated Trousers', category: 'Women', material: 'Linen', price: 1399, stock: 14, imgColor: '#E2E8F0', img:'https://italianvega.in/cdn/shop/files/Img4_b9caacec-3e46-4d9a-b2a9-8956b0876631.jpg?v=1742195785&width=1946'},
+      {sku: 'AC-300', name: 'Customized Hoodie', category: 'Unisex', material: 'Cotton', price: 249, stock: 520, imgColor: '#FCA5A5', img:'https://gogirgit.com/cdn/shop/files/Personalized-Name-Date-Couple-Hoodies-Gogirgit_1800x.jpg?v=1698775952'},
+      {sku: 'SO-051', name: 'Woolen Sweater', category: 'Men', material: 'Cotton', price: 99, stock: 640, imgColor: '#D1FAE5', img:'https://i.pinimg.com/originals/f8/b3/d1/f8b3d190d70d157d0814988f787a8e2f.jpg'},
+    ];
+
+    // --- Pagination & state ---
+    let currentPage = 1;
+    const pageSize = 4; // items per page
+    let currentView = 'grid'; // 'grid' or 'list'
+    let currentQuery = '';
+    let currentSort = 'newest';
+
+    // --- DOM elements ---
+    const btnGrid = document.getElementById('btn-grid');
+    const btnList = document.getElementById('btn-list');
+    const productsEl = document.getElementById('products');
+    const tableWrap = document.getElementById('tableWrap');
+    const tableBody = document.getElementById('tableBody');
+    const search = document.getElementById('search');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pagerInfo = document.getElementById('pagerInfo');
+    const addBtn = document.getElementById('addBtn');
+    const fabAdd = document.getElementById('fabAdd');
+    const sortSelect = document.getElementById('sort');
+
+    // helper: create a simple SVG data-uri placeholder image with initials
+    function createPlaceholder(name, color) {
+      const initials = (name || '').split(' ').map(s => s[0]).slice(0,2).join('').toUpperCase() || 'P';
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='100%' height='100%' fill='${color || '#EEE'}'/><text x='50%' y='55%' font-size='80' dominant-baseline='middle' text-anchor='middle' fill='#334155' font-family='Arial, Helvetica, sans-serif'>${initials}</text></svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    // utility: deep copy for safe operations
+    function cloneData() { return productsData.map(p => ({...p})); }
+
+    // apply search & sort and return filtered array
+    function getFilteredSorted() {
+      const q = currentQuery.trim().toLowerCase();
+      let arr = cloneData().filter(p => {
+        const text = `${p.name} ${p.sku} ${p.category} ${p.material}`.toLowerCase();
+        return text.includes(q);
       });
-    </script>
 
-    <!-- toggle collapsed -->
-    <script>
-      document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-        document.body.classList.toggle('collapsed');
+      if(currentSort === 'price-asc') arr.sort((a,b)=>a.price-b.price);
+      else if(currentSort === 'price-desc') arr.sort((a,b)=>b.price-a.price);
+      else arr.sort((a,b)=> { // newest - keep original insertion order; we'll assume later items are "newer"
+        return productsData.indexOf(a) - productsData.indexOf(b);
       });
-    </script>
 
+      return arr;
+    }
+
+    // render functions
+    function renderGrid(pageData) {
+      productsEl.innerHTML = '';
+      pageData.forEach(p => {
+        const art = document.createElement('article');
+        art.className = 'card';
+        art.dataset.sku = p.sku;
+        art.innerHTML = `
+          <div class="media-wrap" aria-hidden="true">
+           <img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}">
+      </div>
+          <div class="product-details">
+            <div class="product-name">${escapeHtml(p.name)}</div>
+            <div class="product-meta">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
+          </div>
+          <div class="row-bottom">
+            <div class="price">₹${numberWithCommas(p.price)}</div>
+            <div class="stock">Stock: ${p.stock}${p.stock<=10 ? ' (low)' : ''}</div>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3 actions">
+            <button class="btn btn-ghost btn-sm" data-action="edit" data-sku="${p.sku}">Edit</button>
+            <button class="btn btn-ghost btn-sm" data-action="delete" data-sku="${p.sku}">Delete</button>
+          </div>
+        `;
+        productsEl.appendChild(art);
+      });
+    }
+
+    function renderTable(pageData) {
+      tableBody.innerHTML = '';
+      pageData.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="d-flex justify-content-start align-items-center gap-2">
+            <img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}" style="height:50px; width:50px">
+            <div>
+              <div class="product-name">${escapeHtml(p.name)}</div>
+              <div class="product-meta">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
+              </div>
+          </td>
+          <td>${escapeHtml(p.sku)}</td>
+          <td>${escapeHtml(p.category)}</td>
+          <td>₹${numberWithCommas(p.price)}</td>
+          <td class="text-end">${p.stock}</td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-2">
+              <button class="btn btn-ghost btn-sm" data-action="edit" data-sku="${p.sku}">Edit</button>
+              <button class="btn btn-ghost btn-sm" data-action="delete" data-sku="${p.sku}">Delete</button>
+            </div>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    function render() {
+      const filtered = getFilteredSorted();
+      const total = filtered.length;
+      const pageCount = Math.max(1, Math.ceil(total / pageSize));
+      if(currentPage > pageCount) currentPage = pageCount;
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = Math.min(total, startIndex + pageSize);
+      const pageData = filtered.slice(startIndex, endIndex);
+
+      // render by view
+      if(currentView === 'grid') {
+        productsEl.classList.remove('d-none');
+        tableWrap.classList.add('d-none');
+        renderGrid(pageData);
+      } else {
+        productsEl.classList.add('d-none');
+        tableWrap.classList.remove('d-none');
+        renderTable(pageData);
+      }
+
+      // pager info and buttons
+      pagerInfo.textContent = `Showing ${startIndex+1}–${endIndex} of ${total}`;
+      prevBtn.classList.toggle('disabled', currentPage === 1);
+      nextBtn.classList.toggle('disabled', currentPage === pageCount);
+    }
+
+    // helpers
+    function escapeHtml(str){ return String(str||'').replace(/[&<>"']/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;" }[s])); }
+    function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+    // --- view control ---
+    function setView(view){
+      currentView = view === 'list' ? 'list' : 'grid';
+      if(currentView === 'list'){
+        btnList.classList.add('active'); btnList.setAttribute('aria-pressed','true');
+        btnGrid.classList.remove('active'); btnGrid.setAttribute('aria-pressed','false');
+      } else {
+        btnGrid.classList.add('active'); btnGrid.setAttribute('aria-pressed','true');
+        btnList.classList.remove('active'); btnList.setAttribute('aria-pressed','false');
+      }
+      currentPage = 1; // reset to page 1 on view change
+      render();
+    }
+
+    // --- actions: add/edit/delete ---
+    function addProductInteractive(){
+      const sku = prompt('Enter SKU (unique):');
+      if(!sku) return alert('SKU required');
+      if(productsData.some(p => p.sku === sku)) return alert('SKU already exists');
+      const name = prompt('Product name:'); if(!name) return alert('Name required');
+      const category = prompt('Category:', 'Unisex') || 'Unisex';
+      const material = prompt('Material:', 'Cotton') || 'Cotton';
+      const priceRaw = prompt('Price (numbers only):', '0');
+      const price = Number(priceRaw);
+      if(Number.isNaN(price) || price <= 0) return alert('Invalid price');
+      const stockRaw = prompt('Stock (integer):', '0');
+      const stock = parseInt(stockRaw,10);
+      if(Number.isNaN(stock) || stock < 0) return alert('Invalid stock');
+
+      productsData.unshift({sku, name, category, material, price, stock, imgColor: '#D1FAE5'});
+      currentPage = 1; render();
+    }
+
+    function editProductInteractive(sku){
+      const idx = productsData.findIndex(p => p.sku === sku);
+      if(idx === -1) return alert('Product not found');
+      const p = productsData[idx];
+      const name = prompt('Product name:', p.name); if(!name) return alert('Name required');
+      const category = prompt('Category:', p.category) || p.category;
+      const material = prompt('Material:', p.material) || p.material;
+      const priceRaw = prompt('Price (numbers only):', String(p.price));
+      const price = Number(priceRaw);
+      if(Number.isNaN(price) || price <= 0) return alert('Invalid price');
+      const stockRaw = prompt('Stock (integer):', String(p.stock));
+      const stock = parseInt(stockRaw,10);
+      if(Number.isNaN(stock) || stock < 0) return alert('Invalid stock');
+
+      productsData[idx] = {...p, name, category, material, price, stock};
+      render();
+    }
+
+    function deleteProductInteractive(sku){
+      if(!confirm('Delete product ' + sku + '? This cannot be undone.')) return;
+      productsData = productsData.filter(p => p.sku !== sku);
+      render();
+    }
+
+    // --- event listeners ---
+    btnGrid.addEventListener('click', ()=> setView('grid'));
+    btnList.addEventListener('click', ()=> setView('list'));
+
+    search.addEventListener('input', e => {
+      currentQuery = e.target.value || '';
+      currentPage = 1;
+      render();
+    });
+
+    prevBtn.addEventListener('click', ()=> { if(currentPage>1){ currentPage--; render(); } });
+    nextBtn.addEventListener('click', ()=> {
+      const total = getFilteredSorted().length;
+      const pageCount = Math.max(1, Math.ceil(total / pageSize));
+      if(currentPage < pageCount){ currentPage++; render(); }
+    });
+
+    // delegate edit/delete from both grid and table
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-action]');
+      if(!btn) return;
+      const action = btn.dataset.action;
+      const sku = btn.dataset.sku;
+      if(action === 'edit') editProductInteractive(sku);
+      if(action === 'delete') deleteProductInteractive(sku);
+    });
+
+    addBtn.addEventListener('click', addProductInteractive);
+    fabAdd.addEventListener('click', addProductInteractive);
+
+    sortSelect.addEventListener('change', e => { currentSort = e.target.value; currentPage = 1; render(); });
+
+    // initial render
+    document.addEventListener('DOMContentLoaded', ()=> setView('grid'));
+  </script>
 </body>
 </html>

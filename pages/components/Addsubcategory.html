@@ -4,215 +4,567 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ClothMan Admin — Dashboard</title>
+  <title>ClothMan Admin — Add / Edit Subcategory (h_ prefixed)</title>
 
   <!-- Bootstrap (used by markup classes) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Merged external stylesheet -->
-  <link rel="stylesheet" href="/Assets/styles/dashboard.css">
-  <link rel="stylesheet" href="/pages/sidebar.css">
-  <link rel="stylesheet" href="../../Assets/mv_css/mv_style.css">
+  <style>
+    :root {
+      --primary: #607274;
+      --light: #fffaf1;
+      --ink: #2a3232;
+      --soft: rgba(96, 114, 116, .18);
+    }
+
+    html {
+      height: 100%;
+    }
+
+    /* Page background similar to Add User */
+    body {
+      background: linear-gradient(180deg, var(--primary) 0%, #536266 40%, #46565A 100%);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      color: var(--ink);
+      -ms-overflow-style: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .h_container-app {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    /* Card / sheet */
+    .h_sheet {
+      background: var(--primary);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .h_sheet-header {
+      background: var(--light);
+      color: var(--primary);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .h_sheet-header .h_title {
+      font-weight: 600;
+      font-size: 20px;
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    /* inner layout */
+    .h_sheet-body {
+      background: var(--light);
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .h_col-left {
+      flex: 0 0 340px;
+      border-right: 1px dashed var(--soft);
+      padding: 22px;
+      background: #fffaf1;
+    }
+
+    .h_col-right {
+      flex: 1;
+      padding: 22px 24px
+    }
+
+    /* Upload area */
+    .h_upload-area {
+      width: 100%;
+      border: 2px dashed var(--primary);
+      border-radius: 14px;
+      background: #fffdf6;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: .16s ease;
+      position: relative;
+    }
+
+    .h_upload-area:hover {
+      background: #efefef
+    }
+
+    .h_upload-area input[type=file] {
+      display: none
+    }
+
+    .h_preview {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      margin: 12px auto 0;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .12)
+    }
+
+    .h_upload-hint {
+      font-size: .85rem;
+      color: #6c757d;
+      margin-top: 6px
+    }
+
+    /* section labels & inputs (match Add User style) */
+    .h_section-label {
+      color: var(--primary);
+      font-weight: 700;
+      margin: 12px 0 18px;
+      font-size: 20px;
+      text-decoration: underline;
+    }
+
+    .h_field-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: block
+    }
+
+    .h_dark-input:hover,
+    .h_dark-textarea:hover {
+      border: 1px solid #607274;
+    }
+
+    .h_dark-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.6px solid #60727478;
+      border-radius: 10px;
+      background: #fff;
+      font-size: .95rem;
+      color: var(--ink);
+      transition: border-color .2s, background-color .2s;
+    }
+
+    .h_dark-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fffaf1;
+      box-shadow: none
+    }
+
+    /* textarea */
+    .h_dark-textarea {
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1.6px solid #60727478;
+      background: #fff
+    }
+
+    :focus-visible {
+      outline: -webkit-focus-ring-color auto 0px !important;
+    }
+
+    /* switches & buttons */
+    .h_form-switch .form-check-input {
+      width: 2.5em;
+      height: 1.3em;
+      border-radius: 1.5em;
+      background: #cfd4d6;
+      border: none;
+      position: relative
+    }
+
+    .h_form-switch .form-check-input:before {
+      content: "";
+      position: absolute;
+      top: .15em;
+      left: .15em;
+      width: 1em;
+      height: 1em;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .3s
+    }
+
+    .h_form-switch .form-check-input:checked {
+      background: var(--primary)
+    }
+
+    .h_form-switch .form-check-input:checked:before {
+      transform: translateX(1.2em)
+    }
+
+    .h_btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      font-weight: 600;
+      color: var(--light)
+    }
+
+    .h_btn-primary:hover {
+      border: 1px solid var(--primary);
+      background: var(--light);
+      color: var(--primary);
+    }
+
+    .h_btn-outline-primary {
+      color: var(--primary);
+      border-color: var(--primary);
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .h_btn-outline-primary:hover {
+      background-color: #607274;
+      color: var(--light);
+    }
+
+    /* file preview grid for multi images */
+    .h_preview-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .h_thumb {
+      width: 84px;
+      height: 84px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, .06);
+      display: grid;
+      place-items: center
+    }
+
+    .h_thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    /* Custom h_radio */
+    .h_radio {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--ink);
+      gap: 8px;
+    }
+
+    .h_radio input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .h_radio input[type="radio"]::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transform: scale(0);
+      transition: transform 0.2s ease;
+    }
+
+    .h_radio input[type="radio"]:checked::before {
+      transform: scale(1);
+    }
+
+    .h_radio input[type="radio"]:checked {
+      border-color: var(--primary);
+    }
+
+    /* responsive */
+    @media(max-width:991.98px) {
+      .h_col-left {
+        flex: 0 0 100%;
+        border-right: none;
+        border-bottom: 1px dashed var(--soft)
+      }
+
+      .h_sheet-body {
+        flex-direction: column
+      }
+    }
+  </style>
 </head>
 
-<body class="ab_main_app">
+<body>
+  <div class="h_container-app">
+    <div class="h_sheet" role="main" aria-labelledby="pageTitle">
+      <header class="h_sheet-header">
+        <div class="h_title" id="pageTitle"><i class="bi bi-tags"></i>
+          <span id="pageMode">Add Subcategory</span>
+        </div>
+      </header>
 
-  <!-- Content -->
-  <main id="ab_main_content">
+      <div class="h_sheet-body">
+        <!-- Left: Upload + quick settings -->
+        <aside class="h_col-left">
+          <h6 class="mb-2">Subcategory Photo</h6>
 
-    <!-- Top navbar -->
-    <nav class="navbar d-flex align-items-center mb-4">
-      <div class="d-flex align-items-center w-100">
-        <!-- Sidebar Toggle Button with Icon -->
-        <button id="sidebarToggle" class="btn btn-sm h_h_desktop-toggle me-2">
-          <i class="bi bi-list sidebar-toggle"></i>
-        </button>
+          <label class="h_upload-area" id="uploadZone" for="subcategoryImage">
+            <i class="bi bi-cloud-arrow-up-fill fs-3 d-block mb-2" style="color:var(--primary)"></i>
+            <strong>Drag & drop</strong> or <u>click to browse</u>
+            <div class="h_upload-hint mt-2">Maximum file size: 5MB • PNG, JPG, JPEG</div>
+            <input id="subcategoryImage" type="file" accept="image/png,image/jpeg" multiple>
+            <img id="singlePreview" class="h_preview" alt="Preview" style="display:none">
+            <div id="previewGrid" class="h_preview-grid" aria-live="polite"></div>
+          </label>
 
-        <div class="d-flex align-items-center ms-2 w-100">
+          <div style="height:1px;background:var(--soft);margin:16px 0"></div>
 
-          <!-- Mobile search toggle button (icon) -->
-          <button id="mobileSearchToggle" class="btn btn-sm d-md-none h_mobile-search-toggle me-2">
-            <i class="bi bi-search"></i>
-          </button>
-          <!-- Search container -->
-          <div id="mobileSearchContainer" class="d-flex w-100 mobile-hidden">
-            <input id="mobileSearchInput" class="form-control" type="search"
-              placeholder="Search orders, SKUs, customers..." aria-label="Search">
-            <button class="btn h_search_btn ms-2" type="submit">Search</button>
+          <h6 class="h_section-label">Quick Settings</h6>
+
+
+
+          <div class="form-check form-switch h_form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="isVisible" checked>
+            <label class="form-check-label ms-2" for="isVisible">Visible on store</label>
           </div>
 
-        </div>
+          <!-- Status toggle: Active / Inactive -->
+          <div class="mt-3 mb-3">
+            <label class="h_field-label">Status</label>
+            <div class="d-flex align-items-center gap-4">
+              <label class="h_radio">
+                <input type="radio" name="statusRadio" id="statusActive" value="active" checked>
+                Active
+              </label>
+              <label class="h_radio">
+                <input type="radio" name="statusRadio" id="statusInactive" value="inactive">
+                Inactive
+              </label>
+            </div>
+          </div>
 
-        <div id="userAvatar" class="ms-3 d-flex align-items-center">
-          <img
-            src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg"
-            alt="avatar" class="rounded-circle h_avatar_img" width="38" height="38">
-          <span class="h_admin_text ms-2 d-none">Admin</span>
-        </div>
-      </div>
-    </nav>
+        </aside>
 
-    <!-- Header Title -->
-    <div class="">
-      <div id="mvAddHeader" class="mt-3 mb-3 ms-3 me-3">
-        <h4 class="mb-0">Add Sub Category</h4>
-        <p class="mb-0">Dashboard / Sub Category <span style="color: rgba(20, 20, 20, 1)">/ Add Sub Category</span></p>
-      </div>
-      <div id="mvEditHeader" class="mt-3 mb-3 ms-3 me-3">
-        <h4 class="mb-0">Edit Sub Category</h4>
-        <p class="mb-0">Dashboard / Sub Category <span style="color: rgba(20, 20, 20, 1)">/ Edit Sub Category</span></p>
+        <!-- Right: Form -->
+        <section class="h_col-right">
+          <form id="subcategoryForm" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <h6 class="h_section-label">Subcategory Information</h6>
+
+              <label class="h_field-label" for="title">Subcategory Title</label>
+              <input id="title" type="text" class="h_dark-input" placeholder="Enter Subcategory Title" required>
+              <div class="invalid-feedback">Please enter a subcategory title.</div>
+            </div>
+            <!-- Parent Category as an input field (same style as Subcategory Title) -->
+            <label class="h_field-label" for="parentCategoryInput">Parent Category</label>
+            <input id="parentCategoryInput" name="parentCategory" type="text" class="h_dark-input mb-3"
+              placeholder="Enter parent category">
+
+                <label class="h_field-label" for="code">Subcategory Code</label>
+                <input id="code" type="text" class="h_dark-input mb-3" placeholder="E.g. SUB-MEN-001" required>
+                <div class="invalid-feedback">Please enter a unique subcategory code.</div>
+
+            <div class="mb-3">
+              <label class="h_field-label" for="description">Description</label>
+              <textarea id="description" class="h_dark-textarea" placeholder="Subcategory description"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+              <button type="button" class="btn h_btn-outline-primary" id="cancelBtn"><i
+                  class="bi bi-x-circle me-1"></i>Cancel</button>
+              <button type="submit" class="btn h_btn-primary" id="saveBtn"><i class="bi bi-check2-circle me-1"></i><span
+                  id="saveText">Add Subcategory</span></button>
+            </div>
+          </form>
+        </section>
       </div>
     </div>
+  </div>
 
-    <!-- Add Sub Category (scoped dark layout) -->
-    <section class="container-fluid mv_addcategory_root">
-      <div class="row g-3">
-        <div class="col-12">
-          <div class="mv_dark_card">
-            <div id="mvPhotoTitle" class="mv_section_title">Add Sub Category Photo</div>
-            <div class="mv_upload_zone" id="mvUploadZone">
-              <div class="mv_upload_inner text-center">
-                <i class="bi bi-cloud-arrow-up mv_upload_icon"></i>
-                <div class="mv_upload_text">Drop your images here, or
-                  <label for="categoryImage" class="mv_browse">click to browse</label>
-                </div>
-                <div class="mv_upload_hint">Maximum file size: 5MB. Allowed formats: PNG, JPG, JPEG</div>
-                <input id="categoryImage" type="file" accept="image/png, image/jpeg" multiple class="d-none">
-                <div id="mvSelectedFiles" class="mv_selected_files mt-2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <div class="col-12">
-          <div class="mv_dark_card">
-            <div class="mv_section_title">Sub Category Information</div>
-            <div class="row">
-              <div class="col-md-6 col-12">
-                <div class="mb-3">
-                  <label class="mv_label">Category</label>
-                  <select class="form-select mv_dark_input mv_cet_select w-100">
-                    <option disabled selected>Select Category</option>
-                    <option>Mean's Wear</option>
-                    <option>Women's Wear</option>
-                    <option>Kids Wear</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="mv_form_group">
-                  <label class="mv_label">Sub Category Title</label>
-                  <input id="categoryTitle" type="text" class="form-control mv_dark_input" placeholder="Enter Category Title">
-                </div>
-              </div>
-            </div>
-            <div class="mv_form_group">
-              <label class="mv_label">Description</label>
-              <textarea id="categoryDescription" class="form-control mv_dark_input mv_textarea" placeholder="Category Description"></textarea>
-            </div>
-          </div>
-        </div>
+  <script>
+    // Header mode toggle based on ?mode=edit (made robust so missing elements won't error)
+    (function () {
+      const params = new URLSearchParams(window.location.search || '');
+      const isEdit = params.get('mode') === 'edit';
+      const pageModeEl = document.getElementById('pageMode');
+      const saveTextEl = document.getElementById('saveText');
+      if (pageModeEl) pageModeEl.textContent = isEdit ? 'Edit Subcategory' : 'Add Subcategory';
+      if (saveTextEl) saveTextEl.textContent = isEdit ? 'Save Changes' : 'Add Subcategory';
+      // optional crumb update if you have a breadcrumb element with id 'crumbMode'
+      const crumb = document.getElementById('crumbMode');
+      if (crumb) crumb.textContent = isEdit ? 'Edit' : 'Add';
+      // if edit and you want to pre-populate values, fetch here or read from query params
+    })();
 
-        <div class="col-12">
-          <div class="mv_dark_card mv_addcategory_btn gap-2">
-            <a href="/pages/components/SubCategory.html">
-              <button id="createCategoryBtn" class="mv_btn_primary" type="button">Add</button>
-            </a>
-            <button id="cancelCreateBtn" class="mv_btn_cancel" type="button">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    // Upload area behavior: supports multiple files + preview thumbnails
+    (function () {
+      const zone = document.getElementById('uploadZone');
+      const input = document.getElementById('subcategoryImage');
+      const grid = document.getElementById('previewGrid');
+      const singlePreview = document.getElementById('singlePreview');
 
-  </main>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- toggle collapsed -->
-    <script>
-      document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-        document.body.classList.toggle('collapsed');
+      zone.addEventListener('click', () => input.click());
+      zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+      zone.addEventListener('drop', e => {
+        e.preventDefault(); zone.classList.remove('dragover');
+        const files = Array.from(e.dataTransfer.files || []);
+        try { input.files = e.dataTransfer.files; } catch (_) { }
+        renderFiles(files.length ? files : Array.from(input.files || []));
       });
-    </script>
 
-    <!-- Title Category Photo and Header Toggle -->  
-    <script>
-      (function () {
-        var titleEl = document.getElementById('mvPhotoTitle');
-        if (!titleEl) return;
-        var params = new URLSearchParams(window.location.search || '');
-        var isEdit = (params.get('mode') === 'edit');
-        titleEl.textContent = isEdit ? 'Edit Sub Category Photo' : 'Add Sub Category Photo';
-        var primaryBtn = document.getElementById('createCategoryBtn');
-        if (primaryBtn) {
-          primaryBtn.textContent = isEdit ? 'Edit' : 'Add';
-        }
+      input.addEventListener('change', () => {
+        renderFiles(Array.from(input.files || []));
+      });
 
-        // Toggle top headers
-        var addHeader = document.getElementById('mvAddHeader');
-        var editHeader = document.getElementById('mvEditHeader');
-        if (addHeader && editHeader) {
-          addHeader.style.display = isEdit ? 'none' : '';
-          editHeader.style.display = isEdit ? '' : 'none';
-        }
-      })();
-    </script>
-
-    <!-- Minimal JS for upload area -->
-    <script>
-      (function () {
-        const zone = document.getElementById('mvUploadZone');
-        const input = document.getElementById('categoryImage');
-        const out = document.getElementById('mvSelectedFiles');
-        const inner = zone?.querySelector('.mv_upload_inner');
-        if (!zone || !input || !out || !inner) return;
-
-        zone.addEventListener('click', () => input.click());
-        zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('mv_dragover'); });
-        zone.addEventListener('dragleave', () => zone.classList.remove('mv_dragover'));
-        zone.addEventListener('drop', (e) => {
-          e.preventDefault();
-          zone.classList.remove('mv_dragover');
-          // Note: assigning FileList to input.files is not supported in all browsers,
-          // but we keep it to match prior behavior in this page.
-          try { input.files = e.dataTransfer.files; } catch (_) {}
-          renderFiles();
-        });
-        input.addEventListener('change', renderFiles);
-
-        function renderFiles() {
-          const files = Array.from(input.files || []);
-          out.innerHTML = '';
-          if (!files.length) {
-            inner.classList.remove('has-preview');
-            zone.classList.remove('mv_has_preview');
-            out.classList.remove('mv_preview_grid');
-            return;
-          }
-
-          inner.classList.add('has-preview');
-          zone.classList.add('mv_has_preview');
-          out.classList.add('mv_preview_grid');
-
-          files.forEach((file) => {
-            if (!file.type || !file.type.startsWith('image/')) return;
-            const url = URL.createObjectURL(file);
-            const wrap = document.createElement('div');
-            wrap.className = 'mv_thumb';
-            const img = document.createElement('img');
-            img.className = 'mv_thumb_img';
-            img.alt = file.name;
-            img.src = url;
+      function renderFiles(files) {
+        grid.innerHTML = '';
+        singlePreview.style.display = 'none';
+        if (!files.length) return;
+        if (files.length === 1) {
+          const file = files[0];
+          if (!file.type.startsWith('image/')) return;
+          const url = URL.createObjectURL(file);
+          singlePreview.src = url; singlePreview.style.display = 'block';
+          singlePreview.onload = () => URL.revokeObjectURL(url);
+        } else {
+          files.forEach(f => {
+            if (!f.type.startsWith('image/')) return;
+            const url = URL.createObjectURL(f);
+            const wrap = document.createElement('div'); wrap.className = 'h_thumb';
+            const img = document.createElement('img'); img.alt = f.name; img.src = url;
             img.onload = () => URL.revokeObjectURL(url);
-            wrap.appendChild(img);
-            out.appendChild(wrap);
+            wrap.appendChild(img); grid.appendChild(wrap);
           });
         }
-      })();
-    </script>
+      }
+    })();
 
+    // SEO preview update (title + description)
+    (function () {
+      const title = document.getElementById('title');
+      const desc = document.getElementById('description');
+      const seoTitle = document.getElementById('seoTitle');
+      const seoDesc = document.getElementById('seoDesc');
+
+      function update() {
+        // keep SEO elements if they exist
+        if (seoTitle) seoTitle.textContent = title && title.value ? title.value + ' - ClothMan' : 'Subcategory Title - ClothMan';
+        if (seoDesc) seoDesc.textContent = desc && desc.value ? desc.value.slice(0, 160) : 'Short description preview...';
+      }
+      if (title) title.addEventListener('input', update);
+      if (desc) desc.addEventListener('input', update);
+    })();
+
+    // Cancel button — go back
+    const cancelBtn = document.getElementById('cancelBtn');
+    if (cancelBtn) cancelBtn.addEventListener('click', () => history.back());
+
+    // slugify helper
+    function slugify(v) {
+      return String(v || '').toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/--+/g, '-');
+    }
+
+    // Validation (Bootstrap style) and submit handling
+    (function () {
+      const form = document.getElementById('subcategoryForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function (event) {
+        // ensure code exists
+        const codeEl = document.getElementById('code');
+        if (!codeEl.value.trim()) {
+          codeEl.classList.add('is-invalid');
+        } else {
+          codeEl.classList.remove('is-invalid');
+        }
+
+        // ensure parent category input is filled
+        const parentInput = document.getElementById('parentCategoryInput');
+        if (parentInput && !parentInput.value.trim()) {
+          parentInput.classList.add('is-invalid');
+          // add invalid-feedback if not already present
+          if (!parentInput.nextElementSibling || !parentInput.nextElementSibling.classList.contains('invalid-feedback')) {
+            const fb = document.createElement('div');
+            fb.className = 'invalid-feedback';
+            fb.textContent = 'Please enter a parent category.';
+            parentInput.parentNode.insertBefore(fb, parentInput.nextSibling);
+          }
+        } else if (parentInput) {
+          parentInput.classList.remove('is-invalid');
+        }
+
+        // if slug empty -> auto-generate from title
+        const slugEl = document.getElementById('slug');
+        const titleEl = document.getElementById('title');
+        if (slugEl && !slugEl.value.trim() && titleEl) {
+          slugEl.value = slugify(titleEl.value);
+        }
+
+        // final validity check
+        if (!form.checkValidity() || (codeEl && !codeEl.value.trim()) || (parentInput && !parentInput.value.trim())) {
+          event.preventDefault(); event.stopPropagation();
+          form.classList.add('was-validated');
+          return;
+        }
+
+        event.preventDefault(); // demo behavior: prevent actual submit
+
+        // Collect status radio value
+        const status = document.querySelector('input[name="statusRadio"]:checked')?.value || 'active';
+
+        // Gather data payload
+        const payload = {
+          title: titleEl?.value.trim() || '',
+          code: codeEl?.value.trim() || '',
+          slug: slugEl?.value.trim() || '',
+          description: document.getElementById('description')?.value.trim() || '',
+          visible: document.getElementById('isVisible')?.checked || false,
+          status: status,
+          parentCategory: document.getElementById('parentCategoryInput')?.value.trim() || ''
+        };
+
+        // TODO: Replace with fetch() to your API endpoint (e.g. POST /api/subcategories)
+        console.log('Subcategory payload', payload);
+        alert('Subcategory saved (demo). Check console for payload.');
+
+        form.classList.add('was-validated');
+      }, false);
+    })();
+  </script>
 </body>
+
 </html>

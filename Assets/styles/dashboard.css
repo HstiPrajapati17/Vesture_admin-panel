@@ -63,11 +63,16 @@ body {
     "Helvetica Neue", Arial;
   background: #fffaf1;
   color: var(--sidebar-text);
+  -ms-overflow-style: none;
 }
 body {
   min-height: 88vh;
+  -ms-overflow-style: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
 /* App layout */
 
 .h_h_desktop-toggle {
@@ -131,10 +136,9 @@ body {
   top: 134%;
   right: 0;
 }
-.h_topbar_admin-dropdown{
+.h_topbar_admin-dropdown {
   font-size: 12px;
 }
-
 
 /* =========================
    Dashboard specific styles (from dashboard.css)
@@ -453,7 +457,6 @@ body {
   .h_main-cards .card p {
     font-size: 20px;
   }
-  
 }
 @media (max-width: 420px) {
   .h_table-responsive table {
@@ -498,5 +501,4 @@ body {
   .h_main_topbar {
     padding: 8px 8px;
   }
-  
 }

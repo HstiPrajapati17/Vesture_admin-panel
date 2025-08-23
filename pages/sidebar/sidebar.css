@@ -18,8 +18,12 @@
 body {
   transition: margin-left 0.25s ease;
   background: #fafafa;
+  -ms-overflow-style: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
 /* ==================== SIDEBAR ==================== */
 .sidebar {
   position: fixed;
@@ -33,6 +37,10 @@ body {
   border-right: 1px solid #e6e6e6;
   transition: width 0.25s ease, transform 0.25s ease;
   z-index: 1000;
+  -ms-overflow-style: none;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar.collapsed {
@@ -70,7 +78,7 @@ body {
   gap: 4px;
 }
 
-.menu-item {
+.sidebar-item {
   width: 100%;
   display: flex;
   /* align-items: center; */
@@ -82,7 +90,7 @@ body {
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease;
 }
-.menu-item h5 {
+.sidebar-item h5 {
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -91,36 +99,71 @@ body {
   transition: 0.3s;
 }
 
-.menu-item i {
+.sidebar-item i {
   font-size: 1.15rem;
   min-width: 20px;
   text-align: center;
 }
 
-.menu-item span {
+.sidebar-item span {
   white-space: nowrap;
 }
+.dashboard:hover h5 {
+  background-color: #607274;
+  color: #fffaf1;
+  border-radius: 24px;
+}
+.dashboard.active h5 {
+  background-color: #607274;
+  color: #fffaf1;
+  border-radius: 24px;
+}
+.submenu {
+  display: none;
+  transition: all 0.2s ease-in-out;
+}
 
-.menu-item h5:hover,
-.menu-item h5.active {
+.sidebar-item.dropdown > h5:hover .submenu {
+  display: block;
+}
+/* Show submenu on hover */
+.sidebar-item.dropdown:hover .submenu {
+  display: block !important;
+}
+/* highlight active submenu row */
+.submenu .menu-item.active > h5,
+.submenu .menu-item.active h5 {
   background: var(--sidebar-text);
   color: #fffaf1;
   border-radius: 24px;
 }
+.submenu .menu-item h5:hover {
+  background: var(--sidebar-text);
+  color: #fffaf1;
+  border-radius: 24px;
+}
+
+/* ensure parent dropdown header shows active styling when any child is active */
+.sidebar-item.dropdown.active > h5 {
+  background: var(--sidebar-text);
+  color: #fffaf1;
+  border-radius: 24px;
+}
+
 /* Hide submenu by default */
-.menu-item.dropdown .submenu {
+.sidebar-item.dropdown .submenu {
   display: none;
   padding-left: 15px;
   transition: all 0.3s ease;
 }
 
 /* Show submenu on hover */
-.menu-item.dropdown:hover .submenu {
+.sidebar-item.dropdown:hover .submenu {
   display: block;
 }
 
 /* Optional: add background or highlight when hovering dropdown */
-.menu-item.dropdown:hover > h5 {
+.sidebar-item.dropdown:hover > h5 {
   background-color: #607274;
   color: #fff;
   border-radius: 24px;

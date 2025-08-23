@@ -22,15 +22,31 @@
 		}
 
 		body {
-			background: var(--cream);
 			color: var(--text);
 			font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+			-ms-overflow-style: none;
+		}
+
+		body::-webkit-scrollbar {
+			display: none;
+		}
+
+		.h_shopping-cart-bg {
+			padding: 16px;
+			background: #edeae2;
+			border: 1px solid rgba(0, 0, 0, .06);
+			border-radius: 14px;
+			box-shadow: 0 6px 24px rgba(0, 0, 0, .06);
+		}
+
+		.h_shoppingcart_page-head {
+			font-size: 21px;
+			color: #607174;
+			font-weight: 600;
 		}
 
 		.h_shoppingcart_cart-shell {
-			max-width: 1200px;
-			width: min(1200px, 96%);
-			margin: 20px auto;
+			margin: 20px;
 			/* was: margin: 20px 20px; */
 			padding: 16px;
 			background: var(--soft);
@@ -202,6 +218,14 @@
 			.h_shoppingcart_qty-wrap input {
 				height: 34px;
 			}
+
+			.h_shoppingcart_cart-shell {
+				margin: 0px;
+			}
+
+			.h_shoppingcart_page-head {
+				font-size: 18px;
+			}
 		}
 
 		@media (max-width: 485px) {
@@ -221,175 +245,181 @@
 </head>
 
 <body>
-	<div class="h_shoppingcart_cart-shell">
-		<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-			<div class="page-head">Your Production Cart • <span id="cartCount">3</span> style(s)</div>
-			<a href="#" id="clearCart" class="link-clear">Clear cart</a>
-		</div>
-
-		<div class="row g-4">
-			<!-- LEFT: CART ITEMS -->
-			<div class="col-lg-8">
-
-				<!-- Style 1 -->
-				<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
-					data-price="6.5" data-tax="0.30">
-					<img class="h_shoppingcart_cart-thumb"
-						src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/30756235/2024/9/5/14a9cfca-c7cb-4060-8e9e-567e82268a501725526813672-Powerlook-Men-Polo-Collar-T-shirt-4431725526813226-1.jpg"
-						alt="Polo">
-					<div class="flex-grow-1">
-						<div class="h_shopping-cart-item-desc d-flex justify-content-between gap-2">
-							<div>
-								<div class="fw-bold h_shopping-cart-title">Men’s Polo T-Shirt (Cut &amp; Sew)</div>
-								<div class="h_shoppingcart_item-meta">
-									Fabric: 220 GSM Piqué Cotton
-									<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
-								</div>
-							</div>
-							<div class="text-end h_shoppingcart_price-box">
-								<div><small>Per Unit (Excl./Tax)</small></div>
-								<div class="fw-semibold">$<span class="unitPrice">6.50</span>
-									<small>/ $<span class="unitTax">0.30</span> tax</small>
-								</div>
-								<div class="mt-1">Line Total: <strong>$<span class="lineTotal">780.00</span></strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="d-flex align-items-center gap-2 mt-3">
-							<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
-								<button class="btn btn-light btn-sm btn-dec" type="button"><i
-										class="bi bi-dash-lg"></i></button>
-								<input class="form-control form-control-sm qty" type="number" value="120" min="1">
-								<button class="btn btn-light btn-sm btn-inc" type="button"><i
-										class="bi bi-plus-lg"></i></button>
-							</div>
-							<button class="btn btn-outline-danger btn-sm btn-remove p-1"><i
-									class="bi bi-trash3 me-1"></i>Remove</button>
-						</div>
-					</div>
-				</div>
-
-				<!-- Style 2 -->
-				<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
-					data-price="14.00" data-tax="0.70">
-					<img class="h_shoppingcart_cart-thumb"
-						src="https://m.media-amazon.com/images/I/91gFn5oi5pL._UY1100_.jpg" alt="Hoodie">
-					<div class="flex-grow-1">
-						<div class="h_shopping-cart-item-desc d-flex justify-content-between gap-2">
-							<div>
-								<div class="fw-bold">Unisex Hooded Sweatshirt</div>
-								<div class="h_shoppingcart_item-meta">
-									Fabric: 300 GSM Fleece
-									<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
-								</div>
-							</div>
-							<div class="text-end h_shoppingcart_price-box">
-								<div><small>Per Unit (Excl./Tax)</small></div>
-								<div class="fw-semibold">$<span class="unitPrice">14.00</span>
-									<small>/ $<span class="unitTax">0.70</span> tax</small>
-								</div>
-								<div class="mt-1">Line Total: <strong>$<span class="lineTotal">0.00</span></strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="d-flex align-items-center gap-2 mt-3">
-							<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
-								<button class="btn btn-light btn-sm btn-dec" type="button"><i
-										class="bi bi-dash-lg"></i></button>
-								<input class="form-control form-control-sm qty" type="number" value="200" min="1">
-								<button class="btn btn-light btn-sm btn-inc" type="button"><i
-										class="bi bi-plus-lg"></i></button>
-							</div>
-							<button class="btn btn-outline-danger btn-sm btn-remove p-1"><i
-									class="bi bi-trash3 me-1"></i>Remove</button>
-						</div>
-					</div>
-				</div>
-
-				<!-- Style 3 -->
-				<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
-					data-price="8.20" data-tax="0.41">
-					<img class="h_shoppingcart_cart-thumb"
-						src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyW7Y_6j4qOmZodTcjMboETTTUnVsAPLa8nw&s"
-						alt="Leggings">
-					<div class="flex-grow-1">
-						<div class="h_shopping-cart-item-desc d-flex justify-content-between flex-wrap gap-2">
-							<div>
-								<div class="fw-bold">Women’s Performance Leggings</div>
-								<div class="h_shoppingcart_item-meta">
-									Fabric: 240 GSM Lycra Blend
-									<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
-								</div>
-							</div>
-							<div class="text-end h_shoppingcart_price-box">
-								<div><small>Per Unit (Excl./Tax)</small></div>
-								<div class="fw-semibold">$<span class="unitPrice">8.20</span>
-									<small>/ $<span class="unitTax">0.41</span> tax</small>
-								</div>
-								<div class="mt-1">Line Total: <strong>$<span class="lineTotal">0.00</span></strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="d-flex align-items-center gap-2 mt-3">
-							<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
-								<button class="btn btn-light btn-sm btn-dec" type="button"><i
-										class="bi bi-dash-lg"></i></button>
-								<input class="form-control form-control-sm qty" type="number" value="150" min="1">
-								<button class="btn btn-light btn-sm btn-inc" type="button"><i
-										class="bi bi-plus-lg"></i></button>
-							</div>
-							<button class="btn btn-outline-danger btn-sm btn-remove p-1"><i
-									class="bi bi-trash3 me-1"></i>Remove</button>
-						</div>
-					</div>
-				</div>
+	<div class="h_shopping-cart-bg">
+		<div class="h_shoppingcart_cart-shell">
+			<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+				<div class="h_shoppingcart_page-head">Your Shopping Cart • <span id="cartCount">3</span> styles</div>
+				<a href="#" id="clearCart" class="link-clear">Clear cart</a>
 			</div>
 
-			<!-- RIGHT: PROMO + SUMMARY -->
-			<div class="col-lg-4">
-				<div class="h_shoppingcart_promo-card mb-3">
-					<div class="fw-semibold mb-2">Have a Wholesale/PO Code?</div>
-					<div class="input-group">
-						<input type="text" id="promoInput" class="form-control" placeholder="BULK10">
-						<button class="btn btn-primary" id="applyPromo">Apply</button>
+			<div class="row g-4">
+				<!-- LEFT: CART ITEMS -->
+				<div class="col-lg-8">
+
+					<!-- Style 1 -->
+					<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
+						data-price="6.5" data-tax="0.30">
+						<img class="h_shoppingcart_cart-thumb"
+							src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/30756235/2024/9/5/14a9cfca-c7cb-4060-8e9e-567e82268a501725526813672-Powerlook-Men-Polo-Collar-T-shirt-4431725526813226-1.jpg"
+							alt="Polo">
+						<div class="flex-grow-1">
+							<div class="h_shopping-cart-item-desc d-flex justify-content-between gap-2">
+								<div>
+									<div class="fw-bold h_shopping-cart-title mb-1">Men’s Polo T-Shirt (Cut &amp; Sew)
+									</div>
+									<div class="h_shoppingcart_item-meta">
+										Fabric: 220 GSM Piqué Cotton
+										<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
+									</div>
+								</div>
+								<div class="text-end h_shoppingcart_price-box">
+									<div><small>Per Unit (Excl./Tax)</small></div>
+									<div class="fw-semibold">$<span class="unitPrice">6.50</span>
+										<small>/ $<span class="unitTax">0.30</span> tax</small>
+									</div>
+									<div class="mt-1">Line Total: <strong>$<span
+												class="lineTotal">780.00</span></strong>
+									</div>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center flex-wrap gap-2 mt-3">
+								<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
+									<button class="btn btn-light btn-sm btn-dec" type="button"><i
+											class="bi bi-dash-lg"></i></button>
+									<input class="form-control form-control-sm qty" type="number" value="120" min="1">
+									<button class="btn btn-light btn-sm btn-inc" type="button"><i
+											class="bi bi-plus-lg"></i></button>
+								</div>
+								<button class="btn btn-outline-danger btn-sm btn-remove p-1"
+									style="border-color: #b44343;"><i class="bi bi-trash3 me-1"></i>Remove</button>
+							</div>
+						</div>
 					</div>
-					<!-- Removed static "Promo applied" & "Invalid code" lines -->
-					<div id="promoFeedback" class="mt-2"></div>
+
+					<!-- Style 2 -->
+					<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
+						data-price="14.00" data-tax="0.70">
+						<img class="h_shoppingcart_cart-thumb"
+							src="https://m.media-amazon.com/images/I/91gFn5oi5pL._UY1100_.jpg" alt="Hoodie">
+						<div class="flex-grow-1">
+							<div class="h_shopping-cart-item-desc d-flex justify-content-between gap-2">
+								<div>
+									<div class="fw-bold h_shopping-cart-title mb-1">Unisex Hooded Sweatshirt</div>
+									<div class="h_shoppingcart_item-meta">
+										Fabric: 300 GSM Fleece
+										<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
+									</div>
+								</div>
+								<div class="text-end h_shoppingcart_price-box">
+									<div><small>Per Unit (Excl./Tax)</small></div>
+									<div class="fw-semibold">$<span class="unitPrice">14.00</span>
+										<small>/ $<span class="unitTax">0.70</span> tax</small>
+									</div>
+									<div class="mt-1">Line Total: <strong>$<span class="lineTotal">0.00</span></strong>
+									</div>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center flex-wrap gap-2 mt-3">
+								<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
+									<button class="btn btn-light btn-sm btn-dec" type="button"><i
+											class="bi bi-dash-lg"></i></button>
+									<input class="form-control form-control-sm qty" type="number" value="200" min="1">
+									<button class="btn btn-light btn-sm btn-inc" type="button"><i
+											class="bi bi-plus-lg"></i></button>
+								</div>
+								<button class="btn btn-outline-danger btn-sm btn-remove p-1"
+									style="border-color: #b44343;"><i class="bi bi-trash3 me-1"></i>Remove</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Style 3 -->
+					<div class="h_shoppingcart_cart-card cart-item d-flex gap-3 align-items-start flex-wrap"
+						data-price="8.20" data-tax="0.41">
+						<img class="h_shoppingcart_cart-thumb"
+							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyW7Y_6j4qOmZodTcjMboETTTUnVsAPLa8nw&s"
+							alt="Leggings">
+						<div class="flex-grow-1">
+							<div class="h_shopping-cart-item-desc d-flex justify-content-between flex-wrap gap-2">
+								<div>
+									<div class="fw-bold h_shopping-cart-title mb-1">Women’s Performance Leggings</div>
+									<div class="h_shoppingcart_item-meta">
+										Fabric: 240 GSM Lycra Blend
+										<span class="badge rounded-pill h_shoppingcart_badge-soft ms-2">MOQ 100</span>
+									</div>
+								</div>
+								<div class="text-end h_shoppingcart_price-box">
+									<div><small>Per Unit (Excl./Tax)</small></div>
+									<div class="fw-semibold">$<span class="unitPrice">8.20</span>
+										<small>/ $<span class="unitTax">0.41</span> tax</small>
+									</div>
+									<div class="mt-1">Line Total: <strong>$<span class="lineTotal">0.00</span></strong>
+									</div>
+								</div>
+							</div>
+
+							<div class="d-flex align-items-center flex-wrap gap-2 mt-3">
+								<div class="h_shoppingcart_qty-wrap d-inline-flex align-items-center">
+									<button class="btn btn-light btn-sm btn-dec" type="button"><i
+											class="bi bi-dash-lg"></i></button>
+									<input class="form-control form-control-sm qty" type="number" value="150" min="1">
+									<button class="btn btn-light btn-sm btn-inc" type="button"><i
+											class="bi bi-plus-lg"></i></button>
+								</div>
+								<button class="btn btn-outline-danger btn-sm btn-remove p-1"
+									style="border-color: #b44343;"><i class="bi bi-trash3 me-1"></i>Remove</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="h_shoppingcart_summary-card">
-					<div class="fw-semibold mb-2">Order Summary</div>
-					<div class="h_shoppingcart_summary-row"><span>Total Pieces :</span><span id="piecesTotal">0</span>
-					</div>
-					<div class="h_shoppingcart_summary-row"><span>Sub Total (excl. tax) :</span><span>$<span
-								id="subTotal">0.00</span></span></div>
-					<div class="h_shoppingcart_summary-row"><span>Tax :</span><span>$<span
-								id="taxTotal">0.00</span></span></div>
-					<div class="h_shoppingcart_summary-row"><span>Promo Discount :</span><span>-$<span
-								id="discountPromo">0.00</span></span></div>
-					<div class="h_shoppingcart_summary-row"><span>Bulk Discount (≥500 pcs) :</span><span>-$<span
-								id="discountBulk">0.00</span></span></div>
-					<div class="h_shoppingcart_summary-row"><span>Freight / Logistics :</span><span>$<span
-								id="freight">120.00</span></span></div>
-					<div class="h_shoppingcart_summary-row fw-bold"><span>Total Amount :</span><span>$<span
-								id="grandTotal">0.00</span></span></div>
-
-					<div class="h_shoppingcart_time-limits mt-3">
-						<i class="bi bi-clock-history"></i>
-						<span>Est. lead time 15–25 days post sample &amp; PO approval.</span>
+				<!-- RIGHT: PROMO + SUMMARY -->
+				<div class="col-lg-4">
+					<div class="h_shoppingcart_promo-card mb-3">
+						<div class="fw-semibold mb-2">Have a Wholesale/PO Code?</div>
+						<div class="input-group">
+							<input type="text" id="promoInput" class="form-control" placeholder="BULK10">
+							<button class="btn btn-primary" id="applyPromo">Apply</button>
+						</div>
+						<!-- Removed static "Promo applied" & "Invalid code" lines -->
+						<div id="promoFeedback" class="mt-2"></div>
 					</div>
 
-					<div class="d-grid gap-2 mt-3">
-						<button class="btn h_shoppingcart_btn-ghost">Continue Sourcing</button>
-						<button class="btn btn-primary">Place Production Order</button>
+					<div class="h_shoppingcart_summary-card">
+						<div class="fw-semibold mb-2">Order Summary</div>
+						<div class="h_shoppingcart_summary-row"><span>Total Pieces :</span><span
+								id="piecesTotal">0</span>
+						</div>
+						<div class="h_shoppingcart_summary-row"><span>Sub Total (excl. tax) :</span><span>$<span
+									id="subTotal">0.00</span></span></div>
+						<div class="h_shoppingcart_summary-row"><span>Tax :</span><span>$<span
+									id="taxTotal">0.00</span></span></div>
+						<div class="h_shoppingcart_summary-row"><span>Promo Discount :</span><span>-$<span
+									id="discountPromo">0.00</span></span></div>
+						<div class="h_shoppingcart_summary-row"><span>Bulk Discount (≥500 pcs) :</span><span>-$<span
+									id="discountBulk">0.00</span></span></div>
+						<div class="h_shoppingcart_summary-row"><span>Freight / Logistics :</span><span>$<span
+									id="freight">120.00</span></span></div>
+						<div class="h_shoppingcart_summary-row fw-bold"><span>Total Amount :</span><span>$<span
+									id="grandTotal">0.00</span></span></div>
+
+						<div class="h_shoppingcart_time-limits mt-3">
+							<i class="bi bi-clock-history"></i>
+							<span>Est. lead time 15–25 days post sample &amp; PO approval.</span>
+						</div>
+
+						<div class="d-grid gap-2 mt-3">
+							<button class="btn h_shoppingcart_btn-ghost">Continue Sourcing</button>
+							<button class="btn btn-primary">Place Production Order</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
