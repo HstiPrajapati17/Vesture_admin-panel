@@ -99,7 +99,8 @@
 			display: inline-grid;
 			place-items: center;
 			cursor: pointer;
-			transition: all .18s
+			transition: all .18s;
+			position: relative;
 		}
 
 		.custom-checkbox input[type="checkbox"]:checked {
@@ -110,7 +111,7 @@
 		.custom-checkbox input[type="checkbox"]:checked::after {
 			content: '✔';
 			color: var(--cream);
-			font-size: 13px;
+			font-size: 12px;
 			position: absolute;
 		}
 
@@ -237,6 +238,11 @@
 			box-shadow: none !important;
 		}
 
+		.h_checkout_main_title {
+			color: #607274;
+			font-size: 22px;
+		}
+
 		@media (max-width:991px) {
 			.order-item img {
 				width: 56px;
@@ -263,7 +269,7 @@
 		}
 
 		@media (max-width: 342px) {
-			.h_order-item-end-intro {
+			.h_order-item_end-intro {
 				text-align: start !important;
 				margin-top: 8px;
 			}
@@ -281,7 +287,8 @@
 				</div>
 				<div class="ms-auto d-flex align-items-center gap-2">
 					<h2 class="page-title mb-0">Checkout</h2>
-					<button class="btn btn-ghost border-white text-white" title="Refresh"><i class="bi bi-arrow-repeat"></i></button>
+					<button class="btn btn-ghost border-white text-white" title="Refresh"><i
+							class="bi bi-arrow-repeat"></i></button>
 				</div>
 			</div>
 
@@ -289,7 +296,7 @@
 				<div class="col-lg-8">
 					<div class="card card-modern">
 						<div class="card-body h_custom_card_padding">
-							<h5 class="mb-4 text-decoration-underline" style="color: #607274; font-size: 22px;">Customer
+							<h5 class="mb-4 text-decoration-underline h_checkout_main_title">Customer
 								& Shipping</h5>
 							<form id="checkout-form">
 								<div class="row g-3">
@@ -345,8 +352,6 @@
 													class="bi bi-credit-card me-1"></i> Card</div>
 											<div class="chip" data-pay="cod" id="chip-cod"><i
 													class="bi bi-cash-stack me-1"></i> COD</div>
-											<div class="chip" data-pay="bank" id="chip-bank"><i
-													class="bi bi-bank me-1"></i> Bank Transfer</div>
 										</div>
 
 										<div id="payment-forms">
@@ -358,15 +363,17 @@
 													</div>
 													<div class="col-md-6">
 														<label class="form-label">Card Number</label>
-														<input class="form-control" placeholder="4242 4242 4242 4242">
+														<input class="form-control" type="text" inputmode="numeric"
+															pattern="[0-9]*" maxlength="16"
+															placeholder="4242 4242 4242 4242">
 													</div>
 													<div class="col-md-4">
 														<label class="form-label">Expiry</label>
-														<input class="form-control" placeholder="MM/YY">
+														<input class="form-control" placeholder="MM/YY" type="date">
 													</div>
 													<div class="col-md-4">
-														<label class="form-label">CVC</label>
-														<input class="form-control" placeholder="123">
+														<label class="form-label">CVV</label>
+														<input class="form-control" placeholder="123" type="number">
 													</div>
 													<div class="col-md-4">
 														<label class="form-label">Billing Name</label>
@@ -380,16 +387,6 @@
 												<div class="p-3 border rounded-2 muted-small">Cash on delivery — collect
 													payment at delivery. Mark order as COD in records.</div>
 											</div>
-
-											<div class="payment-panel d-none" data-method="bank">
-												<div class="p-3 border rounded-2 muted-small">
-													<div><strong>Bank:</strong> National Textile Bank</div>
-													<div><strong>Account:</strong> 123456789</div>
-													<div class="mt-2">Instructions: Ask customer to upload receipt to
-														internal order notes after transfer.</div>
-												</div>
-											</div>
-
 										</div>
 									</div>
 
@@ -404,28 +401,29 @@
 
 					<div class="card card-modern mt-3">
 						<div class="card-body h_custom_card_padding">
-							<h5 class="mb-2 text-decoration-underline mb-3" style="color: #607274;">Shipping Methods
+							<h5 class="mb-2 text-decoration-underline mb-3 h_checkout_main_title">Shipping Methods
 							</h5>
 
+							<!-- Checkboxes kept for look but JS makes them mutually exclusive -->
 							<div class="form-check mb-2 custom-checkbox">
-								<input class="form-check-input" type="checkbox" name="shipping-method"
-									id="standard-shipping" value="standard" checked>
-								<label class="form-check-label" for="standard-shipping">
-									Standard Shipping — 5 to 7 business days ($10)
+								<label class="d-flex align-items-center gap-2">
+									<input class="form-check-input shipping-checkbox" type="checkbox"
+										name="shipping-method" id="standard-shipping" value="standard" checked>
+									<span class="form-check-label">Standard Shipping — 5 to 7 business days ($10)</span>
 								</label>
 							</div>
 							<div class="form-check mb-2 custom-checkbox">
-								<input class="form-check-input" type="checkbox" name="shipping-method"
-									id="express-shipping" value="express">
-								<label class="form-check-label" for="express-shipping">
-									Express Shipping — 2 to 3 business days (+$25)
+								<label class="d-flex align-items-center gap-2">
+									<input class="form-check-input shipping-checkbox" type="checkbox"
+										name="shipping-method" id="express-shipping" value="express">
+									<span class="form-check-label">Express Shipping — 2 to 3 business days (+$25)</span>
 								</label>
 							</div>
 							<div class="form-check mb-2 custom-checkbox">
-								<input class="form-check-input" type="checkbox" name="shipping-method"
-									id="overnight-shipping" value="overnight">
-								<label class="form-check-label" for="overnight-shipping">
-									Overnight Shipping — 1 business day (+$50)
+								<label class="d-flex align-items-center gap-2">
+									<input class="form-check-input shipping-checkbox" type="checkbox"
+										name="shipping-method" id="overnight-shipping" value="overnight">
+									<span class="form-check-label">Overnight Shipping — 1 business day (+$50)</span>
 								</label>
 							</div>
 						</div>
@@ -436,7 +434,7 @@
 				<div class="col-lg-4">
 					<div class="card card-modern p-3">
 						<div class="card-body  h_custom_card_padding p-0">
-							<h5 class="mb-3 text-decoration-underline" style="color: #607274;">Order Summary</h5>
+							<h5 class="mb-3 text-decoration-underline h_checkout_main_title">Order Summary</h5>
 
 							<div id="order-items" class="mb-2"></div>
 
@@ -496,7 +494,7 @@
 								style="width: 46px;" value="1" min="1">
 						</div>
 					</div>
-					<div class="text-end h_order-item-end-intro">
+					<div class="text-end h_order-item_end-intro">
 						<div class="fw-semibold item-line-price mb-2">$0.00</div>
 						<button class="btn btn-ghost btn-sm btn-delete"><i class="bi bi-trash"></i></button>
 					</div>
@@ -539,7 +537,7 @@
 				qtyInput.value = item.qty;
 
 				qtyInput.addEventListener('change', e => {
-					item.qty = parseInt(e.target.value) || 1;
+					item.qty = Math.max(1, parseInt(e.target.value) || 1);
 					linePriceEl.textContent = `$${(item.price * item.qty).toFixed(2)}`;
 					calcTotals();
 				});
@@ -557,7 +555,10 @@
 
 		function calcTotals() {
 			let subtotal = initialItems.reduce((acc, i) => acc + i.price * i.qty, 0);
-			let shippingType = document.querySelector('input[name="shipping-method"]:checked').value;
+
+			// find the checked shipping checkbox (JS enforces only one can be checked)
+			const selected = document.querySelector('.shipping-checkbox:checked');
+			let shippingType = selected ? selected.value : 'standard';
 			let shippingCost = shippingMethods[shippingType] || 0;
 			let taxes = subtotal * 0.13; // 13% tax for Canada
 			let total = subtotal + shippingCost + taxes;
@@ -567,6 +568,26 @@
 			taxesEl.textContent = `$${taxes.toFixed(2)}`;
 			grandTotalEl.textContent = `$${total.toFixed(2)}`;
 		}
+
+		// Make the checkboxes behave like mutually-exclusive options (only one checked)
+		document.querySelectorAll('.shipping-checkbox').forEach(cb => {
+			cb.addEventListener('change', (e) => {
+				const target = e.target;
+				if (target.checked) {
+					// uncheck others
+					document.querySelectorAll('.shipping-checkbox').forEach(other => {
+						if (other !== target) other.checked = false;
+					});
+				} else {
+					// Prevent all from being unchecked: re-check this one if none are checked
+					const anyChecked = Array.from(document.querySelectorAll('.shipping-checkbox')).some(c => c.checked);
+					if (!anyChecked) {
+						target.checked = true;
+					}
+				}
+				calcTotals();
+			});
+		});
 
 		// Payment chips logic
 		document.querySelectorAll('.chip').forEach(chip => {
@@ -578,11 +599,6 @@
 					p.classList.toggle('d-none', p.dataset.method !== method);
 				});
 			});
-		});
-
-		// Recalculate totals on shipping change
-		document.querySelectorAll('input[name="shipping-method"]').forEach(radio => {
-			radio.addEventListener('change', calcTotals);
 		});
 
 		// Cancel order button

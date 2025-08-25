@@ -37,7 +37,7 @@
 			-moz-osx-font-smoothing: grayscale;
 			color: #253235;
 			background: #cbcbcb;
-			padding: 2rem;
+			padding: 16px;
 			-ms-overflow-style: none;
 		}
 
@@ -95,7 +95,6 @@
 		.h_immersive {
 			background: linear-gradient(180deg, rgba(96, 114, 116, 0.03), rgba(96, 114, 116, 0.01));
 			border-radius: var(--h_radius);
-			padding: 1rem;
 			border: 1px solid var(--h_glass);
 			overflow: hidden;
 		}
@@ -250,6 +249,7 @@
 		.h_tabbtn:hover,
 		.h_tabbtn:focus {
 			background: var(--h_tab-accent);
+			color: var(--h_brand);
 			outline: none;
 			transform: translateY(-2px);
 		}
@@ -447,6 +447,17 @@
 				font-size: 1.2rem;
 			}
 		}
+		@media (max-width: 768px) {
+			.h_tabpanel h4{
+				font-size: 20px;
+			}
+			.h_tabpanel p{
+				font-size: 14px;
+			}
+			.h_tabpanel h5{
+				font-size: 16px;
+			}
+		}
 
 		@media (max-width: 600px) {
 			body {
@@ -490,7 +501,7 @@
 		<div class="h_viewProduct_main_content">
 
 			<div class="h_header">
-				<div class="px-3">
+				<div class="">
 					<h1 class="h_page-title">Classic Linen Shirt</h1>
 					<div class="h_muted">SKU <strong>CLSH-2345</strong> • Summer Collection</div>
 				</div>
@@ -558,7 +569,7 @@
 
 							<!-- TAB PANELS -->
 							<div class="h_tabpanel" id="h_tab_desc" role="tabpanel" aria-labelledby="h_tab_desc_btn">
-								<h4 class="mb-2">Product overview</h4>
+								<h4 class="mb-2 fw-bold">Product overview</h4>
 								<p class="mb-2">The <strong>Classic Linen Shirt</strong> is designed for breathability
 									and ease during
 									warm-weather wear. Cut in a classic, relaxed silhouette with reinforced seams on

@@ -264,11 +264,14 @@ body::-webkit-scrollbar {
   }
 
   .h_main_topbar {
-    margin-left: 63px !important;
+    margin-left: 55px !important;
   }
 
   .toggle-btn {
-    left: 16px !important;
+    left: 13px !important;
+  }
+  .toggle-btn {
+    padding: 6px 6px;
   }
 }
 @media (max-width: 540px) {
