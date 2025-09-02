@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="product-list-html">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap (used by markup classes) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/Sidebar.css">
+	<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body class="product-list-body ">
+
+	<!-- Sidebar container -->
+	<div id="sidebar-container"></div>
+
+	<!-- Navbar container -->
+	<div id="navbar-container"></div>
+
+	<main class="main-content" id="main-content">
+		<main class="h_container-app">
+			<header class="h_page-header">
+				<div class="d-flex justify-content-start align-items-center flex-grow-1 gap-3 flex-wrap">
+					<h1 class="h_title">Products</h1>
+				</div>
+				<div class="d-flex justify-content-end align-items-center flex-grow-1 gap-2 flex-wrap h_extra-controls">
+					<div class="h_view-toggle" role="tablist" aria-label="View mode">
+						<button id="btn-grid" class="active" title="Grid view" aria-pressed="true"
+							aria-label="Grid view">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"
+								aria-hidden="true">
+								<rect x="3" y="3" width="8" height="8" rx="1" />
+								<rect x="13" y="3" width="8" height="8" rx="1" />
+								<rect x="3" y="13" width="8" height="8" rx="1" />
+								<rect x="13" y="13" width="8" height="8" rx="1" />
+							</svg>
+						</button>
+						<button id="btn-list" title="List view" aria-pressed="false" aria-label="List view">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+								aria-hidden="true">
+								<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+
+					<select id="sort" class="form-select h_select"
+						style="min-width:136px;border:1px solid rgba(255,255,255,.35)">
+						<option value="newest" selected>Sort: Newest</option>
+						<option value="price-asc">Price: Low → High</option>
+						<option value="price-desc">Price: High → Low</option>
+					</select>
+					<div class="h_controls">
+						<a id="addBtn" class="h_btn-primary" href="AddProduct.html" title="Add product (+ opens page)">+
+							Add
+							product</a>
+					</div>
+				</div>
+			</header>
+
+			<!-- Cards / Grid -->
+			<section id="products" class="h_grid" aria-live="polite"></section>
+
+			<!-- Table -->
+			<div class="h_shoppingcart_cart-shell d-none" id="tableShell">
+				<div class="h_order-list">
+					<div class="table-responsive">
+						<table class="table h_custom-table align-middle" id="productsTable">
+							<thead>
+								<tr>
+									<th style="text-align:left;">Product</th>
+									<th>SKU</th>
+									<th>Category</th>
+									<th>Price (CAD)</th>
+									<th class="text-end">Stock</th>
+									<th class="text-end">Actions</th>
+								</tr>
+							</thead>
+							<tbody id="tableBody"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pager -->
+			<nav class="h_pager" role="navigation" aria-label="Pagination">
+				<button id="prevBtn" class="h_pager-btn" aria-label="Previous page">Prev</button>
+				<div id="pageIndicator" class="h_page-indicator" aria-live="polite">1/1</div>
+				<button id="nextBtn" class="h_pager-btn" aria-label="Next page">Next</button>
+			</nav>
+		</main>
+
+		<!-- EDIT PRODUCT MODAL -->
+		<div class="modal fade" id="h_editModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+				<form id="h_editForm" class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Edit product</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="row g-2">
+							<div class="col-md-8">
+								<label class="form-label">Product name</label>
+								<input id="h_edit_name" class="form-control" required>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">SKU</label>
+								<input id="h_edit_sku" class="form-control" readonly>
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label">Category</label>
+								<input id="h_edit_category" class="form-control">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Material</label>
+								<input id="h_edit_material" class="form-control">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Image URL</label>
+								<input id="h_edit_img" class="form-control">
+							</div>
+
+							<div class="col-md-4">
+								<label class="form-label">Price (CAD)</label>
+								<input id="h_edit_price" class="form-control" type="number" min="0" step="0.01"
+									required>
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Stock</label>
+								<input id="h_edit_stock" class="form-control" type="number" min="0" required>
+							</div>
+							<div class="col-12">
+								<label class="form-label">Notes (optional)</label>
+								<input id="h_edit_notes" class="form-control" placeholder="Internal notes">
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<div class="me-auto text-muted small">Edits update the local dataset (demo).</div>
+						<button type="button" class="btn h_wishlist_action-btn" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn h_wishlist_action-btn">Save changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+
+	<!-- Overlay for mobile -->
+	<div class="overlay"></div>
+
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/sidebar-loader.js"></script>
+	<script src="/js/navbar-loader.js"></script>
+
+	<script>
+		// --- DATASET: prices are CAD (no INR, no conversion) ---
+		let productsData = [
+			{ sku: 'TS-001', name: 'Classic T-shirt', category: 'Men', material: 'Cotton', price: 7.98, stock: 120, imgColor: '#FDE68A', img: 'https://chriscross.in/cdn/shop/products/ChrisCrossChocolateBrownTshirtClassicBikes-min.jpg?v=1751433144&width=1000' },
+			{ sku: 'DJ-212', name: 'Denim Jacket', category: 'Women', material: 'Denim', price: 39.98, stock: 6, imgColor: '#BFDBFE', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJsYP1DiCwP4g20X1OyNju3_oMuX4WHupxkQ&s' },
+			{ sku: 'HD-045', name: 'Hooded Sweatshirt', category: 'Unisex', material: 'Fleece', price: 20.78, stock: 58, imgColor: '#FBCFE8', img: 'https://www.globalrepublic.in/cdn/shop/products/1_32cb8577-c630-4e43-ac47-8f7f0d35e07a.jpg?v=1648815314&width=1080' },
+			{ sku: 'SK-010', name: 'Summer Skirt', category: 'Women', material: 'Polyester', price: 12.78, stock: 200, imgColor: '#C7F9CC', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJXsj9tddRWhzcXP7_8ea4CrrTd0Jv-niebQ&s' },
+			{ sku: 'SH-111', name: 'Casual Shirt', category: 'Men', material: 'Cotton', price: 14.38, stock: 32, imgColor: '#FFDAB9', img: 'https://myraymond.com/cdn/shop/files/CMSS30011-B3-1.jpg?v=1725608561' },
+			{ sku: 'PT-007', name: 'Pleated Trousers', category: 'Women', material: 'Linen', price: 22.38, stock: 14, imgColor: '#E2E8F0', img: 'https://italianvega.in/cdn/shop/files/Img4_b9caacec-3e46-4d9a-b2a9-8956b0876631.jpg?v=1742195785&width=1946' },
+			{ sku: 'AC-300', name: 'Customized Hoodie', category: 'Unisex', material: 'Cotton', price: 3.98, stock: 520, imgColor: '#FCA5A5', img: 'https://gogirgit.com/cdn/shop/files/Personalized-Name-Date-Couple-Hoodies-Gogirgit_1800x.jpg?v=1698775952' },
+			{ sku: 'SO-051', name: 'Woolen Sweater', category: 'Men', material: 'Cotton', price: 1.58, stock: 640, imgColor: '#D1FAE5', img: 'https://i.pinimg.com/originals/f8/b3/d1/f8b3d190d70d157d0814988f787a8e2f.jpg' }
+		];
+
+		// --- Pagination & state ---
+		let currentPage = 1;
+		const pageSize = 4;
+		let currentView = 'grid';
+		let currentSort = 'newest';
+
+		// --- DOM elements ---
+		const btnGrid = document.getElementById('btn-grid');
+		const btnList = document.getElementById('btn-list');
+		const productsEl = document.getElementById('products');
+		const tableBody = document.getElementById('tableBody');
+		const tableShell = document.getElementById('tableShell');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
+		const pageIndicator = document.getElementById('pageIndicator');
+		const sortSelect = document.getElementById('sort');
+
+		// Edit modal elements
+		const editModalEl = document.getElementById('h_editModal');
+		const editModal = new bootstrap.Modal(editModalEl);
+		const editForm = document.getElementById('h_editForm');
+		const fName = document.getElementById('h_edit_name');
+		const fSku = document.getElementById('h_edit_sku');
+		const fCategory = document.getElementById('h_edit_category');
+		const fMaterial = document.getElementById('h_edit_material');
+		const fImg = document.getElementById('h_edit_img');
+		const fPrice = document.getElementById('h_edit_price'); // CAD
+		const fStock = document.getElementById('h_edit_stock');
+		const fNotes = document.getElementById('h_edit_notes');
+
+		// --- Currency display helper (CAD only) ---
+		function formatCAD(n) {
+			const val = Number(n) || 0;
+			return `$${numberWithCommas(val.toFixed(2))}`;
+		}
+
+		// helpers
+		function createPlaceholder(name, color) {
+			const initials = (name || '').split(' ').map(s => s[0]).slice(0, 2).join('').toUpperCase() || 'P';
+			const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+          <rect width="100%" height="100%" fill="${color || '#EEE'}"/>
+          <text x="50%" y="55%" font-size="80" dominant-baseline="middle" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif">${initials}</text>
+        </svg>`;
+			return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+		}
+		function escapeHtml(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
+		function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+		function cloneData() { return productsData.map(p => ({ ...p })); }
+
+		function getSorted() {
+			let arr = cloneData();
+			if (currentSort === 'price-asc') arr.sort((a, b) => a.price - b.price);
+			else if (currentSort === 'price-desc') arr.sort((a, b) => b.price - a.price);
+			return arr; // newest = insertion order
+		}
+
+		// renderers
+		function renderGrid(pageData) {
+			productsEl.innerHTML = '';
+			pageData.forEach(p => {
+				const art = document.createElement('article');
+				art.className = 'h_card';
+				art.dataset.sku = p.sku;
+				art.innerHTML = `
+          <div class="h_media-wrap" aria-hidden="true">
+            <img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}">
+          </div>
+          <div class="h_card-body" style="display:flex; flex-direction:column;">
+            <div class="h_product-details">
+              <div class="h_product-name">${escapeHtml(p.name)}</div>
+              <div class="h_product-meta">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
+            </div>
+            <div class="h_row-bottom" style="margin-top:auto;">
+              <div class="h_price">${formatCAD(p.price)}</div>
+              <div class="h_stock">Stock: ${p.stock}${p.stock <= 10 ? ' (low)' : ''}</div>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-3 h_actions">
+              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="edit" data-sku="${p.sku}">Edit</button>
+              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="delete" data-sku="${p.sku}">Delete</button>
+            </div>
+          </div>`;
+				productsEl.appendChild(art);
+			});
+		}
+
+		function renderTable(pageData) {
+			tableBody.innerHTML = '';
+			pageData.forEach(p => {
+				const tr = document.createElement('tr');
+				tr.innerHTML = `
+          <td style="text-align:left; display:flex; gap:12px; align-items:center;">
+            <img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}" style="height:56px; width:56px; object-fit:cover; border-radius:8px;">
+            <div style="text-align:left;">
+              <div style="font-weight:700;">${escapeHtml(p.name)}</div>
+              <div style="opacity:.8; font-size:.9rem;">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
+            </div>
+          </td>
+          <td>${escapeHtml(p.sku)}</td>
+          <td>${escapeHtml(p.category)}</td>
+          <td>${formatCAD(p.price)}</td>
+          <td class="text-end">${p.stock}</td>
+          <td class="text-end">
+            <div class="d-inline-flex gap-2">
+              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="edit" data-sku="${p.sku}">Edit</button>
+              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="delete" data-sku="${p.sku}">Delete</button>
+            </div>
+          </td>`;
+				tableBody.appendChild(tr);
+			});
+		}
+
+		function render() {
+			const sorted = getSorted();
+			const total = sorted.length;
+			const pageCount = Math.max(1, Math.ceil(total / pageSize));
+			if (currentPage > pageCount) currentPage = pageCount;
+			const startIndex = (currentPage - 1) * pageSize;
+			const endIndex = Math.min(total, startIndex + pageSize);
+			const pageData = sorted.slice(startIndex, endIndex);
+
+			if (currentView === 'grid') {
+				productsEl.classList.remove('d-none');
+				tableShell.classList.add('d-none');
+				renderGrid(pageData);
+			} else {
+				productsEl.classList.add('d-none');
+				tableShell.classList.remove('d-none');
+				renderTable(pageData);
+			}
+
+			pageIndicator.textContent = `${pageCount === 0 ? 0 : currentPage}/${pageCount}`;
+			prevBtn.classList.toggle('is-disabled', currentPage === 1);
+			nextBtn.classList.toggle('is-disabled', currentPage === pageCount);
+		}
+
+		function setView(view) {
+			currentView = view === 'list' ? 'list' : 'grid';
+			const main = document.querySelector('main');
+			if (currentView === 'list') {
+				main.classList.add('h_list-view');
+				btnList.classList.add('active'); btnList.setAttribute('aria-pressed', 'true');
+				btnGrid.classList.remove('active'); btnGrid.setAttribute('aria-pressed', 'false');
+			} else {
+				main.classList.remove('h_list-view');
+				btnGrid.classList.add('active'); btnGrid.setAttribute('aria-pressed', 'true');
+				btnList.classList.remove('active'); btnList.setAttribute('aria-pressed', 'false');
+			}
+			currentPage = 1;
+			render();
+		}
+
+		function openEditModal(sku) {
+			const idx = productsData.findIndex(p => p.sku === sku);
+			if (idx === -1) return alert('Product not found');
+			const p = productsData[idx];
+			document.getElementById('h_edit_name').value = p.name || '';
+			document.getElementById('h_edit_sku').value = p.sku || '';
+			document.getElementById('h_edit_category').value = p.category || '';
+			document.getElementById('h_edit_material').value = p.material || '';
+			document.getElementById('h_edit_img').value = p.img || '';
+			document.getElementById('h_edit_price').value = p.price?.toString() || '0.00'; // CAD
+			document.getElementById('h_edit_stock').value = p.stock || 0;
+			document.getElementById('h_edit_notes').value = p.notes || '';
+			editModal.show();
+			setTimeout(() => document.getElementById('h_edit_name').focus(), 120);
+		}
+
+		// update product from modal form (keeps CAD)
+		document.getElementById('h_editForm').addEventListener('submit', (e) => {
+			e.preventDefault();
+			const sku = document.getElementById('h_edit_sku').value;
+			const idx = productsData.findIndex(p => p.sku === sku);
+			if (idx === -1) { alert('Product not found'); return; }
+
+			const name = document.getElementById('h_edit_name').value.trim();
+			const category = document.getElementById('h_edit_category').value.trim();
+			const material = document.getElementById('h_edit_material').value.trim();
+			const img = document.getElementById('h_edit_img').value.trim();
+			const price = Number(document.getElementById('h_edit_price').value); // CAD
+			const stock = parseInt(document.getElementById('h_edit_stock').value, 10);
+			const notes = document.getElementById('h_edit_notes').value.trim();
+
+			if (!name) return alert('Name is required');
+			if (Number.isNaN(price) || price < 0) return alert('Invalid price');
+			if (Number.isNaN(stock) || stock < 0) return alert('Invalid stock');
+
+			productsData[idx] = { ...productsData[idx], name, category, material, img: img || productsData[idx].img, price, stock, notes };
+			editModal.hide();
+			render();
+		});
+
+		// actions (edit/delete)
+		document.addEventListener('click', e => {
+			const btn = e.target.closest('button[data-action]');
+			if (!btn) return;
+			const action = btn.dataset.action;
+			const sku = btn.dataset.sku;
+			if (action === 'edit') openEditModal(sku);
+			if (action === 'delete') {
+				if (!confirm('Delete product ' + sku + '? This cannot be undone.')) return;
+				productsData = productsData.filter(p => p.sku !== sku);
+				render();
+			}
+		});
+
+		// pagination & controls
+		document.getElementById('btn-grid').addEventListener('click', () => setView('grid'));
+		document.getElementById('btn-list').addEventListener('click', () => setView('list'));
+
+		document.getElementById('prevBtn').addEventListener('click', () => {
+			if (prevBtn.classList.contains('is-disabled')) return;
+			if (currentPage > 1) { currentPage--; render(); }
+		});
+
+		document.getElementById('nextBtn').addEventListener('click', () => {
+			if (nextBtn.classList.contains('is-disabled')) return;
+			const total = getSorted().length;
+			const pageCount = Math.max(1, Math.ceil(total / pageSize));
+			if (currentPage < pageCount) { currentPage++; render(); }
+		});
+
+		document.getElementById('sort').addEventListener('change', e => {
+			currentSort = e.target.value;
+			currentPage = 1;
+			render();
+		});
+
+		document.addEventListener('DOMContentLoaded', () => setView('grid'));
+	</script>
+</body>
+
+</html>

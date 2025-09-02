@@ -1,0 +1,119 @@
+<div class="sidebar" id="sidebar">
+  <!-- Mobile close button -->
+  <button class="mobile-close"><i class="bi bi-x-lg"></i></button>
+
+  <!-- Brand -->
+  <div class="sidebar-top d-flex flex-column align-items-center justify-content-center mb-3">
+    <div class="brand">
+      <i class="bi bi-shop brand-icon"></i>
+      <span class="brand-text">Admin Panel</span>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="sidebar-search mt-3 w-100">
+      <input type="text" class="search-input" placeholder="Search...">
+      <i class="bi bi-search search-icon"></i>
+    </div>
+  </div>
+
+  <!-- Nav List -->
+  <ul class="nav-list">
+
+    <!-- Dashboard -->
+    <li><a href="/pages/Dashboard/Dashboard.html"><i class="bi bi-speedometer2"></i><span
+          class="label">Dashboard</span></a></li>
+
+    <!-- Category -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-tags"></i><span class="label">Category</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Category/CategoryList.html"><i class="bi bi-list-ul"></i> Category List</a></li>
+        <li><a href="/pages/components/Category/AddCategory.html"><i class="bi bi-plus-circle"></i> Add Category</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Subcategory -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-diagram-3"></i><span class="label">Subcategory</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/subcategory/SubcategoryList.html"><i class="bi bi-list-ul"></i> Subcategory
+            List</a></li>
+        <li><a href="/pages/components/subcategory/AddSubcategory.html"><i class="bi bi-plus-circle"></i> Add
+            Subcategory</a></li>
+      </ul>
+    </li>
+    <!-- stock management -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-box-seam"></i><span class="label">Stock Management</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Stock Management/CurrentStock.html"><i class="bi bi-list-ul"></i> Current Stock</a></li>
+        <li><a href="/pages/components/Stock Management/LowStock.html"><i class="bi bi-eye"></i> Low Stock</a></li>
+        <li><a href="/pages/components/Stock Management/StockIn.html"><i class="bi bi-plus-circle"></i> Stock In</a></li>
+        <li><a href="/pages/components/Stock Management/StockOut.html"><i class="bi bi-plus-circle"></i> Stock Out</a></li>
+      </ul>
+    </li>
+
+    <!-- Product -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-box-seam"></i><span class="label">Product</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Product/ProductList.html"><i class="bi bi-list-ul"></i> Product List</a></li>
+        <li><a href="/pages/components/Product/ViewProduct.html"><i class="bi bi-eye"></i> View Product</a></li>
+        <li><a href="/pages/components/Product/AddProduct.html"><i class="bi bi-plus-circle"></i> Add Product</a></li>
+      </ul>
+    </li>
+
+    <!-- Coupon -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-ticket-perforated"></i><span class="label">Coupon</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Coupon/CouponList.html"><i class="bi bi-list-ul"></i> Coupon List</a></li>
+        <li><a href="/pages/components/Coupon/AddCoupon.html"><i class="bi bi-plus-circle"></i> Add Coupon</a></li>
+      </ul>
+    </li>
+
+    <!-- Purchase / Orders -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-cart4"></i><span class="label">Purchase / Orders</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Purchase-order/OrderList.html"><i class="bi bi-list-ul"></i> Order List</a></li>
+        <li><a href="/pages/components/Purchase-order/Wishlist.html"><i class="bi bi-heart"></i> Wishlist</a></li>
+        <li><a href="/pages/components/Purchase-order/ShoppingCart.html"><i class="bi bi-cart-check"></i> Shopping
+            Cart</a></li>
+        <li><a href="/pages/components/Purchase-order/Checkout.html"><i class="bi bi-bag-check"></i> Checkout</a></li>
+      </ul>
+    </li>
+
+    <!-- User -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-people"></i><span class="label">Users</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Users/UserList.html"><i class="bi bi-list-ul"></i> User List</a></li>
+        <li><a href="/pages/components/Users/AddUser.html"><i class="bi bi-person-plus"></i> Add User</a></li>
+      </ul>
+    </li>
+
+  </ul>
+</div>

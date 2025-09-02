@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<!-- Bootstrap (used by markup classes) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/Sidebar.css">
+	<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body class="h-100">
+
+	<!-- Sidebar container -->
+	<div id="sidebar-container"></div>
+
+	<!-- Navbar container -->
+	<div id="navbar-container"></div>
+
+	<main class="main-content" id="main-content">
+		<div class="h_container">
+			<div class="h_sheet">
+				<div class="h_sheet-header">
+					<div class="h_sheet-title"><i class="bi bi-box-seam-fill"></i> Add Product</div>
+				</div>
+
+				<div class="h_form">
+					<!-- RIGHT (now placed first) : images & quick settings (this will appear on left visually) -->
+					<div class="h_right">
+						<div class="d-flex flex-column gap-2">
+							<label class="h_label">Product Image</label>
+							<label class="h_upload w-100" for="h_mainImage" id="h_mainUpload"
+								aria-label="Upload main product image">
+								<i class="bi bi-cloud-arrow-up-fill fs-3 d-block" style="color:var(--h-primary)"></i>
+								<strong>Drag & drop</strong> or <u>click to browse</u>
+								<div class="h_mini-note mt-1">Max 5MB • PNG, JPG, JPEG</div>
+								<input id="h_mainImage" type="file" accept="image/*" style="display:none"
+									aria-hidden="true">
+								<img id="h_mainPreview" alt="Main preview" class="h_thumb" style="display:none">
+							</label>
+						</div>
+
+						<hr style="margin:18px 0; border-color:var(--h-soft)">
+
+						<div>
+							<label class="h_label">Quick Settings</label>
+							<div class="toggles">
+								<div class="custom-toggle" role="group" aria-label="Active toggle">
+									<div class="label">Active</div>
+									<div class="switch" id="switch_active" tabindex="0" role="switch"
+										aria-checked="true" aria-label="Active">
+										<div class="knob" aria-hidden="true"></div>
+									</div>
+									<input type="hidden" id="h_active" value="1">
+								</div>
+
+								<div class="custom-toggle" role="group" aria-label="Featured toggle">
+									<div class="label">Featured</div>
+									<div class="switch" id="switch_featured" tabindex="0" role="switch"
+										aria-checked="false" aria-label="Featured">
+										<div class="knob" aria-hidden="true"></div>
+									</div>
+									<input type="hidden" id="h_featured" value="0">
+								</div>
+							</div>
+						</div>
+
+						<hr style="margin:18px 0; border-color:var(--h-soft)">
+
+						<div>
+							<label class="h_label">Inventory / Shipping Notes</label>
+							<textarea id="h_notes" class="h_textarea"
+								placeholder="Any special inventory notes (e.g. lead time)"></textarea>
+						</div>
+					</div>
+
+					<!-- LEFT (now placed second) : main form -->
+					<div class="h_left">
+						<form id="h_addProductForm" class="needs-validation" novalidate>
+							<div class="row g-3">
+								<h5 class="h_main_label">Product Basic Information</h5>
+								<!-- Basic -->
+								<div class="col-12">
+									<label class="h_label">Product Name *</label>
+									<input id="h_name" class="h_input" type="text" placeholder="e.g. Men's Classic Polo"
+										required>
+									<div class="invalid-feedback">Product name is required.</div>
+								</div>
+
+								<div class="col-md-4">
+									<label class="h_label">SKU *</label>
+									<input id="h_sku" class="h_input" type="text" placeholder="SKU code" required>
+									<div class="invalid-feedback">SKU required.</div>
+								</div>
+								<div class="col-md-4">
+									<label class="h_label">Brand</label>
+									<input id="h_brand" class="h_input" type="text" placeholder="Brand name">
+								</div>
+								<div class="col-md-4">
+									<label class="h_label">Barcode</label>
+									<input id="h_barcode" class="h_input" type="text" placeholder="Barcode / UPC">
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Category *</label>
+									<select id="h_category" class="h_select" required>
+										<option value="" disabled selected>Select category</option>
+										<option value="tshirts">T-Shirts</option>
+										<option value="jeans">Jeans</option>
+										<option value="jackets">Jackets</option>
+										<option value="kurti">Kurti</option>
+										<option value="saree">Saree</option>
+									</select>
+									<div class="invalid-feedback">Category required.</div>
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Subcategory</label>
+									<select id="h_subcategory" class="h_select">
+										<option value="" disabled selected>Select subcategory</option>
+										<option>Men</option>
+										<option>Women</option>
+										<option>Kids</option>
+									</select>
+								</div>
+
+								<!-- price / stock -->
+								<div class="col-md-4">
+									<label class="h_label">Price (CA$) *</label>
+									<input id="h_price" type="number" step="0.01" class="h_input" min="0"
+										placeholder="Price" required>
+									<div class="invalid-feedback">Price required.</div>
+								</div>
+								<div class="col-md-4">
+									<label class="h_label">Cost</label>
+									<input id="h_cost" type="number" step="0.01" class="h_input" min="0"
+										placeholder="Cost">
+								</div>
+								<div class="col-md-4">
+									<label class="h_label">Stock Qty *</label>
+									<input id="h_stock" type="number" class="h_input" min="0" placeholder="Stock"
+										required>
+									<div class="invalid-feedback">Stock quantity required.</div>
+								</div>
+
+								<div class="col-md-4">
+									<label class="h_label">Tax %</label>
+									<input id="h_tax" type="number" step="0.1" class="h_input" min="0"
+										placeholder="e.g. 5">
+								</div>
+
+								<div class="col-12">
+									<label class="h_label">Short Description</label>
+									<textarea id="h_short" class="h_textarea" placeholder="Short summary"></textarea>
+								</div>
+
+								<div class="col-12">
+									<label class="h_label">Full Description</label>
+									<textarea id="h_description" class="h_textarea"
+										placeholder="Enter full product description (materials, care, fit)"></textarea>
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Tags (comma separated)</label>
+									<input id="h_tags" class="h_input" placeholder="e.g. summer, cotton, bestseller">
+									<div class="h_help">Separate tags with commas.</div>
+								</div>
+
+								<!-- Variants -->
+								<div class="col-12">
+									<label class="h_label">Variants (Sizes / Colors)</label>
+									<div class="h_variant-list" id="h_variantList">
+										<!-- dynamic rows go here -->
+									</div>
+
+									<div class="d-flex gap-2 mt-2" style="flex-wrap:wrap;">
+										<input id="h_variantSize" class="h_input" placeholder="Size (e.g. M, L, 32)"
+											style="max-width:220px;">
+										<input id="h_variantColor" class="h_input" placeholder="Color (e.g. Navy)"
+											style="max-width:220px;">
+										<button type="button" class="btn h_custome_add-btn" id="h_addVariantBtn"><i
+												class="bi bi-plus"></i>
+											Add</button>
+									</div>
+									<div class="h_help mt-1">Add size/color combinations. You can add stock/price per
+										variant later.</div>
+								</div>
+							</div>
+						</form>
+
+						<div class="h_actions">
+							<button type="button" class="btn h_custome_add-btn " id="h_resetBtn"><i
+									class="bi bi-arrow-counterclockwise"></i> Reset</button>
+							<button type="button" class="btn btn-primary" id="h_saveBtn"><i
+									class="bi bi-check2-circle"></i>
+								Save Product</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Overlay for mobile -->
+	<div class="overlay"></div>
+
+	<!-- Bootstrap JS bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/sidebar-loader.js"></script>
+	<script src="/js/navbar-loader.js"></script>
+
+	<script>
+		// ---------- helpers ----------
+		const MAX_FILE_MB = 5;
+		function fileTooLarge(file) { return file.size > MAX_FILE_MB * 1024 * 1024; }
+		function createNode(html) {
+			const tmp = document.createElement('div'); tmp.innerHTML = html.trim(); return tmp.firstChild;
+		}
+
+		// ---------- form refs ----------
+		const form = document.getElementById('h_addProductForm');
+		const nameInput = document.getElementById('h_name');
+		const skuInput = document.getElementById('h_sku');
+		const priceInput = document.getElementById('h_price');
+		const stockInput = document.getElementById('h_stock');
+
+		// variants
+		const variantList = document.getElementById('h_variantList');
+		const vSize = document.getElementById('h_variantSize');
+		const vColor = document.getElementById('h_variantColor');
+		const addVariantBtn = document.getElementById('h_addVariantBtn');
+
+		// main image
+		const mainInput = document.getElementById('h_mainImage');
+		const mainPreview = document.getElementById('h_mainPreview');
+		const mainUploadLabel = document.getElementById('h_mainUpload');
+
+		// buttons
+		const saveBtn = document.getElementById('h_saveBtn');
+		const resetBtn = document.getElementById('h_resetBtn');
+
+		// toggles (custom)
+		const switchActive = document.getElementById('switch_active');
+		// create hidden inputs if missing to avoid JS errors
+		let hiddenActive = document.getElementById('h_active');
+		if (!hiddenActive) {
+			hiddenActive = document.createElement('input');
+			hiddenActive.type = 'hidden';
+			hiddenActive.id = 'h_active';
+			hiddenActive.value = '1';
+			document.body.appendChild(hiddenActive);
+		}
+		const switchFeatured = document.getElementById('switch_featured');
+		let hiddenFeatured = document.getElementById('h_featured');
+		if (!hiddenFeatured) {
+			hiddenFeatured = document.createElement('input');
+			hiddenFeatured.type = 'hidden';
+			hiddenFeatured.id = 'h_featured';
+			hiddenFeatured.value = '0';
+			document.body.appendChild(hiddenFeatured);
+		}
+
+		// ---------- variant logic ----------
+		function renderVariantRow(size, color) {
+			const id = 'v_' + Math.random().toString(36).slice(2, 9);
+			const row = createNode(`
+        <div class="h_variant-row" data-id="${id}">
+          <input class="h_input form-control form-control-sm" value="${size}" readonly>
+          <input class="h_input form-control form-control-sm" value="${color}" readonly>
+          <button type="button" class="btn btn-sm btn-outline-danger h_remove_variant"><i class="bi bi-trash"></i></button>
+        </div>
+      `);
+			row.querySelector('.h_remove_variant').addEventListener('click', () => row.remove());
+			variantList.appendChild(row);
+			// ensure the newest row is visible on small screens
+			row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		}
+
+		addVariantBtn.addEventListener('click', () => {
+			const size = vSize.value.trim();
+			const color = vColor.value.trim();
+			if (!size && !color) return;
+			renderVariantRow(size || '-', color || '-');
+			vSize.value = ''; vColor.value = '';
+		});
+
+		// allow Enter key on variant inputs to add
+		[vSize, vColor].forEach(inp => {
+			inp.addEventListener('keydown', e => {
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					addVariantBtn.click();
+				}
+			});
+		});
+
+		// ---------- main image ----------
+		mainUploadLabel.addEventListener('click', () => mainInput.click());
+		mainInput.addEventListener('change', (e) => {
+			const f = e.target.files?.[0];
+			if (!f) return;
+			if (fileTooLarge(f)) { alert('Main image exceeds 5MB'); mainInput.value = ''; return; }
+			mainPreview.src = URL.createObjectURL(f);
+			mainPreview.style.display = 'block';
+		});
+
+		// ---------- reset ----------
+		resetBtn.addEventListener('click', () => {
+			if (!confirm('Reset the form?')) return;
+			form.reset();
+			mainPreview.style.display = 'none'; mainPreview.src = '';
+			variantList.innerHTML = '';
+			// reset toggles
+			setSwitchState(switchActive, true);
+			setSwitchState(switchFeatured, false);
+			form.classList.remove('was-validated');
+			// reset hidden inputs explicitly
+			hiddenActive.value = '1';
+			hiddenFeatured.value = '0';
+		});
+
+		// ---------- simple save (client-side demo) ----------
+		saveBtn.addEventListener('click', () => {
+			// trigger form submit
+			if (form.reportValidity) {
+				form.requestSubmit();
+			} else {
+				form.submit();
+			}
+		});
+
+		// Bootstrap validation + custom checks
+		form.addEventListener('submit', e => {
+			// basic validation
+			if (!form.checkValidity()) {
+				e.preventDefault(); e.stopPropagation();
+			} else {
+				// example: collect data and show JSON in console (replace with actual API call)
+				e.preventDefault();
+				const variants = Array.from(variantList.querySelectorAll('.h_variant-row')).map(r => {
+					return {
+						size: r.children[0].value,
+						color: r.children[1].value
+					};
+				});
+				const payload = {
+					name: nameInput.value.trim(),
+					sku: skuInput.value.trim(),
+					brand: document.getElementById('h_brand').value.trim(),
+					price: parseFloat(priceInput.value || 0),
+					stock: parseInt(stockInput.value || 0),
+					category: document.getElementById('h_category').value,
+					subcategory: document.getElementById('h_subcategory').value,
+					short: document.getElementById('h_short').value.trim(),
+					description: document.getElementById('h_description').value.trim(),
+					tags: (document.getElementById('h_tags').value || '').split(',').map(t => t.trim()).filter(Boolean),
+					variants,
+					active: hiddenActive.value === '1',
+					featured: hiddenFeatured.value === '1',
+					notes: document.getElementById('h_notes').value.trim()
+				};
+				console.log('Product payload (demo):', payload);
+				alert('Product saved (demo). Check console for payload.');
+
+				// Reset validation styling
+				form.classList.remove('was-validated');
+			}
+			form.classList.add('was-validated');
+		});
+
+		// small UX: mark invalid/valid on blur for inputs
+		[nameInput, skuInput, priceInput, stockInput].forEach(inp => {
+			inp.addEventListener('blur', () => {
+				if (inp.checkValidity()) { inp.classList.remove('is-invalid'); inp.classList.add('is-valid'); }
+				else { inp.classList.remove('is-valid'); inp.classList.add('is-invalid'); }
+			});
+		});
+
+		// ---------- custom switch logic ----------
+		function setSwitchState(switchEl, on) {
+			if (!switchEl) return;
+			if (on) {
+				switchEl.classList.add('on');
+				switchEl.setAttribute('aria-checked', 'true');
+			} else {
+				switchEl.classList.remove('on');
+				switchEl.setAttribute('aria-checked', 'false');
+			}
+			// update hidden inputs
+			if (switchEl === switchActive) hiddenActive.value = on ? '1' : '0';
+			if (switchEl === switchFeatured) hiddenFeatured.value = on ? '1' : '0';
+		}
+
+		// toggle handler
+		function attachSwitch(switchEl) {
+			if (!switchEl) return;
+			// initialize from aria or default
+			const initOn = switchEl.getAttribute('aria-checked') === 'true';
+			setSwitchState(switchEl, initOn);
+
+			// click
+			switchEl.addEventListener('click', () => {
+				const isOn = switchEl.classList.contains('on');
+				setSwitchState(switchEl, !isOn);
+				// announce to assistive tech
+				switchEl.setAttribute('aria-live', 'polite');
+			});
+			// keyboard (space/enter) - more robust checks for different browsers
+			switchEl.addEventListener('keydown', (ev) => {
+				if (ev.key === ' ' || ev.key === 'Spacebar' || ev.code === 'Space' || ev.key === 'Enter') {
+					ev.preventDefault();
+					switchEl.click();
+				}
+			});
+		}
+
+		attachSwitch(switchActive);
+		attachSwitch(switchFeatured);
+
+		// initialize default states to match original markup (active checked by default)
+		setSwitchState(switchActive, true);
+		setSwitchState(switchFeatured, false);
+	</script>
+</body>
+
+</html>
