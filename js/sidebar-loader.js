@@ -1,0 +1,66 @@
+const sidebarContainer = document.getElementById("sidebar-container");
+
+fetch("/pages/sidebar-navbar/sidebar.html")
+  .then(res => res.text())
+  .then(data => {
+    sidebarContainer.innerHTML = data;
+    initSidebar();
+  })
+  .catch(err => console.error("Error loading sidebar:", err));
+
+function initSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const mobileClose = sidebar.querySelector(".mobile-close");
+  const overlay = document.querySelector(".overlay");
+
+  // Mobile close
+  if (mobileClose) {
+    mobileClose.addEventListener("click", () => {
+      sidebar.classList.remove("expanded");
+      overlay.classList.remove("show");
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("expanded");
+      overlay.classList.remove("show");
+    });
+  }
+
+  // Mobile dropdown toggle
+  if (window.innerWidth < 819) {
+    const dropdownLinks = sidebar.querySelectorAll(".has-dropdown > a");
+    dropdownLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        link.parentElement.classList.toggle("active");
+      });
+    });
+  }
+
+  // Active link highlight
+  let currentPath = window.location.pathname.toLowerCase();
+  const links = sidebar.querySelectorAll("a[href]");
+  links.forEach(link => {
+    let linkHref = link.getAttribute("href");
+    if (!linkHref || linkHref === "#") return;
+    linkHref = linkHref.toLowerCase();
+
+    // Extract only filename from the path
+    const fileName = currentPath.split("/").pop();
+
+    if (fileName === linkHref.split("/").pop()) {
+      link.classList.add("active");
+
+      const parentDropdown = link.closest(".has-dropdown");
+      if (parentDropdown) {
+        parentDropdown.classList.add("active");
+        const parentLink = parentDropdown.querySelector("> a");
+        if (parentLink) parentLink.classList.add("active");
+        const dropdownMenu = parentDropdown.querySelector(".dropdown-menu");
+        if (dropdownMenu) dropdownMenu.style.display = "block";
+      }
+    }
+    
+  });
+}

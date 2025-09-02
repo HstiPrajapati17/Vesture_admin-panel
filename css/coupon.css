@@ -1,0 +1,253 @@
+:root {
+  --primary-color: #607274;
+  --accent-bg: #edeae2;
+  --muted: #6c757d;
+  --card-bg: #ffffff;
+  --danger: #dc3545;
+}
+
+body {
+  height: 93.9vh;
+  background: #cbcbcb;
+  color: var(--primary-color);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+  margin: 0;
+  padding: 0;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container-full {
+  margin: 2.25rem auto;
+  width: calc(100% - 48px);
+  background: #607274;
+  padding: 18px;
+}
+
+h1 {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.card {
+  border: 1px solid rgba(96, 114, 116, 0.08);
+  box-shadow: 0 6px 18px rgba(96, 114, 116, 0.06);
+  background: var(--card-bg);
+  border-radius: 12px;
+}
+.card-body {
+  border-radius: 12px;
+}
+
+.btn-primary-custom {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.btn-outline-primary-custom {
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: var(--card-bg);
+}
+
+.btn-danger-custom {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+}
+
+.btn-danger-custom:hover {
+  background-color: #d64a4a;
+  color: #ffffff;
+}
+
+.small-muted {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.custome-table thead th {
+  vertical-align: middle;
+  color: var(--primary-color);
+}
+
+.custome-table tbody td {
+  vertical-align: middle;
+  color: #222;
+}
+
+.badge-active {
+  background: linear-gradient(
+    180deg,
+    rgba(96, 114, 116, 0.12),
+    rgba(96, 114, 116, 0.06)
+  );
+  color: var(--primary-color);
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  font-weight: 600;
+}
+
+.badge-inactive {
+  background: #e9ecef;
+  color: #6b6f74;
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  font-weight: 600;
+}
+
+.form-check.custom-check {
+  --size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-check input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 6px;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  display: inline-block;
+  position: relative;
+  transition: background 0.15s, border-color 0.15s, transform 0.08s;
+  margin: 0;
+}
+
+.custom-check input[type="checkbox"]:focus {
+  outline: 3px solid rgba(96, 114, 116, 0.12);
+  outline-offset: 2px;
+}
+
+.custom-check input[type="checkbox"]:checked {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.custom-check input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.select-all-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+/* Make horizontal scrolling work */
+.table-responsive {
+  border-radius: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: cursor; /* smooth scrolling on mobile */
+  -ms-overflow-style: none;
+}
+
+.table-responsive::-webkit-scrollbar {
+  display: none;
+}
+
+.custome-table {
+  min-width: 600px; /* force scroll when screen is narrow */
+}
+
+@media (max-width: 760px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .container-full {
+    width: calc(100% - 24px);
+    margin: 1rem auto;
+  }
+}
+
+.footer-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-control.custom {
+  border: 1px solid rgba(96, 114, 116, 0.12);
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* Add Coupon css */
+
+.h_coupon-form-container {
+  height: fit-content;
+  width: 600px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #607274;
+}
+
+.h_coupon-form-container h2 {
+  color: #607274;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.h_coupon-form-container label {
+  font-weight: 500;
+  color: #607274;
+}
+
+.h_coupon-form-container .form-control:focus,
+.form-select:focus {
+  border-color: #607274;
+  box-shadow: none;
+}
+
+.h_coupon-form-container .btn-submit {
+  background-color: #607274;
+  color: #fff;
+  border: none;
+}
+
+.h_coupon-form-container .btn-submit:hover {
+  background-color: #4f5a5f;
+}
+.add_coupon_container {
+  align-items: center;
+}
