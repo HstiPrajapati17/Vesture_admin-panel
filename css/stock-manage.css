@@ -1,0 +1,31 @@
+/* Theme colors */
+:root {
+  --primary: #607274;
+  --secondary: #8e9a98;
+  --accent: #d3d3d3;
+  --background: #fffaf1;
+}
+
+body {
+  background-color: var(--background) !important;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.custom-navbar {
+  background-color: var(--primary);
+}
+
+.custom-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: var(--secondary);
+}
+
+.table-header {
+  background-color: var(--secondary);
+  color: white;
+}

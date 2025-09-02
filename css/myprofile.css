@@ -1,0 +1,209 @@
+:root {
+  --bg: #fffaf1;
+  /* your light background */
+  --primary: #607274;
+  /* your brand color */
+  --primary-600: #556869;
+  --primary-700: #495c5d;
+  --ink: #1e2525;
+  --muted: #6b7a7b;
+  --card: #ffffff;
+  --ring: rgba(96, 116, 114, 0.35);
+}
+
+body {
+  height: 93.9vh;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Shell */
+.page-wrap {
+  min-height: 100%;
+  padding: 16px 0px;
+}
+
+/* Profile Card */
+.profile-card {
+  border: 1px solid rgba(96, 116, 114, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.h_myprofile-content {
+  background: #d8d8d8;
+}
+
+.h_my-profile_main-content {
+  background-color: #8e9a98;
+  border-radius: 16px;
+  /* padding: 18px; */
+}
+
+.profile-header {
+  background: #d8d8d8;
+  color: #272727;
+  padding: 20px 20px;
+}
+
+.profile-header .subtitle {
+  opacity: 0.85;
+  font-size: 0.94rem;
+}
+
+.btn-ghost {
+  border: 1px solid #607274;
+  color: #607274;
+  transition: 0.2s;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.btn-ghost:hover {
+  background: #607274;
+  color: #fffaf1;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  background: #e9ecef;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(96, 116, 114, 0.12);
+  color: var(--primary-700);
+  border: 1px solid rgba(96, 116, 114, 0.25);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Info fields */
+.info-label {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.info-box {
+  border: 1px solid rgb(96 116 114 / 47%);
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-box i {
+  color: var(--primary-600);
+}
+
+/* Modal styling */
+.modal-content {
+  border-radius: 16px;
+  border: 1px solid rgba(96, 116, 114, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-700));
+  color: #fff;
+  border-bottom: 0;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  border: 1px solid rgba(96, 116, 114, 0.35);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem var(--ring);
+}
+
+.h_btn-primary {
+  --bs-btn-bg: var(--primary);
+  color: #fffaf1;
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-color: var(--primary);
+  --bs-btn-hover-border-color: var(--primary);
+  font-weight: 600;
+}
+
+.h_btn-outline-secondary {
+  background-color: transparent;
+  border: 1px solid #607274;
+  color: #607274;
+  font-weight: 600;
+}
+
+.h_btn-outline-secondary:hover {
+  background: #607274;
+  color: #fffaf1;
+}
+
+/* Small utilities */
+.soft {
+  color: var(--muted);
+}
+
+.ring {
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.gap-12 {
+  gap: 3rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+  .gap-12 {
+    gap: 1.5rem;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .profile-header {
+    padding: 16px;
+  }
+
+  .h_myprofile-content {
+    padding: 14px !important;
+  }
+
+  .info-box {
+    padding: 8px;
+  }
+}
+@media (max-width: 375px) {
+  .page-wrap {
+    padding: 0px 0px 8px 0px;
+  }
+  .container{
+    padding: 0px;
+  }
+}

@@ -1,576 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin Panel Sidebar</title>
-
-	<!-- Font Awesome & Bootstrap Icons -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="/pages/sidebar/sidebar.css">
-	<link rel="stylesheet" href="/Assets/styles/dashboard.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Clothing Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/Sidebar.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
 <body>
-	<div class="sidebar" id="sidebar">
-		<div class="h_sidebar-header">
-			<img src="/Assets/images/main-icon.png" alt="logo">
-			<span>Vesture</span>
-		</div>
-		<ul class="menu-items">
-			<!-- Dashboard -->
-			<li class="sidebar-item dashboard active " data-page="Dashboard">
-				<h5>
-					<i class="bi bi-speedometer2"></i><span>Dashboard</span>
-				</h5>
-			</li>
 
-			<!-- Category -->
-			<li class="sidebar-item dropdown" id="categoryMenu">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-tags"></i>
-						<span>Category</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="Category">
-						<h5><i class="bi bi-list-ul"></i><span>All Categories</span></h5>
-					</li>
-					<li class="menu-item" data-page="Addcategory">
-						<h5><i class="bi bi-plus-circle"></i><span>Add Category</span></h5>
-					</li>
-				</ul>
-			</li>
+  <!-- Sidebar container -->
+  <div id="sidebar-container"></div>
 
-			<!-- Subcategory -->
-			<li class="sidebar-item dropdown" id="subcategoryMenu">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-diagram-3"></i>
-						<span>Subcategory</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="SubCategory">
-						<h5><i class="bi bi-list-ul"></i><span>All Subcategories</span></h5>
-					</li>
-					<li class="menu-item" data-page="Addsubcategory">
-						<h5><i class="bi bi-plus-circle"></i><span>Add Subcategory</span></h5>
-					</li>
-				</ul>
-			</li>
+  <!-- Navbar container -->
+  <div id="navbar-container"></div>
 
-			<!-- Products -->
-			<li class="sidebar-item dropdown" id="productsMenu1">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-box-seam"></i>
-						<span>Products</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="ProductList">
-						<h5><i class="bi bi-list-ul"></i><span>Product List</span></h5>
-					</li>
-					<li class="menu-item" data-page="ViewProduct">
-						<h5><i class="bi bi-eye"></i><span>View Product</span></h5>
-					</li>
-					<li class="menu-item" data-page="AddProduct">
-						<h5><i class="bi bi-plus-circle"></i><span>Add Product</span></h5>
-					</li>
-				</ul>
-			</li>
+  <!-- Main Content -->
+  <main class="main-content dashboard-main-content" id="main-content">
+    <div id="dashboard-root" class="h_dashboard_root w-100">
+      <!-- Dashboard Overview -->
+      <h2 class="mb-4 h_dashboad_main_title">Dashboard Overview</h2>
+      <div class="h_chart-card h_dashboard_intro">
+        <h4>Vesture Admin Panel — Your Hub for Clothing Production Management</h4>
+        <p>Easily manage categories, products, orders, and users — all from one intuitive dashboard</p>
+      </div>
 
-			<!-- Coupons -->
-			<li class="sidebar-item dropdown" id="couponsMenu">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-ticket-perforated"></i>
-						<span>Coupons</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="CouponList">
-						<h5><i class="bi bi-list-ul"></i><span>Coupon List</span></h5>
-					</li>
-					<li class="menu-item" data-page="AddCoupon">
-						<h5><i class="bi bi-plus-circle"></i><span>Add Coupon</span></h5>
-					</li>
-				</ul>
-			</li>
+      <div class="h_main-cards">
+        <div class="row g-4 mb-5">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card card-rounded">
+              <h5>Total Stock Value</h5>
+              <p>CAD $2,250</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card card-rounded">
+              <h5>Sales Revenue</h5>
+              <p class="currency">CAD $85,000</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card card-rounded">
+              <h5>Purchases</h5>
+              <p class="currency">CAD $40,000</p>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="card card-rounded">
+              <h5>Low Stock Alerts</h5>
+              <p>5 <small>items</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<!-- Purchases / Orders -->
-			<li class="sidebar-item dropdown" id="ordersMenu">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-cart4"></i>
-						<span>Purchases / Order</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="OrderList">
-						<h5><i class="bi bi-list-ul"></i><span>Order List</span></h5>
-					</li>
-					<li class="menu-item" data-page="Wishlist">
-						<h5><i class="bi bi-heart"></i><span>Wishlist</span></h5>
-					</li>
-					<li class="menu-item" data-page="ShoppingCart">
-						<h5><i class="bi bi-cart-check"></i><span>Shopping Cart</span></h5>
-					</li>
-					<li class="menu-item" data-page="Checkout">
-						<h5><i class="bi bi-bag-check"></i><span>Checkout</span></h5>
-					</li>
-				</ul>
-			</li>
+      <!-- Charts Section -->
+      <div class="row mb-4 h_chart_section_01">
+        <div class="col-md-8">
+          <div class="h_chart-card card-rounded">
+            <h4 class="h_chart-title h_dashboad_main_title">Monthly Sales Trend</h4>
+            <div class="h_chart-container" style="height:260px;">
+              <canvas id="salesTrendChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="h_chart-card card-rounded">
+            <h4 class="h_chart-title h_dashboad_main_title">Category Distribution</h4>
+            <div class="h_chart-container" style="height:260px;">
+              <canvas id="categoryDonutChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<!-- Users -->
-			<li class="sidebar-item menu-item dropdown" id="usersMenu1">
-				<h5 class="d-flex justify-content-between align-items-center">
-					<span class="d-flex align-items-center gap-2">
-						<i class="bi bi-people"></i>
-						<span>Users</span>
-					</span>
-					<i class="bi bi-chevron-down toggle-icon"></i>
-				</h5>
-				<ul class="submenu">
-					<li class="menu-item" data-page="UserList">
-						<h5><i class="bi bi-list-ul"></i><span>User List</span></h5>
-					</li>
-					<li class="menu-item" data-page="AddUser">
-						<h5><i class="bi bi-person-plus"></i><span>Add User</span></h5>
-					</li>
-				</ul>
-			</li>
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="card h_recent-orders shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="mb-0 h_chart-title h_dashboad_main_title">Recent Orders</h6>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-secondary">View All</button>
+                </div>
+              </div>
 
-			<!-- Settings -->
-			<!-- <li class="menu-item" data-page="Setting">
-				<h5>
-					<i class="bi bi-gear"></i><span>Setting</span>
-				</h5>
-			</li> -->
-		</ul>
+              <div class="h_table-responsive">
+                <div class="table-scroll">
+                  <table class="table table-hover table-borderless align-middle mb-0 h_recent-orders-table">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Qty</th>
+                        <th>Stage</th>
+                        <th>ETA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>ORD-1001</td>
+                        <td>Alpha Apparels</td>
+                        <td>150</td>
+                        <td><span class="badge badge-chip">Cutting</span></td>
+                        <td>2025-08-16</td>
+                      </tr>
+                      <tr>
+                        <td>ORD-1002</td>
+                        <td>Zenith</td>
+                        <td>80</td>
+                        <td><span class="badge badge-chip">Stitching</span></td>
+                        <td>2025-08-18</td>
+                      </tr>
+                      <tr>
+                        <td>ORD-1003</td>
+                        <td>Starlit</td>
+                        <td>200</td>
+                        <td><span class="badge badge-chip">Packing</span></td>
+                        <td>2025-08-15</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	</div>
+      <div class="row mb-4">
+        <div class="col-lg-6">
+          <div class="h_chart-card card-rounded">
+            <h4 class="h_chart-title h_dashboad_main_title">Top Selling Products</h4>
+            <div class="h_chart-container" style="height:300px;">
+              <canvas id="topProductsChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="h_chart-card card-rounded">
+            <h4 class="h_chart-title h_dashboad_main_title">Production vs Sales</h4>
+            <div class="h_chart-container" style="height:300px;">
+              <canvas id="productionSalesChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-	<button class="toggle-btn" id="toggleBtn"><i class="fas fa-arrow-left"></i></button>
+  <!-- Overlay for mobile -->
+  <div class="overlay"></div>
 
-	<!-- Topbar Section -->
-	<div class="h_main_topbar">
-		<div class="d-flex justify-content-between align-items-center">
-			<div class="h_topbar-main-title d-flex gap-2 align-items-center">
-				<h2>Good Morning!</h2>
-				<img src="/Assets/images/hello.png" alt="" class="text-white mb-0 h_navbar_hello-icon">
-			</div>
-			<div class="h_topbar_main-last d-flex align-items-center gap-3 text-white">
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/Dashboard-charts-loader.js"></script>
+  <script src="/js/sidebar-loader.js"></script>
+  <script src="/js/navbar-loader.js"></script>
 
-				<!-- Notification Icon -->
-				<div class="h_topbar_notification position-relative">
-					<i class="bi bi-bell h_topbar_icon" style="cursor:pointer;"></i>
-					<span
-						class="h_topbar_notif-count position-absolute start-100 translate-middle h_navbar_badge rounded-pill bg-danger">
-						2
-					</span>
-				</div>
-
-				<!-- Admin Section -->
-				<div class="h_topbar_admin d-flex align-items-center gap-2 dropdown" style="cursor: pointer;">
-					<!-- Admin image -->
-					<img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Admin"
-						class="h_topbar_admin-img rounded-circle">
-					<!-- Admin name -->
-					<span class="h_topbar_admin-name">Admin</span>
-					<!-- Dropdown arrow -->
-					<i class="bi bi-chevron-down h_topbar_admin-dropdown" style="cursor:pointer;"></i>
-
-					<!-- Dropdown menu -->
-					<ul class="h_navbar_dropdown-menu dropdown-menu dropdown-menu-start" id="adminDropdown"
-						style="display:none;">
-						<!-- use data-page so our SPA loader opens this inside the dashboard content area -->
-						<li><a class="dropdown-item" href="#" data-page="Profile">Profile</a></li>
-						<!-- keep logout as a normal link (or change to data-page if you want it loaded in iframe too) -->
-						<li><a class="dropdown-item" href="/pages/Auth/Signin.html">Logout</a></li>
-					</ul>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="content" id="content">
-		<!-- Dashboard content directly -->
-
-		<div id="pageContainer">
-			<div id="dashboard-root" class="h_dashboard_root">
-				<!-- Dashboard Overview -->
-				<h2 class="mb-4 h_dashboad_main_title">Dashboard Overview</h2>
-				<div class="h_chart-card h_dashboard_intro">
-					<h4>Vesture Admin Panel — Your Hub for Clothing Production Management</h4>
-					<p>Easily manage categories, products, orders, and users — all from one intuitive dashboard</p>
-				</div>
-
-				<div class="h_main-cards">
-					<div class="row g-4 mb-5">
-						<div class="col-12 col-sm-6 col-md-3">
-							<div class="card card-rounded">
-								<h5>Current Stock</h5>
-								<p>1,254 <small>items</small></p>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-md-3">
-							<div class="card card-rounded">
-								<h5>Total Sales</h5>
-								<p class="currency">CA$ 75,430.00</p>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-md-3">
-							<div class="card card-rounded">
-								<h5>Purchases</h5>
-								<p class="currency">CA$ 32,150.00</p>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-md-3">
-							<div class="card card-rounded">
-								<h5>Pending Orders</h5>
-								<p>24</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Charts Section -->
-				<div class="row mb-4 h_chart_section_01">
-					<div class="col-md-8">
-						<div class="h_chart-card card-rounded">
-							<h4 class="h_chart-title h_dashboad_main_title">Monthly Sales Trend</h4>
-							<div class="h_chart-container" style="height:260px;">
-								<canvas id="salesTrendChart"></canvas>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="h_chart-card card-rounded">
-							<h4 class="h_chart-title h_dashboad_main_title">Category Distribution</h4>
-							<div class="h_chart-container" style="height:260px;">
-								<canvas id="categoryDonutChart"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row mb-4">
-					<div class="col-12">
-						<div class="card h_recent-orders shadow-sm">
-							<div class="card-body">
-								<div class="d-flex justify-content-between align-items-center mb-2">
-									<h6 class="mb-0 h_chart-title h_dashboad_main_title">Recent Orders</h6>
-									<div class="d-flex gap-2">
-										<button class="btn btn-sm btn-outline-secondary">View All</button>
-									</div>
-								</div>
-
-								<div class="h_table-responsive">
-									<div class="table-scroll">
-										<table
-											class="table table-hover table-borderless align-middle mb-0 h_recent-orders-table">
-											<thead>
-												<tr>
-													<th>Order ID</th>
-													<th>Customer</th>
-													<th>Qty</th>
-													<th>Stage</th>
-													<th>ETA</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>ORD-1001</td>
-													<td>Alpha Apparels</td>
-													<td>150</td>
-													<td><span class="badge badge-chip">Cutting</span></td>
-													<td>2025-08-16</td>
-												</tr>
-												<tr>
-													<td>ORD-1002</td>
-													<td>Zenith</td>
-													<td>80</td>
-													<td><span class="badge badge-chip">Stitching</span></td>
-													<td>2025-08-18</td>
-												</tr>
-												<tr>
-													<td>ORD-1003</td>
-													<td>Starlit</td>
-													<td>200</td>
-													<td><span class="badge badge-chip">Packing</span></td>
-													<td>2025-08-15</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row mb-4">
-					<div class="col-lg-6">
-						<div class="h_chart-card card-rounded">
-							<h4 class="h_chart-title h_dashboad_main_title">Top Selling Products</h4>
-							<div class="h_chart-container" style="height:300px;">
-								<canvas id="topProductsChart"></canvas>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="h_chart-card card-rounded">
-							<h4 class="h_chart-title h_dashboad_main_title">Production vs Sales</h4>
-							<div class="h_chart-container" style="height:300px;">
-								<canvas id="productionSalesChart"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Other pages will load in iframe -->
-			<iframe id="pageFrame" style="display:none;"></iframe>
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-	<!-- chart activate code -->
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-			if (window.initCharts) window.initCharts();
-		});
-	</script>
-	<!-- sidebar collapse and expand code -->
-	<!-- replace your sidebar JS with this -->
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-			const sidebar = document.getElementById('sidebar');
-			const toggleBtn = document.getElementById('toggleBtn');
-			// select every element that has a data-page attribute (top-level or submenu)
-			const pageNodes = Array.from(document.querySelectorAll('[data-page]'));
-			const dashboardRoot = document.getElementById('dashboard-root');
-			const pageFrame = document.getElementById('pageFrame');
-
-			// helper: normalize route (first segment before slash)
-			function normalizePage(page) {
-				if (!page) return '';
-				return String(page).split('/')[0].trim().toLowerCase();
-			}
-
-			// remove active from all menu nodes and optionally close submenus
-			function clearAllActive() {
-				pageNodes.forEach(n => n.classList.remove('active'));
-				// also remove active class from dropdown parents
-				document.querySelectorAll('.sidebar-item.dropdown').forEach(d => d.classList.remove('active'));
-				// collapse all submenus (but keep ones that were manually opened by hover)
-				document.querySelectorAll('.sidebar-item.dropdown .submenu').forEach(s => {
-					// only collapse if it's not being hovered (keeps hover behaviour)
-					if (!s.closest('.sidebar-item.dropdown:hover')) s.style.display = 'none';
-				});
-			}
-
-			// set the active item by page string (e.g. "Category" or "Dashboard/Dashboard")
-			function setActiveByPage(page) {
-				const norm = normalizePage(page);
-				clearAllActive();
-
-				// find matching node(s)
-				const match = pageNodes.find(n => {
-					const dp = (n.getAttribute('data-page') || '').toLowerCase();
-					return dp.split('/')[0] === norm;
-				});
-
-				if (!match) {
-					// no exact match found — keep dashboard active as fallback
-					const dash = pageNodes.find(n => (n.getAttribute('data-page') || '').toLowerCase().startsWith('dashboard'));
-					if (dash) dash.classList.add('active');
-					return;
-				}
-
-				// mark the matched node active
-				match.classList.add('active');
-
-				// if it's a submenu item, open & mark parent dropdown active
-				const parentDropdown = match.closest('.sidebar-item.dropdown');
-				if (parentDropdown) {
-					const submenu = parentDropdown.querySelector('.submenu');
-					if (submenu) submenu.style.display = 'block';
-					parentDropdown.classList.add('active');
-				}
-			}
-
-			function showDashboard(updateHash = false) {
-				dashboardRoot.style.display = 'block';
-				pageFrame.style.display = 'none';
-				pageFrame.src = '';
-				setActiveByPage('Dashboard');
-				if (updateHash) location.hash = '#Dashboard/Dashboard';
-			}
-
-			function showPage(page, updateHash = false) {
-				dashboardRoot.style.display = 'none';
-				pageFrame.style.display = 'block';
-				pageFrame.src = `/pages/components/${page}.html`;
-				setActiveByPage(page);
-				if (updateHash) location.hash = `#${page}`;
-			}
-
-			function getRouteFromHash() {
-				const hash = (location.hash || '').replace(/^#/, '');
-				return hash || 'Dashboard/Dashboard';
-			}
-
-			function loadFromHash() {
-				const route = getRouteFromHash();
-				if (!route || route.toLowerCase().includes('dashboard')) {
-					showDashboard(false);
-					return;
-				}
-				showPage(route, false);
-			}
-
-			// Click handlers: use any element that has data-page
-			pageNodes.forEach(item => {
-				item.addEventListener('click', e => {
-					e.preventDefault();
-					e.stopPropagation();
-					const page = item.getAttribute('data-page');
-					if (!page) return;
-					if (page.toLowerCase().includes('dashboard')) {
-						showDashboard(true);
-					} else {
-						showPage(page, true);
-					}
-				});
-			});
-
-			// dropdown toggles (keep your existing behaviour but ensure submenu persists when opened programmatically)
-			document.querySelectorAll('.sidebar-item.dropdown > h5').forEach(header => {
-				header.addEventListener('click', e => {
-					e.stopPropagation();
-					const menu = header.parentElement;
-					const submenu = menu.querySelector('.submenu');
-					if (!submenu) return;
-					const isShown = submenu.style.display === 'block';
-					// toggle
-					submenu.style.display = isShown ? 'none' : 'block';
-					menu.classList.toggle('active', !isShown);
-				});
-			});
-
-			// handle back/forward
-			window.addEventListener('hashchange', loadFromHash);
-
-			// Toggle sidebar behaviour (unchanged)
-			toggleBtn.addEventListener('click', () => {
-				if (window.innerWidth <= 768) {
-					sidebar.classList.toggle('show');
-					toggleBtn.classList.toggle('active');
-				} else {
-					sidebar.classList.toggle('collapsed');
-					toggleBtn.classList.toggle('moved');
-				}
-				updateToggleIcon();
-			});
-
-			function updateToggleIcon() {
-				if (window.innerWidth <= 768) {
-					toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-				} else {
-					toggleBtn.innerHTML = sidebar.classList.contains('collapsed')
-						? '<i class="fas fa-arrow-right"></i>'
-						: '<i class="fas fa-arrow-left"></i>';
-				}
-			}
-			window.addEventListener('resize', updateToggleIcon);
-			updateToggleIcon();
-
-			// initial load
-			loadFromHash();
-		});
-	</script>
-
-	<!-- navbar admin dropdown code -->
-	<script>
-		// --- Admin dropdown behaviour integrated with SPA loader ---
-		// NOTE: This code expects the page loader functions (showPage, showDashboard)
-		// to be defined in the same DOMContentLoaded scope as in your sidebar script.
-		// If your loader functions are inside a DOMContentLoaded closure (as in your file),
-		// we add an event to wire the admin menu after that closure runs.
-
-		document.addEventListener('DOMContentLoaded', () => {
-			const dropdownToggle = document.querySelector('.h_topbar_admin');
-			const dropdownMenu = document.getElementById('adminDropdown');
-
-			// toggle dropdown open/close
-			dropdownToggle.addEventListener('click', (e) => {
-				e.stopPropagation();
-				dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
-			});
-
-			// hide dropdown when clicking outside
-			document.addEventListener('click', (e) => {
-				if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-					dropdownMenu.style.display = 'none';
-				}
-			});
-
-			// wire admin dropdown items that have data-page to open inside dashboard area
-			dropdownMenu.querySelectorAll('[data-page]').forEach(link => {
-				link.addEventListener('click', (ev) => {
-					ev.preventDefault();
-					ev.stopPropagation();
-					const page = link.getAttribute('data-page');
-
-					// If your showPage is inside the other DOMContentLoaded closure, it should be globally available.
-					// If it's not global, we call a small helper that replicates its behavior here.
-					if (typeof showPage === 'function') {
-						showPage(page, true); // updateHash true so URL reflects it
-					} else {
-						// fallback: implement minimal behavior to load profile into iframe
-						const dashboardRoot = document.getElementById('dashboard-root');
-						const pageFrame = document.getElementById('pageFrame');
-
-						dashboardRoot.style.display = 'none';
-						pageFrame.style.display = 'block';
-
-						// special mapping for Profile page (your file path)
-						let src;
-						if ((page || '').toLowerCase() === 'profile') {
-							src = '/pages/My Profile/Profile.html';
-						} else {
-							src = `/pages/components/${page}.html`;
-						}
-						pageFrame.src = encodeURI(src);
-						if (page) location.hash = `#${page}`;
-					}
-
-					// close the dropdown visually
-					dropdownMenu.style.display = 'none';
-				});
-			});
-		});
-	</script>
-
-
-
-	<script src="/Dashboard.js"></script>
-
+  <!-- chart activate code -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.initCharts) window.initCharts();
+    });
+  </script>
 </body>
 
 </html>

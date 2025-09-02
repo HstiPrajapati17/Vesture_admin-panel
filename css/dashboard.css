@@ -1,155 +1,6 @@
-:root {
-  --sidebar-width: 260px;
-  --sidebar-collapsed-width: 78px;
-
-  --sidebar-text: #607274;
-  --content-pad: 36px;
-}
-
-/* Avatar size */
-.admin-avatar {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
-
-/* Make navbar full-width on smaller screens (when sidebar collapses) */
-@media (max-width: 992px) {
-  .navbar {
-    margin-left: 0 !important;
-  }
-}
-
-/* Keep search usable on very small screens */
-@media (max-width: 576px) {
-  .navbar .input-group > .form-control {
-    min-width: 140px;
-  }
-}
-
-/* Mobile search behavior */
-#mobileSearchContainer {
-  position: relative;
-  width: 100%;
-}
-
-/* hidden by default on mobile */
-#mobileSearchContainer.mobile-hidden {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  #mobileSearchToggle {
-    display: none;
-  }
-  #mobileSearchContainer {
-    display: flex !important; /* always visible on desktop */
-  }
-}
-
-/* =========================
-   Global reset & base
-   ========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html,
-body {
-  height: 99%;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
-  background: #fffaf1;
-  color: var(--sidebar-text);
-  -ms-overflow-style: none;
-}
-body {
-  min-height: 88vh;
-  -ms-overflow-style: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-/* App layout */
-
-.h_h_desktop-toggle {
-  color: #fffaf1;
-  border: 1px solid #fffaf1;
-  border-radius: 50%;
-  padding: 2px 6px;
-}
-.h_h_desktop-toggle:hover {
-  color: #607274;
-  border-color: #fffaf1;
+.dashboard-main-content {
   background-color: #fffaf1;
 }
-/* Default: sidebar expanded */
-#sidebar-container {
-  width: 306px;
-  transition: width 0.3s ease;
-  float: left;
-}
-
-/* =========================
-        Navbar Styles
-   ========================= */
-
-.h_main_topbar {
-  margin: 16px 20px 20px 324px;
-  /* margin: 10px 0 20px; */
-  padding: 8px 16px;
-  background: #607274;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-.sidebar.collapsed ~ .h_main_topbar {
-  margin-left: 143px;
-}
-.h_navbar_hello-icon {
-  height: 28px;
-  width: 28px;
-}
-.h_main_topbar h2 {
-  color: #fffaf1;
-  margin-bottom: 6px;
-  font-size: 22px;
-  line-height: 16px;
-}
-.h_topbar_admin-img {
-  height: 32px;
-  width: 32px;
-  border: 2px solid #fff;
-}
-.h_navbar_badge {
-  font-size: 12px;
-  padding: 0px 6px;
-  top: 6px;
-}
-.h_topbar_notification .h_topbar_notif-count {
-  font-size: 11px;
-  padding: 0px 6px;
-}
-.h_navbar_dropdown-menu {
-  top: 134%;
-  right: 0;
-}
-.h_topbar_admin-dropdown {
-  font-size: 12px;
-}
-.dropdown-item.active,
-.dropdown-item:active {
-  color: #fffaf1 !important;
-  text-decoration: none !important;
-  background-color: #607274 !important;
-}
-
-/* =========================
-   Dashboard specific styles (from dashboard.css)
-   ========================= */
-
 .h_dashboard_intro h4 {
   font-size: 22px;
 }
@@ -160,15 +11,6 @@ body::-webkit-scrollbar {
 .h_dashboad_main_title {
   font-size: 26px;
   color: #607274;
-}
-.h_search_btn {
-  border: 1px solid #fffaf1;
-  color: #fffaf1;
-}
-.h_search_btn:hover {
-  background-color: #fffaf1;
-  color: #607274;
-  font-weight: 600;
 }
 .h_topbar_icon {
   font-size: 20px;
@@ -200,7 +42,7 @@ body::-webkit-scrollbar {
   border: 1px solid #e0e0e0;
   border-radius: 0.75rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
+  padding: 24px;
   margin-bottom: 1.5rem;
 }
 .h_dashboard_root .h_chart-title {
@@ -396,18 +238,6 @@ body::-webkit-scrollbar {
     font-size: 12px;
     margin-bottom: 16px;
   }
-  /* Mobile: hide input initially */
-  #mobileSearchInput {
-    width: 0;
-    opacity: 0;
-    transition: all 0.3s ease;
-    padding: 0; /* remove padding when hidden */
-  }
-  #mobileSearchInput.active {
-    width: 180px;
-    opacity: 1;
-    padding: 0.375rem 0.75rem; /* restore padding */
-  }
   .h_main-cards .card h5 {
     font-size: 16px;
     margin-bottom: 4px;
@@ -421,28 +251,12 @@ body::-webkit-scrollbar {
   .h_dashboard_root .h_chart-title {
     font-size: 18px;
   }
-  .h_navbar_hello-icon {
-    height: 22px;
-    width: 22px;
-  }
   .h_main_topbar h2 {
     font-size: 18px;
     margin-bottom: 3px;
   }
-  .h_topbar-main-title,
-  .h_topbar_admin {
-    gap: 4px !important;
-  }
   .h_topbar_main-last {
     gap: 12px !important;
-  }
-  .h_topbar_admin-img {
-    height: 26px;
-    width: 26px;
-    border: 2px solid #fff;
-  }
-  .h_topbar_admin-name {
-    font-size: 14px;
   }
   .h_topbar_icon {
     font-size: 15px;
@@ -453,6 +267,9 @@ body::-webkit-scrollbar {
   }
   .h_main_topbar {
     margin-bottom: 0px;
+  }
+  .h_dashboard_root .h_chart-card {
+    padding: 14px;
   }
 }
 @media (max-width: 767px) {
@@ -493,13 +310,6 @@ body::-webkit-scrollbar {
   .recent-orders .btn.btn-sm,
   .card.h_recent-orders .btn.btn-sm {
     font-size: 12px;
-  }
-  .h_topbar_admin-name {
-    display: none;
-  }
-  .h_navbar_hello-icon {
-    height: 20px;
-    width: 20px;
   }
   .h_main_topbar h2 {
     font-size: 16px;
