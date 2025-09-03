@@ -121,23 +121,4 @@ window.initCharts = function initCharts() {
 			plugins: { legend: { position: 'top' } }
 		}
 	});
-
-	// Top Selling Products (Pie Chart)
-	new Chart(document.getElementById('topProductsChart'), {
-		type: 'pie',
-		data: {
-			labels: ['Denim Jacket', 'Cotton T-Shirt', 'Formal Shirt', 'Kids Hoodie', 'Summer Dress'],
-			datasets: [{
-				data: [25, 30, 20, 15, 10],
-				backgroundColor: ['#607274', '#8B9DC3', '#A9907E', '#A0A0A0', '#D1A980']
-			}]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			plugins: {
-				legend: { position: 'right', labels: { boxWidth: 15, padding: 10 } }
-			}
-		}
-	});
 };

@@ -2,276 +2,238 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>My Profile — Clothing Manufacturing Admin</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile — Clothing Manufacturing Admin</title>
 
-	<!-- Bootstrap -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/myprofile.css">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/Sidebar.css">
+  <link rel="stylesheet" href="/css/myprofile.css">
 </head>
 
 <body>
-	<!-- Sidebar container -->
-	<div id="sidebar-container"></div>
+  <!-- Sidebar placeholder -->
+  <div id="sidebar-container"></div>
 
-	<!-- Navbar container -->
-	<div id="navbar-container"></div>
+  <!-- Navbar placeholder -->
+  <div id="navbar-container"></div>
 
-	<main class="main-content" id="main-content">
-		<div class="page-wrap">
-			<div class="container">
-				<div class="h_my-profile_main-content">
+  <main class="main-content" id="main-content">
+    <div class="page-wrap">
+      <div class="container">
+        <div class="profile-card">
+          <!-- Header -->
+          <div class="profile-header">
+            <div>
+              <h4 class="mb-1">Profile Settings</h4>
+              <div class="subtitle mb-2">Manage your account information</div>
+            </div>
+            <button class="btn btn-sm btn-ghost d-flex align-items-center gap-2" data-bs-toggle="modal"
+              data-bs-target="#editProfileModal">
+              <i class="bi bi-pencil-square"></i> Edit Profile
+            </button>
+          </div>
 
-					<div class="profile-card">
-						<!-- Header -->
-						<div
-							class="profile-header d-flex align-items-start justify-content-between flex-wrap">
-							<div>
-								<h4 class="mb-1">Profile Settings</h4>
-								<div class="subtitle mb-2">Manage your account information</div>
-							</div>
-							<button class="btn btn-sm btn-ghost d-flex align-items-center gap-2" data-bs-toggle="modal"
-								data-bs-target="#editProfileModal">
-								<i class="bi bi-pencil-square"></i> Edit Profile
-							</button>
-						</div>
+          <!-- Body -->
+          <div class="p-4 h_myprofile-content">
+            <div class="row g-4 align-items-start">
+              <!-- Left: Avatar + name -->
+              <div class="col-12 col-md-4 text-center text-md-start">
+                <img id="profileAvatar" class="avatar"
+                  src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar">
+                <div class="mt-3">
+                  <h6 id="profileName" class="mb-1">Admin User</h6>
+                  <div id="profileRole" class="role-badge">Administrator</div>
+                </div>
+              </div>
 
-						<!-- Body -->
-						<div class="p-4 p-lg-5 h_myprofile-content">
-							<div class="row g-4 g-lg-5 align-items-start">
-								<!-- Left: Avatar + name -->
-								<div class="col-12 col-md-4 col-lg-3 text-center text-md-start">
-									<img id="profileAvatar" class="avatar"
-										src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar">
-									<div class="mt-3">
-										<h6 id="profileName" class="mb-1">Admin User</h6>
-										<div id="profileRole" class="role-badge">Administrator</div>
-									</div>
-								</div>
+              <!-- Right: Fields -->
+              <div class="col-12 col-md-8">
+                <div class="row g-4">
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">Full Name <span class="text-danger">*</span></div>
+                    <div class="info-box"><i class="bi bi-person"></i><span id="info-name">Admin User</span></div>
+                  </div>
 
-								<!-- Right: Fields -->
-								<div class="col-12 col-md-8 col-lg-9">
-									<div class="row g-4">
-										<div class="col-12 col-md-6">
-											<div class="info-label">Full Name <span class="text-danger">*</span></div>
-											<div class="info-box"><i class="bi bi-person"></i><span id="info-name">Admin
-													User</span></div>
-										</div>
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">Email Address <span class="text-danger">*</span></div>
+                    <div class="info-box"><i class="bi bi-envelope"></i><span id="info-email">admin@example.com</span></div>
+                  </div>
 
-										<div class="col-12 col-md-6">
-											<div class="info-label">Email Address <span class="text-danger">*</span>
-											</div>
-											<div class="info-box"><i class="bi bi-envelope"></i><span
-													id="info-email">admin@example.com</span></div>
-										</div>
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">Phone Number</div>
+                    <div class="info-box"><i class="bi bi-telephone"></i><span id="info-phone">+1 234 567 8900</span></div>
+                  </div>
 
-										<div class="col-12 col-md-6">
-											<div class="info-label">Phone Number</div>
-											<div class="info-box"><i class="bi bi-telephone"></i><span
-													id="info-phone">+1
-													234
-													567 8900</span></div>
-										</div>
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">Company</div>
+                    <div class="info-box"><i class="bi bi-building"></i><span id="info-company">Stock Admin Inc.</span></div>
+                  </div>
 
-										<div class="col-12 col-md-6">
-											<div class="info-label">Company</div>
-											<div class="info-box"><i class="bi bi-building"></i><span
-													id="info-company">Stock
-													Admin Inc.</span></div>
-										</div>
+                  <div class="col-12">
+                    <div class="info-label">Address <span class="text-danger">*</span></div>
+                    <div class="info-box"><i class="bi bi-geo-alt"></i><span id="info-address">123 Admin Street, Suite 400, Mumbai, IN</span></div>
+                  </div>
 
-										<div class="col-12">
-											<div class="info-label">Address <span class="text-danger">*</span></div>
-											<div class="info-box"><i class="bi bi-geo-alt"></i>
-												<span id="info-address">123 Admin Street, Suite 400, Mumbai, IN</span>
-											</div>
-										</div>
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">New Password</div>
+                    <div class="info-box"><i class="bi bi-lock"></i><span class="soft">••••••••</span></div>
+                  </div>
 
-										<div class="col-12 col-md-6">
-											<div class="info-label">New Password</div>
-											<div class="info-box"><i class="bi bi-lock"></i><span
-													class="soft">••••••••</span>
-											</div>
-										</div>
+                  <div class="col-12 col-md-6">
+                    <div class="info-label">Confirm Password</div>
+                    <div class="info-box"><i class="bi bi-shield-check"></i><span class="soft">••••••••</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- /body -->
+        </div>
+      </div>
+    </div>
 
-										<div class="col-12 col-md-6">
-											<div class="info-label">Confirm Password</div>
-											<div class="info-box"><i class="bi bi-shield-check"></i><span
-													class="soft">••••••••</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> <!-- /body -->
-					</div>
-				</div>
-			</div>
-		</div>
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title d-flex align-items-center gap-2">
+              <i class="bi bi-sliders"></i> Edit Profile
+            </h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
 
-		<!-- Edit Profile Modal -->
-		<div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-lg modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h6 class="modal-title d-flex align-items-center gap-2">
-							<i class="bi bi-sliders"></i> Edit Profile
-						</h6>
-						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
+          <form id="editForm">
+            <div class="modal-body">
+              <div class="row g-4">
+                <div class="col-12 col-md-4 text-center text-md-center">
+                  <img id="editAvatarPreview" class="avatar mb-3"
+                    src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar preview">
+                  <div class="d-grid">
+                    <label class="btn h_btn-outline-secondary">
+                      <i class="bi bi-image"></i> Change Avatar
+                      <input id="avatarInput" type="file" accept="image/*" hidden>
+                    </label>
+                  </div>
+                </div>
 
-					<form id="editForm">
-						<div class="modal-body">
-							<div class="row g-4">
-								<div class="col-12 col-md-4 text-center">
-									<img id="editAvatarPreview" class="avatar mb-3"
-										src="https://cdn-icons-png.flaticon.com/512/219/219983.png"
-										alt="Avatar preview">
-									<div class="d-grid">
-										<label class="btn h_btn-outline-secondary">
-											<i class="bi bi-image"></i> Change Avatar
-											<input id="avatarInput" type="file" accept="image/*" hidden>
-										</label>
-									</div>
-								</div>
+                <div class="col-12 col-md-8">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="editName" value="Admin User" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                      <input type="email" class="form-control" id="editEmail" value="admin@example.com" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Phone Number</label>
+                      <input type="tel" class="form-control" id="editPhone" value="+1 234 567 8900">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Company</label>
+                      <input type="text" class="form-control" id="editCompany" value="Stock Admin Inc.">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Address <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="editAddress" value="123 Admin Street, Suite 400, Mumbai, IN" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">New Password</label>
+                      <input type="password" class="form-control" id="editPassword" placeholder="Enter new password">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Confirm Password</label>
+                      <input type="password" class="form-control" id="editConfirm" placeholder="Confirm password">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Role</label>
+                      <select id="editRole" class="form-select">
+                        <option selected>Administrator</option>
+                        <option>Manager</option>
+                        <option>Editor</option>
+                        <option>Viewer</option>
+                      </select>
+                    </div>
+                  </div>
+                </div> <!-- /right -->
+              </div>
+            </div>
 
-								<div class="col-12 col-md-8">
-									<div class="row g-3">
-										<div class="col-md-6">
-											<label class="form-label">Full Name <span
-													class="text-danger">*</span></label>
-											<input type="text" class="form-control" id="editName" value="Admin User"
-												required>
-										</div>
-										<div class="col-md-6">
-											<label class="form-label">Email Address <span
-													class="text-danger">*</span></label>
-											<input type="email" class="form-control" id="editEmail"
-												value="admin@example.com" required>
-										</div>
-										<div class="col-md-6">
-											<label class="form-label">Phone Number</label>
-											<input type="tel" class="form-control" id="editPhone"
-												value="+1 234 567 8900">
-										</div>
-										<div class="col-md-6">
-											<label class="form-label">Company</label>
-											<input type="text" class="form-control" id="editCompany"
-												value="Stock Admin Inc.">
-										</div>
-										<div class="col-12">
-											<label class="form-label">Address <span class="text-danger">*</span></label>
-											<input type="text" class="form-control" id="editAddress"
-												value="123 Admin Street, Suite 400, Mumbai, IN" required>
-										</div>
-										<div class="col-md-6">
-											<label class="form-label">New Password</label>
-											<input type="password" class="form-control" id="editPassword"
-												placeholder="Enter new password">
-										</div>
-										<div class="col-md-6">
-											<label class="form-label">Confirm Password</label>
-											<input type="password" class="form-control" id="editConfirm"
-												placeholder="Confirm password">
-										</div>
-										<div class="col-12">
-											<label class="form-label">Role</label>
-											<select id="editRole" class="form-select">
-												<option selected>Administrator</option>
-												<option>Manager</option>
-												<option>Editor</option>
-												<option>Viewer</option>
-											</select>
-										</div>
-									</div>
-								</div> <!-- /right -->
-							</div>
-						</div>
+            <div class="modal-footer">
+              <button type="button" class="btn h_btn-outline-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+              <button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i>Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 
-						<div class="modal-footer">
-							<button type="button" class="btn h_btn-outline-secondary" data-bs-dismiss="modal"><i
-									class="bi bi-x-circle me-1"></i>Cancel</button>
-							<button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i>Save
-								Changes</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</main>
+  <div class="overlay"></div>
 
-	<!-- Overlay for mobile -->
-	<div class="overlay"></div>
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/sidebar-loader.js"></script>
+  <script src="/js/navbar-loader.js"></script>
 
-	<!-- Bootstrap JS bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/js/sidebar-loader.js"></script>
-	<script src="/js/navbar-loader.js"></script>
+  <script>
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('editAvatarPreview');
+    const profileAvatar = document.getElementById('profileAvatar');
 
-	<script>
-		// Avatar live preview
-		const avatarInput = document.getElementById('avatarInput');
-		const avatarPreview = document.getElementById('editAvatarPreview');
-		const profileAvatar = document.getElementById('profileAvatar');
+    avatarInput?.addEventListener('change', e => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        avatarPreview.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
 
-		avatarInput?.addEventListener('change', e => {
-			const file = e.target.files?.[0];
-			if (!file) return;
-			const reader = new FileReader();
-			reader.onload = () => {
-				avatarPreview.src = reader.result;
-			};
-			reader.readAsDataURL(file);
-		});
+    const editModal = document.getElementById('editProfileModal');
+    editModal.addEventListener('show.bs.modal', () => {
+      document.getElementById('editName').value = document.getElementById('info-name').textContent.trim();
+      document.getElementById('editEmail').value = document.getElementById('info-email').textContent.trim();
+      document.getElementById('editPhone').value = document.getElementById('info-phone').textContent.trim();
+      document.getElementById('editCompany').value = document.getElementById('info-company').textContent.trim();
+      document.getElementById('editAddress').value = document.getElementById('info-address').textContent.trim();
+      avatarPreview.src = profileAvatar.src;
+    });
 
-		// Pre-fill form from profile info (if reopened)
-		const editModal = document.getElementById('editProfileModal');
-		editModal.addEventListener('show.bs.modal', () => {
-			document.getElementById('editName').value = document.getElementById('info-name').textContent.trim();
-			document.getElementById('editEmail').value = document.getElementById('info-email').textContent.trim();
-			document.getElementById('editPhone').value = document.getElementById('info-phone').textContent.trim();
-			document.getElementById('editCompany').value = document.getElementById('info-company').textContent.trim();
-			document.getElementById('editAddress').value = document.getElementById('info-address').textContent.trim();
-			avatarPreview.src = profileAvatar.src;
-		});
+    document.getElementById('editForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-		// Save -> update visible profile (front-end only)
-		document.getElementById('editForm').addEventListener('submit', function (e) {
-			e.preventDefault();
+      const pwd = document.getElementById('editPassword').value;
+      const cfm = document.getElementById('editConfirm').value;
+      if (pwd || cfm) {
+        if (pwd !== cfm) {
+          alert('Passwords do not match.');
+          return;
+        }
+      }
 
-			const pwd = document.getElementById('editPassword').value;
-			const cfm = document.getElementById('editConfirm').value;
-			if (pwd || cfm) {
-				if (pwd !== cfm) {
-					alert('Passwords do not match.');
-					return;
-				}
-			}
+      document.getElementById('info-name').textContent = document.getElementById('editName').value;
+      document.getElementById('profileName').textContent = document.getElementById('editName').value;
+      document.getElementById('info-email').textContent = document.getElementById('editEmail').value;
+      document.getElementById('info-phone').textContent = document.getElementById('editPhone').value || '—';
+      document.getElementById('info-company').textContent = document.getElementById('editCompany').value || '—';
+      document.getElementById('info-address').textContent = document.getElementById('editAddress').value;
 
-			// Update text fields
-			document.getElementById('info-name').textContent = document.getElementById('editName').value;
-			document.getElementById('profileName').textContent = document.getElementById('editName').value;
-			document.getElementById('info-email').textContent = document.getElementById('editEmail').value;
-			document.getElementById('info-phone').textContent = document.getElementById('editPhone').value || '—';
-			document.getElementById('info-company').textContent = document.getElementById('editCompany').value || '—';
-			document.getElementById('info-address').textContent = document.getElementById('editAddress').value;
+      document.getElementById('profileRole').textContent = document.getElementById('editRole').value;
+      profileAvatar.src = avatarPreview.src;
 
-			// Role + Avatar
-			document.getElementById('profileRole').textContent = document.getElementById('editRole').value;
-			profileAvatar.src = avatarPreview.src;
+      document.getElementById('editPassword').value = '';
+      document.getElementById('editConfirm').value = '';
 
-			// Clear password inputs after "saving"
-			document.getElementById('editPassword').value = '';
-			document.getElementById('editConfirm').value = '';
-
-			// Close modal
-			const modal = bootstrap.Modal.getInstance(editModal);
-			modal.hide();
-		});
-	</script>
+      const modal = bootstrap.Modal.getInstance(editModal);
+      modal.hide();
+    });
+  </script>
 </body>
-
 </html>

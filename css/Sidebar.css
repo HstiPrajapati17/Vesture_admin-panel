@@ -292,7 +292,12 @@ body.sidebar-collapsed #main-content {
   .sidebar .sidebar-search {
     display: none;
   }
-
+  .sidebar .nav-list li:hover .dropdown-menu{
+    display: none;
+  }
+  .sidebar.expanded .nav-list li:hover .dropdown-menu {
+    display: block;
+  }
   .sidebar .label,
   .sidebar .brand-text,
   .sidebar .bi-chevron-down {

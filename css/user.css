@@ -1,16 +1,10 @@
 /* user list css */
 
-.userlist_body {
+body {
   background-color: #fffaf1;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #607274;
-  -ms-overflow-style: none;
 }
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
 
 .h_user-list {
   background: #edeae2;
@@ -23,6 +17,7 @@ body::-webkit-scrollbar {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 10px;
+  min-width: 1000px;
 }
 
 .h_custom-table thead th {
@@ -60,66 +55,19 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
-.h_user-list-filter-btn {
-  background-color: #607274;
-  color: #fffaf1 !important;
+.switch-btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.switch-btns .btn {
   font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 8px;
 }
 
-.h_user-list-filter-btn:hover {
-  border: 1px solid #fffaf1;
-  background-color: #607274;
-  color: #fffaf1;
-}
-
-.table-responsive {
-  overflow-x: auto;
-}
-
-/* Custom Checkbox */
-.h_userlist_container input[type="checkbox"] {
-  display: none;
-}
-
-.h_userlist_container input[type="checkbox"] + label {
-  position: relative;
-  padding-left: 25px;
-  cursor: pointer;
-  user-select: none;
-  display: inline-block;
-  line-height: 18px;
-  font-weight: 500;
-  color: #272727;
-}
-
-.h_userlist_container input[type="checkbox"] + label:before {
-  content: "";
-  position: absolute;
-  left: 0px;
-  top: -14px;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #607274;
-  border-radius: 4px;
-  background: white;
-  transition: 0.2s;
-}
-
-.h_userlist_container input[type="checkbox"]:checked + label:before {
-  background-color: #607274;
-  border-color: #607274;
-}
-
-.h_userlist_container input[type="checkbox"]:checked + label:after {
-  content: "✔";
-  position: absolute;
-  left: 3px;
-  top: -14px;
-  font-size: 16px;
-  color: #fffaf1;
-}
-
-.h_userlist_container .h_user-list-btn {
+.h_user-list-btn {
   background: #607274;
   border: 1px solid #8e9a98;
   border-radius: 6px;
@@ -128,97 +76,67 @@ body::-webkit-scrollbar {
   color: #fff;
 }
 
-.h_userlist_container .h_user-list-btn:hover {
+.h_user-list-btn:hover {
   border: 1px solid #fffaf1;
 }
-.h_userlist_cards h5 {
-  font-size: 20px;
+
+.btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn.dropdown-toggle-split:first-child,
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0 !important;
 }
-.h_userlist_cards h2 {
-  font-size: 24px;
+.btn-group > :not(.btn-check) + .btn {
+  border-radius: 0;
 }
-.h_userlist_cards i {
-  font-size: 28px;
-}
-/* Modal Theme */
-:root {
-  --theme-bg: #fffaf1;
-  --theme-text: #607274;
+/* Active Button Styling */
+.switch-btns .btn.active {
+  background-color: #edeae2 !important;
+  color: #607274 !important;
+  border: 0;
+  transform: scale(1.08);
 }
 
-/* Custom Modal */
-.custom-modal {
-  background-color: var(--theme-bg);
-  color: var(--theme-text);
-  border-radius: 12px;
+.user-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.h_user-list-btn {
+  color: #edeae2;
   border: none;
-  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.2);
 }
-
-/* Modal Header */
-.custom-modal .modal-header {
-  border-bottom: 1px solid #ddd;
-  background: var(--theme-text);
-  color: var(--theme-bg);
+.h_user-list-btn:hover {
+  color: #edeae2;
+  border: 1px solid #fffaf1;
+  background-color: #607274;
 }
-
-/* Modal Footer */
-.custom-modal .modal-footer {
-  border-top: 1px solid #ddd;
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+  color: #edeae2;
+  background-color: #607274;
+  border-color: #607274;
 }
-
-/* Theme Button */
-.btn-theme {
-  background-color: var(--theme-text);
-  color: var(--theme-bg);
-  font-weight: 600;
-  border-radius: 6px;
-  padding: 8px 16px;
+.h_btn_secondary {
+  background-color: #b4b7b6;
+  color: #46504e;
 }
-
-.btn-theme:hover {
-  background-color: #4f5f5f;
-  color: #fff;
+.h_btn_secondary:hover {
+  background-color: #637a76;
+  color: #fffaf1;
 }
-
-@media (max-width: 1024px) {
-  .h_userlist_cards h5 {
-    font-size: 18px;
-  }
-  .h_userlist_cards h2 {
-    font-size: 22px;
-  }
-  .h_userlist_cards i {
-    font-size: 22px;
-  }
-}
-
 @media (max-width: 540px) {
-  .h_user-dashboard-card {
-    padding: 12px;
+  .container-fluid {
+    padding: 0 !important;
   }
-
-  .h_user-dashboard-card h5 {
-    font-size: 16px;
-  }
-
-  .h_user-dashboard-card h2 {
-    font-size: 20px;
-  }
-  .h_userlist_container {
-    padding: 12px !important;
-  }
-  .h_userlist_container h4 {
-    font-size: 18px;
-  }
-  .h_userlist_cards h5 {
-    font-size: 16px;
-  }
-  .h_userlist_cards h2 {
-    font-size: 16px;
-  }
-  .h_userlist_cards i {
-    font-size: 18px;
+  .switch-btns .btn {
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 8px;
   }
 }
 

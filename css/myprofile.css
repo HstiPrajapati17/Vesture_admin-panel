@@ -1,8 +1,6 @@
 :root {
   --bg: #fffaf1;
-  /* your light background */
   --primary: #607274;
-  /* your brand color */
   --primary-600: #556869;
   --primary-700: #495c5d;
   --ink: #1e2525;
@@ -17,7 +15,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Shell */
 .page-wrap {
   min-height: 100%;
   padding: 16px 0px;
@@ -32,21 +29,20 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-}
-
-.h_myprofile-content {
-  background: #edeae2;
-}
-
-.h_my-profile_main-content {
-  background-color: #8e9a98;
   border-radius: 16px;
+  background: #edeae2;
+  padding: 0;
 }
 
 .profile-header {
   background: #edeae2;
   color: #272727;
   padding: 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(96, 116, 114, 0.2);
 }
 
 .profile-header .subtitle {
@@ -55,17 +51,16 @@ body {
 }
 
 .btn-ghost {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: var(--primary);
+  color: var(--bg);
   transition: 0.2s;
   padding: 10px;
   font-weight: 600;
 }
 
 .btn-ghost:hover {
-  background: #607274;
-  color: #fffaf1;
-  border: 1px solid #fffaf1;
+  background: var(--primary-600);
+  color: var(--bg);
 }
 
 .avatar {
@@ -89,7 +84,6 @@ body {
   font-weight: 600;
 }
 
-/* Info fields */
 .info-label {
   font-size: 16px;
   color: var(--muted);
@@ -111,6 +105,7 @@ body {
 .info-box i {
   color: var(--primary-600);
 }
+
 .info-box span {
   font-size: 16px;
 }
@@ -152,62 +147,88 @@ body {
 
 .h_btn-outline-secondary {
   background-color: transparent;
-  border: 1px solid #607274;
-  color: #607274;
+  border: 1px solid var(--primary);
+  color: var(--primary);
   font-weight: 600;
 }
 
 .h_btn-outline-secondary:hover {
-  background: #607274;
+  background: var(--primary);
   color: #fffaf1;
 }
 
-/* Small utilities */
 .soft {
   color: var(--muted);
 }
 
-.ring {
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+/* Modal responsive tweaks */
+.modal-dialog {
+  max-width: 800px;
+  margin: 1.75rem auto;
+}
+@media (max-width: 1024px) {
+  .modal-dialog {
+    max-width: 640px;
+    margin: 1.75rem 3.75rem 1.75rem auto;
+  }
 }
 
-.gap-12 {
-  gap: 3rem;
-}
-
-/* Responsive tweaks */
 @media (max-width: 991.98px) {
-  .gap-12 {
-    gap: 1.5rem;
+  .modal-dialog {
+    max-width: 78%;
   }
 
   .avatar {
     width: 100px;
     height: 100px;
   }
+
   .info-box span {
     font-size: 14px;
   }
 }
 
 @media (max-width: 575.98px) {
-  .profile-header {
-    padding: 16px;
+  .avatar {
+    width: 80px;
+    height: 80px;
   }
 
-  .h_myprofile-content {
-    padding: 14px !important;
-  }
-
-  .info-box {
+  .form-control,
+  .form-select {
+    font-size: 14px;
     padding: 8px;
   }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .modal-header h6 {
+    font-size: 16px;
+  }
 }
-@media (max-width: 375px) {
-  .page-wrap {
-    padding: 0px 0px 8px 0px;
+@media (max-width: 425px) {
+  .modal-dialog {
+    margin: 1.75rem 1.5rem 1.75rem auto;
   }
-  .container {
-    padding: 0px;
+  .modal-body {
+    padding: 8px !important;
   }
+  .modal-dialog {
+    max-width: 75%;
+  }
+}
+@media (max-width: 320px) {
+  .modal-dialog {
+    margin: 3.75rem 1.4rem 2.75rem auto;
+  }
+}
+
+.modal-body {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 16px;
 }

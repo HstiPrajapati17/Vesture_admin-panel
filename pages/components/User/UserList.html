@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>User & Supplier List — Clothing Manufacturing</title>
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- External CSS -->
+	<link rel="stylesheet" href="/css/Sidebar.css">
+	<link rel="stylesheet" href="/css/user.css">
+
+	<style>
+		.user-img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			margin-right: 8px;
+		}
+		.user-info {
+			display: flex;
+			align-items: center;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Sidebar -->
+	<div id="sidebar-container"></div>
+	<!-- Navbar -->
+	<div id="navbar-container"></div>
+
+	<main class="main-content" id="main-content">
+		<div class="container-fluid p-4">
+
+			<!-- Header Buttons -->
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="switch-btns btn-group">
+					<button class="btn h_btn_secondary active" id="showUsersBtn">Users</button>
+					<button class="btn h_btn_secondary" id="showSuppliersBtn">Suppliers</button>
+				</div>
+				<a id="addBtnLink" href="/pages/components/User/AddUser.html">
+					<button class="btn btn-primary" id="addBtn">
+						<i class="bi bi-plus-circle"></i> Add User
+					</button>
+				</a>
+			</div>
+
+			<!-- Users Table -->
+			<div class="h_user-list mt-4" id="usersSection">
+				<h4 class="mb-3">User List</h4>
+				<div class="table-responsive">
+					<table class="table h_custom-table align-middle">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>City</th>
+								<th>Role</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody id="userTableBody"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- Suppliers Table -->
+			<div class="h_user-list mt-4 d-none" id="suppliersSection">
+				<h4 class="mb-3">Supplier List</h4>
+				<div class="table-responsive">
+					<table class="table h_custom-table align-middle">
+						<thead>
+							<tr>
+								<th>Supplier Name</th>
+								<th>Contact</th>
+								<th>Email</th>
+								<th>Category</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody id="supplierTableBody"></tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</main>
+
+	<!-- Overlay -->
+	<div class="overlay"></div>
+
+	<!-- View Modal -->
+	<div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">View Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" id="viewModalBody"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Edit Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<form id="editForm">
+						<div class="mb-3">
+							<label class="form-label">Name</label>
+							<input type="text" class="form-control" id="editName">
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Email</label>
+							<input type="email" class="form-control" id="editEmail">
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Phone / Contact</label>
+							<input type="text" class="form-control" id="editPhone">
+						</div>
+						<div class="mb-3">
+							<label class="form-label">City / Category</label>
+							<input type="text" class="form-control" id="editCity">
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Role / Status</label>
+							<input type="text" class="form-control" id="editRole">
+						</div>
+						<button type="submit" class="btn btn-success">Save Changes</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Delete Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Confirm Delete</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete this record?</p>
+					<div class="d-flex justify-content-end">
+						<button class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+						<button class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap Bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/sidebar-loader.js"></script>
+	<script src="/js/navbar-loader.js"></script>
+
+	<script>
+		const users = [
+			{ name: "Alice Johnson", image: "https://i.pravatar.cc/40?img=1", email: "alice@example.com", phone: "123-456-7890", city: "Toronto", role: "User" },
+			{ name: "Bob Smith", image: "https://i.pravatar.cc/40?img=2", email: "bob@example.com", phone: "234-567-8901", city: "Vancouver", role: "Admin" },
+			{ name: "Charlie Lee", image: "https://i.pravatar.cc/40?img=3", email: "charlie@example.com", phone: "345-678-9012", city: "Montreal", role: "Manager" },
+		];
+
+		const suppliers = [
+			{ supplierName: "Textile Corp", contact: "David Supplier", email: "david@textile.com", category: "Fabrics", status: "Active" },
+			{ supplierName: "Cotton World", contact: "Emma Mills", email: "emma@cottonworld.com", category: "Cotton", status: "Inactive" },
+			{ supplierName: "FabricHouse", contact: "Frank Fabrics", email: "frank@fabric.com", category: "Silk", status: "Active" },
+		];
+
+		// Render Users
+		function renderUsers() {
+			const tbody = document.getElementById("userTableBody");
+			tbody.innerHTML = "";
+			users.forEach((u) => {
+				const tr = document.createElement("tr");
+				tr.innerHTML = `
+					<td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
+					<td>${u.email}</td>
+					<td>${u.phone}</td>
+					<td>${u.city}</td>
+					<td>${u.role}</td>
+					<td>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
+					</td>
+				`;
+				tbody.appendChild(tr);
+			});
+		}
+
+		// Render Suppliers
+		function renderSuppliers() {
+			const tbody = document.getElementById("supplierTableBody");
+			tbody.innerHTML = "";
+			suppliers.forEach((s) => {
+				const tr = document.createElement("tr");
+				tr.innerHTML = `
+					<td>${s.supplierName}</td>
+					<td>${s.contact}</td>
+					<td>${s.email}</td>
+					<td>${s.category}</td>
+					<td><span class="badge ${s.status === "Active" ? "bg-success" : "bg-secondary"}">${s.status}</span></td>
+					<td>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="openViewSupplier('${s.supplierName}','${s.contact}','${s.email}','${s.category}','${s.status}')"><i class="bi bi-eye"></i></button>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditSupplier('${s.supplierName}','${s.contact}','${s.email}','${s.category}','${s.status}')"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="openDelete('${s.supplierName}')"><i class="bi bi-trash3"></i></button>
+					</td>
+				`;
+				tbody.appendChild(tr);
+			});
+		}
+
+		// View Modal (User)
+		function openView(name, email, phone, city, role) {
+			document.getElementById("viewModalBody").innerHTML = `
+				<p><strong>Name:</strong> ${name}</p>
+				<p><strong>Email:</strong> ${email}</p>
+				<p><strong>Phone:</strong> ${phone}</p>
+				<p><strong>City:</strong> ${city}</p>
+				<p><strong>Role:</strong> ${role}</p>
+			`;
+		}
+
+		// View Modal (Supplier)
+		function openViewSupplier(supplierName, contact, email, category, status) {
+			document.getElementById("viewModalBody").innerHTML = `
+				<p><strong>Supplier Name:</strong> ${supplierName}</p>
+				<p><strong>Contact:</strong> ${contact}</p>
+				<p><strong>Email:</strong> ${email}</p>
+				<p><strong>Category:</strong> ${category}</p>
+				<p><strong>Status:</strong> ${status}</p>
+			`;
+		}
+
+		// Edit User
+		function openEdit(name, email, phone, city, role) {
+			document.getElementById("editName").value = name;
+			document.getElementById("editEmail").value = email;
+			document.getElementById("editPhone").value = phone;
+			document.getElementById("editCity").value = city;
+			document.getElementById("editRole").value = role;
+		}
+
+		// Edit Supplier
+		function openEditSupplier(supplierName, contact, email, category, status) {
+			document.getElementById("editName").value = supplierName;
+			document.getElementById("editEmail").value = email;
+			document.getElementById("editPhone").value = contact;
+			document.getElementById("editCity").value = category;
+			document.getElementById("editRole").value = status;
+		}
+
+		// Delete
+		function openDelete(recordName) {
+			document.querySelector("#deleteModal .modal-body p").innerHTML =
+				`Are you sure you want to delete <strong>${recordName}</strong>?`;
+		}
+
+		// Update Add Button dynamically
+		function updateAddButton() {
+			const addBtn = document.getElementById("addBtn");
+			const addBtnLink = document.getElementById("addBtnLink");
+
+			if (!document.getElementById("usersSection").classList.contains("d-none")) {
+				addBtn.innerHTML = '<i class="bi bi-plus-circle"></i> Add User';
+				addBtnLink.setAttribute("href", "/pages/components/User/AddUser.html");
+			} else {
+				addBtn.innerHTML = '<i class="bi bi-plus-circle"></i> Add Supplier';
+				addBtnLink.setAttribute("href", "/pages/components/User/AddSupplier.html");
+			}
+		}
+
+		// Toggle Sections
+		document.getElementById("showUsersBtn").addEventListener("click", () => {
+			document.getElementById("usersSection").classList.remove("d-none");
+			document.getElementById("suppliersSection").classList.add("d-none");
+			document.getElementById("showUsersBtn").classList.add("active");
+			document.getElementById("showSuppliersBtn").classList.remove("active");
+			updateAddButton();
+		});
+
+		document.getElementById("showSuppliersBtn").addEventListener("click", () => {
+			document.getElementById("suppliersSection").classList.remove("d-none");
+			document.getElementById("usersSection").classList.add("d-none");
+			document.getElementById("showSuppliersBtn").classList.add("active");
+			document.getElementById("showUsersBtn").classList.remove("active");
+			updateAddButton();
+		});
+
+		// Initial Render
+		renderUsers();
+		renderSuppliers();
+		updateAddButton();
+	</script>
+</body>
+</html>
