@@ -81,10 +81,12 @@
         <div class="col-12">
           <div class="card h_recent-orders shadow-sm">
             <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-4">
                 <h6 class="mb-0 h_chart-title h_dashboad_main_title">Recent Orders</h6>
                 <div class="d-flex gap-2">
-                  <button class="btn btn-sm btn-outline-secondary">View All</button>
+                  <a href="/pages/components/Sales/OrderList.html">
+                    <button class="btn btn-sm btn-outline-secondary">View All</button>
+                  </a>
                 </div>
               </div>
 
@@ -93,34 +95,38 @@
                   <table class="table table-hover table-borderless align-middle mb-0 h_recent-orders-table">
                     <thead>
                       <tr>
-                        <th>Order ID</th>
+                        <th>#</th>
                         <th>Customer</th>
-                        <th>Qty</th>
-                        <th>Stage</th>
-                        <th>ETA</th>
+                        <th>Order ID</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>ORD-1001</td>
+                        <td>1</td>
                         <td>Alpha Apparels</td>
-                        <td>150</td>
-                        <td><span class="badge badge-chip">Cutting</span></td>
-                        <td>2025-08-16</td>
+                        <td>#391367/80</td>
+                        <td><span class="badge badge-chip">Pending</span></td>
+                        <td>CAD $150</td>
+                        <td>16-08-2025</td>
                       </tr>
                       <tr>
-                        <td>ORD-1002</td>
+                        <td>2</td>
                         <td>Zenith</td>
-                        <td>80</td>
-                        <td><span class="badge badge-chip">Stitching</span></td>
-                        <td>2025-08-18</td>
+                        <td>#348930/80</td>
+                        <td><span class="badge badge-chip">Completed</span></td>
+                        <td>CAD $80</td>
+                        <td>18-08-2025</td>
                       </tr>
                       <tr>
-                        <td>ORD-1003</td>
+                        <td>3</td>
                         <td>Starlit</td>
-                        <td>200</td>
-                        <td><span class="badge badge-chip">Packing</span></td>
-                        <td>2025-08-15</td>
+                        <td>#583488/80</td>
+                        <td><span class="badge badge-chip">Completed</span></td>
+                        <td>CAD $200</td>
+                        <td>15-08-2025</td>
                       </tr>
                     </tbody>
                   </table>

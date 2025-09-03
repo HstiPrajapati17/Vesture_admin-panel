@@ -24,15 +24,15 @@
 		<div class="app-shell">
 			<div class="container-full">
 				<div class="d-flex align-items-center justify-content-between mb-3">
-					<h3 class="mb-0 text-white">Coupons</h3>
+					<h3 class="mb-0">Coupons</h3>
 					<div class="d-flex gap-2">
-						<button id="exportCSVBtn" class="btn btn-outline-primary-custom">Export CSV</button>
+						<button id="exportCSVBtn" class="btn btn-couponlist-custom">Export CSV</button>
 					</div>
 				</div>
 
 				<!-- Controls -->
 				<div class="card mb-3">
-					<div class="card-body">
+					<div class="card-body p-0">
 						<div class="row g-2 align-items-center">
 							<div class="col-md-6">
 								<input id="searchInput" class="form-control custom"
@@ -94,18 +94,17 @@
 					</div>
 				</div>
 
-
 				<!-- Footer actions + pagination -->
 				<div class="footer-actions">
 					<div class="d-flex align-items-center gap-2">
-						<button id="bulkDeleteBtn" class="btn btn-danger-custom">Delete Selected</button>
+						<button id="bulkDeleteBtn" class="btn btn-couponlist-custom">Delete Selected</button>
 						<div id="resultCount" class="small-muted">0 results</div>
 					</div>
 
 					<div class="d-flex align-items-center gap-2">
-						<button id="prevPage" class="btn btn-outline-primary-custom btn-sm">Prev</button>
+						<button id="prevPage" class="btn btn-couponlist-custom btn-sm">Prev</button>
 						<div id="pageInfo" class="px-2 small-muted"> 1 / 1</div>
-						<button id="nextPage" class="btn btn-outline-primary-custom btn-sm">Next</button>
+						<button id="nextPage" class="btn btn-couponlist-custom btn-sm">Next</button>
 					</div>
 				</div>
 			</div>
@@ -159,6 +158,23 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Confirmation Modal -->
+		<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="confirmModalTitle">Confirm</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="confirmModalBody">Are you sure?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-couponlist-custom" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-couponlist-custom" id="confirmModalOkBtn">Yes</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 
 	<!-- Overlay for mobile -->
@@ -171,7 +187,7 @@
 
 	<script>
 		let coupons = [
-			{ id: 'CUP-001', code: 'FLAT100', discount: 'CA$100', startDate: '2024-12-31', endDate: '2025-12-30', isActive: true, description: 'Flat CA$100 off on orders above CA$1000' },
+			{ id: 'CUP-001', code: 'FLAT100', discount: 'CAD $100', startDate: '2024-12-31', endDate: '2025-12-30', isActive: true, description: 'Flat CA$100 off on orders above CA$1000' },
 			{ id: 'CUP-002', code: 'SUMMER25', discount: '25%', startDate: '2025-05-31', endDate: '2025-09-29', isActive: true, description: 'Summer collection discount' },
 			{ id: 'CUP-003', code: 'WELCOME10', discount: '10%', startDate: '2023-12-31', endDate: '2026-12-30', isActive: false, description: 'New customer coupon' }
 		];
@@ -191,11 +207,36 @@
 		const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
 		const exportCSVBtn = document.getElementById('exportCSVBtn');
 
+		// ===== Bootstrap modal helper for confirm/action =====
+		function showConfirm(message, callback) {
+			const modalEl = document.getElementById('confirmModal');
+			const modal = new bootstrap.Modal(modalEl);
+			document.getElementById('confirmModalBody').textContent = message;
+
+			const okBtn = document.getElementById('confirmModalOkBtn');
+			// Remove old listeners
+			okBtn.replaceWith(okBtn.cloneNode(true));
+			const newOkBtn = document.getElementById('confirmModalOkBtn');
+			newOkBtn.addEventListener('click', () => {
+				callback();
+				modal.hide();
+			});
+
+			modal.show();
+		}
+
+		// ===== Helper functions =====
 		function formatDate(d) {
 			if (!d) return '—';
 			const dt = new Date(d);
 			if (isNaN(dt)) return d;
 			return (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
+		}
+
+		function escapeHtml(text) {
+			return text.replace(/[&<>"']/g, function (m) {
+				return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+			});
 		}
 
 		function getFilteredSorted() {
@@ -213,9 +254,11 @@
 				const B = (b[k] || '').toString().toLowerCase();
 				if (A < B) return -1 * dir; if (A > B) return 1 * dir; return 0;
 			});
+
 			return arr;
 		}
 
+		// ===== Render table =====
 		function renderTable() {
 			const arr = getFilteredSorted();
 			const total = arr.length;
@@ -232,39 +275,46 @@
 				visible.forEach(c => {
 					const tr = document.createElement('tr');
 					tr.innerHTML = `
-        <td>
-          <label class="form-check custom-check" title="Select">
-            <input class="row-select" data-id="${c.id}" type="checkbox" ${selectedIds.has(c.id) ? 'checked' : ''}>
-          </label>
-        </td>
-        <td><div class="fw-semibold">${escapeHtml(c.code)}</div></td>
-        <td>${escapeHtml(c.discount || '—')}</td>
-        <td class="desktop-only">${formatDate(c.startDate)}</td>
-        <td class="desktop-only">${formatDate(c.endDate)}</td>
-        <td><span class="${c.isActive ? 'badge-active' : 'badge-inactive'} badge-status" data-id="${c.id}">${c.isActive ? 'Active' : 'Inactive'}</span></td>
-        <td>
-          <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-primary-custom btn-edit" data-id="${c.id}">Edit</button>
-            <button class="btn btn-sm btn-danger-custom btn-delete" data-id="${c.id}">Delete</button>
-          </div>
-        </td>
-      `;
+					<td>
+					<label class="form-check custom-check" title="Select">
+						<input class="row-select" data-id="${c.id}" type="checkbox" ${selectedIds.has(c.id) ? 'checked' : ''}>
+					</label>
+					</td>
+					<td><div class="fw-semibold">${escapeHtml(c.code)}</div></td>
+					<td>${escapeHtml(c.discount || '—')}</td>
+					<td class="desktop-only">${formatDate(c.startDate)}</td>
+					<td class="desktop-only">${formatDate(c.endDate)}</td>
+					<td><span class="${c.isActive ? 'badge-active' : 'badge-inactive'} badge-status cursor-pointer" data-id="${c.id}">${c.isActive ? 'Active' : 'Inactive'}</span></td>
+					<td>
+					<div class="d-flex gap-2">
+						<button class="btn btn-sm btn-couponlist-custom btn-edit" data-id="${c.id}"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm btn-couponlist-custom btn-delete" data-id="${c.id}"><i class="bi bi-trash3"></i></button>
+					</div>
+					</td>
+				`;
 					tableBody.appendChild(tr);
 				});
 			}
 
+			// ===== Event listeners for rows =====
 			document.querySelectorAll('.row-select').forEach(el => el.addEventListener('change', e => {
 				const id = e.target.dataset.id;
 				e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
 				updateSelectAllCheckbox();
 			}));
 
-			document.querySelectorAll('.btn-delete').forEach(b => b.addEventListener('click', () => {
-				const id = b.dataset.id;
-				if (confirm('Delete this coupon?')) { coupons = coupons.filter(c => c.id !== id); selectedIds.delete(id); renderTable(); }
-			}));
+			document.querySelectorAll('.btn-delete').forEach(b => {
+				b.addEventListener('click', () => {
+					const id = b.dataset.id;
+					showConfirm('Delete this coupon?', () => {
+						coupons = coupons.filter(c => c.id !== id);
+						selectedIds.delete(id);
+						renderTable();
+					});
+				});
+			});
 
-			// edit modal
+			// ===== Edit modal =====
 			document.querySelectorAll('.btn-edit').forEach(b => {
 				b.addEventListener('click', () => {
 					const id = b.dataset.id;
@@ -279,6 +329,7 @@
 
 					const modal = new bootstrap.Modal(document.getElementById('editCouponModal'));
 					modal.show();
+
 					document.getElementById('saveEditBtn').onclick = () => {
 						coupon.code = document.getElementById('editCode').value;
 						coupon.discount = document.getElementById('editDiscount').value;
@@ -316,10 +367,7 @@
 			selectAll.indeterminate = !all && some;
 		}
 
-		// helpers
-		function escapeHtml(text) { return text.replace(/[&<>"']/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m]; }); }
-
-		// Event listeners
+		// ===== Event listeners =====
 		searchInput.addEventListener('input', e => { query = e.target.value; currentPage = 1; renderTable(); });
 		statusFilterEl.addEventListener('change', e => { statusFilter = e.target.value; currentPage = 1; renderTable(); });
 		perPageEl.addEventListener('change', e => { perPage = parseInt(e.target.value); currentPage = 1; renderTable(); });
@@ -327,16 +375,25 @@
 			const [k, dir] = e.target.value.split(':'); sortBy = { key: k, dir: dir }; renderTable();
 		});
 		prevPageBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderTable(); } });
-		nextPageBtn.addEventListener('click', () => { const totalPages = Math.max(1, Math.ceil(getFilteredSorted().length / perPage)); if (currentPage < totalPages) { currentPage++; renderTable(); } });
-		selectAll.addEventListener('change', e => { document.querySelectorAll('.row-select').forEach(cb => cb.checked = e.target.checked ? true : false); selectedIds = new Set(Array.from(document.querySelectorAll('.row-select')).filter(cb => cb.checked).map(cb => cb.dataset.id)); });
+		nextPageBtn.addEventListener('click', () => {
+			const totalPages = Math.max(1, Math.ceil(getFilteredSorted().length / perPage));
+			if (currentPage < totalPages) { currentPage++; renderTable(); }
+		});
+		selectAll.addEventListener('change', e => {
+			document.querySelectorAll('.row-select').forEach(cb => cb.checked = e.target.checked);
+			selectedIds = new Set(Array.from(document.querySelectorAll('.row-select')).filter(cb => cb.checked).map(cb => cb.dataset.id));
+		});
 
 		bulkDeleteBtn.addEventListener('click', () => {
-			if (selectedIds.size === 0) return alert('No coupon selected');
-			if (confirm('Delete selected coupons?')) {
+			if (selectedIds.size === 0) {
+				showConfirm('No coupon selected', () => { });
+				return;
+			}
+			showConfirm('Delete selected coupons?', () => {
 				coupons = coupons.filter(c => !selectedIds.has(c.id));
 				selectedIds.clear();
 				renderTable();
-			}
+			});
 		});
 
 		exportCSVBtn.addEventListener('click', () => {
@@ -351,6 +408,7 @@
 
 		renderTable();
 	</script>
+
 </body>
 
 </html>

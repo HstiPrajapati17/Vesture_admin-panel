@@ -328,6 +328,7 @@ body.sidebar-collapsed #main-content {
   }
   #main-content {
     margin-left: var(--sidebar-collapsed-width);
+    padding: 12px;
   }
   .topbar .h_nav-toggle {
     font-size: 20px;

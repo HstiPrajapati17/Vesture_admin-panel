@@ -13,109 +13,6 @@ a {
   width: 100% !important;
 }
 
-/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ordre-list css >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
-body {
-  background-color: #fffaf1;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #607274;
-}
-
-.h_orderlist-dashboard-card {
-  background: linear-gradient(135deg, #edeae2, #9ca8a6, #edeae2);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  color: #272727;
-  border-radius: 12px;
-  padding: 20px;
-  /* text-align: center; */
-  transition: 0.3s;
-  -ms-overflow-style: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
-.h_orderlist-dashboard-card:hover {
-  transform: translateY(-5px);
-}
-
-.h_order-list {
-  color: #fffaf1;
-  padding: 20px;
-  margin-top: 20px;
-}
-.h_order-list h4 {
-  color: #607274;
-}
-
-/* Table Styling */
-.h_custom-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
-}
-
-.status-badge {
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  background: #607274;
-  color: #fffaf1;
-}
-
-.h_order-list-filter-btn:hover {
-  background-color: #fffaf1;
-  color: #607274 !important;
-}
-
-/* Make table responsive */
-.table-responsive {
-  overflow-x: auto;
-}
-.order-list-cards i {
-  font-size: 32px;
-}
-
-.h_order-list .dropdown-menu {
-  inset: 0px auto auto -20px !important;
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-  .order-list-cards h5 {
-    font-size: 18px;
-  }
-  .order-list-cards i {
-    font-size: 26px;
-  }
-  .order-list-cards h2 {
-    font-size: 26px;
-  }
-}
-@media (min-width: 768px) and (max-width: 768px) {
-  .order-list-cards h5 {
-    font-size: 13px;
-  }
-  .order-list-cards i {
-    font-size: 18px;
-  }
-  .order-list-cards h2 {
-    font-size: 23px;
-  }
-}
-
-@media (max-width: 540px) {
-  .h_orderlist-dashboard-card {
-    padding: 12px;
-  }
-
-  .h_orderlist-dashboard-card h5 {
-    font-size: 16px;
-  }
-
-  .h_orderlist-dashboard-card h2 {
-    font-size: 20px;
-  }
-}
 
 /* Wishlist css */
 
@@ -142,6 +39,9 @@ body::-webkit-scrollbar {
   background: #edeae2;
   color: var(--accent-bg);
   padding: 20px;
+}
+.h_order-list h4{
+  color: #607274;
 }
 
 .h_custom-table {
@@ -229,9 +129,6 @@ body::-webkit-scrollbar {
 
 .h_shopping-cart-bg {
   padding: 16px;
-  background: #607274;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
   width: 100%;
   height: fit-content;
 }
@@ -464,9 +361,6 @@ body::-webkit-scrollbar {
 
 .h_checkout-shell {
   padding: 16px;
-  background: #607274;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 
 .h_checkout-top {

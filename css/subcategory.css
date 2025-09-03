@@ -194,29 +194,14 @@ body::-webkit-scrollbar {
   transform: translateX(1.2em);
 }
 
-.h_btn-primary {
-  background: var(--primary);
-  border-color: var(--primary);
-  font-weight: 600;
-  color: var(--light);
-}
-
-.h_btn-primary:hover {
-  border: 1px solid var(--primary);
-  background: var(--light);
-  color: var(--primary);
-}
-
-.h_btn-outline-primary {
-  color: var(--primary);
-  border-color: var(--primary);
-  background: #fff;
-  font-weight: 600;
-}
-
-.h_btn-outline-primary:hover {
+.subcategory-custome-btn {
   background-color: #607274;
-  color: var(--light);
+  color: #fffaf1;
+}
+.subcategory-custome-btn:hover{
+  background-color: #607274;
+  color: #fffaf1;
+  border: 1px solid #fffaf1;
 }
 
 /* file preview grid for multi images */

@@ -67,10 +67,13 @@
 /* Card shell + recent orders */
 .recent-orders,
 .card.h_recent-orders {
-  border: 1px solid #e6e9ef;
+  border: 1px solid #8e9a98;
   border-radius: 10px;
-  background: #fff;
+  background: #8e9a98;
   overflow: hidden;
+}
+.h_recent-orders .h_dashboad_main_title {
+  color: #fffaf1;
 }
 .recent-orders .card-body,
 .card.h_recent-orders .card-body {
@@ -82,6 +85,8 @@
   padding: 4px 10px;
   line-height: 1.2;
   font-size: 14px;
+  border-color: #fff;
+  color: #fff;
 }
 .recent-orders .btn-light.border,
 .card.h_recent-orders .btn-light.border {

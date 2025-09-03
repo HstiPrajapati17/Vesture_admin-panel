@@ -49,19 +49,6 @@
             Subcategory</a></li>
       </ul>
     </li>
-    <!-- stock management -->
-    <li class="has-dropdown">
-      <a href="#">
-        <i class="bi bi-box-seam"></i><span class="label">Stock Management</span>
-        <i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="/pages/components/Stock Management/CurrentStock.html"><i class="bi bi-list-ul"></i> Current Stock</a></li>
-        <li><a href="/pages/components/Stock Management/LowStock.html"><i class="bi bi-eye"></i> Low Stock</a></li>
-        <li><a href="/pages/components/Stock Management/StockIn.html"><i class="bi bi-plus-circle"></i> Stock In</a></li>
-        <li><a href="/pages/components/Stock Management/StockOut.html"><i class="bi bi-plus-circle"></i> Stock Out</a></li>
-      </ul>
-    </li>
 
     <!-- Product -->
     <li class="has-dropdown">
@@ -70,9 +57,47 @@
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><a href="/pages/components/Product/ProductList.html"><i class="bi bi-list-ul"></i> Product List</a></li>
-        <li><a href="/pages/components/Product/ViewProduct.html"><i class="bi bi-eye"></i> View Product</a></li>
-        <li><a href="/pages/components/Product/AddProduct.html"><i class="bi bi-plus-circle"></i> Add Product</a></li>
+        <li>
+          <a href="/pages/components/Product/CurrentProduct.html">
+            <i class="bi bi-boxes"></i> Current Products
+          </a>
+        </li>
+        <li>
+          <a href="/pages/components/Product/ProductList.html">
+            <i class="bi bi-card-list"></i> Product List
+          </a>
+        </li>
+        <li>
+          <a href="/pages/components/Product/ViewProduct.html">
+            <i class="bi bi-eye"></i> View Product
+          </a>
+        </li>
+        <li>
+          <a href="/pages/components/Product/AddProduct.html">
+            <i class="bi bi-plus-circle"></i> Add Product
+          </a>
+        </li>
+        <li>
+          <a href="/pages/components/Product/LowStock.html">
+            <i class="bi bi-exclamation-triangle"></i> Low Product Qty
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    <!-- Sales -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-cash-coin"></i><span class="label">Sales</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Sales/OrderList.html"><i class="bi bi-card-list"></i> All Orders</a></li>
+        <li><a href="/pages/components/Sales/PendingOrders.html"><i class="bi bi-hourglass-split"></i> Pending
+            Orders</a></li>
+        <li><a href="/pages/components/Sales/CompletedOrders.html"><i class="bi bi-check-circle"></i> Completed
+            Orders</a></li>
+        <li><a href="/pages/components/Sales/SalesReport.html"><i class="bi bi-bar-chart"></i> Sales Report</a></li>
       </ul>
     </li>
 
@@ -91,22 +116,21 @@
     <!-- Purchase / Orders -->
     <li class="has-dropdown">
       <a href="#">
-        <i class="bi bi-cart4"></i><span class="label">Purchase / Orders</span>
+        <i class="bi bi-cart4"></i><span class="label">Purchase</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul class="dropdown-menu">
-        <li><a href="/pages/components/Purchase-order/OrderList.html"><i class="bi bi-list-ul"></i> Order List</a></li>
-        <li><a href="/pages/components/Purchase-order/Wishlist.html"><i class="bi bi-heart"></i> Wishlist</a></li>
-        <li><a href="/pages/components/Purchase-order/ShoppingCart.html"><i class="bi bi-cart-check"></i> Shopping
+        <li><a href="/pages/components/Purchase/Wishlist.html"><i class="bi bi-heart"></i> Wishlist</a></li>
+        <li><a href="/pages/components/Purchase/ShoppingCart.html"><i class="bi bi-cart-check"></i> Shopping
             Cart</a></li>
-        <li><a href="/pages/components/Purchase-order/Checkout.html"><i class="bi bi-bag-check"></i> Checkout</a></li>
+        <li><a href="/pages/components/Purchase/Checkout.html"><i class="bi bi-bag-check"></i> Checkout</a></li>
       </ul>
     </li>
 
     <!-- User -->
     <li class="has-dropdown">
       <a href="#">
-        <i class="bi bi-people"></i><span class="label">Users</span>
+        <i class="bi-person-circle"></i><span class="label">Users</span>
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul class="dropdown-menu">
@@ -114,6 +138,23 @@
         <li><a href="/pages/components/Users/AddUser.html"><i class="bi bi-person-plus"></i> Add User</a></li>
       </ul>
     </li>
+    
+    <!-- Customer -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi-people"></i><span class="label">Customers</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Customers/CustomerList.html"><i class="bi bi-list-ul"></i> Customer List</a></li>
+        <li><a href="/pages/components/Customers/AddCustomer.html"><i class="bi bi-person-plus"></i> Add Customer</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Reports -->
+    <li><a href="/pages/components/Reports/Reports.html"><i class="bi bi-graph-up"></i><span
+          class="label">Reports</span></a></li>
 
   </ul>
 </div>
