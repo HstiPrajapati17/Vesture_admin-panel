@@ -1,429 +1,869 @@
 <!DOCTYPE html>
-<html lang="en" class="product-list-html">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hera Fashion - Shop All Products</title>
 
-	<!-- Bootstrap (used by markup classes) -->
+	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/product.css">
+	<link rel="stylesheet" href="/css/sales.css">
+
+	<style>
+		:root {
+			--primary: #1f3b4d;
+			--secondary: #6c7a89;
+			--accent: #f4c430;
+			--bg-light: #f5f7fa;
+			--bg-card: #fff;
+			--text-dark: #1c2a3b;
+			--text-muted: #7d8a99;
+			--btn-radius: 8px;
+		}
+
+		body {
+			background: var(--bg-light);
+			margin: 0;
+			color: var(--text-dark);
+		}
+
+		.shop-layout {
+			display: flex;
+			gap: 25px;
+			padding: 20px;
+			width: 100%;
+			background: #607274;
+		}
+
+		.shop-sidebar {
+			width: 280px;
+			background: var(--bg-card);
+			padding: 20px;
+			height: fit-content;
+			position: sticky;
+			top: 20px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+		}
+
+		.sidebar-title {
+			font-weight: 600;
+			font-size: 1.15rem;
+			margin-bottom: 12px;
+			color: var(--primary);
+		}
+
+		.sidebar-section {
+			margin-bottom: 25px;
+		}
+
+		.form-control,
+		.form-select {
+			border-radius: var(--btn-radius);
+			border: 1px solid #e0e0e0;
+			padding: 8px 12px;
+			font-size: 14px;
+		}
+
+		.form-control:focus,
+		.form-select:focus {
+			border-color: var(--primary);
+			box-shadow: 0 0 0 0.2rem rgba(31, 59, 77, 0.15);
+		}
+
+		.btn-reset {
+			width: 100%;
+			background: #607274;
+			color: #fff;
+			border-radius: var(--btn-radius);
+			font-weight: 500;
+			padding: 8px 0px;
+		}
+
+		.btn-reset:hover {
+			background: #455456;
+			color: var(--bg-card);
+		}
+
+		.shop-main {
+			width: 100%;
+		}
+
+		.page-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 25px;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.page-title {
+			font-size: 28px;
+			font-weight: 700;
+			color: #fffaf1;
+			margin-bottom: 0;
+		}
+
+		.products-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 25px;
+		}
+
+		.product-card {
+			background: var(--bg-card);
+			overflow: hidden;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+			display: flex;
+			flex-direction: column;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.product-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+		}
+
+		.product-img {
+			width: 100%;
+			aspect-ratio: 4.7/5;
+			object-fit: cover;
+		}
+
+		.product-body {
+			padding: 15px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+		}
+
+		.product-category {
+			font-size: 0.75rem;
+			color: var(--primary);
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+
+		.product-name {
+			font-weight: 600;
+			font-size: 1rem;
+			color: var(--text-dark);
+			margin-bottom: 2px;
+			text-decoration: none;
+		}
+
+		.product-name:hover {
+			color: var(--primary);
+		}
+
+		.product-rating {
+			color: var(--accent);
+			font-size: 0.85rem;
+			margin-bottom: 0px;
+		}
+
+		.price-stock {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: auto;
+			padding-top: 4px;
+			border-top: 1px solid #e0e0e0;
+		}
+
+		.price {
+			font-weight: 700;
+			font-size: 1.15rem;
+		}
+
+		.stock-badge {
+			font-size: 0.75rem;
+			font-weight: 600;
+			padding: 3px 8px;
+			border-radius: 50px;
+			display: inline-block;
+		}
+
+		.stock-high {
+			background: #d1fae5;
+			color: #065f46;
+		}
+
+		.stock-medium {
+			background: #fef3c7;
+			color: #92400e;
+		}
+
+		.stock-low {
+			background: #fee2e2;
+			color: #9f1239;
+		}
+
+		.stock-sold-out {
+			background: #e0e0e0;
+			color: #616161;
+		}
+
+		.product-actions {
+			display: flex;
+			gap: 8px;
+			margin-top: 6px;
+			width: 68%;
+		}
+
+		.btn-action {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 5px;
+			border-radius: var(--btn-radius);
+			font-size: 0.85rem;
+			padding: 7px;
+			cursor: pointer;
+			width: 50%;
+			background: #607274;
+			border: none;
+			color: #fff;
+		}
+
+		.btn-action:hover {
+			background-color: #455456;
+		}
+
+		.products-list .btn-action {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 5px;
+			border-radius: var(--btn-radius);
+			font-size: 0.85rem;
+			padding: 7px;
+			cursor: pointer;
+			width: 175px;
+		}
+
+		.products-list .product-actions {
+			display: flex;
+			gap: 8px;
+			margin-top: 12px;
+			width: 50%;
+			flex-direction: column;
+		}
+
+		.table {
+			min-width: 800px;
+			overflow-x: scroll;
+		}
+
+		.btn-wishlist {
+			background: #f5f5f5;
+			border: 1px solid #a9a4a4;
+		}
+
+		.btn-wishlist.active {
+			background: #e11d48;
+			color: #fff;
+			border-color: #e11d48;
+		}
+
+		.btn-add-cart {
+			background: var(--primary);
+			color: #fff;
+			border: 1px solid var(--primary);
+			transition: 0.5s;
+		}
+
+		.btn-add-cart:hover {
+			background: #424f5d;
+			border-color: var(--secondary);
+		}
+
+		.empty-state {
+			text-align: center;
+			padding: 60px 20px;
+			color: var(--secondary);
+			background: var(--bg-card);
+		}
+
+		.empty-state i {
+			font-size: 25px;
+			margin-bottom: 20px;
+		}
+
+		.pagination-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 12px;
+			margin-top: 35px;
+		}
+
+		.page-btn {
+			border-radius: var(--btn-radius);
+			padding: 8px 16px;
+			font-weight: 500;
+			cursor: pointer;
+			background: #455456;
+			color: #ffffff;
+			border: 1px solid #959595;
+		}
+
+		.page-btn:disabled {
+			background: #768e91;
+			border: none;
+		}
+
+		.products-list {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.products-list .product-card {
+			flex-direction: row;
+			align-items: flex-start;
+		}
+
+		.products-list .product-img {
+			width: 180px;
+			height: auto;
+			aspect-ratio: unset;
+			flex-shrink: 0;
+		}
+
+		.products-list .product-body {
+			flex-grow: 1;
+		}
+
+		.btn-outline-dark {
+			color: #fffaf1;
+			border: 1px solid #fffaf1;
+		}
+
+		.btn-outline-dark i {
+			font-size: 18px;
+		}
+
+		.btn-check:checked+.btn,
+		.btn.active,
+		.btn.show,
+		.btn:first-child:active,
+		:not(.btn-check)+.btn:active {
+			color: #282828;
+			background-color: #8e9a98;
+			border-color: #fffaf1;
+		}
+
+		.price-range {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.price-range input {
+			border-radius: var(--btn-radius);
+			border: 1px solid #e0e0e0;
+			padding: 8px 12px;
+			font-size: 14px;
+			width: 50%;
+		}
+
+		.price-range span {
+			font-weight: 600;
+			color: var(--primary);
+		}
+
+		@media (max-width: 640px) {
+			.shop-layout {
+				flex-direction: column;
+			}
+
+			.shop-sidebar {
+				width: 100%;
+				position: static;
+				margin-bottom: 20px;
+			}
+
+			.shop-layout,
+			.shop-sidebar,
+			.product-body {
+				padding: 12px;
+			}
+
+			.page-header {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.products-list .product-card {
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+			}
+
+			.products-list .product-img {
+				width: 100%;
+				max-width: 300px;
+				height: auto;
+			}
+
+			.products-list .product-body {
+				width: 100%;
+				margin-top: 15px;
+			}
+
+			.products-list .product-actions {
+				width: 100%;
+				flex-direction: row;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.products-list .btn-action {
+				width: auto;
+				min-width: 140px;
+			}
+		}
+
+		@media (max-width: 576px) {
+
+			.products-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.products-list .product-card {
+				padding: 10px;
+			}
+
+			.products-list .product-img {
+				max-width: 100%;
+			}
+
+			.products-list .btn-action {
+				font-size: 0.8rem;
+				min-width: 120px;
+			}
+		}
+	</style>
 </head>
 
-<body class="product-list-body ">
-
-	<!-- Sidebar container -->
+<body>
+	<!-- Sidebar -->
 	<div id="sidebar-container"></div>
 
-	<!-- Navbar container -->
+	<!-- Navbar -->
 	<div id="navbar-container"></div>
 
 	<main class="main-content" id="main-content">
-		<main class="h_container-app">
-			<header class="h_page-header">
-				<div class="d-flex justify-content-start align-items-center flex-grow-1 gap-3 flex-wrap">
-					<h1 class="h_title">Products</h1>
-				</div>
-				<div class="d-flex justify-content-end align-items-center flex-grow-1 gap-2 flex-wrap h_extra-controls">
-					<div class="h_view-toggle" role="tablist" aria-label="View mode">
-						<button id="btn-grid" class="active" title="Grid view" aria-pressed="true"
-							aria-label="Grid view">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"
-								aria-hidden="true">
-								<rect x="3" y="3" width="8" height="8" rx="1" />
-								<rect x="13" y="3" width="8" height="8" rx="1" />
-								<rect x="3" y="13" width="8" height="8" rx="1" />
-								<rect x="13" y="13" width="8" height="8" rx="1" />
-							</svg>
-						</button>
-						<button id="btn-list" title="List view" aria-pressed="false" aria-label="List view">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-								aria-hidden="true">
-								<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
-						</button>
-					</div>
+		<div class="shop-layout">
 
-					<select id="sort" class="form-select h_select"
-						style="min-width:136px;border:1px solid rgba(255,255,255,.35)">
-						<option value="newest" selected>Sort: Newest</option>
-						<option value="price-asc">Price: Low → High</option>
-						<option value="price-desc">Price: High → Low</option>
+			<!-- Sidebar -->
+			<aside class="shop-sidebar">
+				<div class="sidebar-section">
+					<h6 class="sidebar-title">Search Products</h6>
+					<input id="search" class="form-control" placeholder="Search products...">
+				</div>
+
+				<div class="sidebar-section">
+					<h6 class="sidebar-title">Filter by Category</h6>
+					<select id="filter" class="form-select">
+						<option value="all">All Categories</option>
+						<option value="Men">Men</option>
+						<option value="Women">Women</option>
+						<option value="Kids">Kids</option>
+						<option value="Unisex">Unisex</option>
 					</select>
-					<div class="h_controls">
-						<a id="addBtn" class="h_btn-primary" href="AddProduct.html" title="Add product (+ opens page)">+
-							Add
-							product</a>
+				</div>
+
+				<div class="sidebar-section">
+					<h6 class="sidebar-title">Price Range</h6>
+					<div class="price-range">
+						<input type="number" id="minPrice" placeholder="Min">
+						<span>–</span>
+						<input type="number" id="maxPrice" placeholder="Max">
 					</div>
 				</div>
-			</header>
 
-			<!-- Cards / Grid -->
-			<section id="products" class="h_grid" aria-live="polite"></section>
+				<div class="sidebar-section">
+					<h6 class="sidebar-title">Sort By</h6>
+					<select id="sort" class="form-select">
+						<option value="default">Default</option>
+						<option value="price-asc">Price: Low to High</option>
+						<option value="price-desc">Price: High to Low</option>
+						<option value="newest">Newest</option>
+					</select>
+				</div>
 
-			<!-- Table -->
-			<div class="h_shoppingcart_cart-shell d-none" id="tableShell">
-				<div class="h_order-list">
-					<div class="table-responsive">
-						<table class="table h_custom-table align-middle" id="productsTable">
-							<thead>
-								<tr>
-									<th style="text-align:left;">Product</th>
-									<th>SKU</th>
-									<th>Category</th>
-									<th>Price (CAD)</th>
-									<th class="text-end">Stock</th>
-									<th class="text-end">Actions</th>
-								</tr>
-							</thead>
-							<tbody id="tableBody"></tbody>
-						</table>
+				<button id="reset" class="btn btn-reset">
+					<i class="bi bi-arrow-clockwise me-2"></i> Reset Filters
+				</button>
+			</aside>
+
+			<!-- Main Content -->
+			<section class="shop-main">
+				<div class="page-header">
+					<h1 class="page-title">All Products</h1>
+					<div class="d-flex gap-2">
+						<!-- Grid / List Toggle -->
+						<button id="gridView" class="btn btn-sm btn-outline-dark active">
+							<i class="bi bi-grid-fill"></i>
+						</button>
+						<button id="listView" class="btn btn-sm btn-outline-dark">
+							<i class="bi bi-list-ul"></i>
+						</button>
 					</div>
 				</div>
-			</div>
 
-			<!-- Pager -->
-			<nav class="h_pager" role="navigation" aria-label="Pagination">
-				<button id="prevBtn" class="h_pager-btn" aria-label="Previous page">Prev</button>
-				<div id="pageIndicator" class="h_page-indicator" aria-live="polite">1/1</div>
-				<button id="nextBtn" class="h_pager-btn" aria-label="Next page">Next</button>
-			</nav>
-		</main>
+				<div id="products" class="products-grid"></div>
 
-		<!-- EDIT PRODUCT MODAL -->
-		<div class="modal fade" id="h_editModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-lg modal-dialog-centered">
-				<form id="h_editForm" class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Edit product</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-
-					<div class="modal-body">
-						<div class="row g-2">
-							<div class="col-md-8">
-								<label class="form-label">Product name</label>
-								<input id="h_edit_name" class="form-control" required>
-							</div>
-							<div class="col-md-4">
-								<label class="form-label">SKU</label>
-								<input id="h_edit_sku" class="form-control" readonly>
-							</div>
-
-							<div class="col-md-4">
-								<label class="form-label">Category</label>
-								<input id="h_edit_category" class="form-control">
-							</div>
-							<div class="col-md-4">
-								<label class="form-label">Material</label>
-								<input id="h_edit_material" class="form-control">
-							</div>
-							<div class="col-md-4">
-								<label class="form-label">Image URL</label>
-								<input id="h_edit_img" class="form-control">
-							</div>
-
-							<div class="col-md-4">
-								<label class="form-label">Price (CAD)</label>
-								<input id="h_edit_price" class="form-control" type="number" min="0" step="0.01"
-									required>
-							</div>
-							<div class="col-md-4">
-								<label class="form-label">Stock</label>
-								<input id="h_edit_stock" class="form-control" type="number" min="0" required>
-							</div>
-							<div class="col-12">
-								<label class="form-label">Notes (optional)</label>
-								<input id="h_edit_notes" class="form-control" placeholder="Internal notes">
-							</div>
-						</div>
-					</div>
-
-					<div class="modal-footer">
-						<div class="me-auto text-muted small">Edits update the local dataset (demo).</div>
-						<button type="button" class="btn h_wishlist_action-btn" data-bs-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn h_wishlist_action-btn">Save changes</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-		<!-- DELETE PRODUCT MODAL -->
-		<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Delete Product</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						Are you sure you want to delete this product?
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-					</div>
+				<div id="empty" class="empty-state d-none">
+					<i class="bi bi-box-seam"></i>
+					<h4>No products found!</h4>
+					<p>Try adjusting your filters or search query.</p>
+					<button id="empty-refresh" class="btn btn-primary mt-3">
+						<i class="bi bi-arrow-clockwise me-2"></i>Browse All
+					</button>
 				</div>
-			</div>
+
+				<div class="pagination-wrapper">
+					<button id="prev" class="page-btn">Previous</button>
+					<div id="page-indicator" class="text-dark fw-bold">1 / 1</div>
+					<button id="next" class="page-btn">Next</button>
+				</div>
+			</section>
 		</div>
 	</main>
+
+	<!-- Edit Product Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Product</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<form id="editForm">
+						<input type="hidden" id="editSku">
+						<div class="mb-3">
+							<label class="form-label">Product Name</label>
+							<input type="text" id="editName" class="form-control" required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Category</label>
+							<input type="text" id="editCategory" class="form-control" required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Price ($)</label>
+							<input type="number" id="editPrice" class="form-control" step="0.01" required>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Stock</label>
+							<input type="number" id="editStock" class="form-control" required>
+						</div>
+						<button type="submit" class="btn btn-secondary w-100">Save Changes</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Delete Confirmation Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header text-black">
+					<h5 class="modal-title">Confirm Delete</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<p id="deleteMessage">Are you sure you want to delete this product?</p>
+					<input type="hidden" id="deleteSku">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" id="confirmDelete" class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Overlay for mobile -->
 	<div class="overlay"></div>
 
-	<!-- Bootstrap JS bundle -->
+	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/sidebar-loader.js"></script>
 	<script src="/js/navbar-loader.js"></script>
 
 	<script>
-		// --- DATASET: prices are CAD (no INR, no conversion) ---
-		let productsData = [
-			{ sku: 'TS-001', name: 'Classic T-shirt', category: 'Men', material: 'Cotton', price: 7.98, stock: 120, imgColor: '#FDE68A', img: 'https://chriscross.in/cdn/shop/products/ChrisCrossChocolateBrownTshirtClassicBikes-min.jpg?v=1751433144&width=1000' },
-			{ sku: 'DJ-212', name: 'Denim Jacket', category: 'Women', material: 'Denim', price: 39.98, stock: 6, imgColor: '#BFDBFE', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJsYP1DiCwP4g20X1OyNju3_oMuX4WHupxkQ&s' },
-			{ sku: 'HD-045', name: 'Hooded Sweatshirt', category: 'Unisex', material: 'Fleece', price: 20.78, stock: 58, imgColor: '#FBCFE8', img: 'https://www.globalrepublic.in/cdn/shop/products/1_32cb8577-c630-4e43-ac47-8f7f0d35e07a.jpg?v=1648815314&width=1080' },
-			{ sku: 'SK-010', name: 'Summer Skirt', category: 'Women', material: 'Polyester', price: 12.78, stock: 200, imgColor: '#C7F9CC', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJXsj9tddRWhzcXP7_8ea4CrrTd0Jv-niebQ&s' },
-			{ sku: 'SH-111', name: 'Casual Shirt', category: 'Men', material: 'Cotton', price: 14.38, stock: 32, imgColor: '#FFDAB9', img: 'https://myraymond.com/cdn/shop/files/CMSS30011-B3-1.jpg?v=1725608561' },
-			{ sku: 'PT-007', name: 'Pleated Trousers', category: 'Women', material: 'Linen', price: 22.38, stock: 14, imgColor: '#E2E8F0', img: 'https://italianvega.in/cdn/shop/files/Img4_b9caacec-3e46-4d9a-b2a9-8956b0876631.jpg?v=1742195785&width=1946' },
-			{ sku: 'AC-300', name: 'Customized Hoodie', category: 'Unisex', material: 'Cotton', price: 3.98, stock: 520, imgColor: '#FCA5A5', img: 'https://gogirgit.com/cdn/shop/files/Personalized-Name-Date-Couple-Hoodies-Gogirgit_1800x.jpg?v=1698775952' },
-			{ sku: 'SO-051', name: 'Woolen Sweater', category: 'Men', material: 'Cotton', price: 1.58, stock: 640, imgColor: '#D1FAE5', img: 'https://i.pinimg.com/originals/f8/b3/d1/f8b3d190d70d157d0814988f787a8e2f.jpg' }
+		const products = [
+			{ sku: 'TS-001', name: 'Vintage Comfort T-shirt', category: 'Men', price: 29.99, stock: 120, img: 'https://images.meesho.com/images/products/402850146/n7jle_512.avif?width=512', rating: 4.5, reviews: 85, added: '2023-01-15' },
+			{ sku: 'BG-777', name: 'Leather Jacket', category: 'Unisex', price: 65.00, stock: 50, img: 'https://www.globalrepublic.in/cdn/shop/files/1_17eb7cf2-73f3-4343-95bd-0f0633900ead.jpg?v=1705393220&width=700', rating: 4.4, reviews: 58, added: '2023-05-05' },
+			{ sku: 'KD-101', name: 'Kids Cartoon T-shirt', category: 'Kids', price: 19.99, stock: 40, img: 'https://m.media-amazon.com/images/I/61eTU-T8VUL._SX679_.jpg', rating: 4.6, reviews: 32, added: '2023-03-18' },
+			{ sku: 'WM-322', name: 'Women Summer Dress', category: 'Women', price: 55.00, stock: 25, img: 'https://i.pinimg.com/736x/25/05/e6/2505e613a83614c85b3dab69575a72b3.jpg', rating: 4.7, reviews: 76, added: '2023-04-02' },
+			{ sku: 'MS-110', name: 'Classic White Shirt', category: 'Men', price: 40.00, stock: 32, img: 'https://www.beyours.in/cdn/shop/files/white-2.jpg?v=1729102400', rating: 4.8, reviews: 98, added: '2023-06-12' },
+			{ sku: 'KD-202', name: 'Princess Party Dress', category: 'Kids', price: 35.00, stock: 12, img: 'https://www.cutedoll.in/cdn/shop/files/3158A.jpg?v=1715855457&width=713', rating: 4.3, reviews: 41, added: '2023-05-15' },
+			{ sku: 'WM-450', name: 'Wool Cardigan', category: 'Women', price: 62.00, stock: 14, img: 'https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp', rating: 4.6, reviews: 54, added: '2023-06-05' },
+			{ sku: 'WT-205', name: 'Kids Summer Outfit Set', category: 'Kids', price: 48.00, stock: 20, img: 'https://img.kwcdn.com/product/fancy/b0e91703-eb88-4183-8622-9d903a089819.jpg?imageView2/2/w/500/q/60/format/webp', rating: 4.5, reviews: 67, added: '2023-07-01' },
+			{ sku: 'DJ-212', name: 'Classic Blue Denim Jacket', category: 'Women', price: 89.50, stock: 6, img: 'https://m.media-amazon.com/images/I/81gUcmM3npL._UY350_.jpg', rating: 4.8, reviews: 112, added: '2023-02-20' },
+			{ sku: 'HD-045', name: 'Urban Style Hoodie', category: 'Unisex', price: 45.00, stock: 58, img: 'https://m.media-amazon.com/images/I/616GHHflDkL._SX569_.jpg', rating: 4.2, reviews: 60, added: '2023-03-10' },
+			{ sku: 'SN-550', name: 'Slim Fit Black Jeans', category: 'Men', price: 75.00, stock: 18, img: 'https://cottonking.com/cdn/shop/files/D42930-1_640x_crop_center.jpg?v=1706685813', rating: 4.9, reviews: 142, added: '2023-04-22' },
 		];
 
-		// --- Pagination & state ---
-		let currentPage = 1;
-		const pageSize = 4;
-		let currentView = 'grid';
-		let currentSort = 'newest';
 
-		// --- DOM elements ---
-		const btnGrid = document.getElementById('btn-grid');
-		const btnList = document.getElementById('btn-list');
+		let pageSize = 9, currentPage = 1, currentFilter = 'all', currentQuery = '', currentSort = 'default';
+		let currentMinPrice = '', currentMaxPrice = '', currentStock = 'all';
+		const wishlist = new Set();
+		const cart = new Set();
+
 		const productsEl = document.getElementById('products');
-		const tableBody = document.getElementById('tableBody');
-		const tableShell = document.getElementById('tableShell');
-		const prevBtn = document.getElementById('prevBtn');
-		const nextBtn = document.getElementById('nextBtn');
-		const pageIndicator = document.getElementById('pageIndicator');
-		const sortSelect = document.getElementById('sort');
+		const emptyEl = document.getElementById('empty');
+		const pageIndicator = document.getElementById('page-indicator');
 
-		// Edit modal elements
-		const editModalEl = document.getElementById('h_editModal');
-		const editModal = new bootstrap.Modal(editModalEl);
-		const editForm = document.getElementById('h_editForm');
-		const fName = document.getElementById('h_edit_name');
-		const fSku = document.getElementById('h_edit_sku');
-		const fCategory = document.getElementById('h_edit_category');
-		const fMaterial = document.getElementById('h_edit_material');
-		const fImg = document.getElementById('h_edit_img');
-		const fPrice = document.getElementById('h_edit_price'); // CAD
-		const fStock = document.getElementById('h_edit_stock');
-		const fNotes = document.getElementById('h_edit_notes');
+		function renderProducts() {
+			let filtered = products.filter(p => {
+				const matchCategory = currentFilter === 'all' || p.category.toLowerCase() === currentFilter.toLowerCase();
+				const q = currentQuery.trim().toLowerCase();
+				const matchQuery = !q || p.name.toLowerCase().includes(q);
 
-		// --- Currency display helper (CAD only) ---
-		function formatCAD(n) {
-			const val = Number(n) || 0;
-			return `$${numberWithCommas(val.toFixed(2))}`;
-		}
+				const matchPrice = (!currentMinPrice || p.price >= currentMinPrice) &&
+					(!currentMaxPrice || p.price <= currentMaxPrice);
 
-		// helpers
-		function createPlaceholder(name, color) {
-			const initials = (name || '').split(' ').map(s => s[0]).slice(0, 2).join('').toUpperCase() || 'P';
-			const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
-          <rect width="100%" height="100%" fill="${color || '#EEE'}"/>
-          <text x="50%" y="55%" font-size="80" dominant-baseline="middle" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif">${initials}</text>
-        </svg>`;
-			return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-		}
-		function escapeHtml(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
-		function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
-		function cloneData() { return productsData.map(p => ({ ...p })); }
+				let matchStock = true;
+				if (currentStock === 'in') matchStock = p.stock > 10;
+				if (currentStock === 'low') matchStock = p.stock > 0 && p.stock <= 10;
+				if (currentStock === 'out') matchStock = p.stock <= 0;
 
-		function getSorted() {
-			let arr = cloneData();
-			if (currentSort === 'price-asc') arr.sort((a, b) => a.price - b.price);
-			else if (currentSort === 'price-desc') arr.sort((a, b) => b.price - a.price);
-			return arr; // newest = insertion order
-		}
+				return matchCategory && matchQuery && matchPrice && matchStock;
+			});
 
-		// renderers
-		function renderGrid(pageData) {
+			if (currentSort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+			if (currentSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+			if (currentSort === 'newest') filtered.sort((a, b) => new Date(b.added) - new Date(a.added));
+
+			const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+			if (currentPage > totalPages) currentPage = totalPages;
+
+			const start = (currentPage - 1) * pageSize;
+			const pageItems = filtered.slice(start, start + pageSize);
+
 			productsEl.innerHTML = '';
-			pageData.forEach(p => {
-				const art = document.createElement('article');
-				art.className = 'h_card';
-				art.dataset.sku = p.sku;
-				art.innerHTML = `
-          <div class="h_media-wrap" aria-hidden="true">
-            <img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}">
+			if (pageItems.length === 0) {
+				emptyEl.classList.remove('d-none');
+			} else {
+				emptyEl.classList.add('d-none');
+
+				if (currentView === 'grid') {
+					// GRID VIEW → cards
+					pageItems.forEach(p => {
+						const card = document.createElement('div');
+						card.className = 'product-card';
+
+						const stockClass =
+							p.stock <= 0 ? 'stock-sold-out' :
+								p.stock <= 10 ? 'stock-low' :
+									p.stock <= 30 ? 'stock-medium' : 'stock-high';
+
+						card.innerHTML = `
+          <img src="${p.img}" class="product-img" alt="${p.name}">
+          <div class="product-body">
+            <div class="product-category">${p.category}</div>
+            <a href="#" class="product-name">${p.name}</a>
+            <div class="product-rating">
+              ${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5 - Math.floor(p.rating))}
+              <span class="text-muted">(${p.reviews})</span>
+            </div>
+            <div class="price-stock">
+              <div class="price">$${p.price.toFixed(2)}</div>
+              <div class="stock-badge ${stockClass}">
+                ${p.stock <= 0 ? 'Sold Out' : p.stock + ' in stock'}
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-action btn-edit" data-action="edit" data-sku="${p.sku}">
+                <i class="bi bi-pencil-square"></i> Edit
+              </button>
+              <button class="btn-action btn-delete" data-action="delete" data-sku="${p.sku}">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </div>
           </div>
-          <div class="h_card-body" style="display:flex; flex-direction:column;">
-            <div class="h_product-details">
-              <div class="h_product-name">${escapeHtml(p.name)}</div>
-              <div class="h_product-meta">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
-            </div>
-            <div class="h_row-bottom" style="margin-top:auto;">
-              <div class="h_price">${formatCAD(p.price)}</div>
-              <div class="h_stock">Stock: ${p.stock}${p.stock <= 10 ? ' (low)' : ''}</div>
-            </div>
-            <div class="d-flex justify-content-end gap-2 mt-3 h_actions">
-              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="edit" data-sku="${p.sku}">Edit</button>
-              <button class="h_btn h_wishlist_action-btn btn-sm" data-action="delete" data-sku="${p.sku}">Delete</button>
-            </div>
-          </div>`;
-				productsEl.appendChild(art);
-			});
-		}
+        `;
+						productsEl.appendChild(card);
+					});
 
-		function renderTable(pageData) {
-			tableBody.innerHTML = '';
-			pageData.forEach(p => {
-				const tr = document.createElement('tr');
-				tr.innerHTML = `
-					<td style="text-align:left; display:flex; gap:12px; align-items:center;">
-						<img src="${p.img || createPlaceholder(p.name, p.imgColor)}" alt="${escapeHtml(p.name)}" style="height:56px; width:56px; object-fit:cover; border-radius:8px;">
-						<div style="text-align:left;">
-						<div style="font-weight:700;">${escapeHtml(p.name)}</div>
-						<div style="opacity:.8; font-size:.9rem;">${escapeHtml(p.category)} • ${escapeHtml(p.material)}</div>
-						</div>
-					</td>
-					<td>${escapeHtml(p.sku)}</td>
-					<td>${escapeHtml(p.category)}</td>
-					<td>${formatCAD(p.price)}</td>
-					<td class="text-end">${p.stock}</td>
-					<td class="text-end">
-						<div class="d-inline-flex gap-2">
-								<button class="h_btn h_wishlist_action-btn btn-sm" data-action="edit" data-sku="${p.sku}" title="Edit">
-								<i class="bi bi-pencil-square"></i>
+				} else {
+					// LIST VIEW → table
+					const table = document.createElement('table');
+					table.className = 'table table-bordered align-middle text-center bg-white shadow-sm';
+					table.innerHTML = `
+						<thead class="table-dark">
+						<tr>
+							<th>Image</th>
+							<th>Name</th>
+							<th>Category</th>
+							<th>Price ($)</th>
+							<th>Stock</th>
+							<th>Actions</th>
+						</tr>
+						</thead>
+						<tbody>
+						${pageItems.map(p => `
+							<tr>
+							<td><img src="${p.img}" alt="${p.name}" style="width:70px; height:70px; object-fit:cover; border-radius:8px;"></td>
+							<td class="fw-semibold">${p.name}</td>
+							<td>${p.category}</td>
+							<td>$${p.price.toFixed(2)}</td>
+							<td>
+								<span class="stock-badge 
+								${p.stock <= 0 ? 'stock-sold-out' :
+							p.stock <= 10 ? 'stock-low' :
+								p.stock <= 30 ? 'stock-medium' : 'stock-high'}">
+								${p.stock <= 0 ? 'Sold Out' : p.stock + ' in stock'}
+								</span>
+							</td>
+							<td>
+								<button class="btn btn-sm btn-secondary me-1" data-action="edit" data-sku="${p.sku}">
+								<i class="bi bi-pencil-square"></i> Edit
 								</button>
-								<button class="h_btn h_wishlist_action-btn btn-sm" data-action="delete" data-sku="${p.sku}" title="Delete">
-								<i class="bi bi-trash3"></i>
+								<button class="btn btn-sm btn-danger" data-action="delete" data-sku="${p.sku}">
+								<i class="bi bi-trash"></i> Delete
 								</button>
-							</div>
-					</td>`;
-				tableBody.appendChild(tr);
-			});
-		}
-
-		function render() {
-			const sorted = getSorted();
-			const total = sorted.length;
-			const pageCount = Math.max(1, Math.ceil(total / pageSize));
-			if (currentPage > pageCount) currentPage = pageCount;
-			const startIndex = (currentPage - 1) * pageSize;
-			const endIndex = Math.min(total, startIndex + pageSize);
-			const pageData = sorted.slice(startIndex, endIndex);
-
-			if (currentView === 'grid') {
-				productsEl.classList.remove('d-none');
-				tableShell.classList.add('d-none');
-				renderGrid(pageData);
-			} else {
-				productsEl.classList.add('d-none');
-				tableShell.classList.remove('d-none');
-				renderTable(pageData);
+							</td>
+							</tr>
+						`).join('')}
+						</tbody>
+					`;
+					productsEl.appendChild(table);
+				}
 			}
 
-			pageIndicator.textContent = `${pageCount === 0 ? 0 : currentPage}/${pageCount}`;
-			prevBtn.classList.toggle('is-disabled', currentPage === 1);
-			nextBtn.classList.toggle('is-disabled', currentPage === pageCount);
+			pageIndicator.textContent = `${currentPage} / ${totalPages}`;
+			document.getElementById('prev').disabled = currentPage === 1;
+			document.getElementById('next').disabled = currentPage === totalPages;
 		}
 
-		function setView(view) {
-			currentView = view === 'list' ? 'list' : 'grid';
-			const main = document.querySelector('main');
-			if (currentView === 'list') {
-				main.classList.add('h_list-view');
-				btnList.classList.add('active'); btnList.setAttribute('aria-pressed', 'true');
-				btnGrid.classList.remove('active'); btnGrid.setAttribute('aria-pressed', 'false');
-			} else {
-				main.classList.remove('h_list-view');
-				btnGrid.classList.add('active'); btnGrid.setAttribute('aria-pressed', 'true');
-				btnList.classList.remove('active'); btnList.setAttribute('aria-pressed', 'false');
-			}
-			currentPage = 1;
-			render();
-		}
+		// event delegration of edit and delete
+		// Bootstrap modal instances
+		const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+		const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
 
-		function openEditModal(sku) {
-			const idx = productsData.findIndex(p => p.sku === sku);
-			if (idx === -1) return alert('Product not found');
-			const p = productsData[idx];
-			document.getElementById('h_edit_name').value = p.name || '';
-			document.getElementById('h_edit_sku').value = p.sku || '';
-			document.getElementById('h_edit_category').value = p.category || '';
-			document.getElementById('h_edit_material').value = p.material || '';
-			document.getElementById('h_edit_img').value = p.img || '';
-			document.getElementById('h_edit_price').value = p.price?.toString() || '0.00'; // CAD
-			document.getElementById('h_edit_stock').value = p.stock || 0;
-			document.getElementById('h_edit_notes').value = p.notes || '';
-			editModal.show();
-			setTimeout(() => document.getElementById('h_edit_name').focus(), 120);
-		}
-
-		// update product from modal form (keeps CAD)
-		document.getElementById('h_editForm').addEventListener('submit', (e) => {
-			e.preventDefault();
-			const sku = document.getElementById('h_edit_sku').value;
-			const idx = productsData.findIndex(p => p.sku === sku);
-			if (idx === -1) { alert('Product not found'); return; }
-
-			const name = document.getElementById('h_edit_name').value.trim();
-			const category = document.getElementById('h_edit_category').value.trim();
-			const material = document.getElementById('h_edit_material').value.trim();
-			const img = document.getElementById('h_edit_img').value.trim();
-			const price = Number(document.getElementById('h_edit_price').value); // CAD
-			const stock = parseInt(document.getElementById('h_edit_stock').value, 10);
-			const notes = document.getElementById('h_edit_notes').value.trim();
-
-			if (!name) return alert('Name is required');
-			if (Number.isNaN(price) || price < 0) return alert('Invalid price');
-			if (Number.isNaN(stock) || stock < 0) return alert('Invalid stock');
-
-			productsData[idx] = { ...productsData[idx], name, category, material, img: img || productsData[idx].img, price, stock, notes };
-			editModal.hide();
-			render();
-		});
-
-		// actions (edit/delete)
-		document.addEventListener('click', e => {
+		// Handle Edit & Delete buttons
+		document.addEventListener('click', (e) => {
 			const btn = e.target.closest('button[data-action]');
 			if (!btn) return;
 			const action = btn.dataset.action;
 			const sku = btn.dataset.sku;
-			if (action === 'edit') openEditModal(sku);
-			if (action === 'delete') {
-				if (!confirm('Delete product ' + sku + '? This cannot be undone.')) return;
-				productsData = productsData.filter(p => p.sku !== sku);
-				render();
+
+			if (action === 'edit') {
+				const product = products.find(p => p.sku === sku);
+				if (product) {
+					document.getElementById('editSku').value = product.sku;
+					document.getElementById('editName').value = product.name;
+					document.getElementById('editCategory').value = product.category;
+					document.getElementById('editPrice').value = product.price;
+					document.getElementById('editStock').value = product.stock;
+					editModal.show();
+				}
+			} else if (action === 'delete') {
+				document.getElementById('deleteSku').value = sku;
+				document.getElementById('deleteMessage').textContent =
+					`Are you sure you want to delete product "${sku}"?`;
+				deleteModal.show();
 			}
 		});
 
-		// pagination & controls
-		document.getElementById('btn-grid').addEventListener('click', () => setView('grid'));
-		document.getElementById('btn-list').addEventListener('click', () => setView('list'));
-
-		document.getElementById('prevBtn').addEventListener('click', () => {
-			if (prevBtn.classList.contains('is-disabled')) return;
-			if (currentPage > 1) { currentPage--; render(); }
+		// Save changes from edit modal
+		document.getElementById('editForm').addEventListener('submit', (e) => {
+			e.preventDefault();
+			const sku = document.getElementById('editSku').value;
+			const product = products.find(p => p.sku === sku);
+			if (product) {
+				product.name = document.getElementById('editName').value;
+				product.category = document.getElementById('editCategory').value;
+				product.price = parseFloat(document.getElementById('editPrice').value);
+				product.stock = parseInt(document.getElementById('editStock').value);
+				renderProducts();
+				editModal.hide();
+			}
 		});
 
-		document.getElementById('nextBtn').addEventListener('click', () => {
-			if (nextBtn.classList.contains('is-disabled')) return;
-			const total = getSorted().length;
-			const pageCount = Math.max(1, Math.ceil(total / pageSize));
-			if (currentPage < pageCount) { currentPage++; render(); }
+		// Confirm delete
+		document.getElementById('confirmDelete').addEventListener('click', () => {
+			const sku = document.getElementById('deleteSku').value;
+			const index = products.findIndex(p => p.sku === sku);
+			if (index !== -1) {
+				products.splice(index, 1);
+				renderProducts();
+			}
+			deleteModal.hide();
 		});
 
-		document.getElementById('sort').addEventListener('change', e => {
-			currentSort = e.target.value;
-			currentPage = 1;
-			render();
+
+		// Grid/List toggle
+		let currentView = 'grid'; // default
+		document.getElementById('gridView').addEventListener('click', () => {
+			currentView = 'grid';
+			productsEl.className = 'products-grid';
+			document.getElementById('gridView').classList.add('active');
+			document.getElementById('listView').classList.remove('active');
+			renderProducts();
 		});
 
-		document.addEventListener('DOMContentLoaded', () => setView('grid'));
+		document.getElementById('listView').addEventListener('click', () => {
+			currentView = 'list';
+			productsEl.className = 'products-list';
+			document.getElementById('listView').classList.add('active');
+			document.getElementById('gridView').classList.remove('active');
+			renderProducts();
+		});
+
+		// filters
+		document.getElementById('filter').addEventListener('change', e => { currentFilter = e.target.value; currentPage = 1; renderProducts(); });
+		document.getElementById('search').addEventListener('input', e => { currentQuery = e.target.value; currentPage = 1; renderProducts(); });
+		document.getElementById('sort').addEventListener('change', e => { currentSort = e.target.value; currentPage = 1; renderProducts(); });
+		document.getElementById('minPrice').addEventListener('input', e => { currentMinPrice = e.target.value ? parseFloat(e.target.value) : ''; renderProducts(); });
+		document.getElementById('maxPrice').addEventListener('input', e => { currentMaxPrice = e.target.value ? parseFloat(e.target.value) : ''; renderProducts(); });
+
+		document.getElementById('reset').addEventListener('click', () => {
+			currentFilter = 'all';
+			currentQuery = '';
+			currentSort = 'default';
+			currentMinPrice = '';
+			currentMaxPrice = '';
+			document.getElementById('filter').value = 'all';
+			document.getElementById('search').value = '';
+			document.getElementById('sort').value = 'default';
+			document.getElementById('minPrice').value = '';
+			document.getElementById('maxPrice').value = '';
+			renderProducts();
+		});
+
+		// pagination
+		document.getElementById('prev').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderProducts(); } });
+		document.getElementById('next').addEventListener('click', () => { currentPage++; renderProducts(); });
+
+		// empty state refresh
+		document.getElementById('empty-refresh').addEventListener('click', () => {
+			currentFilter = 'all';
+			currentQuery = '';
+			currentSort = 'default';
+			currentMinPrice = '';
+			currentMaxPrice = '';
+			document.getElementById('filter').value = 'all';
+			document.getElementById('search').value = '';
+			document.getElementById('sort').value = 'default';
+			document.getElementById('minPrice').value = '';
+			document.getElementById('maxPrice').value = '';
+			renderProducts();
+		});
+
+		renderProducts();
 	</script>
 </body>
 

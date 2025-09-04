@@ -38,20 +38,30 @@ function initSidebar() {
     });
   }
 
-  // Active link highlight
+  /// Active link highlight
   let currentPath = window.location.pathname.toLowerCase();
   const links = sidebar.querySelectorAll("a[href]");
+
   links.forEach(link => {
     let linkHref = link.getAttribute("href");
     if (!linkHref || linkHref === "#") return;
     linkHref = linkHref.toLowerCase();
 
-    // Extract only filename from the path
     const fileName = currentPath.split("/").pop();
 
     if (fileName === linkHref.split("/").pop()) {
+      // Remove all active classes and close dropdowns
+      sidebar.querySelectorAll("a.active").forEach(el => el.classList.remove("active"));
+      sidebar.querySelectorAll(".has-dropdown.active").forEach(el => {
+        el.classList.remove("active");
+        const menu = el.querySelector(".dropdown-menu");
+        if (menu) menu.style.display = "none";
+      });
+
+      // Set active link
       link.classList.add("active");
 
+      // Keep its parent dropdown open
       const parentDropdown = link.closest(".has-dropdown");
       if (parentDropdown) {
         parentDropdown.classList.add("active");
@@ -61,6 +71,6 @@ function initSidebar() {
         if (dropdownMenu) dropdownMenu.style.display = "block";
       }
     }
-    
   });
+
 }

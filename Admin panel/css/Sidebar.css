@@ -133,8 +133,6 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
   margin: 0;
   background-color: transparent !important;
   border: none;
-
-  /* Fix: keep inside sidebar */
   position: relative !important;
 }
 /* Desktop: hover open */
@@ -151,7 +149,9 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
   background: var(--sidebar-text);
   color: #fff;
 }
-
+.navlist li.has-dropdown.active .dropdown-menu {
+  display: block;
+}
 /* Fix: remove Bootstrap’s default ::after arrow */
 .nav-list .dropdown-toggle::after {
   content: none !important;
@@ -199,6 +199,17 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
 }
 .topbar h5 {
   margin-bottom: 0px;
+}
+.noti-icon span {
+  color: #fff;
+  background-color: red;
+  border-radius: 50%;
+  font-size: 10px;
+  padding: 3px 4px 3px 3px;
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  line-height: 8px;
 }
 .h_topbar_admin-name {
   font-weight: 600;
@@ -292,7 +303,7 @@ body.sidebar-collapsed #main-content {
   .sidebar .sidebar-search {
     display: none;
   }
-  .sidebar .nav-list li:hover .dropdown-menu{
+  .sidebar .nav-list li:hover .dropdown-menu {
     display: none;
   }
   .sidebar.expanded .nav-list li:hover .dropdown-menu {
