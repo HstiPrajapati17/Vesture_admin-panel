@@ -1,0 +1,495 @@
+/* ==============================
+   Product Page Styles
+   ============================== */
+
+
+
+
+
+/* ===================================== view Product css ======================================= */
+
+:root {
+  --h_brand: #607274;
+  --h_accent: #fffaf1;
+  --h_muted: rgba(37, 50, 53, 0.6);
+  --h_card-bg: #ffffff;
+  --h_glass: rgba(96, 114, 116, 0.06);
+  --h_radius: 14px;
+  --h_gap: 1rem;
+  --h_tab-accent: #eaf4f3;
+}
+
+/* Reset and base  */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #253235;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Container  */
+.h_container-max {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.h_viewProduct_main_content {
+  padding: 16px;
+  border-radius: 16px;
+}
+.h_view_product_card {
+  background: #607274;
+}
+
+/* Header  */
+.h_header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--h_gap);
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.h_breadcrumbs {
+  color: var(--h_muted);
+  font-size: 0.95rem;
+}
+
+.h_page-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #fffaf1;
+}
+
+.h_muted {
+  color: rgb(255 255 255 / 80%);
+}
+
+/* Panel layout */
+.h_panel {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Immersive left */
+.h_immersive {
+  background: linear-gradient(
+    180deg,
+    rgba(96, 114, 116, 0.03),
+    rgba(96, 114, 116, 0.01)
+  );
+  border-radius: var(--h_radius);
+  border: 1px solid var(--h_glass);
+  overflow: hidden;
+}
+
+.h_hero {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--h_card-bg);
+  box-shadow: 0 8px 24px rgba(96, 114, 116, 0.06);
+}
+
+/* Thumbs column: vertical on desktop, horizontal on mobile */
+.h_vp_gallery {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.h_thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.h_thumbs img {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.h_thumbs img:active {
+  transform: scale(0.98);
+}
+
+.h_thumbs img.h_active {
+  border-color: var(--h_brand);
+  box-shadow: 0 6px 18px rgba(96, 114, 116, 0.08);
+}
+
+/* Main image area - responsive and centered */
+.h_main {
+  width: 520px;
+  height: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8f7f6;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.h_main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating badge */
+.h_overlay {
+  position: relative;
+}
+
+.h_badge-floating {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  background: var(--h_brand);
+  color: var(--h_accent);
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Description area */
+.h_desc {
+  padding: 1rem 0;
+}
+
+.h_desc h2 {
+  margin: 4px 0;
+  font-size: 20px;
+  color: #fffaf1;
+}
+
+.h_meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.h_meta .h_item {
+  background: rgba(96, 114, 116, 0.04);
+  border-radius: 10px;
+  font-size: 16.5px;
+  margin: 6px 0px;
+  color: #fff;
+}
+
+.h_item_value {
+  text-decoration: underline;
+  margin-right: 2px;
+}
+
+/* Tabs (redesign)  */
+.h_tabs {
+  margin-top: 1rem;
+}
+
+/* Tab bar card */
+.h_tabbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(96, 114, 116, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(96, 114, 116, 0.04);
+}
+
+.h_tabbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: transparent;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fffaf1;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+
+.h_tabbtn .bi {
+  font-size: 1.05rem;
+  color: inherit;
+  opacity: 0.95;
+}
+
+.h_tabbtn:hover,
+.h_tabbtn:focus {
+  background: var(--h_tab-accent);
+  color: var(--h_brand);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.h_tabbtn[aria-selected="true"] {
+  background: var(--h_tab-accent);
+  color: var(--h_brand);
+  box-shadow: 0 8px 20px rgba(96, 114, 116, 0.08);
+}
+
+/* Tab content card */
+.h_tabpanel {
+  margin-top: 12px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(96, 114, 116, 0.04);
+}
+
+/* Specifications table */
+.h_specs_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.h_specs_table th {
+  text-align: left;
+  padding: 8px 12px;
+  width: 260px;
+  color: #42514f;
+  font-weight: 700;
+  vertical-align: top;
+}
+
+.h_specs_table td {
+  padding: 8px 12px;
+  border-top: 1px dashed rgba(37, 50, 53, 0.06);
+  color: #253235;
+}
+
+/* History timeline */
+.h_timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.h_t_item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.h_t_marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--h_brand);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.h_t_body {
+  background: #fafafa;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgb(96 114 116 / 50%);
+  width: 100%;
+}
+
+.h_t_time {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 6px;
+}
+
+/* Right side compact admin */
+.h_side {
+  background: var(--h_card-bg);
+  border-radius: var(--h_radius);
+  padding: 1rem;
+  border: 1px solid var(--h_glass);
+  box-shadow: 0 8px 20px rgba(96, 114, 116, 0.04);
+  height: fit-content;
+}
+
+.h_price {
+  font-size: 1.6rem;
+  color: var(--h_brand);
+  font-weight: 700;
+}
+
+.h_stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(37, 50, 53, 0.06);
+  color: #607274;
+  font-weight: 500;
+}
+
+.h_right_muted {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+
+.h_action-bar {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.h_btn-primary-brand {
+  background: var(--h_brand);
+  border: none;
+  color: var(--h_accent);
+  font-weight: 600;
+}
+
+.h_btn-primary-brand:hover {
+  border: 1px solid #607274;
+  color: #607274;
+}
+
+.h_btn-ghost {
+  background: transparent;
+  border: 1px solid var(--h_brand);
+  color: var(--h_brand);
+}
+
+.h_variants table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.h_variants th,
+.h_variants td {
+  padding: 0.6rem 0;
+  text-align: left;
+}
+
+.h_variants tr {
+  border-bottom: 1px solid rgb(37 50 53 / 24%);
+}
+
+.h_footer {
+  text-align: center;
+  color: var(--h_muted);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+  isolation: isolate;
+  border-bottom: 1px solid #fffaf1 !important;
+  border: none;
+}
+
+/* Improved mobile responsiveness  */
+@media (max-width: 1100px) {
+  .h_panel {
+    grid-template-columns: 1fr;
+  }
+
+  .h_hero {
+    flex-direction: column;
+  }
+
+  .h_vp_gallery {
+    flex-direction: column;
+  }
+
+  .h_thumbs {
+    flex-direction: row;
+  }
+
+  .h_thumbs img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .h_main {
+    width: 100%;
+    height: 320px;
+  }
+
+  .h_header {
+    gap: 0.6rem;
+  }
+
+  .h_page-title {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 768px) {
+  .h_tabpanel h4 {
+    font-size: 20px;
+  }
+  .h_tabpanel p {
+    font-size: 14px;
+  }
+  .h_tabpanel h5 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .h_main {
+    height: 260px;
+  }
+
+  .h_price {
+    font-size: 1.25rem;
+  }
+
+  .h_thumbs img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .h_tabbar {
+    overflow-x: auto;
+  }
+}
+
+/* Small utilities */
+.h_row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.h_btn {
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+}

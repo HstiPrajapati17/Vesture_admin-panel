@@ -1,0 +1,81 @@
+/* Orders List Container */
+.h_order-list {
+  background-color: #edeae2;
+  padding: 20px;
+  margin-top: 20px;
+}
+.h_order-list h4 {
+  color: #607274;
+}
+
+/* Table */
+.h_custom-sales-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+.h_custom-sales-table th {
+  background-color: #8e9a98;
+  color: #000;
+  text-align: center;
+  padding: 12px;
+  border: none;
+}
+.h_custom-sales-table td {
+  background-color: #8e9a98;
+  color: #000;
+  text-align: center;
+  padding: 12px;
+}
+
+/* Filter Button */
+.h_order-list-filter-btn {
+  background-color: #607274;
+  color: white;
+  border-radius: 6px;
+  padding: 5px 12px;
+}
+.h_order-list-filter-btn:hover {
+  background-color: #49525f;
+  color: #fff;
+}
+
+/* Status Badge */
+.custom-badge {
+  background-color: #fffaf1;
+  color: #607274;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+/* Modal */
+#orderModal .modal-body p {
+  margin-bottom: 8px;
+}
+
+/* Responsive */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.orderlist-table-icons {
+  background-color: #607274;
+  color: #fffaf1;
+  font-size: 18px;
+}
+.orderlist-table-icons:hover {
+  border: 1px solid #edeae2;
+  background-color: #607274;
+  color: #fffaf1;
+}
+@media (max-width: 540px) {
+  .container-fluid{
+    padding: 0 !important;
+  }
+  .h_order-list {
+    margin-top: 0 !important;
+  }
+}

@@ -1,0 +1,81 @@
+<div class="sidebar" id="sidebar">
+  <!-- Mobile close button -->
+  <button class="mobile-close"><i class="bi bi-x-lg"></i></button>
+
+  <!-- Brand -->
+  <div class="sidebar-top d-flex flex-column align-items-center justify-content-center mb-3">
+    <div class="brand">
+      <i class="bi bi-shop brand-icon"></i>
+      <span class="brand-text">Admin Panel</span>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="sidebar-search mt-3 w-100">
+      <input type="text" class="search-input" placeholder="Search...">
+      <i class="bi bi-search search-icon"></i>
+    </div>
+  </div>
+
+  <!-- Nav List -->
+  <ul class="nav-list">
+
+    <!-- Dashboard -->
+    <li><a href="/pages/Dashboard/Dashboard.html"><i class="bi bi-speedometer2"></i><span
+          class="label">Dashboard</span></a></li>
+
+    <!-- Product -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-box-seam"></i><span class="label">Product</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="/pages/components/Product/ProductList.html">
+            <i class="bi bi-card-list"></i> Product List
+          </a>
+        </li>
+        <li>
+          <a href="/pages/components/Product/ViewProduct.html">
+            <i class="bi bi-eye"></i> View Product
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    <!-- Sales -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-cash-coin"></i><span class="label">Sales</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Sales/OrderList.html"><i class="bi bi-card-list"></i> All Orders</a></li>
+        <li><a href="/pages/components/Sales/PendingOrders.html"><i class="bi bi-hourglass-split"></i> Pending
+            Orders</a></li>
+        <li><a href="/pages/components/Sales/CompletedOrders.html"><i class="bi bi-check-circle"></i> Completed
+            Orders</a></li>
+        <li><a href="/pages/components/Sales/SalesReport.html"><i class="bi bi-bar-chart"></i> Sales Report</a></li>
+      </ul>
+    </li>
+
+    <!-- Purchase / Orders -->
+    <li class="has-dropdown">
+      <a href="#">
+        <i class="bi bi-cart4"></i><span class="label">Purchase</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/pages/components/Purchase/Wishlist.html"><i class="bi bi-heart"></i> Wishlist</a></li>
+        <li><a href="/pages/components/Purchase/ShoppingCart.html"><i class="bi bi-cart-check"></i> Shopping
+            Cart</a></li>
+        <li><a href="/pages/components/Purchase/Checkout.html"><i class="bi bi-bag-check"></i> Checkout</a></li>
+      </ul>
+    </li>
+
+    <!-- Reports -->
+    <li><a href="/pages/components/Reports/Reports.html"><i class="bi bi-graph-up"></i><span
+          class="label">Reports</span></a></li>
+
+  </ul>
+</div>

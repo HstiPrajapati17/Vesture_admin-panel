@@ -1,4 +1,4 @@
-/* product list css */
+/* ==================================== product list css ================================ */
 :root {
   --p: #607274;
   --bg: #fffaf1;
@@ -328,7 +328,7 @@ body::-webkit-scrollbar {
   display: none !important;
 }
 
-/* view Product css */
+/* ============================================== view Product css ==================================== */
 
 :root {
   --h_brand: #607274;
@@ -341,7 +341,7 @@ body::-webkit-scrollbar {
   --h_tab-accent: #eaf4f3;
 }
 
-/* Reset and base ------------------------------------------------- */
+/* Reset and base */
 * {
   box-sizing: border-box;
 }
@@ -360,7 +360,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Container ----------------------------------------------------- */
+/* Container */
 .h_container-max {
   max-width: 1180px;
   margin: 0 auto;
@@ -374,7 +374,7 @@ body::-webkit-scrollbar {
   background: #607274;
 }
 
-/* Header -------------------------------------------------------- */
+/* Header */
 .h_header {
   display: flex;
   justify-content: space-between;
@@ -400,7 +400,7 @@ body::-webkit-scrollbar {
   color: rgb(255 255 255 / 80%);
 }
 
-/* Panel layout -------------------------------------------------- */
+/* Panel layout */
 .h_panel {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -408,7 +408,7 @@ body::-webkit-scrollbar {
   align-items: start;
 }
 
-/* Immersive left ------------------------------------------------ */
+/* Immersive left */
 .h_immersive {
   background: linear-gradient(
     180deg,
@@ -532,7 +532,7 @@ body::-webkit-scrollbar {
   margin-right: 2px;
 }
 
-/* Tabs (redesign) ------------------------------------------------ */
+/* Tabs (redesign) */
 .h_tabs {
   margin-top: 1rem;
 }
@@ -649,7 +649,7 @@ body::-webkit-scrollbar {
   margin-bottom: 6px;
 }
 
-/* Right side compact admin ------------------------------------- */
+/* Right side compact admin */
 .h_side {
   background: var(--h_card-bg);
   border-radius: var(--h_radius);
@@ -733,7 +733,7 @@ body::-webkit-scrollbar {
   border: none;
 }
 
-/* Improved mobile responsiveness -------------------------------- */
+/* Improved mobile responsiveness */
 @media (max-width: 1100px) {
   .h_panel {
     grid-template-columns: 1fr;
@@ -804,7 +804,7 @@ body::-webkit-scrollbar {
   }
 }
 
-/* Small utilities ------------------------------------------------ */
+/* Small utilities */
 .h_row {
   display: flex;
   gap: 0.5rem;
@@ -816,7 +816,7 @@ body::-webkit-scrollbar {
   padding: 0.45rem 0.7rem;
 }
 
-/* Add Product css */
+/* ==================================================== Add Product css =========================================== */
 
 :root {
   --h-primary: #607274;
@@ -1400,7 +1400,7 @@ body::-webkit-scrollbar {
   }
 }
 
-/* currunt Products Css */
+/* =================================== currunt Products and Low Stock Product Css =========================================== */
 
 /* Theme colors */
 :root {

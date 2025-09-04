@@ -1,0 +1,325 @@
+.dashboard-main-content {
+  background-color: #fffaf1;
+}
+.h_dashboard_intro h4 {
+  font-size: 22px;
+}
+.h_dashboard_intro p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.h_dashboad_main_title {
+  font-size: 26px;
+  color: #607274;
+}
+.h_topbar_icon {
+  font-size: 20px;
+}
+
+/* Cards */
+.h_main-cards .card {
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, #607274, #a0a0a08f, #607274);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  color: #272727;
+  border: none;
+  padding: 24px;
+}
+.h_main-cards .card h5 {
+  font-size: 22px;
+  font-weight: 600;
+}
+.h_main-cards .card p {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Chart Cards */
+.h_dashboard_root .h_chart-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 1.5rem;
+}
+.h_dashboard_root .h_chart-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #607274;
+  margin-bottom: 22px;
+  text-align: center;
+  text-decoration: underline;
+}
+.h_chart_section_01 .h_chart-container {
+  position: relative;
+  height: 350px;
+  width: 100%;
+}
+.h_small-chart-container {
+  position: relative;
+  height: 180px;
+  width: 100%;
+}
+
+/* Card shell + recent orders */
+.recent-orders,
+.card.h_recent-orders {
+  border: 1px solid #8e9a98;
+  border-radius: 10px;
+  background: #8e9a98;
+  overflow: hidden;
+}
+.h_recent-orders .h_dashboad_main_title {
+  color: #fffaf1;
+}
+.recent-orders .card-body,
+.card.h_recent-orders .card-body {
+  padding: 14px 16px;
+}
+.recent-orders .btn.btn-sm,
+.card.h_recent-orders .btn.btn-sm {
+  border-radius: 8px;
+  padding: 4px 10px;
+  line-height: 1.2;
+  font-size: 14px;
+  border-color: #fff;
+  color: #fff;
+}
+.recent-orders .btn-light.border,
+.card.h_recent-orders .btn-light.border {
+  background: #f8fafc;
+  border-color: #e6e9ef !important;
+}
+
+/* Table base look */
+.h_recent-orders-table {
+  width: 100%;
+  border: 1px solid #eef1f6;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.h_recent-orders-table thead th {
+  font-weight: 600;
+  font-size: 16px;
+  color: #374151;
+  background: #ffffff;
+  border-bottom: 1px solid #eef1f6;
+  text-align: left;
+}
+.h_recent-orders-table tbody tr {
+  border-bottom: 1px solid #f2f4f8;
+}
+.h_recent-orders-table tbody tr:nth-child(odd) {
+  background: #fafbff;
+}
+.h_recent-orders-table tbody tr:hover {
+  background: #f2f6ff;
+}
+.h_recent-orders-table td,
+.h_recent-orders-table th {
+  padding: 12px 14px;
+  vertical-align: middle;
+  color: #4b5563;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* badge */
+.badge-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 7px;
+  background: #d5d5d5;
+  color: #334155;
+}
+
+/* Responsive scroller for tables */
+.h_table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+}
+.h_table-responsive .table-scroll {
+  min-width: 100%;
+  overflow-y: auto;
+  max-height: 320px;
+  border-radius: 8px;
+}
+.h_table-responsive table {
+  min-width: 760px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.h_table-responsive,
+.h_table-responsive .table-scroll {
+  background: transparent;
+}
+
+/* custom scrollbars (webkit) */
+.h_table-responsive::-webkit-scrollbar,
+.h_table-responsive .table-scroll::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.h_table-responsive::-webkit-scrollbar-thumb,
+.h_table-responsive .table-scroll::-webkit-scrollbar-thumb {
+  background: rgba(96, 114, 116, 0.18);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.h_table-responsive::-webkit-scrollbar-track,
+.h_table-responsive .table-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+/* firefox scrollbar */
+@-moz-document url-prefix() {
+  .h_table-responsive,
+  .h_table-responsive .table-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(96, 114, 116, 0.18) rgba(0, 0, 0, 0.02);
+  }
+}
+/* keep table cells single-line */
+.h_recent-orders-table td,
+.h_recent-orders-table th {
+  white-space: nowrap;
+}
+
+/* small helper: */
+.card.h_recent-orders .d-flex.justify-content-between {
+  gap: 8px;
+}
+.card.h_recent-orders .h_table-responsive {
+  padding: 6px;
+  background: transparent;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1440px) {
+  .h_main-cards .card p {
+    font-size: 28px;
+  }
+  .h_main-cards .card {
+    padding: 20px;
+  }
+}
+@media (max-width: 1140px) {
+  #sidebar-container {
+    width: 77px;
+  }
+}
+@media (max-width: 1024px) {
+  .h_main-cards .card h5 {
+    font-size: 20px;
+  }
+  .h_main-cards .card p {
+    font-size: 22px;
+  }
+}
+@media (max-width: 992px) {
+  .h_chart-container {
+    height: 250px;
+  }
+  .h_small-chart-container {
+    height: 150px;
+  }
+}
+@media (max-width: 768px) {
+  .h_dashboard_intro h4 {
+    font-size: 16px;
+  }
+  .h_dashboard_intro p {
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+  .h_main-cards .card h5 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .h_main-cards .card p {
+    font-size: 18px;
+  }
+  .h_dashboad_main_title {
+    font-size: 20px;
+  }
+  .h_dashboard_root .h_chart-title {
+    font-size: 18px;
+  }
+  .h_main_topbar h2 {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+  .h_topbar_main-last {
+    gap: 12px !important;
+  }
+  .h_topbar_icon {
+    font-size: 15px;
+  }
+  .h_topbar_notification .h_topbar_notif-count {
+    font-size: 9px;
+    padding: 0px 4px;
+  }
+  .h_main_topbar {
+    margin-bottom: 0px;
+  }
+  .h_dashboard_root .h_chart-card {
+    padding: 14px;
+  }
+}
+@media (max-width: 767px) {
+  .h_main-cards .card h5 {
+    font-size: 19px;
+    margin-bottom: 4px;
+  }
+  .h_main-cards .card p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 420px) {
+  .h_table-responsive table {
+    min-width: 640px;
+  }
+  .h_table-responsive .table-scroll {
+    max-height: 260px;
+  }
+  .h_recent-orders-table td,
+  .h_recent-orders-table th {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  .badge-chip {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+  :root {
+    --content-pad: 14px;
+  }
+  .h_h_sidebar-header {
+    font-size: 20px;
+    padding-bottom: 8px;
+  }
+  .h_dashboard_root .h_chart-title {
+    font-size: 16px;
+  }
+  .recent-orders .btn.btn-sm,
+  .card.h_recent-orders .btn.btn-sm {
+    font-size: 12px;
+  }
+  .h_main_topbar h2 {
+    font-size: 16px;
+  }
+  .h_main_topbar {
+    padding: 8px 8px;
+  }
+}
