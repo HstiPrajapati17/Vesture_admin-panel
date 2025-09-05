@@ -10,11 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/Sidebar.css">
-    <link rel="stylesheet" href="/css/sales.css">
+    <link rel="stylesheet" href="/css/product.css">
 
     <style>
         :root {
-            --primary: #1f3b4d;
+            --primary: #607274;
             --secondary: #6c7a89;
             --accent: #f4c430;
             --bg-light: #f5f7fa;
@@ -32,7 +32,7 @@
 
         .shop-layout {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             padding: 20px;
             width: 100%;
             background: #607274;
@@ -75,7 +75,7 @@
 
         .btn-reset {
             width: 100%;
-            background: #1f3b4d;
+            background: #607274;
             color: #fff;
             border-radius: var(--btn-radius);
             font-weight: 500;
@@ -110,7 +110,7 @@
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
+            gap: 20px;
         }
 
         .product-card {
@@ -160,7 +160,6 @@
         }
 
         .product-rating {
-            color: var(--accent);
             font-size: 0.85rem;
         }
 
@@ -220,33 +219,14 @@
             gap: 5px;
             border-radius: var(--btn-radius);
             font-size: 0.85rem;
-            padding: 8px;
+            padding: 6px;
             cursor: pointer;
-        }
-
-        .products-list .btn-action {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            border-radius: var(--btn-radius);
-            font-size: 0.85rem;
-            padding: 7px;
-            cursor: pointer;
-            width: 175px;
-        }
-
-        .products-list .product-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-            width: 50%;
-            flex-direction: column;
         }
 
         .btn-wishlist {
             background: #f5f5f5;
             border: 1px solid #a9a4a4;
+            width: 30%;
         }
 
         .btn-wishlist.active {
@@ -260,6 +240,7 @@
             color: #fff;
             border: 1px solid var(--primary);
             transition: 0.5s;
+            width: 70%;
         }
 
         .btn-add-cart:hover {
@@ -292,35 +273,13 @@
             padding: 8px 16px;
             font-weight: 500;
             cursor: pointer;
-            background: var(--primary);
+            background: #1c2a3b;
             color: #ffffff;
             border: none;
         }
 
         .page-btn:disabled {
-            background: #a0a6ae;
-        }
-
-        .products-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .products-list .product-card {
-            flex-direction: row;
-            align-items: flex-start;
-        }
-
-        .products-list .product-img {
-            width: 180px;
-            height: auto;
-            aspect-ratio: unset;
-            flex-shrink: 0;
-        }
-
-        .products-list .product-body {
-            flex-grow: 1;
+            background: #81868c;
         }
 
         .btn-outline-dark {
@@ -382,39 +341,9 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-
-            .products-list .product-card {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .products-list .product-img {
-                width: 100%;
-                max-width: 300px;
-                height: auto;
-            }
-
-            .products-list .product-body {
-                width: 100%;
-                margin-top: 15px;
-            }
-
-            .products-list .product-actions {
-                width: 100%;
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .products-list .btn-action {
-                width: auto;
-                min-width: 140px;
-            }
         }
 
         @media (max-width: 576px) {
-
             .products-grid {
                 grid-template-columns: 1fr;
             }
@@ -491,15 +420,6 @@
             <section class="shop-main">
                 <div class="page-header">
                     <h1 class="page-title">All Products</h1>
-                    <div class="d-flex gap-2">
-                        <!-- Grid / List Toggle -->
-                        <button id="gridView" class="btn btn-sm btn-outline-dark active">
-                            <i class="bi bi-grid-fill"></i>
-                        </button>
-                        <button id="listView" class="btn btn-sm btn-outline-dark">
-                            <i class="bi bi-list-ul"></i>
-                        </button>
-                    </div>
                 </div>
 
                 <div id="products" class="products-grid"></div>
@@ -544,88 +464,86 @@
             { sku: 'SN-550', name: 'Slim Fit Black Jeans', category: 'Men', price: 75.00, stock: 18, img: 'https://cottonking.com/cdn/shop/files/D42930-1_640x_crop_center.jpg?v=1706685813', rating: 4.9, reviews: 142, added: '2023-04-22' },
         ];
 
+        let currentPage = 1;
+        const pageSize = 8;
+        let currentFilter = 'all';
+        let currentSort = 'default';
+        let currentQuery = '';
+        let currentMinPrice = '';
+        let currentMaxPrice = '';
 
-        let pageSize = 9, currentPage = 1, currentFilter = 'all', currentQuery = '', currentSort = 'default';
-        let currentMinPrice = '', currentMaxPrice = '', currentStock = 'all';
         const wishlist = new Set();
         const cart = new Set();
 
         const productsEl = document.getElementById('products');
         const emptyEl = document.getElementById('empty');
-        const pageIndicator = document.getElementById('page-indicator');
+        const pageIndicator = document.getElementById('pageIndicator');
 
         function renderProducts() {
             let filtered = products.filter(p => {
-                const matchCategory = currentFilter === 'all' || p.category.toLowerCase() === currentFilter.toLowerCase();
-                const q = currentQuery.trim().toLowerCase();
-                const matchQuery = !q || p.name.toLowerCase().includes(q);
-
-                const matchPrice = (!currentMinPrice || p.price >= currentMinPrice) &&
+                const matchCategory = currentFilter === 'all' || p.category === currentFilter;
+                const matchQuery = p.name.toLowerCase().includes(currentQuery.toLowerCase());
+                const matchPrice =
+                    (!currentMinPrice || p.price >= currentMinPrice) &&
                     (!currentMaxPrice || p.price <= currentMaxPrice);
 
-                let matchStock = true;
-                if (currentStock === 'in') matchStock = p.stock > 10;
-                if (currentStock === 'low') matchStock = p.stock > 0 && p.stock <= 10;
-                if (currentStock === 'out') matchStock = p.stock <= 0;
-
-                return matchCategory && matchQuery && matchPrice && matchStock;
+                return matchCategory && matchQuery && matchPrice;
             });
 
-            if (currentSort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-            if (currentSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-            if (currentSort === 'newest') filtered.sort((a, b) => new Date(b.added) - new Date(a.added));
+            // Sorting
+            if (currentSort === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'newest') {
+                filtered.sort((a, b) => new Date(b.added) - new Date(a.added));
+            }
 
-            const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+            // Pagination
+            const totalPages = Math.ceil(filtered.length / pageSize) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
 
             const start = (currentPage - 1) * pageSize;
-            const pageItems = filtered.slice(start, start + pageSize);
+            const paginated = filtered.slice(start, start + pageSize);
 
             productsEl.innerHTML = '';
-            if (pageItems.length === 0) {
+            if (paginated.length === 0) {
                 emptyEl.classList.remove('d-none');
             } else {
                 emptyEl.classList.add('d-none');
-                pageItems.forEach(p => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
+                paginated.forEach(p => {
+                    let stockClass = '';
+                    if (p.stock === 0) stockClass = 'stock-sold-out';
+                    else if (p.stock < 10) stockClass = 'stock-low';
+                    else if (p.stock < 50) stockClass = 'stock-medium';
+                    else stockClass = 'stock-high';
 
-                    const stockClass =
-                        p.stock <= 0 ? 'stock-sold-out' :
-                            p.stock <= 10 ? 'stock-low' :
-                                p.stock <= 30 ? 'stock-medium' : 'stock-high';
-
-                    const isWished = wishlist.has(p.sku);
-                    const isCarted = cart.has(p.sku);
-
-                    card.innerHTML = `
-            <img src="${p.img}" class="product-img" alt="${p.name}">
+                    productsEl.innerHTML += `
+          <div class="product-card">
+            <img src="${p.img}" alt="${p.name}" class="product-img">
             <div class="product-body">
               <div class="product-category">${p.category}</div>
-              <a href="#" class="product-name">${p.name}</a>
+              <a href="product.html?sku=${p.sku}" class="product-name">${p.name}</a>
               <div class="product-rating">
-                ${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5 - Math.floor(p.rating))}
-                <span class="text-muted">(${p.reviews})</span>
+                ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '½' : ''} (${p.reviews})
               </div>
               <div class="price-stock">
                 <div class="price">$${p.price.toFixed(2)}</div>
                 <div class="stock-badge ${stockClass}">
-                  ${p.stock <= 0 ? 'Sold Out' : p.stock + ' in stock'}
+                  ${p.stock > 0 ? p.stock + ' in stock' : 'Sold Out'}
                 </div>
               </div>
               <div class="product-actions">
-                <button class="btn-action btn-wishlist ${isWished ? 'active' : ''}" 
-                        data-action="like" data-sku="${p.sku}">
-                  <i class="bi bi-heart${isWished ? '-fill' : ''}"></i>
+                <button class="btn-action btn-wishlist ${wishlist.has(p.sku) ? 'active' : ''}" data-sku="${p.sku}">
+                  <i class="bi bi-heart"></i>
                 </button>
-                <button class="btn-action btn-add-cart" data-action="cart" data-sku="${p.sku}">
-                  <i class="bi bi-${isCarted ? 'cart-check-fill' : 'cart-plus'}"></i>
-                  ${isCarted ? 'Added' : 'Add to cart'}
+                <button class="btn-action btn-add-cart" data-sku="${p.sku}" ${cart.has(p.sku) ? 'disabled' : ''}>
+                  ${cart.has(p.sku) ? '<i class="bi bi-cart-plus"></i> Added' : '<i class="bi bi-cart-plus"></i> Add'}
                 </button>
               </div>
             </div>
-          `;
-                    productsEl.appendChild(card);
+          </div>
+        `;
                 });
             }
 
@@ -634,80 +552,116 @@
             document.getElementById('next').disabled = currentPage === totalPages;
         }
 
-        // event delegation for like/cart
-        document.addEventListener('click', (e) => {
-            const btn = e.target.closest('button[data-action]');
-            if (!btn) return;
-            const action = btn.dataset.action;
-            const sku = btn.dataset.sku;
-            if (action === 'like') {
-                if (wishlist.has(sku)) wishlist.delete(sku); else wishlist.add(sku);
-            } else if (action === 'cart') {
-                if (cart.has(sku)) cart.delete(sku); else cart.add(sku);
-            }
+        // Search
+        document.getElementById('search').addEventListener('input', e => {
+            currentQuery = e.target.value;
+            currentPage = 1;
             renderProducts();
         });
 
-        // Grid/List toggle
-        let currentView = 'grid'; // default
-        document.getElementById('gridView').addEventListener('click', () => {
-            currentView = 'grid';
-            productsEl.className = 'products-grid';
-            document.getElementById('gridView').classList.add('active');
-            document.getElementById('listView').classList.remove('active');
+        // Filter by category
+        document.getElementById('filter').addEventListener('change', e => {
+            currentFilter = e.target.value;
+            currentPage = 1;
             renderProducts();
         });
 
-        document.getElementById('listView').addEventListener('click', () => {
-            currentView = 'list';
-            productsEl.className = 'products-list';
-            document.getElementById('listView').classList.add('active');
-            document.getElementById('gridView').classList.remove('active');
+        // Price range
+        document.getElementById('minPrice').addEventListener('input', e => {
+            currentMinPrice = parseFloat(e.target.value) || '';
+            currentPage = 1;
+            renderProducts();
+        });
+        document.getElementById('maxPrice').addEventListener('input', e => {
+            currentMaxPrice = parseFloat(e.target.value) || '';
+            currentPage = 1;
             renderProducts();
         });
 
-        // filters
-        document.getElementById('filter').addEventListener('change', e => { currentFilter = e.target.value; currentPage = 1; renderProducts(); });
-        document.getElementById('search').addEventListener('input', e => { currentQuery = e.target.value; currentPage = 1; renderProducts(); });
-        document.getElementById('sort').addEventListener('change', e => { currentSort = e.target.value; currentPage = 1; renderProducts(); });
-        document.getElementById('minPrice').addEventListener('input', e => { currentMinPrice = e.target.value ? parseFloat(e.target.value) : ''; renderProducts(); });
-        document.getElementById('maxPrice').addEventListener('input', e => { currentMaxPrice = e.target.value ? parseFloat(e.target.value) : ''; renderProducts(); });
+        // Sort
+        document.getElementById('sort').addEventListener('change', e => {
+            currentSort = e.target.value;
+            currentPage = 1;
+            renderProducts();
+        });
 
+        // Reset filters
         document.getElementById('reset').addEventListener('click', () => {
-            currentFilter = 'all';
-            currentQuery = '';
-            currentSort = 'default';
-            currentMinPrice = '';
-            currentMaxPrice = '';
-            document.getElementById('filter').value = 'all';
             document.getElementById('search').value = '';
-            document.getElementById('sort').value = 'default';
+            document.getElementById('filter').value = 'all';
             document.getElementById('minPrice').value = '';
             document.getElementById('maxPrice').value = '';
+            document.getElementById('sort').value = 'default';
+
+            currentQuery = '';
+            currentFilter = 'all';
+            currentMinPrice = '';
+            currentMaxPrice = '';
+            currentSort = 'default';
+            currentPage = 1;
+
             renderProducts();
         });
 
-        // pagination
-        document.getElementById('prev').addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderProducts(); } });
-        document.getElementById('next').addEventListener('click', () => { currentPage++; renderProducts(); });
-
-        // empty state refresh
+        // Empty refresh
         document.getElementById('empty-refresh').addEventListener('click', () => {
-            currentFilter = 'all';
-            currentQuery = '';
-            currentSort = 'default';
-            currentMinPrice = '';
-            currentMaxPrice = '';
-            document.getElementById('filter').value = 'all';
-            document.getElementById('search').value = '';
-            document.getElementById('sort').value = 'default';
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
-            renderProducts();
+            document.getElementById('reset').click();
         });
 
+        // Pagination
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderProducts();
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            const filteredLength = products.filter(p => {
+                const matchCategory = currentFilter === 'all' || p.category === currentFilter;
+                const matchQuery = p.name.toLowerCase().includes(currentQuery.toLowerCase());
+                const matchPrice =
+                    (!currentMinPrice || p.price >= currentMinPrice) &&
+                    (!currentMaxPrice || p.price <= currentMaxPrice);
+                return matchCategory && matchQuery && matchPrice;
+            }).length;
+
+            const totalPages = Math.ceil(filteredLength / pageSize) || 1;
+
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderProducts();
+            }
+        });
+
+        // Wishlist + Cart (event delegation)
+        productsEl.addEventListener('click', e => {
+            if (e.target.closest('.btn-wishlist')) {
+                const sku = e.target.closest('.btn-wishlist').dataset.sku;
+                if (wishlist.has(sku)) {
+                    wishlist.delete(sku);
+                } else {
+                    wishlist.add(sku);
+                }
+                renderProducts();
+            }
+
+            if (e.target.closest('.btn-add-cart')) {
+                const btn = e.target.closest('.btn-add-cart');
+                const sku = btn.dataset.sku;
+
+                cart.add(sku);
+
+                // Change button text to "Added"
+                btn.innerHTML = '<i class="bi bi-cart-plus"></i> Added';
+                btn.disabled = true;
+            }
+        });
+
+        // Initial render
         renderProducts();
     </script>
+
 </body>
 
 </html>

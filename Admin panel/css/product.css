@@ -1,4 +1,5 @@
 /* ==================================== product list css ================================ */
+
 :root {
   --primary: #1f3b4d;
   --secondary: #6c7a89;
@@ -11,7 +12,6 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
   background: var(--bg-light);
   margin: 0;
   color: var(--text-dark);
@@ -62,15 +62,15 @@ body {
 
 .btn-reset {
   width: 100%;
-  background: var(--secondary);
+  background: #607274;
   color: #fff;
   border-radius: var(--btn-radius);
   font-weight: 500;
-  padding: 12px 0px;
+  padding: 8px 0px;
 }
 
 .btn-reset:hover {
-  background: var(--primary);
+  background: #455456;
   color: var(--bg-card);
 }
 
@@ -91,6 +91,7 @@ body {
   font-size: 28px;
   font-weight: 700;
   color: #fffaf1;
+  margin-bottom: 0;
 }
 
 .products-grid {
@@ -137,7 +138,7 @@ body {
   font-weight: 600;
   font-size: 1rem;
   color: var(--text-dark);
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   text-decoration: none;
 }
 
@@ -148,7 +149,7 @@ body {
 .product-rating {
   color: var(--accent);
   font-size: 0.85rem;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
 }
 
 .price-stock {
@@ -156,7 +157,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 4px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -196,13 +197,11 @@ body {
 .product-actions {
   display: flex;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 6px;
   width: 68%;
-  flex-direction: column;
 }
 
 .btn-action {
-  /* flex-grow: 1; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,11 +210,17 @@ body {
   font-size: 0.85rem;
   padding: 7px;
   cursor: pointer;
-  /* width: 50%; */
+  width: 50%;
+  background: #607274;
+  border: none;
+  color: #fff;
+}
+
+.btn-action:hover {
+  background-color: #455456;
 }
 
 .products-list .btn-action {
-  /* flex-grow: 1; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,6 +238,11 @@ body {
   margin-top: 12px;
   width: 50%;
   flex-direction: column;
+}
+
+.table {
+  min-width: 800px;
+  overflow-x: scroll;
 }
 
 .btn-wishlist {
@@ -283,13 +293,14 @@ body {
   padding: 8px 16px;
   font-weight: 500;
   cursor: pointer;
-  background: var(--primary);
+  background: #455456;
   color: #ffffff;
-  border: none;
+  border: 1px solid #959595;
 }
 
 .page-btn:disabled {
-  background: #a0a6ae;
+  background: #768e91;
+  border: none;
 }
 
 .products-list {
@@ -350,6 +361,20 @@ body {
 .price-range span {
   font-weight: 600;
   color: var(--primary);
+}
+
+/* smaller text/images in mobile */
+@media (max-width: 576px) {
+  .table td,
+  .table th {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .table img {
+    width: 50px !important;
+    height: 50px !important;
+  }
 }
 
 @media (max-width: 640px) {
@@ -897,6 +922,9 @@ body::-webkit-scrollbar {
   .h_tabbar {
     overflow-x: auto;
   }
+  .h_viewProduct_main_content {
+    padding: 12px;
+  }
 }
 
 /* Small utilities */
@@ -1178,7 +1206,7 @@ body::-webkit-scrollbar {
 /* make buttons slightly larger target for touch */
 .h_custome_add-btn,
 .btn {
-  padding: 8px 12px;
+  padding: 0px 10px;
   min-height: 40px;
 }
 

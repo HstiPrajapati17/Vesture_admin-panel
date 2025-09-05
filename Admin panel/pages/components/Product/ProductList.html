@@ -10,444 +10,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/sales.css">
+	<link rel="stylesheet" href="/css/product.css">
 
-	<style>
-		:root {
-			--primary: #1f3b4d;
-			--secondary: #6c7a89;
-			--accent: #f4c430;
-			--bg-light: #f5f7fa;
-			--bg-card: #fff;
-			--text-dark: #1c2a3b;
-			--text-muted: #7d8a99;
-			--btn-radius: 8px;
-		}
-
-		body {
-			background: var(--bg-light);
-			margin: 0;
-			color: var(--text-dark);
-		}
-
-		.shop-layout {
-			display: flex;
-			gap: 25px;
-			padding: 20px;
-			width: 100%;
-			background: #607274;
-		}
-
-		.shop-sidebar {
-			width: 280px;
-			background: var(--bg-card);
-			padding: 20px;
-			height: fit-content;
-			position: sticky;
-			top: 20px;
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-		}
-
-		.sidebar-title {
-			font-weight: 600;
-			font-size: 1.15rem;
-			margin-bottom: 12px;
-			color: var(--primary);
-		}
-
-		.sidebar-section {
-			margin-bottom: 25px;
-		}
-
-		.form-control,
-		.form-select {
-			border-radius: var(--btn-radius);
-			border: 1px solid #e0e0e0;
-			padding: 8px 12px;
-			font-size: 14px;
-		}
-
-		.form-control:focus,
-		.form-select:focus {
-			border-color: var(--primary);
-			box-shadow: 0 0 0 0.2rem rgba(31, 59, 77, 0.15);
-		}
-
-		.btn-reset {
-			width: 100%;
-			background: #607274;
-			color: #fff;
-			border-radius: var(--btn-radius);
-			font-weight: 500;
-			padding: 8px 0px;
-		}
-
-		.btn-reset:hover {
-			background: #455456;
-			color: var(--bg-card);
-		}
-
-		.shop-main {
-			width: 100%;
-		}
-
-		.page-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-bottom: 25px;
-			flex-wrap: wrap;
-			gap: 10px;
-		}
-
-		.page-title {
-			font-size: 28px;
-			font-weight: 700;
-			color: #fffaf1;
-			margin-bottom: 0;
-		}
-
-		.products-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-			gap: 25px;
-		}
-
-		.product-card {
-			background: var(--bg-card);
-			overflow: hidden;
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-			display: flex;
-			flex-direction: column;
-			transition: transform 0.2s ease, box-shadow 0.2s ease;
-		}
-
-		.product-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-		}
-
-		.product-img {
-			width: 100%;
-			aspect-ratio: 4.7/5;
-			object-fit: cover;
-		}
-
-		.product-body {
-			padding: 15px;
-			display: flex;
-			flex-direction: column;
-			flex-grow: 1;
-		}
-
-		.product-category {
-			font-size: 0.75rem;
-			color: var(--primary);
-			font-weight: 600;
-			margin-bottom: 5px;
-		}
-
-		.product-name {
-			font-weight: 600;
-			font-size: 1rem;
-			color: var(--text-dark);
-			margin-bottom: 2px;
-			text-decoration: none;
-		}
-
-		.product-name:hover {
-			color: var(--primary);
-		}
-
-		.product-rating {
-			color: var(--accent);
-			font-size: 0.85rem;
-			margin-bottom: 0px;
-		}
-
-		.price-stock {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-top: auto;
-			padding-top: 4px;
-			border-top: 1px solid #e0e0e0;
-		}
-
-		.price {
-			font-weight: 700;
-			font-size: 1.15rem;
-		}
-
-		.stock-badge {
-			font-size: 0.75rem;
-			font-weight: 600;
-			padding: 3px 8px;
-			border-radius: 50px;
-			display: inline-block;
-		}
-
-		.stock-high {
-			background: #d1fae5;
-			color: #065f46;
-		}
-
-		.stock-medium {
-			background: #fef3c7;
-			color: #92400e;
-		}
-
-		.stock-low {
-			background: #fee2e2;
-			color: #9f1239;
-		}
-
-		.stock-sold-out {
-			background: #e0e0e0;
-			color: #616161;
-		}
-
-		.product-actions {
-			display: flex;
-			gap: 8px;
-			margin-top: 6px;
-			width: 68%;
-		}
-
-		.btn-action {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 5px;
-			border-radius: var(--btn-radius);
-			font-size: 0.85rem;
-			padding: 7px;
-			cursor: pointer;
-			width: 50%;
-			background: #607274;
-			border: none;
-			color: #fff;
-		}
-
-		.btn-action:hover {
-			background-color: #455456;
-		}
-
-		.products-list .btn-action {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 5px;
-			border-radius: var(--btn-radius);
-			font-size: 0.85rem;
-			padding: 7px;
-			cursor: pointer;
-			width: 175px;
-		}
-
-		.products-list .product-actions {
-			display: flex;
-			gap: 8px;
-			margin-top: 12px;
-			width: 50%;
-			flex-direction: column;
-		}
-
-		.table {
-			min-width: 800px;
-			overflow-x: scroll;
-		}
-
-		.btn-wishlist {
-			background: #f5f5f5;
-			border: 1px solid #a9a4a4;
-		}
-
-		.btn-wishlist.active {
-			background: #e11d48;
-			color: #fff;
-			border-color: #e11d48;
-		}
-
-		.btn-add-cart {
-			background: var(--primary);
-			color: #fff;
-			border: 1px solid var(--primary);
-			transition: 0.5s;
-		}
-
-		.btn-add-cart:hover {
-			background: #424f5d;
-			border-color: var(--secondary);
-		}
-
-		.empty-state {
-			text-align: center;
-			padding: 60px 20px;
-			color: var(--secondary);
-			background: var(--bg-card);
-		}
-
-		.empty-state i {
-			font-size: 25px;
-			margin-bottom: 20px;
-		}
-
-		.pagination-wrapper {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 12px;
-			margin-top: 35px;
-		}
-
-		.page-btn {
-			border-radius: var(--btn-radius);
-			padding: 8px 16px;
-			font-weight: 500;
-			cursor: pointer;
-			background: #455456;
-			color: #ffffff;
-			border: 1px solid #959595;
-		}
-
-		.page-btn:disabled {
-			background: #768e91;
-			border: none;
-		}
-
-		.products-list {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-		}
-
-		.products-list .product-card {
-			flex-direction: row;
-			align-items: flex-start;
-		}
-
-		.products-list .product-img {
-			width: 180px;
-			height: auto;
-			aspect-ratio: unset;
-			flex-shrink: 0;
-		}
-
-		.products-list .product-body {
-			flex-grow: 1;
-		}
-
-		.btn-outline-dark {
-			color: #fffaf1;
-			border: 1px solid #fffaf1;
-		}
-
-		.btn-outline-dark i {
-			font-size: 18px;
-		}
-
-		.btn-check:checked+.btn,
-		.btn.active,
-		.btn.show,
-		.btn:first-child:active,
-		:not(.btn-check)+.btn:active {
-			color: #282828;
-			background-color: #8e9a98;
-			border-color: #fffaf1;
-		}
-
-		.price-range {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-		}
-
-		.price-range input {
-			border-radius: var(--btn-radius);
-			border: 1px solid #e0e0e0;
-			padding: 8px 12px;
-			font-size: 14px;
-			width: 50%;
-		}
-
-		.price-range span {
-			font-weight: 600;
-			color: var(--primary);
-		}
-
-		@media (max-width: 640px) {
-			.shop-layout {
-				flex-direction: column;
-			}
-
-			.shop-sidebar {
-				width: 100%;
-				position: static;
-				margin-bottom: 20px;
-			}
-
-			.shop-layout,
-			.shop-sidebar,
-			.product-body {
-				padding: 12px;
-			}
-
-			.page-header {
-				flex-direction: column;
-				align-items: flex-start;
-			}
-
-			.products-list .product-card {
-				flex-direction: column;
-				align-items: center;
-				text-align: center;
-			}
-
-			.products-list .product-img {
-				width: 100%;
-				max-width: 300px;
-				height: auto;
-			}
-
-			.products-list .product-body {
-				width: 100%;
-				margin-top: 15px;
-			}
-
-			.products-list .product-actions {
-				width: 100%;
-				flex-direction: row;
-				justify-content: center;
-				flex-wrap: wrap;
-			}
-
-			.products-list .btn-action {
-				width: auto;
-				min-width: 140px;
-			}
-		}
-
-		@media (max-width: 576px) {
-
-			.products-grid {
-				grid-template-columns: 1fr;
-			}
-
-			.products-list .product-card {
-				padding: 10px;
-			}
-
-			.products-list .product-img {
-				max-width: 100%;
-			}
-
-			.products-list .btn-action {
-				font-size: 0.8rem;
-				min-width: 120px;
-			}
-		}
-	</style>
 </head>
 
 <body>
@@ -699,47 +263,55 @@
 
 				} else {
 					// LIST VIEW → table
+					const tableWrapper = document.createElement('div');
+					tableWrapper.className = 'table-responsive'; // Add this wrapper for horizontal scrolling
+
 					const table = document.createElement('table');
 					table.className = 'table table-bordered align-middle text-center bg-white shadow-sm';
 					table.innerHTML = `
-						<thead class="table-dark">
-						<tr>
-							<th>Image</th>
-							<th>Name</th>
-							<th>Category</th>
-							<th>Price ($)</th>
-							<th>Stock</th>
-							<th>Actions</th>
-						</tr>
-						</thead>
-						<tbody>
-						${pageItems.map(p => `
-							<tr>
-							<td><img src="${p.img}" alt="${p.name}" style="width:70px; height:70px; object-fit:cover; border-radius:8px;"></td>
-							<td class="fw-semibold">${p.name}</td>
-							<td>${p.category}</td>
-							<td>$${p.price.toFixed(2)}</td>
-							<td>
-								<span class="stock-badge 
-								${p.stock <= 0 ? 'stock-sold-out' :
+    <thead class="table-dark">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price ($)</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    ${pageItems.map(p => `
+        <tr>
+        <td><img src="${p.img}" alt="${p.name}" style="width:70px; height:70px; object-fit:cover; border-radius:8px;"></td>
+        <td class="fw-semibold">${p.name}</td>
+        <td>${p.category}</td>
+        <td>$${p.price.toFixed(2)}</td>
+        <td>
+            <span class="stock-badge 
+            ${p.stock <= 0 ? 'stock-sold-out' :
 							p.stock <= 10 ? 'stock-low' :
 								p.stock <= 30 ? 'stock-medium' : 'stock-high'}">
-								${p.stock <= 0 ? 'Sold Out' : p.stock + ' in stock'}
-								</span>
-							</td>
-							<td>
-								<button class="btn btn-sm btn-secondary me-1" data-action="edit" data-sku="${p.sku}">
-								<i class="bi bi-pencil-square"></i> Edit
-								</button>
-								<button class="btn btn-sm btn-danger" data-action="delete" data-sku="${p.sku}">
-								<i class="bi bi-trash"></i> Delete
-								</button>
-							</td>
-							</tr>
-						`).join('')}
-						</tbody>
-					`;
-					productsEl.appendChild(table);
+            ${p.stock <= 0 ? 'Sold Out' : p.stock + ' in stock'}
+            </span>
+        </td>
+        <td>
+            <button class="btn btn-sm btn-secondary me-1" data-action="edit" data-sku="${p.sku}">
+            <i class="bi bi-pencil-square"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-danger" data-action="delete" data-sku="${p.sku}">
+            <i class="bi bi-trash"></i> Delete
+            </button>
+        </td>
+        </tr>
+    `).join('')}
+    </tbody>
+`;
+
+					// Append the table to the wrapper
+					tableWrapper.appendChild(table);
+
+					// Append the wrapper to the products element
+					productsEl.appendChild(tableWrapper);
 				}
 			}
 

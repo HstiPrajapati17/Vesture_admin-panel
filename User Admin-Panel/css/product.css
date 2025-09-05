@@ -1,6 +1,4 @@
-/* ==============================
-   Product Page Styles
-   ============================== */
+/* ============================= Product Page Styles ============================== */
 
 
 
@@ -460,10 +458,6 @@ body::-webkit-scrollbar {
 }
 
 @media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-
   .h_main {
     height: 260px;
   }
