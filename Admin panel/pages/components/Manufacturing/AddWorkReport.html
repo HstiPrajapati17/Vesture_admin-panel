@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ClothMan Admin — Add / Edit Work Report</title>
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/Sidebar.css">
+  <link rel="stylesheet" href="/css/subcategory.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar-container"></div>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="main-content" id="main-content">
+    <div class="h_container-app">
+      <div class="h_sheet" role="main" aria-labelledby="pageTitle">
+
+        <!-- Header -->
+        <header class="h_sheet-header">
+          <div class="h_title" id="pageTitle">
+            <i class="bi bi-plus-circle"></i>
+            <span id="pageMode">Add Work Report</span>
+          </div>
+        </header>
+
+        <div class="h_sheet-body">
+
+          <!-- Left: Quick settings -->
+          <aside class="h_col-left">
+            <h6 class="mb-2">Quick Settings</h6>
+        
+            <div class="mt-3 mb-3">
+              <label class="h_field-label">Status</label>
+              <div class="d-flex align-items-center gap-4">
+                <label class="h_radio">
+                  <input type="radio" name="statusRadio" id="statusOngoing" value="ongoing" checked> Ongoing
+                </label>
+                <label class="h_radio">
+                  <input type="radio" name="statusRadio" id="statusCompleted" value="completed"> Completed
+                </label>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Right: Form -->
+          <section class="h_col-right">
+            <form id="workReportForm" class="needs-validation" novalidate>
+              <div class="mb-3">
+                <h6 class="h_section-label">Work Report Details</h6>
+
+                <label class="h_field-label" for="productionOrder">Production Order</label>
+                <select id="productionOrder" class="h_dark-input" required>
+                  <option value="" disabled selected>Select a production order</option>
+                  <option value="PO-001" data-manufacturer="ABC Manufacturers">PO-001</option>
+                  <option value="PO-002" data-manufacturer="XYZ Manufacturers">PO-002</option>
+                  <option value="PO-003" data-manufacturer="LMN Manufacturers">PO-003</option>
+                  <!-- Add more production orders here -->
+                </select>
+                <div class="invalid-feedback">Please select a production order.</div>
+
+                <label class="h_field-label mt-2" for="manufacturer">Manufacturer</label>
+                <input id="manufacturer" type="text" class="h_dark-input" placeholder="Manufacturer will auto-fill" readonly required>
+                <div class="invalid-feedback">Manufacturer is required.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="h_field-label" for="reportDate">Date</label>
+                <input id="reportDate" type="date" class="h_dark-input" required>
+                <div class="invalid-feedback">Please select a date.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="h_field-label" for="progressDetails">Progress Details</label>
+                <textarea id="progressDetails" class="h_dark-textarea" rows="4" placeholder="Enter progress details" required></textarea>
+                <div class="invalid-feedback">Please provide progress details.</div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2 mt-3">
+                <button type="button" class="btn h_btn-outline-primary" id="cancelBtn"
+                  onclick="window.location.href='WorkReports.html'"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+                <button type="submit" class="btn h_btn-primary" id="saveBtn"><i class="bi bi-check2-circle me-1"></i>
+                  <span id="saveText">Add Work Report</span></button>
+              </div>
+            </form>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Overlay for mobile -->
+  <div class="overlay"></div>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/sidebar-loader.js"></script>
+  <script src="/js/navbar-loader.js"></script>
+
+  <script>
+    // Cancel button
+    document.getElementById('cancelBtn').addEventListener('click', () => history.back());
+
+    // Auto-fill Manufacturer based on selected Production Order
+    const productionOrderSelect = document.getElementById('productionOrder');
+    const manufacturerInput = document.getElementById('manufacturer');
+
+    productionOrderSelect.addEventListener('change', () => {
+      const selectedOption = productionOrderSelect.selectedOptions[0];
+      const manufacturer = selectedOption.dataset.manufacturer || '';
+      manufacturerInput.value = manufacturer;
+    });
+
+    // Form validation & demo submit
+    (function () {
+      const form = document.getElementById('workReportForm');
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          form.classList.add('was-validated');
+          return;
+        }
+
+        event.preventDefault(); // demo: prevent actual submit
+
+        const status = document.querySelector('input[name="statusRadio"]:checked')?.value || 'ongoing';
+        const payload = {
+          productionOrder: productionOrderSelect.value,
+          manufacturer: manufacturerInput.value,
+          date: document.getElementById('reportDate').value,
+          progressDetails: document.getElementById('progressDetails').value.trim(),
+          status: status
+        };
+
+        console.log('Work Report payload', payload);
+        alert('Work report saved (demo). Check console for payload.');
+      }, false);
+    })();
+  </script>
+</body>
+
+</html>

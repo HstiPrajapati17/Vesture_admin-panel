@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ClothMan Admin — Add / Edit Production Order</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/Sidebar.css">
+  <link rel="stylesheet" href="/css/category.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar-container"></div>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="main-content" id="main-content">
+    <div class="h_container-app">
+      <div class="h_sheet" role="main" aria-labelledby="pageTitle">
+        <!-- Header -->
+        <header class="h_sheet-header">
+          <div class="h_title" id="pageTitle"><i class="bi bi-diagram-3"></i>
+            <span id="pageMode">Add Production Order</span>
+          </div>
+        </header>
+
+        <!-- Body -->
+        <div class="h_sheet-body">
+          <!-- Left: Quick settings -->
+          <aside class="h_col-left">
+            <h6 class="h_section-label mb-2">Quick Settings</h6>
+
+            <!-- Status toggle -->
+            <div class="mt-2 mb-3">
+              <label class="h_field-label">Order Status</label>
+              <div class="d-flex align-items-center gap-4">
+                <label class="h_radio text-nowrap">
+                  <input type="radio" name="statusRadio" id="statusPending" value="Pending" checked>
+                  Pending
+                </label>
+                <label class="h_radio text-nowrap">
+                  <input type="radio" name="statusRadio" id="statusInProgress" value="In Progress">
+                  In Progress
+                </label>
+                <label class="h_radio text-nowrap">
+                  <input type="radio" name="statusRadio" id="statusCompleted" value="Completed">
+                  Completed
+                </label>
+              </div>
+            </div>
+
+            <div style="height:1px;background:var(--soft);margin:16px 0"></div>
+
+            <!-- Visibility -->
+            <div class="form-check form-switch h_form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="isPriority">
+              <label class="form-check-label ms-2" for="isPriority">Mark as Priority</label>
+            </div>
+          </aside>
+
+          <!-- Right: Form -->
+          <section class="h_col-right">
+            <form id="productionForm" class="needs-validation" novalidate>
+              <div class="mb-3">
+                <h6 class="h_section-label">Production Information</h6>
+              </div>
+
+              <!-- Product -->
+              <div class="mb-3">
+                <label class="h_field-label" for="product">Product</label>
+                <input id="product" type="text" class="h_dark-input" placeholder="Enter Product Name" required>
+                <div class="invalid-feedback">Please enter a product.</div>
+              </div>
+
+              <!-- Quantity -->
+              <div class="mb-3">
+                <label class="h_field-label" for="quantity">Quantity</label>
+                <input id="quantity" type="number" class="h_dark-input" placeholder="Enter Quantity" required>
+                <div class="invalid-feedback">Please enter quantity.</div>
+              </div>
+
+              <!-- Manufacturer dropdown -->
+              <div class="mb-3">
+                <label class="h_field-label" for="manufacturer">Manufacturer</label>
+                <select id="manufacturer" class="h_dark-input" required>
+                  <option value="">Select Manufacturer</option>
+                </select>
+                <div class="invalid-feedback">Please select a manufacturer.</div>
+              </div>
+
+              <!-- Raw Materials -->
+              <div class="mb-3">
+  <label class="h_field-label">Raw Materials</label>
+  <div id="rawMaterialsContainer"></div>
+  <button type="button" class="btn btn-sm btn-outline-secondary mt-2" id="addMaterialBtn">
+    <i class="bi bi-plus-circle"></i> Add Raw Material
+  </button>
+  <div class="invalid-feedback" id="rawMaterialsError">Please add at least one raw material.</div>
+</div>
+
+              <!-- Deadline -->
+              <div class="mb-3">
+                <label class="h_field-label" for="deadline">Deadline</label>
+                <input id="deadline" type="date" class="h_dark-input" required>
+                <div class="invalid-feedback">Please select deadline.</div>
+              </div>
+
+              <!-- Notes -->
+              <div class="mb-3">
+                <label class="h_field-label" for="notes">Notes</label>
+                <textarea id="notes" class="h_dark-textarea" placeholder="Special instructions or notes"></textarea>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2 mt-3">
+                <button type="button" class="btn h_btn-outline-primary" id="cancelBtn"
+                  onclick="window.location.href='ProductionOrders.html'"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+                <button type="submit" class="btn h_btn-primary" id="saveBtn"><i
+                    class="bi bi-check2-circle me-1"></i><span id="saveText">Add Production Order</span></button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Overlay for mobile -->
+  <div class="overlay"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/sidebar-loader.js"></script>
+  <script src="/js/navbar-loader.js"></script>
+
+<script>
+  // Detect mode (Add / Edit)
+  (function () {
+    const params = new URLSearchParams(window.location.search || '');
+    const isEdit = params.get('mode') === 'edit';
+    document.getElementById('pageMode').textContent = isEdit ? 'Edit Production Order' : 'Add Production Order';
+    document.getElementById('saveText').textContent = isEdit ? 'Save Changes' : 'Add Production Order';
+  })();
+
+  // Populate manufacturers dropdown
+  (function () {
+    const manufacturers = ["Manufacturer A", "Manufacturer B", "Manufacturer C"];
+    const select = document.getElementById('manufacturer');
+    manufacturers.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m;
+      option.textContent = m;
+      select.appendChild(option);
+    });
+  })();
+
+  // Raw Materials
+  const materialsList = ["Fabric A", "Fabric B", "Buttons X", "Zipper Z", "Thread Y"];
+  const rawMaterialsContainer = document.getElementById('rawMaterialsContainer');
+  const rawMaterialsError = document.getElementById('rawMaterialsError');
+
+  function validateRawMaterials() {
+    const rows = rawMaterialsContainer.querySelectorAll('div');
+    let valid = rows.length > 0;
+
+    rows.forEach(row => {
+      const select = row.querySelector('select');
+      const qty = row.querySelector('input');
+      if (!select.value) {
+        select.classList.add('is-invalid');
+        valid = false;
+      } else {
+        select.classList.remove('is-invalid');
+      }
+
+      if (!qty.value || qty.value <= 0) {
+        qty.classList.add('is-invalid');
+        valid = false;
+      } else {
+        qty.classList.remove('is-invalid');
+      }
+    });
+
+    // Show or hide the overall error message
+    rawMaterialsError.style.display = valid ? 'none' : 'block';
+    return valid;
+  }
+
+  function createRawMaterialRow() {
+    const row = document.createElement('div');
+    row.className = 'd-flex gap-2 align-items-center mb-2';
+
+    const select = document.createElement('select');
+    select.className = 'form-select form-select-sm';
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Material';
+    select.appendChild(defaultOption);
+    materialsList.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m;
+      option.textContent = m;
+      select.appendChild(option);
+    });
+
+    const qty = document.createElement('input');
+    qty.type = 'number';
+    qty.min = 1;
+    qty.placeholder = 'Qty';
+    qty.className = 'form-control form-control-sm';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'btn btn-sm btn-outline-danger';
+    removeBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
+    removeBtn.onclick = () => {
+      row.remove();
+      validateRawMaterials();
+    };
+
+    row.appendChild(select);
+    row.appendChild(qty);
+    row.appendChild(removeBtn);
+    rawMaterialsContainer.appendChild(row);
+  }
+
+  // Add initial raw material row
+  createRawMaterialRow();
+  document.getElementById('addMaterialBtn').addEventListener('click', createRawMaterialRow);
+
+  // Form submit
+  const form = document.getElementById('productionForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault(); // prevent default submit
+
+    let isValid = true;
+
+    // Validate product
+    const product = document.getElementById('product');
+    if (!product.value.trim()) {
+      product.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      product.classList.remove('is-invalid');
+    }
+
+    // Validate quantity
+    const quantity = document.getElementById('quantity');
+    if (!quantity.value || quantity.value <= 0) {
+      quantity.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      quantity.classList.remove('is-invalid');
+    }
+
+    // Validate manufacturer
+    const manufacturer = document.getElementById('manufacturer');
+    if (!manufacturer.value) {
+      manufacturer.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      manufacturer.classList.remove('is-invalid');
+    }
+
+    // Validate raw materials
+    if (!validateRawMaterials()) isValid = false;
+
+    // Validate deadline
+    const deadline = document.getElementById('deadline');
+    if (!deadline.value) {
+      deadline.classList.add('is-invalid');
+      isValid = false;
+    } else {
+      deadline.classList.remove('is-invalid');
+    }
+
+    if (!isValid) return; // stop submission if invalid
+
+    // Prepare payload
+    const rows = rawMaterialsContainer.querySelectorAll('div');
+    const payload = {
+      product: product.value.trim(),
+      quantity: quantity.value.trim(),
+      manufacturer: manufacturer.value,
+      rawMaterials: Array.from(rows).map(row => ({
+        material: row.querySelector('select').value,
+        quantity: row.querySelector('input').value
+      })),
+      deadline: deadline.value,
+      notes: document.getElementById('notes').value.trim(),
+      status: document.querySelector('input[name="statusRadio"]:checked')?.value,
+      priority: document.getElementById('isPriority').checked
+    };
+
+    console.log('Production Order payload', payload);
+    alert('Production Order saved (demo). Check console for payload.');
+  });
+</script>
+
+
+</body>
+</html>
