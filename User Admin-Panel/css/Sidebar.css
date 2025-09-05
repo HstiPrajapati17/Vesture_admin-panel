@@ -316,6 +316,7 @@ body.sidebar-collapsed #main-content {
   }
   .sidebar .nav-list li a {
     justify-content: center;
+    padding: 6px;
   }
 
   /* Expanded off-canvas full width */
