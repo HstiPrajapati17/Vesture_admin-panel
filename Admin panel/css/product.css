@@ -217,12 +217,7 @@ body {
 }
 
 .btn-action:hover {
-<<<<<<< HEAD
-  background-color: #455456;
-  color: #fff;
-=======
   background-color: #44323a;
->>>>>>> origin/denisha0809
 }
 
 .products-list .btn-action {
@@ -1322,11 +1317,7 @@ body::-webkit-scrollbar {
 /* make buttons slightly larger target for touch */
 .h_custome_add-btn,
 .btn {
-<<<<<<< HEAD
-  padding: 8px;
-=======
   /* padding: 0px 10px; */
->>>>>>> origin/denisha0809
   min-height: 40px;
 }
 
@@ -1725,21 +1716,12 @@ body {
   background-color: #c4cccb;
   border-color: none;
 }
-<<<<<<< HEAD
-.h_low-stock-btn {
-  background-color: #607274;
-  color: var(--h_accent);
-}
-.h_low-stock-btn:hover {
-  background-color: #607274;
-=======
 .lowstock-btn {
   background-color: #604652;
   color: var(--h_accent);
 }
 .lowstock-btn:hover {
   background-color: #604652;
->>>>>>> origin/denisha0809
   color: var(--h_accent);
   border: 1px solid var(--h_accent);
 }

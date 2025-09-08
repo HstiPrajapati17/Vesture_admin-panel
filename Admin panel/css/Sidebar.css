@@ -386,7 +386,6 @@ body.sidebar-collapsed #main-content {
     padding: 0px 6px;
   }
 }
-<<<<<<< HEAD
 
 
 /* Custom Modal Styles */
@@ -462,7 +461,6 @@ body.sidebar-collapsed #main-content {
 
 
 
-=======
 .page-link:focus {
   z-index: 3;
   color: inherit !important;
@@ -481,4 +479,3 @@ body.sidebar-collapsed #main-content {
 .btn-close:focus {
   box-shadow: none !important;
 }
->>>>>>> origin/denisha0809
