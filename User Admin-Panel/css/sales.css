@@ -79,3 +79,8 @@
     margin-top: 0 !important;
   }
 }
+
+.h_order-list-filter-btn:disabled{
+  background-color: #866c78;
+  color: #fff;
+}

@@ -198,7 +198,7 @@ body::-webkit-scrollbar {
   background-color: #604652;
   color: #f6f6f6;
 }
-.subcategory-custome-btn:hover{
+.subcategory-custome-btn:hover {
   background-color: #604652;
   color: #f6f6f6;
   border: 1px solid #f6f6f6;
@@ -409,7 +409,7 @@ h4 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #c2c2c2;
+  background-color: #6046527a;
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -437,6 +437,9 @@ input:checked + .mv_slider:before {
 @media (max-width: 768px) {
   .container-fluid {
     padding: 16px;
+  }
+  .dashboard-card {
+    padding: 12px;
   }
 }
 @media (max-width: 576px) {

@@ -286,9 +286,8 @@ body.sidebar-collapsed #main-content {
   color: #fff;
 }
 
-/* ===== Mobile (0–768px) ===== */
+/* ===== Mobile (768px) ===== */
 @media (max-width: 768px) {
-  /* Default collapsed state (50px wide, icons only) */
   .sidebar {
     position: fixed;
     top: 0;
@@ -395,6 +394,11 @@ body.sidebar-collapsed #main-content {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  -ms-overflow-style: none;
+}
+
+.custom-modal::-webkit-scrollbar {
+  display: none;
 }
 
 .custom-modal {
@@ -467,7 +471,7 @@ body.sidebar-collapsed #main-content {
 .page-link:focus {
   z-index: 3;
   color: inherit !important;
-  background-color: #58635c !important;
+  background-color: #604652 !important;
   outline: 0;
   box-shadow: inherit !important;
 }
@@ -481,4 +485,8 @@ body.sidebar-collapsed #main-content {
 }
 .btn-close:focus {
   box-shadow: none !important;
+}
+.btn:disabled{
+  background-color: #604652;
+  color: #fff;
 }

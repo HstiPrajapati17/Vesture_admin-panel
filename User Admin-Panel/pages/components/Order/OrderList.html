@@ -81,7 +81,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Overlay for mobile -->
 	<div class="overlay"></div>
 
@@ -201,12 +200,12 @@
 
 			document.getElementById("pageInfo").innerText =
 				`${currentPage}/${Math.ceil(orders.length / rowsPerPage)}`;
-				
-    // document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
-    
-    // Disable/enable pagination buttons based on current page
-    document.getElementById("prevBtn").disabled = currentPage === 1;
-    document.getElementById("nextBtn").disabled = currentPage === totalPages;
+
+			// document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+
+			// Disable/enable pagination buttons based on current page
+			document.getElementById("prevBtn").disabled = currentPage === 1;
+			document.getElementById("nextBtn").disabled = currentPage === totalPages;
 		}
 
 		function openModal() {
@@ -223,37 +222,40 @@
 
 			let productRows = order.products.map(p =>
 				`<tr>
-					<td>${p.name}</td>
-					<td>${p.size}</td>
-					<td>${p.color}</td>
-					<td>${p.qty}</td>
-				</tr>`).join("");
+      <td>${p.name}</td>
+      <td>${p.size}</td>
+      <td>${p.color}</td>
+      <td>${p.qty}</td>
+    </tr>`).join("");
 
 			document.getElementById("modalContent").innerHTML = `
-				<p><strong>Order ID:</strong> ${order.id}</p>
-				<p><strong>Status:</strong> ${order.status}</p>
-				<p><strong>Total:</strong> ${order.total}</p>
-				<p><strong>Order Date:</strong> ${order.date}</p>
+    <p><strong>Order ID:</strong> ${order.id}</p>
+    <p><strong>Status:</strong> ${order.status}</p>
+    <p><strong>Total:</strong> ${order.total}</p>
+    <p><strong>Order Date:</strong> ${order.date}</p>
 
-				<h6 class="mt-3">Products</h6>
-				<div class="table-responsive">
-					<table class="table table-bordered text-center">
-						<thead class="table-light">
-							<tr>
-								<th>Product Name</th>
-								<th>Size</th>
-								<th>Color</th>
-								<th>Qty</th>
-							</tr>
-						</thead>
-						<tbody>${productRows}</tbody>
-					</table>
-				</div>
-			`;
+    <h6 class="mt-3">Products</h6>
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Product Name</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Qty</th>
+          </tr>
+        </thead>
+        <tbody>${productRows}</tbody>
+      </table>
+    </div>
+  `;
 			openModal();
 		}
 
+		// Close modal on button click
 		document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+
+		// Close modal when clicking outside modal box
 		document.getElementById("orderModalOverlay").addEventListener("click", (e) => {
 			if (e.target.id === "orderModalOverlay") closeModal();
 		});

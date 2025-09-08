@@ -40,8 +40,8 @@
             <div class="row g-4 align-items-start">
               <!-- Left: Avatar + name -->
               <div class="col-12 col-md-4 text-center text-center">
-                <img id="profileAvatar" class="avatar"
-                  src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar">
+                <img id="profileAvatar" class="avatar" src="https://cdn-icons-png.flaticon.com/512/219/219983.png"
+                  alt="Avatar">
                 <div class="mt-3">
                   <h6 id="profileName" class="mb-1">Admin User</h6>
                   <div id="profileRole" class="role-badge">Administrator</div>
@@ -141,13 +141,16 @@
                     <label class="form-label d-flex">Address <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="editAddress" required>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 position-relative">
                     <label class="form-label d-flex">New Password</label>
                     <input type="password" class="form-control" id="editPassword" placeholder="Enter new password">
+                    <i class="bi bi-eye-slash-fill toggle-password" data-target="editPassword"></i>
                   </div>
-                  <div class="col-md-6">
+
+                  <div class="col-md-6 position-relative">
                     <label class="form-label d-flex">Confirm Password</label>
                     <input type="password" class="form-control" id="editConfirm" placeholder="Confirm password">
+                    <i class="bi bi-eye-slash-fill toggle-password" data-target="editConfirm"></i>
                   </div>
                   <div class="col-12">
                     <label class="form-label d-flex">Role</label>
@@ -165,7 +168,8 @@
             <div class="custom-modal-footer mt-3">
               <button type="button" class="custome_modal_btn" onclick="closeCustomModal('editProfileModal')"><i
                   class="bi bi-x-circle me-1"></i>Cancel</button>
-              <button type="submit" class="custome_modal_btn h_cstm_modal-btn"><i class="bi bi-check2-circle me-1"></i>Save
+              <button type="submit" class="custome_modal_btn h_cstm_modal-btn"><i
+                  class="bi bi-check2-circle me-1"></i>Save
                 Changes</button>
             </div>
           </form>
@@ -210,6 +214,19 @@
 
       document.getElementById('editProfileModal').style.display = 'flex';
     }
+    // toggle password 
+    document.querySelectorAll(".toggle-password").forEach(icon => {
+      icon.addEventListener("click", function () {
+        const input = document.getElementById(this.dataset.target);
+        if (input.type === "password") {
+          input.type = "text";
+          this.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
+        } else {
+          input.type = "password";
+          this.classList.replace("bi-eye-fill", "bi-eye-slash-fill");
+        }
+      });
+    });
 
     // Close modal
     function closeCustomModal(id) {

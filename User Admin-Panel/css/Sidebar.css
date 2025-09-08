@@ -3,7 +3,7 @@
   --sidebar-collapsed-width: 50px;
   --sidebar-bg: #ededed;
   --sidebar-text: #604652;
-  --sidebar-hover: #495057;
+  /* --sidebar-hover: #495057; */
   --transition: 0.25s;
 }
 
@@ -12,13 +12,13 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background-color: #f8f9fa;
-  display: flex;
   -ms-overflow-style: none;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
+
 /* ===== Sidebar ===== */
 .sidebar {
   position: fixed;
@@ -257,7 +257,6 @@ body.sidebar-collapsed .topbar {
   margin-top: 56px;
   margin-left: var(--sidebar-width);
   padding: 20px;
-  width: 100%;
   transition: margin-left var(--transition);
   background-color: #f6f6f6;
   height: 100%;
@@ -405,6 +404,88 @@ body.sidebar-collapsed #main-content {
     display: none;
   }
 }
+
+/* Custom Modal Styles */
+.custom-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.custom-modal {
+  background: #fff;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+  animation: scaleIn 0.25s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+ -ms-overflow-style: none;
+}
+
+.custom-modal::-webkit-scrollbar {
+  display: none;
+}
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.custom-modal-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #ffffff;
+  background: #604652;
+  padding: 12px;
+}
+
+.custom-modal-body {
+  /* margin-bottom: 20px; */
+  font-size: 15px;
+  color: #000;
+  padding: 12px;
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px;
+}
+
+.custome_modal_btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #604652;
+  color: #fff;
+}
+
+.h_cstm_modal-btn {
+  background: #604652;
+  color: #fff;
+}
+.h_cstm_modal-btn:hover {
+  background-color: #3d2d34;
+  color: #fff;
+}
+/* end custome modal css */
+
 .page-link:focus {
     z-index: 3;
     color: var(--bs-pagination-focus-color);

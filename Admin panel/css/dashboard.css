@@ -19,7 +19,7 @@
 /* Cards */
 .h_main-cards .card {
   border-radius: 0.5rem;
-    background: linear-gradient(135deg, #fff4f48f, #604652);
+  background: linear-gradient(135deg, #fff4f48f, #604652);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-weight: 600;
   color: #272727;
@@ -276,6 +276,9 @@
   .h_dashboard_root .h_chart-card {
     padding: 14px;
   }
+  .card.h_recent-orders .card-body {
+    padding: 8px;
+  }
 }
 @media (max-width: 767px) {
   .h_main-cards .card h5 {
@@ -288,7 +291,7 @@
 }
 @media (max-width: 420px) {
   .h_table-responsive table {
-    min-width: 640px;
+    min-width: 531px;
   }
   .h_table-responsive .table-scroll {
     max-height: 260px;

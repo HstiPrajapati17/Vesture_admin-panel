@@ -327,6 +327,7 @@ h4 {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 12px;
+  min-width: 600px;
 }
 
 .category-table thead th {
@@ -416,7 +417,7 @@ h4 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #c2c2c2;
+  background-color: #6046527a;
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -439,6 +440,15 @@ input:checked + .mv_slider {
 
 input:checked + .mv_slider:before {
   transform: translateX(20px);
+}
+
+.h_btn-outline-primary:hover{
+  background-color: #604652;
+  color: #fff;
+}
+.btn:disabled{
+  background-color: #604652;
+  color: #fff;
 }
 
 @media (max-width: 768px) {

@@ -206,6 +206,9 @@
   padding: 6px;
   background: transparent;
 }
+.btn:hover {
+    background-color: #4e3741;
+}
 
 /* Responsive tweaks */
 @media (max-width: 1440px) {

@@ -99,7 +99,7 @@
     <!-- Edit profile Modal -->
     <div class="custom-modal-overlay" id="customModal">
       <div class="custom-modal">
-        <div class="custom-modal-header">
+        <div class="custom-modal-header d-flex justify-content-between">
           <span><i class="bi bi-sliders"></i> Edit Profile</span>
           <button class="btn-close btn-close-white" id="closeModalBtn"></button>
         </div>
@@ -141,14 +141,18 @@
                     <input type="text" class="form-control" id="editAddress"
                       value="123 Admin Street, Suite 400, Mumbai, IN" required>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 position-relative">
                     <label class="form-label d-flex">New Password</label>
                     <input type="password" class="form-control" id="editPassword" placeholder="Enter new password">
+                    <i class="bi bi-eye-slash-fill toggle-password" data-target="editPassword"></i>
                   </div>
-                  <div class="col-md-6">
+
+                  <div class="col-md-6 position-relative">
                     <label class="form-label d-flex">Confirm Password</label>
                     <input type="password" class="form-control" id="editConfirm" placeholder="Confirm password">
+                    <i class="bi bi-eye-slash-fill toggle-password" data-target="editConfirm"></i>
                   </div>
+
                   <div class="col-12">
                     <label class="form-label d-flex">Role</label>
                     <select id="editRole" class="form-select">
@@ -227,6 +231,20 @@
       reader.readAsDataURL(file);
     });
 
+    // toggle password 
+    document.querySelectorAll(".toggle-password").forEach(icon => {
+      icon.addEventListener("click", function () {
+        const input = document.getElementById(this.dataset.target);
+        if (input.type === "password") {
+          input.type = "text";
+          this.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
+        } else {
+          input.type = "password";
+          this.classList.replace("bi-eye-fill", "bi-eye-slash-fill");
+        }
+      });
+    });
+
     // Form submission
     document.getElementById('editForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -257,6 +275,8 @@
 
       // Close modal
       closeModal();
+
+
     });
   </script>
 </body>

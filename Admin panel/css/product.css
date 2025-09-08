@@ -241,10 +241,11 @@ body {
 }
 
 .product-list-table thead th {
-  background-color: #d3d3d3;
-  color: #000;
+  background-color: #604652;
+  color: #ffffff;
   border: none;
   border-top: 0;
+  border: none;
 }
 
 .table {
@@ -351,9 +352,9 @@ body {
   border-color: #f6f6f6;
 }
 .page-header .btn:hover {
-    /* color: var(--bs-btn-hover-color); */
-    background-color: #604652;
-    border-color: #604652;
+  /* color: var(--bs-btn-hover-color); */
+  background-color: #604652;
+  border-color: #604652;
 }
 .price-range {
   display: flex;
@@ -385,10 +386,10 @@ body {
   white-space: nowrap;
 }
 .h_filter-btn {
-    background: #604652;
-    color: #ffffff;
+  background: #604652;
+  color: #ffffff;
 }
-.h_filter-btn:hover{
+.h_filter-btn:hover {
   background-color: #44323a;
   color: #fff;
 }
@@ -631,7 +632,7 @@ body::-webkit-scrollbar {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.2px;
-  color: rgb(96, 70, 82)
+  color: rgb(96, 70, 82);
 }
 
 .h_muted {
@@ -815,8 +816,8 @@ body::-webkit-scrollbar {
 }
 
 .h_tabbtn[aria-selected="true"] {
-     background: #604652;
-    color: #e7e7e7;
+  background: #604652;
+  color: #e7e7e7;
   box-shadow: 0 8px 20px rgba(96, 114, 116, 0.08);
 }
 
@@ -1049,13 +1050,14 @@ body::-webkit-scrollbar {
     border-radius: 999px;
     font-weight: 600;
     font-size: 0.7rem;
+  }
+  .h_tabpanel,
+  .h_specs_table th {
+    padding: 9px;
+  }
 }
-.h_tabpanel,.h_specs_table th  {
-  padding: 9px;
-}
-}
-@media( max-width: 400px) {
-   .h_viewProduct_main_content {
+@media (max-width: 400px) {
+  .h_viewProduct_main_content {
     padding: 7px;
   }
 }
@@ -1463,7 +1465,7 @@ body::-webkit-scrollbar {
   color: #f6f6f6;
 }
 .h_low-stock-btn:hover {
-  background-color: #44323a ;
+  background-color: #44323a;
   color: #f6f6f6;
 }
 /* ---------- Responsive tweaks for smaller screens ---------- */
@@ -1550,14 +1552,14 @@ body::-webkit-scrollbar {
 
   .switch.on .knob {
     left: calc(100% - 27px);
-   }
-   .pagination-wrapper {
+  }
+  .pagination-wrapper {
     margin-top: 13px;
-}
-.page-btn {
-      padding: 5px 7px;
-      font-size: 12px;
-}
+  }
+  .page-btn {
+    padding: 5px 7px;
+    font-size: 12px;
+  }
 }
 
 /* very small phones incl. 320px width */
@@ -1663,19 +1665,19 @@ body::-webkit-scrollbar {
   .h_form {
     padding: 0px;
   }
-  .custom-toggle{
+  .custom-toggle {
     gap: 1px;
   }
-      .switch.on .knob {
-        left: calc(100% - 22px);
-    }
-        .switch .knob {
-        width: 18px;
-        height: 18px;
-    }
-        .switch {
-        height: 25px;
-    }
+  .switch.on .knob {
+    left: calc(100% - 22px);
+  }
+  .switch .knob {
+    width: 18px;
+    height: 18px;
+  }
+  .switch {
+    height: 25px;
+  }
 }
 
 /* =================================== currunt Products and Low Stock Product Css =========================================== */
@@ -1726,6 +1728,9 @@ body {
   text-align: center;
   padding: 12px;
   border: none;
+}
+.low-stock-page .page-btn:hover{
+  background-color: #44323a;
 }
 
 .stock-table tbody td {

@@ -59,7 +59,7 @@ body {
 }
 
 .btn-ghost:hover {
-  background: var(--primary-600);
+  background: #55464a;
   color: var(--bg);
 }
 
@@ -217,7 +217,6 @@ body {
     margin: 0px;
     padding: 0;
   }
-
 }
 .edit-profile_page .custom-modal {
   min-width: 750px;
@@ -227,14 +226,32 @@ body {
     min-width: auto;
     margin: 12px;
   }
-  .container{
-   --bs-gutter-x : 0rem !important;
+  .container {
+    --bs-gutter-x: 0rem !important;
   }
   .info-box {
     padding: 7px;
-    
   }
   .profile-header {
-      padding: 20px 8px;
+    padding: 20px 8px;
   }
+}
+
+.edit-profile_page .custom-modal {
+  min-width: 750px;
+}
+@media (max-width: 768px) {
+  .edit-profile_page .custom-modal {
+    min-width: auto;
+    margin: 12px;
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 34px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #6c757d;
 }

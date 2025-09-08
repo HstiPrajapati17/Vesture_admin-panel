@@ -32,11 +32,11 @@ window.initCharts = function initCharts() {
 				pointBackgroundColor: '#604652',
 				pointBorderColor: '#fff',
 				pointBorderWidth: 2,
-				borderWidth: 3, // thicker line
+				borderWidth: 3,
 				shadowOffsetX: 0,
 				shadowOffsetY: 4,
 				shadowBlur: 10,
-				shadowColor: 'rgba(0,0,0,0.1)'
+				shadowColor: '#604652',
 			}]
 		},
 		options: {
@@ -88,37 +88,6 @@ window.initCharts = function initCharts() {
 			responsive: true,
 			maintainAspectRatio: false,
 			plugins: { legend: { position: 'bottom', labels: { boxWidth: 15, padding: 10 } } }
-		}
-	});
-
-	// Production vs Sales (Bar Chart)
-	new Chart(document.getElementById('productionSalesChart'), {
-		type: 'bar',
-		data: {
-			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-			datasets: [
-				{
-					label: 'Production',
-					data: [1200, 1350, 1100, 1450, 1300, 1500],
-					backgroundColor: '#604652'
-				},
-				{
-					label: 'Sales',
-					data: [1150, 1300, 1050, 1420, 1280, 1480],
-					backgroundColor: '#B2A59B'
-				}
-			]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			scales: {
-				y: {
-					beginAtZero: true,
-					ticks: { stepSize: 200 }
-				}
-			},
-			plugins: { legend: { position: 'top' } }
 		}
 	});
 };
