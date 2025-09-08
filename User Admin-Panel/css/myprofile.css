@@ -110,19 +110,6 @@ body {
   font-size: 16px;
 }
 
-/* Modal styling */
-.modal-content {
-  border-radius: 16px;
-  border: 1px solid rgba(96, 116, 114, 0.2);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
-.modal-header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-700));
-  color: #fff;
-  border-bottom: 0;
-}
-
 .form-control,
 .form-select {
   border-radius: 12px;
@@ -161,18 +148,6 @@ body {
   color: var(--muted);
 }
 
-/* Modal responsive tweaks */
-.modal-dialog {
-  max-width: 800px;
-  margin: 1.75rem auto;
-}
-@media (max-width: 1024px) {
-  .modal-dialog {
-    max-width: 640px;
-    margin: 1.75rem 3.75rem 1.75rem auto;
-  }
-}
-
 @media (max-width: 991.98px) {
   .modal-dialog {
     max-width: 78%;
@@ -204,31 +179,14 @@ body {
     padding: 8px 12px;
     font-size: 14px;
   }
-
-  .modal-header h6 {
-    font-size: 16px;
-  }
-}
-@media (max-width: 425px) {
-  .modal-dialog {
-    margin: 1.75rem 1.5rem 1.75rem auto;
-  }
-  .modal-body {
-    padding: 8px !important;
-  }
-  .modal-dialog {
-    max-width: 75%;
-  }
-}
-@media (max-width: 320px) {
-  .modal-dialog {
-    margin: 3.75rem 1.4rem 2.75rem auto;
-  }
 }
 
-.modal-body {
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 16px;
+.edit-profile_page .custom-modal {
+  min-width: 750px;
+}
+@media (max-width: 768px) {
+  .edit-profile_page .custom-modal {
+    min-width: auto;
+    margin: 12px;
+  }
 }

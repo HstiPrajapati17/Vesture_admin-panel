@@ -20,6 +20,7 @@
 			border-radius: 50%;
 			margin-right: 8px;
 		}
+
 		.user-info {
 			display: flex;
 			align-items: center;
@@ -78,71 +79,28 @@
 	<!-- Overlay -->
 	<div class="overlay"></div>
 
-	<!-- View Modal -->
-	<div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">View User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body" id="viewModalBody"></div>
+	<!-- View Modal (Custom) -->
+	<div class="custom-modal-overlay" id="viewModal">
+		<div class="custom-modal">
+			<div class="custom-modal-header">View User</div>
+			<div class="custom-modal-body" id="viewModalBody"></div>
+			<div class="custom-modal-footer">
+				<button class="custome_modal_btn" onclick="closeCustomModal('viewModal')">Close</button>
 			</div>
 		</div>
 	</div>
 
-	<!-- Edit Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Edit User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<form id="editForm">
-						<div class="mb-3">
-							<label class="form-label">Name</label>
-							<input type="text" class="form-control" id="editName">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Email</label>
-							<input type="email" class="form-control" id="editEmail">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Phone</label>
-							<input type="text" class="form-control" id="editPhone">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">City</label>
-							<input type="text" class="form-control" id="editCity">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Role</label>
-							<input type="text" class="form-control" id="editRole">
-						</div>
-						<button type="submit" class="btn btn-success">Save Changes</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirm Delete</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete this user?</p>
-					<div class="d-flex justify-content-end">
-						<button class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-						<button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-					</div>
-				</div>
+	<!-- Custom Delete Modal -->
+	<div class="custom-modal-overlay" id="deleteModal">
+		<div class="custom-modal">
+			<div class="custom-modal-header">Confirm Delete</div>
+			<div class="custom-modal-body" id="deleteMessage">
+				Are you sure you want to delete this user?
+			</div>
+			<div class="custom-modal-footer">
+				<button class="custome_modal_btn" onclick="closeCustomModal('deleteModal')">Cancel</button>
+				<button class="custome_modal_btn h_cstm_modal-btn" id="confirmDeleteBtn">Delete</button>
 			</div>
 		</div>
 	</div>
@@ -184,7 +142,10 @@
 					<td>${u.role}</td>
 					<td>
 						<button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
-						<button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm h_user-list-btn" 
+							onclick="redirectToEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')">
+							<i class="bi bi-pencil-square"></i>
+						</button>
 						<button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
 					</td>
 				`;
@@ -204,7 +165,7 @@
 			}
 		}
 
-		// View
+		// View (custom modal)
 		function openView(name, email, phone, city, role) {
 			document.getElementById("viewModalBody").innerHTML = `
 				<p><strong>Name:</strong> ${name}</p>
@@ -213,27 +174,28 @@
 				<p><strong>City:</strong> ${city}</p>
 				<p><strong>Role:</strong> ${role}</p>
 			`;
-			new bootstrap.Modal(document.getElementById("viewModal")).show();
-		}
+			document.getElementById("viewModal").style.display = "flex";
+		} 
 
 		// Edit
-		function openEdit(name, email, phone, city, role) {
-			document.getElementById("editName").value = name;
-			document.getElementById("editEmail").value = email;
-			document.getElementById("editPhone").value = phone;
-			document.getElementById("editCity").value = city;
-			document.getElementById("editRole").value = role;
-			new bootstrap.Modal(document.getElementById("editModal")).show();
+		function redirectToEdit(name, email, phone, city, role) {
+			// Save data in localStorage (simple way to pass data between pages)
+			localStorage.setItem("editUser", JSON.stringify({ name, email, phone, city, role }));
+			window.location.href = "/pages/components/User/AddUser.html?edit=true";
 		}
 
-		// Delete
 		function openDelete(name) {
 			userToDelete = name;
-			document.querySelector("#deleteModal .modal-body p").innerHTML =
+			document.getElementById("deleteMessage").innerHTML =
 				`Are you sure you want to delete <strong>${name}</strong>?`;
-			new bootstrap.Modal(document.getElementById("deleteModal")).show();
+			document.getElementById("deleteModal").style.display = "flex";
 		}
 
+		function closeCustomModal(id) {
+			document.getElementById(id).style.display = "none";
+		}
+
+		// Confirm delete
 		document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
 			if (userToDelete) {
 				const index = users.findIndex(u => u.name === userToDelete);
@@ -242,11 +204,17 @@
 					renderTable();
 				}
 				userToDelete = null;
-				const modalEl = document.getElementById("deleteModal");
-				const modal = bootstrap.Modal.getInstance(modalEl);
-				modal.hide();
+				closeCustomModal("deleteModal");
 			}
 		});
+
+		// Close modal when clicking outside
+		document.querySelectorAll(".custom-modal-overlay").forEach(overlay => {
+			overlay.addEventListener("click", e => {
+				if (e.target === overlay) closeCustomModal(overlay.id);
+			});
+		});
+
 
 		// Pagination
 		document.getElementById("prevBtn").addEventListener("click", () => {
@@ -266,4 +234,5 @@
 		renderTable();
 	</script>
 </body>
+
 </html>

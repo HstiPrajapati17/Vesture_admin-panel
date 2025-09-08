@@ -20,7 +20,7 @@
   <!-- Navbar placeholder -->
   <div id="navbar-container"></div>
 
-  <main class="main-content" id="main-content">
+  <main class="main-content edit-profile_page" id="main-content">
     <div class="page-wrap">
       <div class="container">
         <div class="profile-card">
@@ -30,8 +30,7 @@
               <h4 class="mb-1">Profile Settings</h4>
               <div class="subtitle mb-2">Manage your account information</div>
             </div>
-            <button class="btn btn-sm btn-ghost d-flex align-items-center gap-2" data-bs-toggle="modal"
-              data-bs-target="#editProfileModal">
+            <button class="btn btn-sm btn-ghost d-flex align-items-center gap-2" id="openModalBtn">
               <i class="bi bi-pencil-square"></i> Edit Profile
             </button>
           </div>
@@ -92,93 +91,89 @@
                 </div>
               </div>
             </div>
-          </div> <!-- /body -->
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Edit Profile Modal -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title d-flex align-items-center gap-2">
-              <i class="bi bi-sliders"></i> Edit Profile
-            </h6>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+    <!-- Edit profile Modal -->
+    <div class="custom-modal-overlay" id="customModal">
+      <div class="custom-modal">
+        <div class="custom-modal-header">
+          <span><i class="bi bi-sliders"></i> Edit Profile</span>
+          <button class="btn-close btn-close-white" id="closeModalBtn"></button>
+        </div>
 
-          <form id="editForm">
-            <div class="modal-body">
-              <div class="row g-4">
-                <div class="col-12 col-md-4 text-center text-md-center">
-                  <img id="editAvatarPreview" class="avatar mb-3"
-                    src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar preview">
-                  <div class="d-grid">
-                    <label class="btn h_btn-outline-secondary">
-                      <i class="bi bi-image"></i> Change Avatar
-                      <input id="avatarInput" type="file" accept="image/*" hidden>
-                    </label>
+        <form id="editForm">
+          <div class="custom-modal-body">
+            <div class="row g-3">
+              <div class="col-12 col-md-4 text-center">
+                <img id="editAvatarPreview" class="avatar mb-3"
+                  src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="Avatar preview">
+                <div class="d-grid">
+                  <label class="btn h_btn-outline-secondary">
+                    <i class="bi bi-image"></i> Change Avatar
+                    <input id="avatarInput" type="file" accept="image/*" hidden>
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-8">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">Full Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="editName" value="Admin User" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">Email Address <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="editEmail" value="admin@example.com" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">Phone Number</label>
+                    <input type="tel" class="form-control" id="editPhone" value="+1 234 567 8900">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">Company</label>
+                    <input type="text" class="form-control" id="editCompany" value="Stock Admin Inc.">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label d-flex">Address <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="editAddress"
+                      value="123 Admin Street, Suite 400, Mumbai, IN" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">New Password</label>
+                    <input type="password" class="form-control" id="editPassword" placeholder="Enter new password">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label d-flex">Confirm Password</label>
+                    <input type="password" class="form-control" id="editConfirm" placeholder="Confirm password">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label d-flex">Role</label>
+                    <select id="editRole" class="form-select">
+                      <option selected>Administrator</option>
+                      <option>Manager</option>
+                      <option>Editor</option>
+                      <option>Viewer</option>
+                    </select>
                   </div>
                 </div>
-
-                <div class="col-12 col-md-8">
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label class="form-label">Full Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="editName" value="Admin User" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Email Address <span class="text-danger">*</span></label>
-                      <input type="email" class="form-control" id="editEmail" value="admin@example.com" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Phone Number</label>
-                      <input type="tel" class="form-control" id="editPhone" value="+1 234 567 8900">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Company</label>
-                      <input type="text" class="form-control" id="editCompany" value="Stock Admin Inc.">
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label">Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="editAddress"
-                        value="123 Admin Street, Suite 400, Mumbai, IN" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">New Password</label>
-                      <input type="password" class="form-control" id="editPassword" placeholder="Enter new password">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Confirm Password</label>
-                      <input type="password" class="form-control" id="editConfirm" placeholder="Confirm password">
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label">Role</label>
-                      <select id="editRole" class="form-select">
-                        <option selected>Administrator</option>
-                        <option>Manager</option>
-                        <option>Editor</option>
-                        <option>Viewer</option>
-                      </select>
-                    </div>
-                  </div>
-                </div> <!-- /right -->
               </div>
             </div>
+          </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn h_btn-outline-secondary" data-bs-dismiss="modal"><i
-                  class="bi bi-x-circle me-1"></i>Cancel</button>
-              <button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i>Save
-                Changes</button>
-            </div>
-          </form>
-        </div>
+          <div class="custom-modal-footer">
+            <button type="button" class="custome_modal_btn" id="cancelBtn"><i
+                class="bi bi-x-circle me-1"></i>Cancel</button>
+            <button type="submit" class="custome_modal_btn h_cstm_modal-btn"><i
+                class="bi bi-check2-circle me-1"></i>Save
+              Changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </main>
-
   <div class="overlay"></div>
 
   <!-- Bootstrap JS bundle -->
@@ -191,6 +186,37 @@
     const avatarPreview = document.getElementById('editAvatarPreview');
     const profileAvatar = document.getElementById('profileAvatar');
 
+    // Custom modal elements
+    const customModal = document.getElementById('customModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Open modal
+    openModalBtn.addEventListener('click', () => {
+      // preload data
+      document.getElementById('editName').value = document.getElementById('info-name').textContent.trim();
+      document.getElementById('editEmail').value = document.getElementById('info-email').textContent.trim();
+      document.getElementById('editPhone').value = document.getElementById('info-phone').textContent.trim();
+      document.getElementById('editCompany').value = document.getElementById('info-company').textContent.trim();
+      document.getElementById('editAddress').value = document.getElementById('info-address').textContent.trim();
+      avatarPreview.src = profileAvatar.src;
+      customModal.style.display = "flex";
+    });
+
+    // Close modal
+    function closeModal() {
+      customModal.style.display = "none";
+    }
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Close when clicking outside
+    customModal.addEventListener('click', (e) => {
+      if (e.target === customModal) closeModal();
+    });
+
+    // Avatar upload
     avatarInput?.addEventListener('change', e => {
       const file = e.target.files?.[0];
       if (!file) return;
@@ -201,16 +227,7 @@
       reader.readAsDataURL(file);
     });
 
-    const editModal = document.getElementById('editProfileModal');
-    editModal.addEventListener('show.bs.modal', () => {
-      document.getElementById('editName').value = document.getElementById('info-name').textContent.trim();
-      document.getElementById('editEmail').value = document.getElementById('info-email').textContent.trim();
-      document.getElementById('editPhone').value = document.getElementById('info-phone').textContent.trim();
-      document.getElementById('editCompany').value = document.getElementById('info-company').textContent.trim();
-      document.getElementById('editAddress').value = document.getElementById('info-address').textContent.trim();
-      avatarPreview.src = profileAvatar.src;
-    });
-
+    // Form submission
     document.getElementById('editForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -239,10 +256,8 @@
       document.getElementById('editConfirm').value = '';
 
       // Close modal
-      const modal = bootstrap.Modal.getInstance(editModal);
-      modal.hide();
+      closeModal();
     });
-
   </script>
 </body>
 

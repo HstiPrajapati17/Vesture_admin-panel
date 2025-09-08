@@ -144,7 +144,7 @@ body {
   --bs-btn-hover-border-color: var(--primary);
   font-weight: 600;
 }
-.h_btn-outline-primary{
+.h_btn-outline-primary {
   background-color: transparent;
   border: 1px solid var(--primary);
   color: var(--primary);
@@ -166,23 +166,7 @@ body {
   color: var(--muted);
 }
 
-/* Modal responsive tweaks */
-.modal-dialog {
-  max-width: 800px;
-  margin: 1.75rem auto;
-}
-@media (max-width: 1024px) {
-  .modal-dialog {
-    max-width: 640px;
-    margin: 1.75rem 3.75rem 1.75rem auto;
-  }
-}
-
 @media (max-width: 991.98px) {
-  .modal-dialog {
-    max-width: 78%;
-  }
-
   .avatar {
     width: 100px;
     height: 100px;
@@ -213,45 +197,33 @@ body {
   .modal-header h6 {
     font-size: 16px;
   }
-  .h_btn-primary,.h_btn-outline-primary {
-  text-wrap: nowrap;
+  .h_btn-primary,
+  .h_btn-outline-primary {
+    text-wrap: nowrap;
     width: 100%;
-}
-.h_col-right,.h_col-left {
-  padding: 10px;
-}
-.h_section-label {
-  margin-top: 3px;
-}
-.h_upload-area {
-  padding: 8px;
-}
-.h_container-app,.h_wrapper
- {
+  }
+  .h_col-right,
+  .h_col-left {
+    padding: 10px;
+  }
+  .h_section-label {
+    margin-top: 3px;
+  }
+  .h_upload-area {
+    padding: 8px;
+  }
+  .h_container-app,
+  .h_wrapper {
     margin: 0px;
     padding: 0;
   }
 }
-@media (max-width: 425px) {
-  .modal-dialog {
-    margin: 1.75rem 1.5rem 1.75rem auto;
-  }
-  .modal-body {
-    padding: 8px !important;
-  }
-  .modal-dialog {
-    max-width: 75%;
-  }
+.edit-profile_page .custom-modal {
+  min-width: 750px;
 }
-@media (max-width: 320px) {
-  .modal-dialog {
-    margin: 3.75rem 1.4rem 2.75rem auto;
+@media (max-width: 768px) {
+  .edit-profile_page .custom-modal {
+    min-width: auto;
+    margin: 12px;
   }
-}
-
-.modal-body {
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 16px;
 }
