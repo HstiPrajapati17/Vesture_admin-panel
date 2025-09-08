@@ -135,7 +135,7 @@ body::-webkit-scrollbar {
 
 .h_shoppingcart_page-head {
   font-size: 21px;
-  color: #fbfbfb;
+  color: #604652;
   font-weight: 600;
 }
 
@@ -319,6 +319,9 @@ body::-webkit-scrollbar {
   .h_shoppingcart_page-head {
     font-size: 18px;
   }
+  .h_shopping-cart-bg,.h_checkout-shell {
+    padding: 0px !important;
+  }
 }
 
 @media (max-width: 485px) {
@@ -342,7 +345,7 @@ body::-webkit-scrollbar {
   --cream: #fbfbfb;
   --muted: #6b6f6f;
   --soft: #f6f7f6;
-  --glass: rgba(255, 250, 241, 0.75);
+  --glass: rgb(237 ,237 ,237);
   --card-shadow: 0 10px 30px rgba(96, 114, 116, 0.08);
   --radius: 14px;
 }
@@ -373,7 +376,7 @@ body::-webkit-scrollbar {
 .brand-pill .brand-title {
   font-weight: 700;
   letter-spacing: 0.2px;
-  color: #fbfbfb;
+  color: #604652;
   font-size: 28px;
 }
 
@@ -579,7 +582,7 @@ label.form-label {
   }
 
   .h_custom_card_padding {
-    padding: 16px !important;
+    padding: 10px !important;
   }
 
   .card-modern {

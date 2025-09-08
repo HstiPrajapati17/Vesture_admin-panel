@@ -606,7 +606,7 @@ body::-webkit-scrollbar {
   border-radius: 16px;
 }
 .h_view_product_card {
-  background: #604652;
+  background: #ededed;
 }
 
 /* Header */
@@ -628,11 +628,11 @@ body::-webkit-scrollbar {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.2px;
-  color: #f6f6f6;
+  color: rgb(96, 70, 82)
 }
 
 .h_muted {
-  color: rgb(255 255 255 / 80%);
+  color: rgb(96, 70, 82 / 80%);
 }
 
 /* Panel layout */
@@ -744,7 +744,7 @@ body::-webkit-scrollbar {
 .h_desc h2 {
   margin: 4px 0;
   font-size: 20px;
-  color: #f6f6f6;
+  color: #604652;
 }
 
 .h_meta {
@@ -759,7 +759,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   font-size: 16.5px;
   margin: 6px 0px;
-  color: #fff;
+  color: #604652;
 }
 
 .h_item_value {
@@ -788,10 +788,10 @@ body::-webkit-scrollbar {
   gap: 8px;
   padding: 8px 12px;
   background: transparent;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border: none;
   cursor: pointer;
-  color: #f6f6f6;
+  color: #604652;
   font-weight: 600;
   font-size: 0.95rem;
   transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
@@ -805,15 +805,15 @@ body::-webkit-scrollbar {
 
 .h_tabbtn:hover,
 .h_tabbtn:focus {
-  background: var(--h_tab-accent);
+  background: #d3d3d3;
   color: var(--h_brand);
   outline: none;
   transform: translateY(-2px);
 }
 
 .h_tabbtn[aria-selected="true"] {
-  background: var(--h_tab-accent);
-  color: var(--h_brand);
+     background: #604652;
+    color: #e7e7e7;
   box-shadow: 0 8px 20px rgba(96, 114, 116, 0.08);
 }
 
@@ -1036,8 +1036,26 @@ body::-webkit-scrollbar {
   .h_viewProduct_main_content {
     padding: 12px;
   }
+  .h_badge-floating {
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    background: var(--h_brand);
+    color: var(--h_accent);
+    padding: 0.3rem 0.3rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.7rem;
 }
-
+.h_tabpanel,.h_specs_table th  {
+  padding: 9px;
+}
+}
+@media( max-width: 400px) {
+   .h_viewProduct_main_content {
+    padding: 7px;
+  }
+}
 /* Small utilities */
 .h_row {
   display: flex;
@@ -1049,7 +1067,10 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   padding: 0.45rem 0.7rem;
 }
-
+.h_specs_table th,
+.h_specs_table td {
+  white-space: nowrap; /* 🚫 prevent wrapping */
+}
 /* ==================================================== Add Product css =========================================== */
 
 :root {
@@ -1518,7 +1539,14 @@ body::-webkit-scrollbar {
 
   .switch.on .knob {
     left: calc(100% - 27px);
-  }
+   }
+   .pagination-wrapper {
+    margin-top: 13px;
+}
+.page-btn {
+      padding: 5px 7px;
+      font-size: 12px;
+}
 }
 
 /* very small phones incl. 320px width */

@@ -137,6 +137,46 @@
 				]
 			},
 			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
 				no: 5, customer: "William Moreno", id: "#391367/80", status: "Completed",
 				total: "CAD $560.00", date: "2023-09-19",
 				products: [
@@ -148,7 +188,7 @@
 		const rowsPerPage = 5;
 		let currentPage = 1;
 
-	function renderTable() {
+		function renderTable() {
 	const tableBody = document.getElementById('tableBody');
 	tableBody.innerHTML = "";
 
@@ -189,7 +229,12 @@
 	} else {
 		pagination.classList.remove("d-none");
 	}
+
+	// ✅ Prev/Next disable logic
+	document.getElementById("prevBtn").disabled = (currentPage === 1);
+	document.getElementById("nextBtn").disabled = (currentPage === totalPages);
 }
+
 
 
 		// View Order in Modal

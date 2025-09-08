@@ -180,6 +180,7 @@
 			tableBody.innerHTML = "";
 
 			const start = (currentPage - 1) * rowsPerPage;
+			const totalPages = Math.ceil(orders.length / rowsPerPage);
 			const end = start + rowsPerPage;
 			const paginatedOrders = orders.slice(start, end);
 
@@ -205,6 +206,12 @@
 
 			document.getElementById("pageInfo").innerText =
 				`${currentPage}/${Math.ceil(orders.length / rowsPerPage)}`;
+				
+    // document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+    
+    // Disable/enable pagination buttons based on current page
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage === totalPages;
 		}
 
 		// View Order in Modal

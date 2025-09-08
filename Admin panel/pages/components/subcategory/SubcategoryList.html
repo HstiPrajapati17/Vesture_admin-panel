@@ -2,188 +2,197 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Subcategory Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subcategory Dashboard</title>
 
-	<!-- Bootstrap CSS & Icons -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/subcategory.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Sidebar.css">
+    <link rel="stylesheet" href="/css/subcategory.css">
+	<link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
 
-	<!-- Sidebar container -->
-	<div id="sidebar-container"></div>
+    <div id="sidebar-container"></div>
 
-	<!-- Navbar container -->
-	<div id="navbar-container"></div>
+    <div id="navbar-container"></div>
 
-	<main class="main-content" id="main-content">
-		<div class="container-fluid">
-			<div class="dashboard-card">
-				<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-					<h4>Subcategories</h4>
-					<a href="/pages/components/subcategory/AddSubcategory.html" class="action-btn mt-2 mt-md-0">+ Add
-						Subcategory</a>
-				</div>
+    <main class="main-content" id="main-content">
+        <div class="container-fluid">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                    <h4>Subcategories</h4>
+                    <a href="/pages/components/subcategory/AddSubcategory.html" class="action-btn mt-2 mt-md-0">+ Add
+                        Subcategory</a>
+                </div>
 
-				<div class="table-responsive">
-					<table class="subcategory-table align-middle">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Image</th>
-								<th>Subcategory</th>
-								<th>Parent Category</th>
-								<th>Description</th>
-								<th>Status</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="subcategoryTableBody"></tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</main>
+                <div class="table-responsive">
+                    <table class="subcategory-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Subcategory</th>
+                                <th>Parent Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subcategoryTableBody"></tbody>
+                    </table>
+                </div>
 
-	<!-- Custom Delete Modal -->
-	<div id="customDeleteModalOverlay" class="custom-modal-overlay">
-		<div class="custom-modal">
-			<div class="custom-modal-header">Delete Subcategory</div>
-			<div class="custom-modal-body">
-				Are you sure you want to delete this subcategory?
-			</div>
-			<div class="custom-modal-footer">
-				<button class="custom-btn h_cstm_modal-btn" id="cancelDeleteBtn">Cancel</button>
-				<button class="custom-btn h_cstm_modal-btn" id="confirmDeleteBtn">Delete</button>
-			</div>
-		</div>
-	</div>
+                <nav class="d-flex justify-content-center align-items-center mt-3 gap-3" id="pagination">
+                    <button class="btn btn-sm cp-page-btn" id="prevBtn">Prev</button>
+                    <span id="pageInfo" class="fw-bold" style="color:#604652;"></span>
+                    <button class="btn btn-sm cp-page-btn" id="nextBtn">Next</button>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <div id="customDeleteModalOverlay" class="custom-modal-overlay">
+        <div class="custom-modal">
+            <div class="custom-modal-header">Delete Subcategory</div>
+            <div class="custom-modal-body">
+                Are you sure you want to delete this subcategory?
+            </div>
+            <div class="custom-modal-footer">
+                <button class="custom-btn h_cstm_modal-btn" id="cancelDeleteBtn">Cancel</button>
+                <button class="custom-btn h_cstm_modal-btn" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
 
 
-	<!-- Overlay for mobile -->
-	<div class="overlay"></div>
+    <div class="overlay"></div>
 
-	<!-- Bootstrap JS bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/js/sidebar-loader.js"></script>
-	<script src="/js/navbar-loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sidebar-loader.js"></script>
+    <script src="/js/navbar-loader.js"></script>
 
-	<script>
-		const subcategoryData = [
-			{ id: 1, image: '../../Assets/mv_img/Jeans.webp', name: "Slim Fit Jeans", parent: "Men's Wear", desc: "Comfortable slim jeans", status: false },
-			{ id: 2, image: '../../Assets/mv_img/Jeans.webp', name: "Regular T-Shirt", parent: "Men's Wear", desc: "Cotton t-shirt", status: true },
-			{ id: 3, image: '../../Assets/mv_img/Jeans.webp', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
-			{ id: 4, image: '../../Assets/mv_img/Jeans.webp', name: "Cartoon T-shirts", parent: "Kids Wear", desc: "Cartoon Designed Printable T-shirts", status: false },
-			{ id: 5, image: '../../Assets/mv_img/Jeans.webp', name: "Skirts", parent: "Women's Wear", desc: "Pleated skirts", status: true },
-		];
+    <script>
+        const subcategoryData = [
+            { id: 1, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsO4Xb0uqMjYo_pMqWGubktUbkBBYJ_FXh4A&s', name: "Slim Fit Jeans", parent: "Men's Wear", desc: "Comfortable slim jeans", status: false },
+            { id: 2, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNovO7WpRrPSkrzVXlpcboweGV1t66m1rffw&s', name: "Regular T-Shirt", parent: "Men's Wear", desc: "Cotton t-shirt", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDmlsb3GBgT0mWVuqwrKOLxtgbU86YOkS7g&s', name: "Trendy Tops", parent: "Women's Wear", desc: "Elegant Trending Tops", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOQWcYo1475bTLZCy-HDYR1LAOTIqpoYaWYQ&s', name: "Cartoon T-shirts", parent: "Kids Wear", desc: "Cartoon Designed Printable T-shirts", status: false },
+            { id: 5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcqvBSCANSdRDAWiPEFSboS5THaK3ohVoMkg&s', name: "Skirts", parent: "Women's Wear", desc: "Pleated skirts", status: true },
+        ];
 
-		const tableBody = document.getElementById("subcategoryTableBody");
-		let subcategoryToDeleteId = null;
+        const tableBody = document.getElementById("subcategoryTableBody");
+        const rowsPerPage = 5;
+        let currentPage = 1;
+        let subcategoryToDeleteId = null;
 
-		function renderTable(data) {
-			tableBody.innerHTML = "";
-			data.forEach(sub => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-					<td>${sub.id}</td>
-					<td><img src="${sub.image}" alt="${sub.name}" width="50" height="50"></td>
-					<td>${sub.name}</td>
-					<td>${sub.parent}</td>
-					<td>${sub.desc}</td>
-					<td>
-						<label class="mv_switch">
-						<input type="checkbox" ${sub.status ? "checked" : ""} onchange="toggleStatus(${sub.id}, this.checked)">
-						<span class="mv_slider"></span>
-						</label>
-					</td>
-					<td class="d-flex justify-content-center align-items-center gap-2">
-						<button class="btn btn-sm subcategory-custome-btn" title="Edit" onclick="editSubcategory(${sub.id})"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm subcategory-custome-btn" title="Delete" onclick="confirmDeleteSubcategory(${sub.id})"><i class="bi bi-trash3"></i></button>
-					</td>
-					`;
-				tableBody.appendChild(tr);
-			});
-		}
+        function renderTable() {
+            tableBody.innerHTML = "";
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = subcategoryData.slice(start, end);
 
-		// Function to toggle status
-		function toggleStatus(id, value) {
-			const sub = subcategoryData.find(s => s.id === id);
-			if (sub) sub.status = value;
-		}
+            paginatedData.forEach(sub => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${sub.id}</td>
+                    <td><img src="${sub.image}" alt="${sub.name}" width="50" height="50"></td>
+                    <td>${sub.name}</td>
+                    <td>${sub.parent}</td>
+                    <td>${sub.desc}</td>
+                    <td>
+                        <label class="mv_switch">
+                            <input type="checkbox" ${sub.status ? "checked" : ""} onchange="toggleStatus(${sub.id}, this.checked)">
+                            <span class="mv_slider"></span>
+                        </label>
+                    </td>
+                    <td class="d-flex justify-content-center align-items-center gap-2">
+                        <button class="btn btn-sm subcategory-custome-btn" title="Edit" onclick="editSubcategory(${sub.id})"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm subcategory-custome-btn" title="Delete" onclick="confirmDeleteSubcategory(${sub.id})"><i class="bi bi-trash3"></i></button>
+                    </td>
+                    `;
+                tableBody.appendChild(tr);
+            });
+            renderPagination();
+        }
 
-		renderTable(subcategoryData);
+        function renderPagination() {
+            const totalPages = Math.ceil(subcategoryData.length / rowsPerPage);
+            document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage === totalPages;
+        }
 
-		// ===== Delete with modal =====
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
 
-		function confirmDeleteSubcategory(id) {
-			subcategoryToDeleteId = id;
-			document.getElementById("customDeleteModalOverlay").style.display = "flex";
-		}
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            const totalPages = Math.ceil(subcategoryData.length / rowsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
 
-		// Cancel
-		document.getElementById("cancelDeleteBtn").onclick = () => {
-			document.getElementById("customDeleteModalOverlay").style.display = "none";
-		};
 
-		// Confirm Delete
-		document.getElementById("confirmDeleteBtn").onclick = () => {
-			const index = subcategoryData.findIndex(s => s.id === subcategoryToDeleteId);
-			if (index > -1) subcategoryData.splice(index, 1);
-			renderTable(subcategoryData);
-			document.getElementById("customDeleteModalOverlay").style.display = "none";
-		};
+        // Function to toggle status
+        function toggleStatus(id, value) {
+            const sub = subcategoryData.find(s => s.id === id);
+            if (sub) sub.status = value;
+        }
 
-		// Handle Edit button
-		function editSubcategory(id) {
-			const sub = subcategoryData.find(s => s.id === id);
-			if (!sub) return;
+        // ===== Delete with modal =====
 
-			const queryParams = new URLSearchParams({
-				id: sub.id,
-				name: sub.name,
-				parent: sub.parent,
-				desc: sub.desc,
-				image: sub.image,
-				status: sub.status ? 'active' : 'inactive',
-			}).toString();
+        function confirmDeleteSubcategory(id) {
+            subcategoryToDeleteId = id;
+            document.getElementById("customDeleteModalOverlay").style.display = "flex";
+        }
 
-			// Redirect to AddSubcategory.html with query parameters
-			window.location.href = `/pages/components/subcategory/AddSubcategory.html?mode=edit&${queryParams}`;
-		}
+        // Cancel
+        document.getElementById("cancelDeleteBtn").onclick = () => {
+            document.getElementById("customDeleteModalOverlay").style.display = "none";
+        };
 
-		// Render table
-		function renderTable(data) {
-			tableBody.innerHTML = "";
-			data.forEach(sub => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-			<td>${sub.id}</td>
-			<td><img src="${sub.image}" alt="${sub.name}" width="50" height="50"></td>
-			<td>${sub.name}</td>
-			<td>${sub.parent}</td>
-			<td>${sub.desc}</td>
-			<td>
-				<label class="mv_switch">
-					<input type="checkbox" ${sub.status ? "checked" : ""} onchange="toggleStatus(${sub.id}, this.checked)">
-						<span class="mv_slider"></span>
-				</label>
-			</td>
-			<td class="d-flex justify-content-center align-items-center gap-2">
-				<button class="btn btn-sm subcategory-custome-btn" title="Edit" onclick="editSubcategory(${sub.id})"><i class="bi bi-pencil-square"></i></button>
-				<button class="btn btn-sm subcategory-custome-btn" title="Delete" onclick="confirmDeleteSubcategory(${sub.id})"><i class="bi bi-trash3"></i></button>
-			</td>
-      `;
-				tableBody.appendChild(tr);
-			});
-		}
+        // Confirm Delete
+        document.getElementById("confirmDeleteBtn").onclick = () => {
+            const index = subcategoryData.findIndex(s => s.id === subcategoryToDeleteId);
+            if (index > -1) subcategoryData.splice(index, 1);
+            renderTable();
+            document.getElementById("customDeleteModalOverlay").style.display = "none";
+        };
 
-		renderTable(subcategoryData);
-	</script>
+        // Handle Edit button
+        function editSubcategory(id) {
+            const sub = subcategoryData.find(s => s.id === id);
+            if (!sub) return;
+
+            const queryParams = new URLSearchParams({
+                id: sub.id,
+                name: sub.name,
+                parent: sub.parent,
+                desc: sub.desc,
+                image: sub.image,
+                status: sub.status ? 'active' : 'inactive',
+            }).toString();
+
+            // Redirect to AddSubcategory.html with query parameters
+            window.location.href = `/pages/components/subcategory/AddSubcategory.html?mode=edit&${queryParams}`;
+        }
+
+        // Initial render
+        renderTable();
+    </script>
 </body>
 
 </html>

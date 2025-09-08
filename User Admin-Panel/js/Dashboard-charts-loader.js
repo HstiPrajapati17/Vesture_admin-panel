@@ -40,7 +40,7 @@ window.initCharts = function initCharts() {
 			labels: ['T-Shirts', 'Jackets', 'Dresses', 'Hoodies', 'Shirts'],
 			datasets: [{
 				data: [5, 3, 2, 4, 6], // Example counts
-				backgroundColor: ['#604652', '#8B9DC3', '#A9907E', '#c8ab89', '#e6e1dc']
+				backgroundColor: ['#604652', '#EBD9D1', '#B2A59B', '#896C6C', '#e6e1dc']
 			}]
 		},
 		options: {

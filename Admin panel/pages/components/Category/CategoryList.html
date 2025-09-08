@@ -2,202 +2,197 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>ClothMan Admin — Category Dashboard</title>
-	<!-- Bootstrap CSS & Icons -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/category.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClothMan Admin — Category Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Sidebar.css">
+    <link rel="stylesheet" href="/css/category.css">
+	<link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
-	<!-- Sidebar container -->
-	<div id="sidebar-container"></div>
+    <div id="sidebar-container"></div>
 
-	<!-- Navbar container -->
-	<div id="navbar-container"></div>
+    <div id="navbar-container"></div>
 
-	<main class="main-content" id="main-content">
-		<div class="container-fluid">
-			<div class="dashboard-card">
-				<div class="d-flex justify-content-between align-items-center mb-3">
-					<h4>Categories</h4>
-					<a href="/pages/components/Category/AddCategory.html" class="action-btn">+ Add Category</a>
-				</div>
+    <main class="main-content" id="main-content">
+        <div class="container-fluid">
+            <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Categories</h4>
+                    <a href="/pages/components/Category/AddCategory.html" class="action-btn">+ Add Category</a>
+                </div>
 
-				<div class="table-responsive">
-					<table class="category-table align-middle">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Image</th>
-								<th>Category</th>
-								<th>Description</th>
-								<th>Status</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="categoryTableBody"></tbody>
-					</table>
-				</div>
+                <div class="table-responsive">
+                    <table class="category-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoryTableBody"></tbody>
+                    </table>
+                </div>
 
-				<div id="pagination"></div>
-			</div>
-		</div>
-	</main>
+                <nav class="d-flex justify-content-center align-items-center mt-3 gap-3" id="pagination">
+                    <button class="btn btn-sm cp-page-btn" id="prevBtn">Prev</button>
+                    <span id="pageInfo" class="fw-bold" style="color:#604652;"></span>
+                    <button class="btn btn-sm cp-page-btn" id="nextBtn">Next</button>
+                </nav>
+            </div>
+        </div>
+    </main>
 
-	<!-- Custom Delete Modal -->
-	<div class="custom-modal-overlay" id="deleteCategoryModal">
-		<div class="custom-modal">
-			<div class="custom-modal-header">Delete Category</div>
-			<div class="custom-modal-body">
-				Are you sure you want to delete this category?
-			</div>
-			<div class="custom-modal-footer">
-				<button class="custom-btn h_cstm_modal-btn" id="cancelDeleteBtn">Cancel</button>
-				<button class="custom-btn h_cstm_modal-btn" id="confirmDeleteBtn">Delete</button>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- Overlay for mobile -->
-	<div class="overlay"></div>
-
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/js/sidebar-loader.js"></script>
-	<script src="/js/navbar-loader.js"></script>
-
-	<script>
-		const categoryData = [
-			{ id: 1, image: '../../Assets/mv_img/Jeans.webp', name: "Men's Wear", desc: "New Product", status: true },
-			{ id: 2, image: '../../Assets/mv_img/Jeans.webp', name: "Women's Wear", desc: "New Product", status: true },
-			{ id: 3, image: '../../Assets/mv_img/Jeans.webp', name: "Kids Wear", desc: "New Product", status: false },
-			{ id: 4, image: '../../Assets/mv_img/Jeans.webp', name: "Men's Wear", desc: "New Product", status: true },
-			{ id: 5, image: '../../Assets/mv_img/Jeans.webp', name: "Women's Wear", desc: "New Product", status: false },
-			{ id: 6, image: '../../Assets/mv_img/Jeans.webp', name: "Kids Wear", desc: "New Product", status: true },
-		];
-
-		const tableBody = document.getElementById("categoryTableBody");
-		let categoryToDeleteId = null;
-
-		function renderTable(data) {
-			tableBody.innerHTML = "";
-			data.forEach(cat => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-					<td>${cat.id}</td>
-					<td><img src="${cat.image}" alt="${cat.name}" width="50" height="50"></td>
-					<td>${cat.name}</td>
-					<td>${cat.desc}</td>
-					<td>
-						<label class="mv_switch">
-						<input type="checkbox" ${cat.status ? "checked" : ""}>
-						<span class="mv_slider"></span>
-						</label>
-					</td>
-					<td class="d-flex justify-content-center align-items-center gap-2">
-						<button class="btn category-custome-btn btn-sm" title="Edit" onclick="editCategory(${cat.id})"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn category-custome-btn btn-sm" title="Delete" onclick="confirmDeleteCategory(${cat.id})"><i class="bi bi-trash3"></i></button>
-					</td>
-					`;
-				tableBody.appendChild(tr);
-			});
-		}
-
-		renderTable(categoryData);
+    <div class="custom-modal-overlay" id="deleteCategoryModal">
+        <div class="custom-modal">
+            <div class="custom-modal-header">Delete Category</div>
+            <div class="custom-modal-body">
+                Are you sure you want to delete this category?
+            </div>
+            <div class="custom-modal-footer">
+                <button class="custom-btn h_cstm_modal-btn" id="cancelDeleteBtn">Cancel</button>
+                <button class="custom-btn h_cstm_modal-btn" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
 
 
-		// Open Delete Modal
-		function confirmDeleteCategory(id) {
-			categoryToDeleteId = id;
-			document.getElementById("deleteCategoryModal").style.display = "flex";
-		}
+    <div class="overlay"></div>
 
-		// Confirm Delete
-		document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-			const index = categoryData.findIndex(c => c.id === categoryToDeleteId);
-			if (index > -1) categoryData.splice(index, 1);
-			renderTable(categoryData);
-			categoryToDeleteId = null;
-			document.getElementById("deleteCategoryModal").style.display = "none";
-		});
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sidebar-loader.js"></script>
+    <script src="/js/navbar-loader.js"></script>
 
-		// Cancel Delete
-		document.getElementById("cancelDeleteBtn").addEventListener("click", () => {
-			document.getElementById("deleteCategoryModal").style.display = "none";
-			categoryToDeleteId = null;
-		});
+    <script>
+        const categoryData = [
+            { id: 1, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 2, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIsvmyRAmpVf5xH9rgq9wIl4xHB19pqeYKnQ&s', name: "Women's Wear", desc: "New Product", status: true },
+            { id: 3, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgIhOGU7nFPWR8es2QG8CsMiD5z2KU7gJqwA&s', name: "Kids Wear", desc: "New Product", status: false },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 4, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS45ixL5kdNVQSGYfgI1OwgdKtBReMQ3o68YA&s', name: "Men's Wear", desc: "New Product", status: true },
+            { id: 5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIsvmyRAmpVf5xH9rgq9wIl4xHB19pqeYKnQ&s', name: "Women's Wear", desc: "New Product", status: false },
+            { id: 6, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgIhOGU7nFPWR8es2QG8CsMiD5z2KU7gJqwA&s', name: "Kids Wear", desc: "New Product", status: true },
+        ];
 
-		// Close when clicking outside modal
-		document.getElementById("deleteCategoryModal").addEventListener("click", (e) => {
-			if (e.target.id === "deleteCategoryModal") {
-				document.getElementById("deleteCategoryModal").style.display = "none";
-				categoryToDeleteId = null;
-			}
-		});
+        const tableBody = document.getElementById("categoryTableBody");
+        const rowsPerPage = 5;
+        let currentPage = 1;
+        let categoryToDeleteId = null;
+
+        function renderTable() {
+            tableBody.innerHTML = "";
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = categoryData.slice(start, end);
+
+            paginatedData.forEach(cat => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${cat.id}</td>
+                    <td><img src="${cat.image}" alt="${cat.name}" width="50" height="50"></td>
+                    <td>${cat.name}</td>
+                    <td>${cat.desc}</td>
+                    <td>
+                        <label class="mv_switch">
+                            <input type="checkbox" ${cat.status ? "checked" : ""}>
+                            <span class="mv_slider"></span>
+                        </label>
+                    </td>
+                    <td class="d-flex justify-content-center align-items-center gap-2">
+                        <button class="btn category-custome-btn btn-sm" title="Edit" onclick="editCategory(${cat.id})"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn category-custome-btn btn-sm" title="Delete" onclick="confirmDeleteCategory(${cat.id})"><i class="bi bi-trash3"></i></button>
+                    </td>
+                    `;
+                tableBody.appendChild(tr);
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(categoryData.length / rowsPerPage);
+            document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage === totalPages;
+        }
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            const totalPages = Math.ceil(categoryData.length / rowsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+
+        // Open Delete Modal
+        function confirmDeleteCategory(id) {
+            categoryToDeleteId = id;
+            document.getElementById("deleteCategoryModal").style.display = "flex";
+        }
+
+        // Confirm Delete
+        document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
+            const index = categoryData.findIndex(c => c.id === categoryToDeleteId);
+            if (index > -1) categoryData.splice(index, 1);
+            renderTable();
+            categoryToDeleteId = null;
+            document.getElementById("deleteCategoryModal").style.display = "none";
+        });
+
+        // Cancel Delete
+        document.getElementById("cancelDeleteBtn").addEventListener("click", () => {
+            document.getElementById("deleteCategoryModal").style.display = "none";
+            categoryToDeleteId = null;
+        });
+
+        // Close when clicking outside modal
+        document.getElementById("deleteCategoryModal").addEventListener("click", (e) => {
+            if (e.target.id === "deleteCategoryModal") {
+                document.getElementById("deleteCategoryModal").style.display = "none";
+                categoryToDeleteId = null;
+            }
+        });
 
 
 
-		// Handle Edit button
-		function editCategory(id) {
-			const cat = categoryData.find(c => c.id === id);
-			if (!cat) return;
+        // Handle Edit button
+        function editCategory(id) {
+            const cat = categoryData.find(c => c.id === id);
+            if (!cat) return;
 
-			const queryParams = new URLSearchParams({
-				id: cat.id,
-				name: cat.name,
-				desc: cat.desc,
-				image: cat.image,
-				status: cat.status ? 'active' : 'inactive',
-			}).toString();
+            const queryParams = new URLSearchParams({
+                id: cat.id,
+                name: cat.name,
+                desc: cat.desc,
+                image: cat.image,
+                status: cat.status ? 'active' : 'inactive',
+            }).toString();
 
-			// Redirect to AddCategory.html with query parameters
-			window.location.href = `/pages/components/Category/AddCategory.html?mode=edit&${queryParams}`;
-		}
+            // Redirect to AddCategory.html with query parameters
+            window.location.href = `/pages/components/Category/AddCategory.html?mode=edit&${queryParams}`;
+        }
 
-		// Render table
-		function renderTable(data) {
-			tableBody.innerHTML = "";
-			data.forEach(cat => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-			<td>${cat.id}</td>
-			<td><img src="${cat.image}" alt="${cat.name}" width="50" height="50"></td>
-			<td>${cat.name}</td>
-			<td>${cat.desc}</td>
-			<td>
-				<label class="mv_switch">
-					<input type="checkbox" ${cat.status ? "checked" : ""}>
-						<span class="mv_slider"></span>
-				</label>
-			</td>
-			<td class="d-flex justify-content-center align-items-center gap-2">
-				<button class="btn category-custome-btn btn-sm" title="Edit" onclick="editCategory(${cat.id})"><i class="bi bi-pencil-square"></i></button>
-				<button class="btn category-custome-btn btn-sm" title="Delete" onclick="confirmDeleteCategory(${cat.id})"><i class="bi bi-trash3"></i></button>
-			</td>
-      `;
-				tableBody.appendChild(tr);
-			});
-		}
-
-		renderTable(categoryData);
-
-		document.getElementById('saveEditCategoryBtn').addEventListener('click', () => {
-			const cat = categoryData.find(c => c.id === categoryToEditId);
-			if (!cat) return;
-			cat.name = document.getElementById('editCategoryName').value;
-			cat.desc = document.getElementById('editCategoryDesc').value;
-			renderTable(categoryData);
-
-			const editModal = bootstrap.Modal.getInstance(document.getElementById('editCategoryModal'));
-			editModal.hide();
-		});
-
-	</script>
+        // Initial render
+        renderTable();
+    </script>
 
 </body>
 

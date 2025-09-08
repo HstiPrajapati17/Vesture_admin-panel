@@ -85,6 +85,10 @@
 			{ id: "W003", customer: "Arjun", product: "Silk Kurta", fabric: "Silk", color: "Green", size: "S", date: "15-Aug-2025", status: "Moved to Cart" },
 			{ id: "W004", customer: "Sagar", product: "Leather Jacket", fabric: "Leather", color: "Brown", size: "L", date: "05-Aug-2025", status: "Available" },
 			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
 		];
 
 		let currentPage = 1;
@@ -123,12 +127,32 @@
 			}
 		}
 
-		function renderPagination() {
-			const totalPages = Math.max(1, Math.ceil(wishlistData.length / itemsPerPage));
-			document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
-			document.getElementById("prev").disabled = currentPage === 1;
-			document.getElementById("next").disabled = currentPage === totalPages;
-		}
+	function renderPagination() {
+	const totalPages = Math.max(1, Math.ceil(wishlistData.length / itemsPerPage));
+	document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
+
+	const prevBtn = document.getElementById("prev").parentElement;
+	const nextBtn = document.getElementById("next").parentElement;
+
+	// Prev button disable/enable
+	if (currentPage === 1) {
+		document.getElementById("prev").disabled = true;
+		prevBtn.classList.add("disabled");
+	} else {
+		document.getElementById("prev").disabled = false;
+		prevBtn.classList.remove("disabled");
+	}
+
+	// Next button disable/enable
+	if (currentPage === totalPages) {
+		document.getElementById("next").disabled = true;
+		nextBtn.classList.add("disabled");
+	} else {
+		document.getElementById("next").disabled = false;
+		nextBtn.classList.remove("disabled");
+	}
+}
+
 
 		document.getElementById("prev").addEventListener("click", () => {
 			if (currentPage > 1) {

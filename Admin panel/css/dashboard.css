@@ -19,7 +19,7 @@
 /* Cards */
 .h_main-cards .card {
   border-radius: 0.5rem;
-  background: linear-gradient(135deg, #604652, #a0a0a08f, #604652);
+    background: linear-gradient(135deg, #fff4f48f, #604652);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-weight: 600;
   color: #272727;

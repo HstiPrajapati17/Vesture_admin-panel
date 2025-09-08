@@ -524,9 +524,9 @@
                         <img src="${p.img}" alt="${p.name}" class="product-img">
                         <div class="product-body">
                         <div class="product-category">${p.category}</div>
-                        <a href="product.html?sku=${p.sku}" class="product-name">${p.name}</a>
+                        <a href="ViewProduct.html" class="product-name">${p.name}</a>
                         <div class="product-rating">
-                            ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '½' : ''} (${p.reviews})
+                            ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '★' : ''} (${p.reviews})
                         </div>
                         <div class="price-stock">
                             <div class="price">$${p.price.toFixed(2)}</div>

@@ -169,7 +169,7 @@
 		const rowsPerPage = 5;
 		let currentPage = 1;
 
-	function renderTable() {
+function renderTable() {
 	const tableBody = document.getElementById('tableBody');
 	tableBody.innerHTML = "";
 
@@ -210,7 +210,12 @@
 	} else {
 		pagination.classList.remove("d-none");
 	}
+
+	// ✅ Prev/Next disable logic
+	document.getElementById("prevBtn").disabled = (currentPage === 1);
+	document.getElementById("nextBtn").disabled = (currentPage === totalPages);
 }
+
 
 		// View Order in Modal
 		function viewOrder(orderNo) {

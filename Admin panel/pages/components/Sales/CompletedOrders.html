@@ -206,18 +206,22 @@
 		tableBody.appendChild(tr);
 	});
 
-	// Update page info
-	document.getElementById("pageInfo").innerText =
-		`${currentPage}/${Math.ceil(orders.length / rowsPerPage)}`;
+	const totalPages = Math.ceil(orders.length / rowsPerPage);
+	document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
 
-	// Hide pagination if only 1 page
-	const paginationNav = document.querySelector("nav");
-	if (Math.ceil(orders.length / rowsPerPage) <= 1) {
-		paginationNav.style.display = "none";
+	// pagination show/hide
+	const pagination = document.querySelector("nav");
+	if (totalPages <= 1) {
+		pagination.classList.add("d-none");
 	} else {
-		paginationNav.style.display = "flex";
+		pagination.classList.remove("d-none");
 	}
+
+	// ✅ Prev/Next disable logic
+	document.getElementById("prevBtn").disabled = (currentPage === 1);
+	document.getElementById("nextBtn").disabled = (currentPage === totalPages);
 }
+
 
 
 		// View Order in Modal

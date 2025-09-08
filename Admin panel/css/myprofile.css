@@ -118,7 +118,7 @@ body {
 }
 
 .modal-header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary));
   color: #fff;
   border-bottom: 0;
 }
@@ -231,6 +231,7 @@ body {
     margin: 0px;
     padding: 0;
   }
+
 }
 @media (max-width: 425px) {
   .modal-dialog {
@@ -241,6 +242,16 @@ body {
   }
   .modal-dialog {
     max-width: 75%;
+  }
+  .container{
+   --bs-gutter-x : 0rem !important;
+  }
+  .info-box {
+    padding: 7px;
+    
+  }
+  .profile-header {
+      padding: 20px 8px;
   }
 }
 @media (max-width: 320px) {

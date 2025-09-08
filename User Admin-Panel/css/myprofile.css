@@ -208,6 +208,7 @@ body {
   .modal-header h6 {
     font-size: 16px;
   }
+  
 }
 @media (max-width: 425px) {
   .modal-dialog {
@@ -219,10 +220,28 @@ body {
   .modal-dialog {
     max-width: 75%;
   }
+  .info-box {
+    padding: 7px;
+  }
+  .container{
+    --bs-gutter-x: 0px !important;
+    
+  }
+  .row>*{
+  margin-top: 14px !important;
+  
+  }
+  .info-label {
+    font-size: 14px;
+  }
+  
+.profile-header {
+  padding: 20px 12px;
+}
 }
 @media (max-width: 320px) {
   .modal-dialog {
-    margin: 3.75rem 1.4rem 2.75rem auto;
+    margin: 3.75rem 0.9rem 2.75rem auto;
   }
 }
 

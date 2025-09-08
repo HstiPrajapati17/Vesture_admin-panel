@@ -70,11 +70,11 @@ h1 {
 .custome-table thead th {
   background-color: var(--muted);
   vertical-align: middle;
-  color: #000;
+  color: #fff;
 }
 
 .custome-table tbody td {
-  background-color: var(--muted);
+  background-color: #f6f6f6;
   vertical-align: middle;
   color: #000;
 }
