@@ -91,12 +91,28 @@
         ];
 
         const tbody = document.getElementById("categoryTableBody");
-        const modalOverlay = document.getElementById("customModal");
-        const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-        const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-        let deleteProductId = null;
         const rowsPerPage = 5;
         let currentPage = 1;
+
+        function handleEdit(productId) {
+    // Find the product data
+    const product = stockData.find(item => item.id === productId);
+    if (!product) return;
+
+    // Create URL with all product data
+    const params = new URLSearchParams({
+        mode: 'edit',
+        id: productId,
+        name: product.product,
+        sku: `SKU-${productId}`,
+        subcategory: product.subcategory,
+        stock: product.re_qty,
+        reorder: product.reorder
+    });
+
+    // Redirect with product data
+    window.location.href = `AddProduct.html?${params.toString()}`;
+}
 
         function renderTable() {
             tbody.innerHTML = "";
@@ -113,21 +129,13 @@
                         <td>${item.reorder}</td>
                         <td class="stockmanage_status">${item.status}</td>
                         <td>
-                            <button class="btn btn-sm delete-btn category-custome-btn h_low-stock-btn" data-id="${item.id}">
-                                <i class="bi bi-trash3"></i>
+                            <button class="btn btn-sm edit-btn category-custome-btn h_low-stock-btn" onclick="handleEdit(${item.id})">
+                                <i class="bi bi-pencil-square"></i>
                             </button>
                         </td>
                     </tr>
                 `;
                 tbody.insertAdjacentHTML("beforeend", row);
-            });
-
-            // Add delete button events
-            document.querySelectorAll(".delete-btn").forEach(btn => {
-                btn.addEventListener("click", function () {
-                    deleteProductId = parseInt(this.getAttribute("data-id"));
-                    modalOverlay.style.display = "flex";
-                });
             });
             renderPagination();
         }
@@ -138,29 +146,6 @@
             document.getElementById("prevBtn").disabled = currentPage === 1;
             document.getElementById("nextBtn").disabled = currentPage === totalPages;
         }
-
-        // Confirm delete
-        confirmDeleteBtn.addEventListener("click", () => {
-            if (deleteProductId !== null) {
-                stockData = stockData.filter(item => item.id !== deleteProductId);
-                renderTable();
-                deleteProductId = null;
-            }
-            modalOverlay.style.display = "none";
-        });
-
-        // Cancel delete
-        cancelDeleteBtn.addEventListener("click", () => {
-            modalOverlay.style.display = "none";
-            deleteProductId = null;
-        });
-
-        // Close modal on outside click
-        modalOverlay.addEventListener("click", (e) => {
-            if (e.target === modalOverlay) {
-                modalOverlay.style.display = "none";
-            }
-        });
         
         document.getElementById("prevBtn").addEventListener("click", () => {
             if (currentPage > 1) {

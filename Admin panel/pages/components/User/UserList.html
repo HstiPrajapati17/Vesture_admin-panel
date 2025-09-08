@@ -1,274 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>User List — Clothing Manufacturing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List — Clothing Manufacturing</title>
 
-	<!-- Bootstrap -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="/css/Sidebar.css">
-	<link rel="stylesheet" href="/css/user.css">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Sidebar.css">
+    <link rel="stylesheet" href="/css/user.css">
 	<link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/category.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/order.css">
 
-	<style>
-		.user-img {
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			margin-right: 8px;
-		}
-		.user-info {
-			display: flex;
-			align-items: center;
-		}
-	</style>
+    <style>
+        .user-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+	 /* Custom Pagination Styles */
+	 .db_pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .db_pagination button {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border: 1px solid #604652;
+            background: #604652;
+            color: #f6f6f6;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .db_pagination button:hover:not(:disabled) {
+            background: #604652;
+            color: white;
+        }
+
+        .db_pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #db_pageIndicator {
+            font-weight: bold;
+            color: #604652;
+        }
+		/* Custom Card & Detail Styles */
+/* New User Modal Styles */
+/* Simple User Details Styles */
+.detailed-user-info {
+        padding: 1.5rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .info-item {
+		display: flex;
+        /* flex-direction: column; */
+        margin-bottom: 1.25rem; /* Adds space between each label-value pair */
+    }
+
+    .info-item:last-child {
+        margin-bottom: 0; /* Removes extra space from the last item */
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #604652; /* Use your primary color */
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem; /* Space between label and value */
+    }
+
+    .info-label .bi {
+        font-size: 1.25rem;
+        margin-right: 0.5rem;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        color: #555;
+		margin-top: 4px;
+        padding-left: 1.75rem; /* Indents the value to align with the text part of the label */
+    }
+</style>
 </head>
 
 <body>
-	<!-- Sidebar -->
-	<div id="sidebar-container"></div>
-	<!-- Navbar -->
-	<div id="navbar-container"></div>
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
 
-	<main class="main-content" id="main-content">
-		<div class="container-fluid p-4">
+    <main class="main-content" id="main-content">
+        <div class="container-fluid p-4">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center">
+                <h4>User List</h4>
+                <a href="/pages/components/User/AddUser.html">
+                    <button class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Add User
+                    </button>
+                </a>
+            </div>
 
-			<!-- Header -->
-			<div class="d-flex justify-content-between align-items-center">
-				<h4>User List</h4>
-				<a href="/pages/components/User/AddUser.html">
-					<button class="btn btn-primary">
-						<i class="bi bi-plus-circle"></i> Add User
-					</button>
-				</a>
-			</div>
+            <!-- Users Table -->
+            <div class="h_user-list mt-4">
+                <div class="table-responsive">
+                    <table class="table h_custom-table align-middle text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody"></tbody>
+                    </table>
+                </div>
 
-			<!-- Users Table -->
-			<div class="h_user-list mt-4">
-				<div class="table-responsive">
-					<table class="table h_custom-table align-middle text-center">
-						<thead class="table-dark">
-							<tr>
-								<th>User</th>
-								<th>Email</th>
-								<th>Phone</th>
-								<th>City</th>
-								<th>Role</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody id="userTableBody"></tbody>
-					</table>
-				</div>
+                <!-- Custom Pagination -->
+                <div class="db_pagination" id="db_pagination">
+                    <button class="btn btn-sm" id="prevBtn">Prev</button>
+                    <span id="db_pageIndicator">1/1</span>
+                    <button class="btn btn-sm" id="nextBtn">Next</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
-				<!-- Pagination -->
-				<nav class="d-flex justify-content-center align-items-center mt-3 gap-3" id="paginationNav">
-					<button class="btn btn-sm cp-page-btn" id="prevBtn">Prev</button>
-					<span id="pageInfo" class="fw-bold" style="color:#604652;">1/1</span>
-					<button class="btn btn-sm cp-page-btn" id="nextBtn">Next</button>
-				</nav>
-			</div>
+    <!-- Custom View Modal -->
+    <div class="custom-modal-overlay" id="viewModal">
+        <div class="custom-modal">
+            <div class="custom-modal-header">View User</div>
+            <div class="custom-modal-body" id="viewModalBody"></div>
+            <div class="custom-modal-footer">
+                <button class="custome_modal_btn h_cstm_modal-btn" onclick="closeModal('viewModal')">Close</button>
+            </div>
+        </div>
+    </div>
 
-		</div>
-	</main>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editName">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="editPhone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" id="editCity">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <input type="text" class="form-control" id="editRole">
+                        </div>
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Overlay -->
-	<div class="overlay"></div>
+    <!-- Custom Delete Modal -->
+    <div class="custom-modal-overlay" id="deleteModal">
+        <div class="custom-modal">
+            <div class="custom-modal-header">Delete User</div>
+            <div class="custom-modal-body" id="deleteContent"></div>
+            <div class="custom-modal-footer">
+                <button class="custome_modal_btn h_cstm_modal-btn" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="custome_modal_btn h_cstm_modal-btn" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
 
-	<!-- View Modal -->
-	<div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">View User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body" id="viewModalBody"></div>
-			</div>
-		</div>
-	</div>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sidebar-loader.js"></script>
+    <script src="/js/navbar-loader.js"></script>
 
-	<!-- Edit Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Edit User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<form id="editForm">
-						<div class="mb-3">
-							<label class="form-label">Name</label>
-							<input type="text" class="form-control" id="editName">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Email</label>
-							<input type="email" class="form-control" id="editEmail">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Phone</label>
-							<input type="text" class="form-control" id="editPhone">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">City</label>
-							<input type="text" class="form-control" id="editCity">
-						</div>
-						<div class="mb-3">
-							<label class="form-label">Role</label>
-							<input type="text" class="form-control" id="editRole">
-						</div>
-						<button type="submit" class="btn btn-success">Save Changes</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <script>
+        const users = [
+            { name: "Alice Johnson", image: "https://i.pravatar.cc/40?img=1", email: "alice@example.com", phone: "123-456-7890", city: "Toronto", role: "User" },
+            { name: "Bob Smith", image: "https://i.pravatar.cc/40?img=2", email: "bob@example.com", phone: "234-567-8901", city: "Vancouver", role: "Admin" },
+            { name: "Charlie Lee", image: "https://i.pravatar.cc/40?img=3", email: "charlie@example.com", phone: "345-678-9012", city: "Montreal", role: "Manager" },
+            { name: "David Brown", image: "https://i.pravatar.cc/40?img=4", email: "david@example.com", phone: "456-789-0123", city: "Calgary", role: "User" },
+            { name: "Emma Wilson", image: "https://i.pravatar.cc/40?img=5", email: "emma@example.com", phone: "567-890-1234", city: "Ottawa", role: "User" },
+            { name: "Frank Thomas", image: "https://i.pravatar.cc/40?img=6", email: "frank@example.com", phone: "678-901-2345", city: "Edmonton", role: "Admin" }
+        ];
 
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirm Delete</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete this user?</p>
-					<div class="d-flex justify-content-end">
-						<button class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-						<button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        const rowsPerPage = 5;
+        let currentPage = 1;
+        let userToDelete = null;
 
-	<!-- Bootstrap Bundle -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/js/sidebar-loader.js"></script>
-	<script src="/js/navbar-loader.js"></script>
+        function renderTable() {
+            const tableBody = document.getElementById("userTableBody");
+            tableBody.innerHTML = "";
 
-	<script>
-		const users = [
-			{ name: "Alice Johnson", image: "https://i.pravatar.cc/40?img=1", email: "alice@example.com", phone: "123-456-7890", city: "Toronto", role: "User" },
-			{ name: "Bob Smith", image: "https://i.pravatar.cc/40?img=2", email: "bob@example.com", phone: "234-567-8901", city: "Vancouver", role: "Admin" },
-			{ name: "Charlie Lee", image: "https://i.pravatar.cc/40?img=3", email: "charlie@example.com", phone: "345-678-9012", city: "Montreal", role: "Manager" },
-			{ name: "David Brown", image: "https://i.pravatar.cc/40?img=4", email: "david@example.com", phone: "456-789-0123", city: "Calgary", role: "User" },
-			{ name: "Emma Wilson", image: "https://i.pravatar.cc/40?img=5", email: "emma@example.com", phone: "567-890-1234", city: "Ottawa", role: "User" },
-			{ name: "Frank Thomas", image: "https://i.pravatar.cc/40?img=6", email: "frank@example.com", phone: "678-901-2345", city: "Edmonton", role: "Admin" }
-		];
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedUsers = users.slice(start, end);
 
-		const rowsPerPage = 5;
-		let currentPage = 1;
-		let userToDelete = null;
+            paginatedUsers.forEach(u => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
+                    <td>${u.email}</td>
+                    <td>${u.phone}</td>
+                    <td>${u.city}</td>
+                    <td>${u.role}</td>
+                    <td>
+                        <button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
+                        <button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
 
-	function renderTable() {
-	const tableBody = document.getElementById("userTableBody");
-	tableBody.innerHTML = "";
+            const totalPages = Math.ceil(users.length / rowsPerPage);
+            document.getElementById("db_pageIndicator").innerText = `${currentPage}/${totalPages}`;
+            
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage === totalPages;
+        }
 
-	const start = (currentPage - 1) * rowsPerPage;
-	const end = start + rowsPerPage;
-	const paginatedUsers = users.slice(start, end);
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
 
-	paginatedUsers.forEach(u => {
-		const tr = document.createElement("tr");
-		tr.innerHTML = `
-			<td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
-			<td>${u.email}</td>
-			<td>${u.phone}</td>
-			<td>${u.city}</td>
-			<td>${u.role}</td>
-			<td>
-				<button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
-				<button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
-				<button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
-			</td>
-		`;
-		tableBody.appendChild(tr);
-	});
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
 
-	// pagination info
-	const totalPages = Math.ceil(users.length / rowsPerPage);
-	document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
-
-	// show/hide pagination
-	const pagination = document.getElementById("paginationNav");
-	if (totalPages <= 1) {
-		pagination.classList.add("d-none");
-	} else {
-		pagination.classList.remove("d-none");
-	}
-
-	// disable prev/next button at limits
-	document.getElementById("prevBtn").disabled = currentPage === 1;
-	document.getElementById("nextBtn").disabled = currentPage === totalPages;
-}
-
-
-		// View
 		function openView(name, email, phone, city, role) {
-			document.getElementById("viewModalBody").innerHTML = `
-				<p><strong>Name:</strong> ${name}</p>
-				<p><strong>Email:</strong> ${email}</p>
-				<p><strong>Phone:</strong> ${phone}</p>
-				<p><strong>City:</strong> ${city}</p>
-				<p><strong>Role:</strong> ${role}</p>
-			`;
-			new bootstrap.Modal(document.getElementById("viewModal")).show();
-		}
+        document.getElementById("viewModalBody").innerHTML = `
+            <div class="detailed-user-info">
+                <div class="info-item">
+                    <span class="info-label"><i class="bi bi-person-fill"></i>Name</span>
+                    <span class="info-value">${name}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="bi bi-envelope-fill"></i>Email</span>
+                    <span class="info-value">${email}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="bi bi-telephone-fill"></i>Phone</span>
+                    <span class="info-value">${phone}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="bi bi-house-fill"></i>City</span>
+                    <span class="info-value">${city}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="bi bi-person-badge-fill"></i>Role</span>
+                    <span class="info-value">${role}</span>
+                </div>
+            </div>
+        `;
+        openModal("viewModal");
+    }
+function openEdit(name, email, phone, city, role) {
+            document.getElementById("editName").value = name;
+            document.getElementById("editEmail").value = email;
+            document.getElementById("editPhone").value = phone;
+            document.getElementById("editCity").value = city;
+            document.getElementById("editRole").value = role;
+            new bootstrap.Modal(document.getElementById("editModal")).show();
+        }
 
-		// Edit
-		function openEdit(name, email, phone, city, role) {
-			document.getElementById("editName").value = name;
-			document.getElementById("editEmail").value = email;
-			document.getElementById("editPhone").value = phone;
-			document.getElementById("editCity").value = city;
-			document.getElementById("editRole").value = role;
-			new bootstrap.Modal(document.getElementById("editModal")).show();
-		}
+        function openDelete(name) {
+            userToDelete = name;
+            document.getElementById("deleteContent").innerHTML = 
+                `Are you sure you want to delete <strong>${name}</strong>?`;
+            openModal("deleteModal");
+        }
 
-		// Delete
-		function openDelete(name) {
-			userToDelete = name;
-			document.querySelector("#deleteModal .modal-body p").innerHTML =
-				`Are you sure you want to delete <strong>${name}</strong>?`;
-			new bootstrap.Modal(document.getElementById("deleteModal")).show();
-		}
+        function confirmDelete() {
+            if (userToDelete) {
+                const index = users.findIndex(u => u.name === userToDelete);
+                if (index !== -1) {
+                    users.splice(index, 1);
+                    renderTable();
+                }
+                userToDelete = null;
+                closeModal("deleteModal");
+            }
+        }
 
-		document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-			if (userToDelete) {
-				const index = users.findIndex(u => u.name === userToDelete);
-				if (index !== -1) {
-					users.splice(index, 1);
-					renderTable();
-				}
-				userToDelete = null;
-				const modalEl = document.getElementById("deleteModal");
-				const modal = bootstrap.Modal.getInstance(modalEl);
-				modal.hide();
-			}
-		});
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
 
-		// Pagination
-		document.getElementById("prevBtn").addEventListener("click", () => {
-			if (currentPage > 1) {
-				currentPage--;
-				renderTable();
-			}
-		});
-		document.getElementById("nextBtn").addEventListener("click", () => {
-			if (currentPage < Math.ceil(users.length / rowsPerPage)) {
-				currentPage++;
-				renderTable();
-			}
-		});
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (currentPage < Math.ceil(users.length / rowsPerPage)) {
+                currentPage++;
+                renderTable();
+            }
+        });
 
-		// Initial render
-		renderTable();
-	</script>
+        renderTable();
+    </script>
 </body>
 </html>
