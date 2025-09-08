@@ -109,8 +109,10 @@
               </div>
 
               <div class="d-flex justify-content-end flex-wrap gap-2 mt-3">
-                <button type="button" class="btn h_btn-outline-primary" id="cancelBtn" onclick="window.location.href='RawMaterials.html'"><i class="bi bi-x-circle me-1"></i>Cancel</button>
-                <button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i><span id="saveText">Add Raw Material</span></button>
+                <button type="button" class="btn h_btn-outline-primary" id="cancelBtn"
+                  onclick="window.location.href='RawMaterials.html'"><i class="bi bi-x-circle me-1"></i>Cancel</button>
+                <button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i><span
+                    id="saveText">Add Raw Material</span></button>
               </div>
             </form>
           </section>
@@ -129,6 +131,36 @@
   <script>
     // Cancel button
     document.getElementById('cancelBtn').addEventListener('click', () => history.back());
+
+    // Detect mode from query params
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    const id = params.get("id");
+
+    if (mode === "edit") {
+      document.getElementById("pageMode").textContent = "Edit Raw Material";
+      document.getElementById("saveText").textContent = "Update Raw Material";
+
+      // Get material from localStorage
+      const material = JSON.parse(localStorage.getItem("editMaterial"));
+
+      if (material && material.id == id) {
+        // Prefill form values
+        document.getElementById("name").value = material.name;
+        document.getElementById("supplier").value = material.supplier;
+        document.getElementById("stock").value = material.stock;
+        document.getElementById("unit").value = material.unit;
+        document.getElementById("reorderLevel").value = material.reorder;
+        document.querySelector(`input[name="statusRadio"][value="${material.status}"]`).checked = true;
+
+        // Show image preview
+        if (material.image) {
+          const preview = document.getElementById("singlePreview");
+          preview.src = material.image;
+          preview.style.display = "block";
+        }
+      }
+    }
 
     // Image upload preview
     (function () {
@@ -162,15 +194,15 @@
             stock: document.getElementById('stock').value.trim(),
             unit: document.getElementById('unit').value.trim(),
             reorderLevel: document.getElementById('reorderLevel').value.trim(),
-            visible: document.getElementById('isVisible').checked,
             status: document.querySelector('input[name="statusRadio"]:checked')?.value || 'active'
           };
-          console.log('Raw Material payload', payload);
-          alert('Raw Material saved (demo). Check console for payload.');
+          console.log(mode === "edit" ? "Updating Raw Material" : "Adding Raw Material", payload);
+          alert((mode === "edit" ? "Raw Material updated" : "Raw Material saved") + " (demo). Check console for payload.");
         }
       }, false);
     })();
   </script>
+
 </body>
 
 </html>

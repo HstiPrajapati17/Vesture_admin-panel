@@ -50,6 +50,7 @@ h1 {
 .btn-couponlist-custom {
   background-color: #604652;
   color: #ededed;
+  border: 1px solid #fff;
 }
 .btn-couponlist-custom:hover {
   border: 1px solid #ededed;
@@ -70,11 +71,11 @@ h1 {
 .custome-table thead th {
   background-color: var(--muted);
   vertical-align: middle;
-  color: #000;
+  color: #fff;
 }
 
 .custome-table tbody td {
-  background-color: var(--muted);
+  background-color: #f6f6f6;
   vertical-align: middle;
   color: #000;
 }

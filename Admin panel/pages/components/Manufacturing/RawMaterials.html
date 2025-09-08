@@ -138,7 +138,15 @@
     }
 
     function editMaterial(id) {
-      window.location.href = "AddRawMaterial.html?mode=edit&id=" + id;
+      // Find material by ID
+      const material = materialData.find(m => m.id === id);
+
+      if (material) {
+        // Save material to localStorage
+        localStorage.setItem("editMaterial", JSON.stringify(material));
+        // Redirect to edit page
+        window.location.href = "AddRawMaterial.html?mode=edit&id=" + id;
+      }
     }
 
     document.getElementById("prev").addEventListener("click", () => {
