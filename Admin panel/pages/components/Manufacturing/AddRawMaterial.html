@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/Sidebar.css">
   <link rel="stylesheet" href="/css/category.css">
+  <link rel="stylesheet" href="/css/myprofile.css">
 </head>
 
 <body>
@@ -77,6 +78,19 @@
               </div>
 
               <div class="mb-3">
+                <label class="h_field-label" for="supplier">Supplier</label>
+                <select id="supplier" class="h_dark-input" required>
+                  <option value="">Select supplier</option>
+                  <option value="1">ABC Suppliers</option>
+                  <option value="2">XYZ Trading</option>
+                  <option value="3">Global Materials</option>
+                  <option value="4">Quality Fabrics</option>
+                  <option value="5">Textile World</option>
+                </select>
+                <div class="invalid-feedback">Please select a supplier.</div>
+              </div>
+
+              <div class="mb-3">
                 <label class="h_field-label" for="stock">Stock</label>
                 <input id="stock" type="number" class="h_dark-input" placeholder="Enter stock quantity" required>
                 <div class="invalid-feedback">Please enter stock quantity.</div>
@@ -94,7 +108,7 @@
                 <div class="invalid-feedback">Please enter reorder level.</div>
               </div>
 
-              <div class="d-flex justify-content-end gap-2 mt-3">
+              <div class="d-flex justify-content-end flex-wrap gap-2 mt-3">
                 <button type="button" class="btn h_btn-outline-primary" id="cancelBtn" onclick="window.location.href='RawMaterials.html'"><i class="bi bi-x-circle me-1"></i>Cancel</button>
                 <button type="submit" class="btn h_btn-primary"><i class="bi bi-check2-circle me-1"></i><span id="saveText">Add Raw Material</span></button>
               </div>
@@ -144,6 +158,7 @@
           event.preventDefault();
           const payload = {
             name: document.getElementById('name').value.trim(),
+            supplier: document.getElementById('supplier').value,
             stock: document.getElementById('stock').value.trim(),
             unit: document.getElementById('unit').value.trim(),
             reorderLevel: document.getElementById('reorderLevel').value.trim(),

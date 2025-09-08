@@ -1,9 +1,9 @@
 /* ===== Common ===== */
 :root {
-  --primary: #607274;
-  --light: #fffaf1;
-  --theme-bg: #fffaf1;
-  --theme-text: #607274;
+  --primary: #604652;
+  --light: #f6f6f6;
+  --theme-bg: #f6f6f6;
+  --theme-text: #604652;
   --soft: rgba(96, 114, 116, 0.18);
 }
 
@@ -13,15 +13,15 @@ body::-webkit-scrollbar {
 
 /* ===== Customer List Page ===== */
 .userlist_body {
-  background-color: #fffaf1;
+  background-color: #f6f6f6;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #607274;
+  color: #604652;
   -ms-overflow-style: none;
 }
 
 .h_user-list {
-  background: #edeae2;
-  color: #607274;
+  background: #ededed;
+  color: #604652;
   padding: 20px;
   margin-top: 20px;
 }
@@ -35,18 +35,18 @@ body::-webkit-scrollbar {
 .h_custom-table thead th {
   padding: 15px;
   text-align: center;
-  background: #8e9a98;
-  color: #272727;
+  background: #604652;
+  color: #f6f6f6;
 }
 
 .h_custom-table tbody tr {
-  background: #8e9a98;
+  background: #f6f6f6;
   color: #333;
   border-radius: 10px;
 }
 
 .h_custom-table tbody td {
-  background-color: #8e9a98;
+  background-color: #f6f6f6;
   color: #000;
   padding: 15px;
   vertical-align: middle;
@@ -68,15 +68,15 @@ body::-webkit-scrollbar {
 }
 
 .h_user-list-filter-btn {
-  background-color: #607274;
-  color: #fffaf1 !important;
+  background-color: #604652;
+  color: #f6f6f6 !important;
   font-weight: 600;
 }
 
 .h_user-list-filter-btn:hover {
-  border: 1px solid #fffaf1;
-  background-color: #607274;
-  color: #fffaf1;
+  border: 1px solid #f6f6f6;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 
 .table-responsive {
@@ -106,15 +106,15 @@ body::-webkit-scrollbar {
   top: -14px;
   width: 18px;
   height: 18px;
-  border: 2px solid #607274;
+  border: 2px solid #604652;
   border-radius: 4px;
   background: white;
   transition: 0.2s;
 }
 
 .h_userlist_container input[type="checkbox"]:checked + label:before {
-  background-color: #607274;
-  border-color: #607274;
+  background-color: #604652;
+  border-color: #604652;
 }
 
 .h_userlist_container input[type="checkbox"]:checked + label:after {
@@ -123,12 +123,12 @@ body::-webkit-scrollbar {
   left: 2px;
   top: -14px;
   font-size: 16px;
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 .h_userlist_container .h_user-list-btn {
-  background: #607274;
-  border: 1px solid #8e9a98;
+  background: #604652;
+  border: 1px solid #604652;
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 17px;
@@ -136,7 +136,7 @@ body::-webkit-scrollbar {
 }
 
 .h_userlist_container .h_user-list-btn:hover {
-  border: 1px solid #fffaf1;
+  border: 1px solid #f6f6f6;
 }
 
 /* Custom Modal */
@@ -173,7 +173,7 @@ body::-webkit-scrollbar {
 
 /* ===== Add Customer Page ===== */
 .add_user_body {
-  background: #8e9a98;
+  background: #604652;
   color: var(--ink);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   border-radius: 8px;
@@ -187,7 +187,7 @@ body::-webkit-scrollbar {
 }
 
 .h_sheet {
-  background: #8e9a98;
+  background: #604652;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
@@ -222,7 +222,7 @@ body::-webkit-scrollbar {
 .h_upload-area {
   border: 2px dashed var(--primary);
   border-radius: 14px;
-  background: #fffdf6;
+  background: #fff8fb;
   text-align: center;
   padding: 22px;
   cursor: pointer;
@@ -295,7 +295,7 @@ body::-webkit-scrollbar {
 .h_custom-input:focus,
 .h_custom-select:focus {
   border-color: var(--primary);
-  background-color: #fffaf1;
+  background-color: #f6f6f6;
   outline: none;
 }
 
@@ -334,8 +334,8 @@ body::-webkit-scrollbar {
 
 /* Buttons */
 .btn-primary {
-  background: #607274;
-  border-color: #607274;
+  background: #604652;
+  border-color: #604652;
   font-weight: 600;
 }
 
@@ -343,18 +343,18 @@ body::-webkit-scrollbar {
   filter: brightness(0.95);
   background-color: #586869;
   border-color: #586869;
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 .btn:focus-visible {
-  color: #fffaf1;
-  background-color: #607274;
+  color: #f6f6f6;
+  background-color: #604652;
   border-color: transparent;
   outline: 0;
   box-shadow: none;
 }
 .btn:active {
-  color: #fffaf1;
-  background-color: #607274;
+  color: #f6f6f6;
+  background-color: #604652;
   border-color: transparent;
 }
 

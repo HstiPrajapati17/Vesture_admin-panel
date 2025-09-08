@@ -1,10 +1,10 @@
 :root {
-  --bg: #fffaf1;
-  --primary: #607274;
-  --primary-600: #556869;
-  --primary-700: #495c5d;
+  --bg: #fbfbfb;
+  --primary: #604652;
+  --primary-600: #55464a;
+  --primary-700: #47353e;
   --ink: #1e2525;
-  --muted: #6b7a7b;
+  --muted: #473a47;
   --card: #ffffff;
   --ring: rgba(96, 116, 114, 0.35);
 }
@@ -30,12 +30,12 @@ body {
   justify-content: center;
   gap: 8px;
   border-radius: 16px;
-  background: #edeae2;
+  background: #ededed;
   padding: 0;
 }
 
 .profile-header {
-  background: #edeae2;
+  background: #ededed;
   color: #272727;
   padding: 20px 20px;
   display: flex;
@@ -137,7 +137,7 @@ body {
 
 .h_btn-primary {
   --bs-btn-bg: var(--primary);
-  color: #fffaf1;
+  color: #fbfbfb;
   --bs-btn-border-color: var(--primary);
   --bs-btn-hover-bg: transparent;
   --bs-btn-hover-color: var(--primary);
@@ -154,7 +154,7 @@ body {
 
 .h_btn-outline-secondary:hover {
   background: var(--primary);
-  color: #fffaf1;
+  color: #fbfbfb;
 }
 
 .soft {

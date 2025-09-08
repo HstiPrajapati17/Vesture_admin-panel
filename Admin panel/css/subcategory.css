@@ -1,6 +1,6 @@
 :root {
-  --primary: #607274;
-  --light: #fffaf1;
+  --primary: #604652;
+  --light: #f6f6f6;
   --ink: #2a3232;
   --soft: rgba(96, 114, 116, 0.18);
 }
@@ -26,7 +26,7 @@ body::-webkit-scrollbar {
 
 /* Card / sheet */
 .h_sheet {
-  background: #8e9a98;
+  background: #604652;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
@@ -64,7 +64,7 @@ body::-webkit-scrollbar {
   flex: 0 0 340px;
   border-right: 1px dashed var(--soft);
   padding: 22px;
-  background: #fffaf1;
+  background: #f6f6f6;
 }
 
 .h_col-right {
@@ -77,7 +77,7 @@ body::-webkit-scrollbar {
   width: 100%;
   border: 2px dashed var(--primary);
   border-radius: 14px;
-  background: #fffdf6;
+  background: #fff8fb;
   text-align: center;
   padding: 20px;
   cursor: pointer;
@@ -128,13 +128,13 @@ body::-webkit-scrollbar {
 
 .h_dark-input:hover,
 .h_dark-textarea:hover {
-  border: 1px solid #607274;
+  border: 1px solid #604652;
 }
 
 .h_dark-input {
   width: 100%;
   padding: 10px 14px;
-  border: 1.6px solid #60727478;
+  border: 1.6px solid #60465278;
   border-radius: 10px;
   background: #fff;
   font-size: 0.95rem;
@@ -145,7 +145,7 @@ body::-webkit-scrollbar {
 .h_dark-input:focus {
   outline: none;
   border-color: var(--primary);
-  background: #fffaf1;
+  background: #f6f6f6;
   box-shadow: none;
 }
 
@@ -156,7 +156,7 @@ body::-webkit-scrollbar {
   resize: vertical;
   padding: 10px 14px;
   border-radius: 10px;
-  border: 1.6px solid #60727478;
+  border: 1.6px solid #60465278;
   background: #fff;
 }
 
@@ -195,13 +195,13 @@ body::-webkit-scrollbar {
 }
 
 .subcategory-custome-btn {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 .subcategory-custome-btn:hover{
-  background-color: #607274;
-  color: #fffaf1;
-  border: 1px solid #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
+  border: 1px solid #f6f6f6;
 }
 
 /* file preview grid for multi images */
@@ -289,10 +289,10 @@ body::-webkit-scrollbar {
 /* subcategory list */
 
 :root {
-  --primary-color: #607274;
-  --accent-bg: #fffaf1;
+  --primary-color: #604652;
+  --accent-bg: #f6f6f6;
   --card-bg: #ffffff;
-  --row-bg: #8e9a98;
+  --row-bg: #604652;
 }
 
 body {
@@ -309,15 +309,15 @@ body {
 
 .dashboard-card {
   padding: 20px;
-  background: #edeae2;
+  background: #e3dfdf;
   border-radius: 0px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 h4 {
   font-weight: 600;
-  color: #607274;
+  color: #604652;
 }
 
 .subcategory-table {
@@ -328,7 +328,7 @@ h4 {
 
 .subcategory-table thead th {
   background: var(--row-bg);
-  color: #000;
+  color: #ffffff;
   font-weight: 600;
   text-align: center;
   padding: 12px;
@@ -336,7 +336,7 @@ h4 {
 }
 
 .subcategory-table tbody tr {
-  background: var(--row-bg);
+  background: #f6f6f6;
   color: #000;
   border-radius: 12px;
   transition: transform 0.2s;
@@ -363,23 +363,23 @@ h4 {
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 15px;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   background-color: transparent;
-  color: #607274;
+  color: #604652;
   text-decoration: none;
   cursor: pointer;
   margin: 0 2px;
 }
 
 .action-btn:hover {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 
 .h_action-btn {
-  border: 1px solid #fffaf1;
+  border: 1px solid #f6f6f6;
   background-color: transparent;
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 .h_action-btn:hover {
@@ -437,5 +437,11 @@ input:checked + .mv_slider:before {
 @media (max-width: 768px) {
   .container-fluid {
     padding: 16px;
+  }
+}
+@media (max-width: 576px) {
+  .h_container-app {
+    margin: 0px;
+    padding: 0;
   }
 }

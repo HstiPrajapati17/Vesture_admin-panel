@@ -17,8 +17,8 @@ a {
 /* Wishlist css */
 
 :root {
-  --primary-color: #607274;
-  --accent-bg: #fffaf1;
+  --primary-color: #604652;
+  --accent-bg: #fbfbfb;
   --card-bg: #ffffff;
 }
 
@@ -36,12 +36,12 @@ body::-webkit-scrollbar {
 }
 
 .h_order-list {
-  background: #edeae2;
+  background: #ededed;
   color: var(--accent-bg);
   padding: 20px;
 }
 .h_order-list h4{
-  color: #607274;
+  color: #604652;
 }
 
 .h_custom-table {
@@ -53,20 +53,20 @@ body::-webkit-scrollbar {
 .h_custom-table thead th {
   padding: 14px;
   text-align: center;
-  background: #8e9a98;
-  color: #000;
+  background: #604652;
+  color: #f6f6f6;
   border-bottom: 2px solid rgba(0, 0, 0, 0.06);
   font-weight: 600;
 }
 
 .h_custom-table tbody tr {
-  background: #8e9a98;
+  background: #604652;
   color: #000;
   border-radius: 8px;
 }
 
 .h_custom-table tbody td {
-  background: #8e9a98;
+  /* background: #604652; */
   color: #000;
   padding: 12px;
   text-align: center;
@@ -77,40 +77,40 @@ body::-webkit-scrollbar {
   padding: 3px 7px;
   border-radius: 4px;
   font-size: 16px;
-  color: #607274;
-  border: 1px solid #607274;
+  color: #604652;
+  border: 1px solid #604652;
   background-color: transparent;
 }
 
 .h_wishlist_action-btn:hover {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #fbfbfb;
 }
 
 .h_order-list-filter-btn {
   background-color: transparent;
-  color: #607274;
-  border: 1px solid #607274;
+  color: #604652;
+  border: 1px solid #604652;
   font-weight: 600;
   padding: 0.35rem 0.7rem;
   border-radius: 6px;
 }
 
 .h_order-list-filter-btn:hover {
-  background-color: #607274;
-  color: #fffaf1 !important;
+  background-color: #604652;
+  color: #fbfbfb !important;
 }
 
 .text-muted-small {
   font-size: 0.9rem;
-  color: #fffaf1;
+  color: #fbfbfb;
 }
 
 /* shopping-cart css */
 
 :root {
-  --primary: #607274;
-  --cream: #edeae2;
+  --primary: #604652;
+  --cream: #ededed;
   --text: #233036;
   --white: #fff;
   --soft: #f6f4ef;
@@ -135,7 +135,7 @@ body::-webkit-scrollbar {
 
 .h_shoppingcart_page-head {
   font-size: 21px;
-  color: #fffaf1;
+  color: #fbfbfb;
   font-weight: 600;
 }
 
@@ -193,7 +193,7 @@ body::-webkit-scrollbar {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: #607274;
+  background: #604652;
   color: white !important;
 }
 
@@ -236,11 +236,11 @@ body::-webkit-scrollbar {
 .btn-primary {
   --bs-btn-bg: var(--primary);
   --bs-btn-border-color: var(--primary);
-  --bs-btn-hover-bg: #4f5f63;
-  --bs-btn-hover-border-color: #4f5f63;
+  --bs-btn-hover-bg: #55464a;
+  --bs-btn-hover-border-color: #55464a;
 }
 .btn-primary a {
-  color: #fffaf1;
+  color: #fbfbfb;
 }
 
 .h_shoppingcart_summary-card {
@@ -264,19 +264,19 @@ body::-webkit-scrollbar {
 
 .h_shoppingcart_btn-ghost {
   background: transparent;
-  border: 1px dashed #607274;
+  border: 1px dashed #604652;
   color: var(--text);
 }
 .h_shoppingcart_btn-ghost a {
-  color: #607274;
+  color: #604652;
 }
 
 .h_shoppingcart_btn-ghost:hover {
-  background: #607274;
+  background: #604652;
   border-style: solid;
 }
 .h_shoppingcart_btn-ghost:hover a {
-  color: #fffaf1;
+  color: #fbfbfb;
 }
 
 .h_shoppingcart_time-limits {
@@ -293,7 +293,7 @@ body::-webkit-scrollbar {
 .btn:first-child:active,
 :not(.btn-check) + .btn:active {
   color: #fff !important;
-  background-color: #607274 !important;
+  background-color: #604652 !important;
   border-color: transparent !important;
 }
 
@@ -338,8 +338,8 @@ body::-webkit-scrollbar {
 /* checkout css */
 
 :root {
-  --brand: #607274;
-  --cream: #fffaf1;
+  --brand: #604652;
+  --cream: #fbfbfb;
   --muted: #6b6f6f;
   --soft: #f6f7f6;
   --glass: rgba(255, 250, 241, 0.75);
@@ -373,12 +373,12 @@ body::-webkit-scrollbar {
 .brand-pill .brand-title {
   font-weight: 700;
   letter-spacing: 0.2px;
-  color: #fffaf1;
+  color: #fbfbfb;
   font-size: 28px;
 }
 
 .page-title {
-  color: #fffaf1;
+  color: #fbfbfb;
   font-weight: 700;
   font-size: 1.25rem;
 }
@@ -401,7 +401,7 @@ label.form-label {
 
 .form-control {
   border-radius: 10px;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   padding: 0.6rem 0.75rem;
 }
 
@@ -427,7 +427,7 @@ label.form-label {
 }
 
 .custom-checkbox input[type="checkbox"]:checked {
-  background: linear-gradient(135deg, var(--brand), #516566);
+  background: linear-gradient(135deg, var(--brand), #665151);
   border-color: transparent;
 }
 
@@ -452,14 +452,14 @@ label.form-label {
 .chip {
   padding: 0.45rem 0.7rem;
   border-radius: 10px;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   cursor: pointer;
   font-weight: 600;
 }
 
 .chip.active {
-  background: #607274;
-  color: #fffaf1;
+  background: #604652;
+  color: #fbfbfb;
   border-color: rgba(96, 114, 116, 0.16);
 }
 
@@ -520,20 +520,20 @@ label.form-label {
 }
 
 .btn-brand:hover {
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   color: #2b2b2b;
 }
 
 .btn-ghost {
   background: transparent;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   border-radius: 10px;
   padding: 8px;
 }
 
 .btn-ghost:hover {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #fbfbfb;
 }
 
 .h_cancel-btn {
@@ -545,12 +545,12 @@ label.form-label {
 
 .h_cancel-btn:hover {
   background-color: #b44343;
-  color: #fffaf1;
+  color: #fbfbfb;
   border: 1px solid #b44343;
 }
 
 .form-control:focus {
-  border-color: #607274 !important;
+  border-color: #604652 !important;
   outline: 0;
   box-shadow: none !important;
 }
@@ -562,7 +562,7 @@ label.form-label {
 }
 
 .h_checkout_main_title {
-  color: #607274;
+  color: #604652;
   font-size: 22px;
 }
 

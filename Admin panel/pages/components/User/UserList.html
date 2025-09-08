@@ -4,14 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>User & Supplier List — Clothing Manufacturing</title>
+	<title>User List — Clothing Manufacturing</title>
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-	<!-- External CSS -->
 	<link rel="stylesheet" href="/css/Sidebar.css">
 	<link rel="stylesheet" href="/css/user.css">
+	<link rel="stylesheet" href="/css/product.css">
 
 	<style>
 		.user-img {
@@ -36,25 +36,21 @@
 	<main class="main-content" id="main-content">
 		<div class="container-fluid p-4">
 
-			<!-- Header Buttons -->
+			<!-- Header -->
 			<div class="d-flex justify-content-between align-items-center">
-				<div class="switch-btns btn-group">
-					<button class="btn h_btn_secondary active" id="showUsersBtn">Users</button>
-					<button class="btn h_btn_secondary" id="showSuppliersBtn">Suppliers</button>
-				</div>
-				<a id="addBtnLink" href="/pages/components/User/AddUser.html">
-					<button class="btn btn-primary" id="addBtn">
+				<h4>User List</h4>
+				<a href="/pages/components/User/AddUser.html">
+					<button class="btn btn-primary">
 						<i class="bi bi-plus-circle"></i> Add User
 					</button>
 				</a>
 			</div>
 
 			<!-- Users Table -->
-			<div class="h_user-list mt-4" id="usersSection">
-				<h4 class="mb-3">User List</h4>
+			<div class="h_user-list mt-4">
 				<div class="table-responsive">
-					<table class="table h_custom-table align-middle">
-						<thead>
+					<table class="table h_custom-table align-middle text-center">
+						<thead class="table-dark">
 							<tr>
 								<th>User</th>
 								<th>Email</th>
@@ -67,26 +63,13 @@
 						<tbody id="userTableBody"></tbody>
 					</table>
 				</div>
-			</div>
 
-			<!-- Suppliers Table -->
-			<div class="h_user-list mt-4 d-none" id="suppliersSection">
-				<h4 class="mb-3">Supplier List</h4>
-				<div class="table-responsive">
-					<table class="table h_custom-table align-middle">
-						<thead>
-							<tr>
-								<th>Supplier Name</th>
-								<th>Contact</th>
-								<th>Email</th>
-								<th>Category</th>
-								<th>Status</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody id="supplierTableBody"></tbody>
-					</table>
-				</div>
+				<!-- Pagination -->
+				<nav class="d-flex justify-content-center align-items-center mt-3 gap-3" id="paginationNav">
+					<button class="btn btn-sm cp-page-btn" id="prevBtn">Prev</button>
+					<span id="pageInfo" class="fw-bold" style="color:#604652;">1/1</span>
+					<button class="btn btn-sm cp-page-btn" id="nextBtn">Next</button>
+				</nav>
 			</div>
 
 		</div>
@@ -100,7 +83,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">View Details</h5>
+					<h5 class="modal-title">View User</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body" id="viewModalBody"></div>
@@ -113,7 +96,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Edit Details</h5>
+					<h5 class="modal-title">Edit User</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
@@ -127,15 +110,15 @@
 							<input type="email" class="form-control" id="editEmail">
 						</div>
 						<div class="mb-3">
-							<label class="form-label">Phone / Contact</label>
+							<label class="form-label">Phone</label>
 							<input type="text" class="form-control" id="editPhone">
 						</div>
 						<div class="mb-3">
-							<label class="form-label">City / Category</label>
+							<label class="form-label">City</label>
 							<input type="text" class="form-control" id="editCity">
 						</div>
 						<div class="mb-3">
-							<label class="form-label">Role / Status</label>
+							<label class="form-label">Role</label>
 							<input type="text" class="form-control" id="editRole">
 						</div>
 						<button type="submit" class="btn btn-success">Save Changes</button>
@@ -154,10 +137,10 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
-					<p>Are you sure you want to delete this record?</p>
+					<p>Are you sure you want to delete this user?</p>
 					<div class="d-flex justify-content-end">
 						<button class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-						<button class="btn btn-danger">Delete</button>
+						<button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
 					</div>
 				</div>
 			</div>
@@ -174,19 +157,24 @@
 			{ name: "Alice Johnson", image: "https://i.pravatar.cc/40?img=1", email: "alice@example.com", phone: "123-456-7890", city: "Toronto", role: "User" },
 			{ name: "Bob Smith", image: "https://i.pravatar.cc/40?img=2", email: "bob@example.com", phone: "234-567-8901", city: "Vancouver", role: "Admin" },
 			{ name: "Charlie Lee", image: "https://i.pravatar.cc/40?img=3", email: "charlie@example.com", phone: "345-678-9012", city: "Montreal", role: "Manager" },
+			{ name: "David Brown", image: "https://i.pravatar.cc/40?img=4", email: "david@example.com", phone: "456-789-0123", city: "Calgary", role: "User" },
+			{ name: "Emma Wilson", image: "https://i.pravatar.cc/40?img=5", email: "emma@example.com", phone: "567-890-1234", city: "Ottawa", role: "User" },
+			{ name: "Frank Thomas", image: "https://i.pravatar.cc/40?img=6", email: "frank@example.com", phone: "678-901-2345", city: "Edmonton", role: "Admin" }
 		];
 
-		const suppliers = [
-			{ supplierName: "Textile Corp", contact: "David Supplier", email: "david@textile.com", category: "Fabrics", status: "Active" },
-			{ supplierName: "Cotton World", contact: "Emma Mills", email: "emma@cottonworld.com", category: "Cotton", status: "Inactive" },
-			{ supplierName: "FabricHouse", contact: "Frank Fabrics", email: "frank@fabric.com", category: "Silk", status: "Active" },
-		];
+		const rowsPerPage = 5;
+		let currentPage = 1;
+		let userToDelete = null;
 
-		// Render Users
-		function renderUsers() {
-			const tbody = document.getElementById("userTableBody");
-			tbody.innerHTML = "";
-			users.forEach((u) => {
+		function renderTable() {
+			const tableBody = document.getElementById("userTableBody");
+			tableBody.innerHTML = "";
+
+			const start = (currentPage - 1) * rowsPerPage;
+			const end = start + rowsPerPage;
+			const paginatedUsers = users.slice(start, end);
+
+			paginatedUsers.forEach(u => {
 				const tr = document.createElement("tr");
 				tr.innerHTML = `
 					<td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
@@ -195,38 +183,28 @@
 					<td>${u.city}</td>
 					<td>${u.role}</td>
 					<td>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
+						<button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
+						<button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
 					</td>
 				`;
-				tbody.appendChild(tr);
+				tableBody.appendChild(tr);
 			});
+
+			// pagination info
+			const totalPages = Math.ceil(users.length / rowsPerPage);
+			document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+
+			// show/hide pagination
+			const pagination = document.getElementById("paginationNav");
+			if (totalPages <= 1) {
+				pagination.classList.add("d-none");
+			} else {
+				pagination.classList.remove("d-none");
+			}
 		}
 
-		// Render Suppliers
-		function renderSuppliers() {
-			const tbody = document.getElementById("supplierTableBody");
-			tbody.innerHTML = "";
-			suppliers.forEach((s) => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-					<td>${s.supplierName}</td>
-					<td>${s.contact}</td>
-					<td>${s.email}</td>
-					<td>${s.category}</td>
-					<td><span class="badge ${s.status === "Active" ? "bg-success" : "bg-secondary"}">${s.status}</span></td>
-					<td>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#viewModal" onclick="openViewSupplier('${s.supplierName}','${s.contact}','${s.email}','${s.category}','${s.status}')"><i class="bi bi-eye"></i></button>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="openEditSupplier('${s.supplierName}','${s.contact}','${s.email}','${s.category}','${s.status}')"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="openDelete('${s.supplierName}')"><i class="bi bi-trash3"></i></button>
-					</td>
-				`;
-				tbody.appendChild(tr);
-			});
-		}
-
-		// View Modal (User)
+		// View
 		function openView(name, email, phone, city, role) {
 			document.getElementById("viewModalBody").innerHTML = `
 				<p><strong>Name:</strong> ${name}</p>
@@ -235,78 +213,57 @@
 				<p><strong>City:</strong> ${city}</p>
 				<p><strong>Role:</strong> ${role}</p>
 			`;
+			new bootstrap.Modal(document.getElementById("viewModal")).show();
 		}
 
-		// View Modal (Supplier)
-		function openViewSupplier(supplierName, contact, email, category, status) {
-			document.getElementById("viewModalBody").innerHTML = `
-				<p><strong>Supplier Name:</strong> ${supplierName}</p>
-				<p><strong>Contact:</strong> ${contact}</p>
-				<p><strong>Email:</strong> ${email}</p>
-				<p><strong>Category:</strong> ${category}</p>
-				<p><strong>Status:</strong> ${status}</p>
-			`;
-		}
-
-		// Edit User
+		// Edit
 		function openEdit(name, email, phone, city, role) {
 			document.getElementById("editName").value = name;
 			document.getElementById("editEmail").value = email;
 			document.getElementById("editPhone").value = phone;
 			document.getElementById("editCity").value = city;
 			document.getElementById("editRole").value = role;
-		}
-
-		// Edit Supplier
-		function openEditSupplier(supplierName, contact, email, category, status) {
-			document.getElementById("editName").value = supplierName;
-			document.getElementById("editEmail").value = email;
-			document.getElementById("editPhone").value = contact;
-			document.getElementById("editCity").value = category;
-			document.getElementById("editRole").value = status;
+			new bootstrap.Modal(document.getElementById("editModal")).show();
 		}
 
 		// Delete
-		function openDelete(recordName) {
+		function openDelete(name) {
+			userToDelete = name;
 			document.querySelector("#deleteModal .modal-body p").innerHTML =
-				`Are you sure you want to delete <strong>${recordName}</strong>?`;
+				`Are you sure you want to delete <strong>${name}</strong>?`;
+			new bootstrap.Modal(document.getElementById("deleteModal")).show();
 		}
 
-		// Update Add Button dynamically
-		function updateAddButton() {
-			const addBtn = document.getElementById("addBtn");
-			const addBtnLink = document.getElementById("addBtnLink");
-
-			if (!document.getElementById("usersSection").classList.contains("d-none")) {
-				addBtn.innerHTML = '<i class="bi bi-plus-circle"></i> Add User';
-				addBtnLink.setAttribute("href", "/pages/components/User/AddUser.html");
-			} else {
-				addBtn.innerHTML = '<i class="bi bi-plus-circle"></i> Add Supplier';
-				addBtnLink.setAttribute("href", "/pages/components/User/AddSupplier.html");
+		document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
+			if (userToDelete) {
+				const index = users.findIndex(u => u.name === userToDelete);
+				if (index !== -1) {
+					users.splice(index, 1);
+					renderTable();
+				}
+				userToDelete = null;
+				const modalEl = document.getElementById("deleteModal");
+				const modal = bootstrap.Modal.getInstance(modalEl);
+				modal.hide();
 			}
-		}
-
-		// Toggle Sections
-		document.getElementById("showUsersBtn").addEventListener("click", () => {
-			document.getElementById("usersSection").classList.remove("d-none");
-			document.getElementById("suppliersSection").classList.add("d-none");
-			document.getElementById("showUsersBtn").classList.add("active");
-			document.getElementById("showSuppliersBtn").classList.remove("active");
-			updateAddButton();
 		});
 
-		document.getElementById("showSuppliersBtn").addEventListener("click", () => {
-			document.getElementById("suppliersSection").classList.remove("d-none");
-			document.getElementById("usersSection").classList.add("d-none");
-			document.getElementById("showSuppliersBtn").classList.add("active");
-			document.getElementById("showUsersBtn").classList.remove("active");
-			updateAddButton();
+		// Pagination
+		document.getElementById("prevBtn").addEventListener("click", () => {
+			if (currentPage > 1) {
+				currentPage--;
+				renderTable();
+			}
+		});
+		document.getElementById("nextBtn").addEventListener("click", () => {
+			if (currentPage < Math.ceil(users.length / rowsPerPage)) {
+				currentPage++;
+				renderTable();
+			}
 		});
 
-		// Initial Render
-		renderUsers();
-		renderSuppliers();
-		updateAddButton();
+		// Initial render
+		renderTable();
 	</script>
 </body>
 </html>

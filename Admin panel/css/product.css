@@ -22,7 +22,7 @@ body {
   gap: 25px;
   padding: 20px;
   width: 100%;
-  background: #607274;
+  background: #ededed;
 }
 
 .shop-sidebar {
@@ -62,7 +62,7 @@ body {
 
 .btn-reset {
   width: 100%;
-  background: #607274;
+  background: #604652;
   color: #fff;
   border-radius: var(--btn-radius);
   font-weight: 500;
@@ -70,7 +70,7 @@ body {
 }
 
 .btn-reset:hover {
-  background: #455456;
+  background: #44323a;
   color: var(--bg-card);
 }
 
@@ -90,7 +90,7 @@ body {
 .page-title {
   font-size: 28px;
   font-weight: 700;
-  color: #fffaf1;
+  color: #604652;
   margin-bottom: 0;
 }
 
@@ -147,7 +147,7 @@ body {
 }
 
 .product-rating {
-  color: var(--accent);
+  color: #dcc24b;
   font-size: 0.85rem;
   margin-bottom: 0px;
 }
@@ -198,7 +198,7 @@ body {
   display: flex;
   gap: 8px;
   margin-top: 6px;
-  width: 68%;
+  width: 100%;
 }
 
 .btn-action {
@@ -211,13 +211,13 @@ body {
   padding: 7px;
   cursor: pointer;
   width: 50%;
-  background: #607274;
+  background: #604652;
   border: none;
   color: #fff;
 }
 
 .btn-action:hover {
-  background-color: #455456;
+  background-color: #44323a;
 }
 
 .products-list .btn-action {
@@ -293,7 +293,7 @@ body {
   padding: 8px 16px;
   font-weight: 500;
   cursor: pointer;
-  background: #455456;
+  background: #44323a;
   color: #ffffff;
   border: 1px solid #959595;
 }
@@ -326,8 +326,8 @@ body {
 }
 
 .btn-outline-dark {
-  color: #fffaf1;
-  border: 1px solid #fffaf1;
+  color: #604652;
+  border: 1px solid #604652;
 }
 
 .btn-outline-dark i {
@@ -339,11 +339,15 @@ body {
 .btn.show,
 .btn:first-child:active,
 :not(.btn-check) + .btn:active {
-  color: #282828;
-  background-color: #8e9a98;
-  border-color: #fffaf1;
+  color: #fff8fb;
+  background-color: #604652 !important;
+  border-color: #f6f6f6;
 }
-
+.page-header .btn:hover {
+    /* color: var(--bs-btn-hover-color); */
+    background-color: #604652;
+    border-color: #604652;
+}
 .price-range {
   display: flex;
   align-items: center;
@@ -451,8 +455,8 @@ body {
 /* ============================================== view Product css ==================================== */
 
 :root {
-  --h_brand: #607274;
-  --h_accent: #fffaf1;
+  --h_brand: #604652;
+  --h_accent: #f6f6f6;
   --h_muted: rgba(37, 50, 53, 0.6);
   --h_card-bg: #ffffff;
   --h_glass: rgba(96, 114, 116, 0.06);
@@ -491,7 +495,7 @@ body::-webkit-scrollbar {
   border-radius: 16px;
 }
 .h_view_product_card {
-  background: #607274;
+  background: #604652;
 }
 
 /* Header */
@@ -513,7 +517,7 @@ body::-webkit-scrollbar {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.2px;
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 .h_muted {
@@ -629,7 +633,7 @@ body::-webkit-scrollbar {
 .h_desc h2 {
   margin: 4px 0;
   font-size: 20px;
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 .h_meta {
@@ -676,7 +680,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  color: #fffaf1;
+  color: #f6f6f6;
   font-weight: 600;
   font-size: 0.95rem;
   transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
@@ -790,7 +794,7 @@ body::-webkit-scrollbar {
   justify-content: space-between;
   padding: 0.5rem 0;
   border-bottom: 1px dashed rgba(37, 50, 53, 0.06);
-  color: #607274;
+  color: #604652;
   font-weight: 500;
 }
 
@@ -813,8 +817,8 @@ body::-webkit-scrollbar {
 }
 
 .h_btn-primary-brand:hover {
-  border: 1px solid #607274;
-  color: #607274;
+  border: 1px solid #604652;
+  color: #604652;
 }
 
 .h_btn-ghost {
@@ -849,7 +853,7 @@ body::-webkit-scrollbar {
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
   isolation: isolate;
-  border-bottom: 1px solid #fffaf1 !important;
+  border-bottom: 1px solid #f6f6f6 !important;
   border: none;
 }
 
@@ -942,12 +946,12 @@ body::-webkit-scrollbar {
 /* ==================================================== Add Product css =========================================== */
 
 :root {
-  --h-primary: #607274;
-  --h-light: #fffaf1;
+  --h-primary: #604652;
+  --h-light: #f6f6f6;
   --h-ink: #2a3232;
   --h-soft: rgba(96, 114, 116, 0.18);
   --h-muted: #6c757d;
-  --toggle-on: #607274;
+  --toggle-on: #604652;
   --toggle-off: #bbbaba;
 }
 
@@ -971,7 +975,7 @@ body::-webkit-scrollbar {
 
 /* sheet */
 .h_sheet {
-  background: #8e9a98;
+  background: #604652;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   display: flex;
@@ -1027,7 +1031,7 @@ body::-webkit-scrollbar {
 .h_right {
   padding: 16px;
   border-left: 1px dashed var(--h-soft);
-  background: #fffaf6;
+  background: #f6f6f6;
 }
 
 /* if placed as first-child (i.e. visually left column), show border-right instead */
@@ -1046,7 +1050,7 @@ body::-webkit-scrollbar {
 /* right (was previously left) */
 .h_left {
   padding: 20px;
-  background-color: #fffaf1;
+  background-color: #f6f6f6;
 }
 
 /* simple label/input style (prefixed) */
@@ -1091,7 +1095,7 @@ body::-webkit-scrollbar {
 .h_textarea:focus {
   outline: none;
   border-color: var(--h-primary);
-  background: #fffaf1;
+  background: #f6f6f6;
   box-shadow: none;
 }
 
@@ -1119,7 +1123,7 @@ body::-webkit-scrollbar {
   border-radius: 12px;
   padding: 16px;
   text-align: center;
-  background: #fffdf6;
+  background: #fff8fb;
   cursor: pointer;
   min-height: 140px;
   gap: 6px;
@@ -1206,7 +1210,7 @@ body::-webkit-scrollbar {
 /* make buttons slightly larger target for touch */
 .h_custome_add-btn,
 .btn {
-  padding: 0px 10px;
+  /* padding: 0px 10px; */
   min-height: 40px;
 }
 
@@ -1283,7 +1287,7 @@ body::-webkit-scrollbar {
 }
 
 .h_actions .btn-primary:hover {
-  background: #fffaf1;
+  background: #f6f6f6;
   color: var(--h-primary);
   border-color: var(--h-primary);
 }
@@ -1311,7 +1315,7 @@ body::-webkit-scrollbar {
 }
 
 .h_custome_add-btn {
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   color: #6c757d;
   padding: 8px;
   font-weight: 600;
@@ -1319,8 +1323,8 @@ body::-webkit-scrollbar {
 }
 
 .h_custome_add-btn:hover {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 
 /* ---------- Responsive tweaks for smaller screens ---------- */
@@ -1510,9 +1514,9 @@ body::-webkit-scrollbar {
     font-size: 0.88rem;
   }
 
-  .custom-toggle .label {
+  /* .custom-toggle .label {
     display: none;
-  }
+  } */
 
   .toggles {
     gap: 8px;
@@ -1521,16 +1525,29 @@ body::-webkit-scrollbar {
   .h_form {
     padding: 0px;
   }
+  .custom-toggle{
+    gap: 1px;
+  }
+      .switch.on .knob {
+        left: calc(100% - 22px);
+    }
+        .switch .knob {
+        width: 18px;
+        height: 18px;
+    }
+        .switch {
+        height: 25px;
+    }
 }
 
 /* =================================== currunt Products and Low Stock Product Css =========================================== */
 
 /* Theme colors */
 :root {
-  --primary: #607274;
-  --secondary: #8e9a98;
-  --accent: #d3d3d3;
-  --background: #fffaf1;
+  --primary: #604652;
+  --secondary: #604652;
+  --accent: #e7e7e7;
+  --background: #f6f6f6;
 }
 
 body {
@@ -1539,14 +1556,14 @@ body {
 
 .stockmanage_bg {
   padding: 20px;
-  background: #edeae2;
+  background: #e3dfdf;
   border-radius: 0px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-  color: #fffaf1;
+  color: #f6f6f6;
 }
 
 .stockmanage_bg h4 {
-  color: #607274;
+  color: #604652;
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -1566,7 +1583,7 @@ body {
 
 .stock-table thead th {
   background: var(--secondary);
-  color: #000;
+  color: #f0f0f0;
   font-weight: 600;
   text-align: center;
   padding: 12px;
@@ -1574,7 +1591,7 @@ body {
 }
 
 .stock-table tbody td {
-  background: var(--secondary);
+  background: #f0f0f0;
   color: #000;
   padding: 12px;
   text-align: center;
@@ -1584,13 +1601,13 @@ body {
   width: 40% !important;
 }
 .cp-page-btn {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 .cp-page-btn:hover {
-  border: 1px solid #fffaf1;
-  background-color: #607274;
-  color: #fffaf1;
+  border: 1px solid #f6f6f6;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 .disabled > .page-link,
 .page-link.disabled {
@@ -1600,11 +1617,11 @@ body {
   border-color: none;
 }
 .lowstock-btn {
-  background-color: #607274;
+  background-color: #604652;
   color: var(--h_accent);
 }
 .lowstock-btn:hover {
-  background-color: #607274;
+  background-color: #604652;
   color: var(--h_accent);
   border: 1px solid var(--h_accent);
 }

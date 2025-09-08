@@ -1,8 +1,8 @@
 :root {
   --sidebar-width: 250px;
   --sidebar-collapsed-width: 50px;
-  --sidebar-bg: #edeae2;
-  --sidebar-text: #607274;
+  --sidebar-bg: #ededed;
+  --sidebar-text: #604652;
   --sidebar-hover: #495057;
   --transition: 0.25s;
 }
@@ -38,7 +38,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 .sidebar .sidebar-top {
-  border-bottom: 1px solid #60727452;
+  border-bottom: 1px solid #60465252;
   font-size: 26px;
   font-weight: 600;
   padding-bottom: 12px;
@@ -177,7 +177,7 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
   left: var(--sidebar-width);
   right: 0;
   height: 56px;
-  background: #d3d3d3;
+  background: #e7e7e7;
   display: flex;
   align-items: center;
   padding: 0 16px;
@@ -187,7 +187,7 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
 .topbar .h_nav-toggle {
   font-size: 24px;
   border: none;
-  background: #607274;
+  background: #604652;
   border-radius: 50%;
   color: #fff;
   cursor: pointer;
@@ -243,7 +243,7 @@ body.sidebar-collapsed .nav-list li.has-dropdown:hover > .dropdown-menu {
 }
 
 .h_navbar_dropdown-menu li a:hover {
-  background: #607274;
+  background: #604652;
   color: #fff;
 }
 
@@ -259,7 +259,7 @@ body.sidebar-collapsed .topbar {
   padding: 20px;
   width: 100%;
   transition: margin-left var(--transition);
-  background-color: #8e9a98;
+  background-color: #f6f6f6;
   height: 100%;
 }
 .main-content {
@@ -273,7 +273,7 @@ body.sidebar-collapsed #main-content {
 
 /* sidebar activate */
 .sidebar .nav-list a.active {
-  background: #607274; /* example */
+  background: #604652; /* example */
   color: #fff;
 }
 
@@ -283,7 +283,7 @@ body.sidebar-collapsed #main-content {
 }
 /* active style for dropdown parent */
 .sidebar .has-dropdown.active > a {
-  background: #607274;
+  background: #604652;
   color: #fff;
 }
 
@@ -385,4 +385,22 @@ body.sidebar-collapsed #main-content {
   .topbar {
     padding: 0px 6px;
   }
+}
+.page-link:focus {
+  z-index: 3;
+  color: inherit !important;
+  background-color: #58635c !important;
+  outline: 0;
+  box-shadow: inherit !important;
+}
+.form-control:focus {
+  z-index: 3;
+  color: inherit !important;
+  background-color: none !important;
+  outline: 0;
+  box-shadow: inherit !important;
+  border: 1px solid #604652 !important;
+}
+.btn-close:focus {
+  box-shadow: none !important;
 }

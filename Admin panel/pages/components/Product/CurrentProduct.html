@@ -26,12 +26,6 @@
 				<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 					<h4>Current Products</h4>
 					<div class="d-flex gap-2 flex-wrap justify-content-end" style="width: 25%;">
-						<select id="pageSizeSelect" class="form-select form-select-md product-page-size-selector"
-							style="width:120px;">
-							<option value="3">3 per page</option>
-							<option value="5" selected>5 per page</option>
-							<option value="10">10 per page</option>
-						</select>
 						<a href="/pages/components/Product/AddProduct.html" class="btn cp-page-btn">+ Add
 							Product</a>
 					</div>
@@ -82,10 +76,9 @@
 
 		const tbody = document.getElementById("categoryTableBody");
 		const pagination = document.getElementById("pagination");
-		const pageSizeSelect = document.getElementById("pageSizeSelect");
 
 		let currentPage = 1;
-		let pageSize = parseInt(pageSizeSelect.value);
+		let pageSize = 6;
 
 		function renderTable() {
 			tbody.innerHTML = "";
@@ -135,12 +128,6 @@
 			if (text === "Prev" && currentPage > 1) currentPage--;
 			else if (text === "Next" && currentPage < totalPages) currentPage++;
 
-			renderTable();
-		});
-
-		pageSizeSelect.addEventListener("change", e => {
-			pageSize = parseInt(e.target.value);
-			currentPage = 1;
 			renderTable();
 		});
 

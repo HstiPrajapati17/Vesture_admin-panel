@@ -1,13 +1,13 @@
 :root {
-  --primary-color: #607274;
-  --accent-bg: #edeae2;
-  --muted: #8e9a98;
+  --primary-color: #604652;
+  --accent-bg: #ededed;
+  --muted: #604652;
   --card-bg: #ffffff;
   --danger: #dc3545;
 }
 
 body {
-  height: 93.9vh;
+  /* height: 93.9vh; */
   background: #cbcbcb;
   color: var(--primary-color);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
@@ -31,7 +31,7 @@ body::-webkit-scrollbar {
 .container-full {
   margin: 2.25rem auto;
   width: calc(100% - 48px);
-  background: #edeae2;
+  background: #ededed;
   padding: 18px;
 }
 
@@ -43,18 +43,18 @@ h1 {
 .card {
   box-shadow: 0 6px 18px rgba(96, 114, 116, 0.06);
   border-radius: 0px;
-  background: #edeae2;
+  background: #ededed;
   border: 0px;
 }
 
 .btn-couponlist-custom {
-  background-color: #607274;
-  color: #edeae2;
+  background-color: #604652;
+  color: #ededed;
 }
 .btn-couponlist-custom:hover {
-  border: 1px solid #edeae2;
-  background-color: #607274;
-  color: #edeae2;
+  border: 1px solid #ededed;
+  background-color: #604652;
+  color: #ededed;
 }
 
 .small-muted {
@@ -63,7 +63,7 @@ h1 {
 }
 .custome-table {
   width: 100%;
-  min-width: 700px;
+  min-width: 590px;
   border-collapse: separate;
   border-spacing: 0 8px;
 }
@@ -88,8 +88,8 @@ h1 {
 }
 
 .badge-inactive {
-  background: #8e9a98;
-  color: #edeae2;
+  background: #604652;
+  color: #ededed;
   border-radius: 999px;
   padding: 0.35rem 0.6rem;
   font-weight: 600;
@@ -196,28 +196,28 @@ h1 {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border-top: 5px solid #607274;
+  border-top: 5px solid #604652;
 }
 
 .h_coupon-form-container h2 {
-  color: #607274;
+  color: #604652;
   margin-bottom: 25px;
   text-align: center;
 }
 
 .h_coupon-form-container label {
   font-weight: 500;
-  color: #607274;
+  color: #604652;
 }
 
 .h_coupon-form-container .form-control:focus,
 .form-select:focus {
-  border-color: #607274;
+  border-color: #604652;
   box-shadow: none;
 }
 
 .h_coupon-form-container .btn-submit {
-  background-color: #607274;
+  background-color: #604652;
   color: #fff;
   border: none;
 }

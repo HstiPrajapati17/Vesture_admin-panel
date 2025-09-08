@@ -9,7 +9,7 @@ window.initCharts = function initCharts() {
 			datasets: [{
 				label: 'My Spending (CAD)',
 				data: [220, 340, 180, 420, 300, 500, 380],
-				backgroundColor: '#607274',
+				backgroundColor: '#604652',
 				borderRadius: 4
 			}]
 		},
@@ -40,7 +40,7 @@ window.initCharts = function initCharts() {
 			labels: ['T-Shirts', 'Jackets', 'Dresses', 'Hoodies', 'Shirts'],
 			datasets: [{
 				data: [5, 3, 2, 4, 6], // Example counts
-				backgroundColor: ['#607274', '#8B9DC3', '#A9907E', '#A0A0A0', '#D1A980']
+				backgroundColor: ['#604652', '#8B9DC3', '#A9907E', '#c8ab89', '#e6e1dc']
 			}]
 		},
 		options: {

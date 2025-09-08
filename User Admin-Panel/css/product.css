@@ -7,8 +7,8 @@
 /* ===================================== view Product css ======================================= */
 
 :root {
-  --h_brand: #607274;
-  --h_accent: #fffaf1;
+  --h_brand: #604652;
+  --h_accent: #fbfbfb;
   --h_muted: rgba(37, 50, 53, 0.6);
   --h_card-bg: #ffffff;
   --h_glass: rgba(96, 114, 116, 0.06);
@@ -47,7 +47,7 @@ body::-webkit-scrollbar {
   border-radius: 16px;
 }
 .h_view_product_card {
-  background: #607274;
+  background: #ededed;
 }
 
 /* Header  */
@@ -69,11 +69,11 @@ body::-webkit-scrollbar {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.2px;
-  color: #fffaf1;
+  color: #604652;
 }
 
 .h_muted {
-  color: rgb(255 255 255 / 80%);
+  color: rgb(96, 70, 82 / 80%);
 }
 
 /* Panel layout */
@@ -185,7 +185,7 @@ body::-webkit-scrollbar {
 .h_desc h2 {
   margin: 4px 0;
   font-size: 20px;
-  color: #fffaf1;
+  color: #604652;
 }
 
 .h_meta {
@@ -200,7 +200,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   font-size: 16.5px;
   margin: 6px 0px;
-  color: #fff;
+  color: #604652;
 }
 
 .h_item_value {
@@ -232,7 +232,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  color: #fffaf1;
+  color: #604652;
   font-weight: 600;
   font-size: 0.95rem;
   transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
@@ -246,14 +246,14 @@ body::-webkit-scrollbar {
 
 .h_tabbtn:hover,
 .h_tabbtn:focus {
-  background: var(--h_tab-accent);
+  background: #f6f6f6;
   color: var(--h_brand);
   outline: none;
   transform: translateY(-2px);
 }
 
 .h_tabbtn[aria-selected="true"] {
-  background: var(--h_tab-accent);
+  background: #f6f6f6;
   color: var(--h_brand);
   box-shadow: 0 8px 20px rgba(96, 114, 116, 0.08);
 }
@@ -285,8 +285,8 @@ body::-webkit-scrollbar {
 
 .h_specs_table td {
   padding: 8px 12px;
-  border-top: 1px dashed rgba(37, 50, 53, 0.06);
-  color: #253235;
+      border-bottom: 1px dashed #604652;
+  color: #242323;
 }
 
 /* History timeline */
@@ -346,7 +346,7 @@ body::-webkit-scrollbar {
   justify-content: space-between;
   padding: 0.5rem 0;
   border-bottom: 1px dashed rgba(37, 50, 53, 0.06);
-  color: #607274;
+  color: #604652;
   font-weight: 500;
 }
 
@@ -369,8 +369,8 @@ body::-webkit-scrollbar {
 }
 
 .h_btn-primary-brand:hover {
-  border: 1px solid #607274;
-  color: #607274;
+  border: 1px solid #604652;
+  color: #604652;
 }
 
 .h_btn-ghost {
@@ -405,7 +405,7 @@ body::-webkit-scrollbar {
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
   isolation: isolate;
-  border-bottom: 1px solid #fffaf1 !important;
+  border-bottom: 1px solid #fbfbfb !important;
   border: none;
 }
 
@@ -486,4 +486,13 @@ body::-webkit-scrollbar {
 .h_btn {
   border-radius: 10px;
   padding: 0.45rem 0.7rem;
+}
+.cp-page-btn {
+  background-color: #604652;
+  color: #fbfbfb;
+}
+.cp-page-btn:hover {
+  border: 1px solid #fbfbfb;
+  background-color: #604652;
+  color: #fbfbfb;
 }
