@@ -51,7 +51,7 @@
 				<!-- Pagination -->
 				<nav class="d-flex justify-content-center align-items-center mt-3 gap-3">
 					<button class="btn btn-sm h_order-list-filter-btn" id="prevBtn">Prev</button>
-					<span id="pageInfo" class="fw-bold" style="color: #607274;">1/1</span>
+					<span id="pageInfo" class="fw-bold" style="color: #604652;">1/1</span>
 					<button class="btn btn-sm h_order-list-filter-btn" id="nextBtn">Next</button>
 				</nav>
 			</div>
@@ -148,40 +148,49 @@
 		const rowsPerPage = 5;
 		let currentPage = 1;
 
-		function renderTable() {
-			const tableBody = document.getElementById('tableBody');
-			tableBody.innerHTML = "";
+	function renderTable() {
+	const tableBody = document.getElementById('tableBody');
+	tableBody.innerHTML = "";
 
-			const start = (currentPage - 1) * rowsPerPage;
-			const end = start + rowsPerPage;
-			const paginatedOrders = orders.slice(start, end);
+	const start = (currentPage - 1) * rowsPerPage;
+	const end = start + rowsPerPage;
+	const paginatedOrders = orders.slice(start, end);
 
-			paginatedOrders.forEach(order => {
-				const statusBadge = `<span class="custom-badge">${order.status}</span>`;
+	paginatedOrders.forEach(order => {
+		const statusBadge = `<span class="custom-badge">${order.status}</span>`;
 
-				const tr = document.createElement('tr');
-				tr.innerHTML = `
-					<td>${order.no}</td>
-					<td>${order.customer}</td>
-					<td>${order.id}</td>
-					<td>${statusBadge}</td>
-					<td>${order.total}</td>
-					<td>${order.date}</td>
-					<td>
-						<button class="btn btn-sm me-1 orderlist-table-icons" onclick="viewOrder(${order.no})">
-							<i class="bi bi-eye"></i>
-						</button>
-						<button class="btn btn-sm orderlist-table-icons" onclick="deleteOrder(${order.no})">
-							<i class="bi bi-trash"></i>
-						</button>
-					</td>
-				`;
-				tableBody.appendChild(tr);
-			});
+		const tr = document.createElement('tr');
+		tr.innerHTML = `
+			<td>${order.no}</td>
+			<td>${order.customer}</td>
+			<td>${order.id}</td>
+			<td>${statusBadge}</td>
+			<td>${order.total}</td>
+			<td>${order.date}</td>
+			<td>
+				<button class="btn btn-sm me-1 orderlist-table-icons" onclick="viewOrder(${order.no})">
+					<i class="bi bi-eye"></i>
+				</button>
+				<button class="btn btn-sm orderlist-table-icons" onclick="deleteOrder(${order.no})">
+					<i class="bi bi-trash"></i>
+				</button>
+			</td>
+		`;
+		tableBody.appendChild(tr);
+	});
 
-			document.getElementById("pageInfo").innerText =
-				`${currentPage}/${Math.ceil(orders.length / rowsPerPage)}`;
-		}
+	const totalPages = Math.ceil(orders.length / rowsPerPage);
+	document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+
+	// pagination show/hide
+	const pagination = document.querySelector("nav");
+	if (totalPages <= 1) {
+		pagination.classList.add("d-none");
+	} else {
+		pagination.classList.remove("d-none");
+	}
+}
+
 
 		// View Order in Modal
 		function viewOrder(orderNo) {

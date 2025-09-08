@@ -1,11 +1,11 @@
 /* Orders List Container */
 .h_order-list {
-  background-color: #edeae2;
+  background-color: #ededed;
   padding: 20px;
   margin-top: 20px;
 }
 .h_order-list h4 {
-  color: #607274;
+  color: #604652;
 }
 
 /* Table */
@@ -16,14 +16,14 @@
   border-spacing: 0 8px;
 }
 .h_custom-sales-table th {
-  background-color: #8e9a98;
-  color: #000;
+  background-color: #604652;
+  color: #fafafa;
   text-align: center;
   padding: 12px;
   border: none;
 }
 .h_custom-sales-table td {
-  background-color: #8e9a98;
+  /* background-color: #604652; */
   color: #000;
   text-align: center;
   padding: 12px;
@@ -31,20 +31,20 @@
 
 /* Filter Button */
 .h_order-list-filter-btn {
-  background-color: #607274;
+  background-color: #604652;
   color: white;
   border-radius: 6px;
   padding: 5px 12px;
 }
 .h_order-list-filter-btn:hover {
-  background-color: #49525f;
+  background-color: #4e3a43;
   color: #fff;
 }
 
 /* Status Badge */
 .custom-badge {
-  background-color: #fffaf1;
-  color: #607274;
+  background-color: #fbfbfb;
+  color: #604652;
   font-size: 0.85rem;
   font-weight: 600;
   padding: 5px 12px;
@@ -62,14 +62,14 @@
 }
 
 .orderlist-table-icons {
-  background-color: #607274;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #fbfbfb;
   font-size: 18px;
 }
 .orderlist-table-icons:hover {
-  border: 1px solid #edeae2;
-  background-color: #607274;
-  color: #fffaf1;
+  border: 1px solid #ededed;
+  background-color: #604652;
+  color: #fbfbfb;
 }
 @media (max-width: 540px) {
   .container-fluid{

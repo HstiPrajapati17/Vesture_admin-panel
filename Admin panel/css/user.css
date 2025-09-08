@@ -1,14 +1,14 @@
 /* user list css */
 
 body {
-  background-color: #fffaf1;
+  background-color: #f6f6f6;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #607274;
+  color: #604652;
 }
 
 .h_user-list {
-  background: #edeae2;
-  color: #607274;
+  background: #ededed;
+  color: #604652;
   padding: 20px;
   margin-top: 20px;
 }
@@ -23,18 +23,18 @@ body {
 .h_custom-table thead th {
   padding: 15px;
   text-align: center;
-  background: #8e9a98;
-  color: #272727;
+  background: #604652;
+  color: #f6f6f6;
 }
 
 .h_custom-table tbody tr {
-  background: #8e9a98;
+  background: #604652;
   color: #333;
   border-radius: 10px;
 }
 
 .h_custom-table tbody td {
-  background-color: #8e9a98;
+  background-color: #f6f6f6;
   color: #000;
   padding: 15px;
   vertical-align: middle;
@@ -68,8 +68,8 @@ body {
 }
 
 .h_user-list-btn {
-  background: #607274;
-  border: 1px solid #8e9a98;
+  background: #604652;
+  border: 1px solid #604652;
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 17px;
@@ -77,7 +77,7 @@ body {
 }
 
 .h_user-list-btn:hover {
-  border: 1px solid #fffaf1;
+  border: 1px solid #f6f6f6;
 }
 
 .btn-group > .btn-group:not(:last-child) > .btn,
@@ -90,8 +90,8 @@ body {
 }
 /* Active Button Styling */
 .switch-btns .btn.active {
-  background-color: #edeae2 !important;
-  color: #607274 !important;
+  background-color: #604652 !important;
+  color: #f6f6f6 !important;
   border: 0;
   transform: scale(1.08);
 }
@@ -104,30 +104,30 @@ body {
 }
 
 .h_user-list-btn {
-  color: #edeae2;
+  color: #ededed;
   border: none;
 }
 .h_user-list-btn:hover {
-  color: #edeae2;
-  border: 1px solid #fffaf1;
-  background-color: #607274;
+  color: #ededed;
+  border: none;
+  background-color: #46303a;
 }
 .btn-check:checked + .btn,
 .btn.active,
 .btn.show,
 .btn:first-child:active,
 :not(.btn-check) + .btn:active {
-  color: #edeae2;
-  background-color: #607274;
-  border-color: #607274;
+  color: #ededed;
+  background-color: #604652;
+  border-color: #604652;
 }
 .h_btn_secondary {
-  background-color: #b4b7b6;
-  color: #46504e;
+  background-color: #ededed;
+  color: #604652;
 }
 .h_btn_secondary:hover {
-  background-color: #637a76;
-  color: #fffaf1;
+  background-color: #604652;
+  color: #f6f6f6;
 }
 @media (max-width: 540px) {
   .container-fluid {
@@ -143,9 +143,9 @@ body {
 /* Add user css */
 
 :root {
-  --primary: #607274;
+  --primary: #604652;
   /* theme dark */
-  --light: #fffaf1;
+  --light: #f6f6f6;
   /* theme light */
   --ink: #2a3232;
   /* readable dark */
@@ -153,7 +153,7 @@ body {
 }
 
 .add_user_body {
-  background: #8e9a98;
+  background: #604652;
   /* background: linear-gradient(180deg, var(--primary) 0%, #536266 40%, #46565A 100%); */
   color: var(--ink);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -173,7 +173,7 @@ body::-webkit-scrollbar {
 }
 
 .h_sheet {
-  background: #8e9a98;
+  background: #604652;
   /* border-radius: 18px; */
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
@@ -214,7 +214,7 @@ body::-webkit-scrollbar {
 
 /* Left column */
 .h_profile-col {
-  background: #f7f3e8;
+  background: #f6f6f6;
   border-right: 1px dashed var(--soft);
   padding: 22px;
 }
@@ -222,7 +222,7 @@ body::-webkit-scrollbar {
 .h_upload-area {
   border: 2px dashed var(--primary);
   border-radius: 14px;
-  background: #fffdf6;
+  background: #fff8fb;
   text-align: center;
   padding: 22px;
   cursor: pointer;
@@ -302,7 +302,7 @@ body::-webkit-scrollbar {
 .h_custom-textarea:focus {
   border-color: var(--primary);
   /* focus border color */
-  background-color: #fffaf1;
+  background-color: #f6f6f6;
   /* soft theme focus bg */
   outline: none;
   box-shadow: none !important;
@@ -388,9 +388,9 @@ body::-webkit-scrollbar {
 
 .btn-primary:hover {
   filter: brightness(0.95);
-  background-color: #fffaf1;
-  border-color: #607274;
-  color: #607274;
+  background-color: #f6f6f6;
+  border-color: #604652;
+  color: #604652;
 }
 
 .btn-outline-primary {
@@ -430,7 +430,8 @@ body::-webkit-scrollbar {
     width: 100%;
   }
   .h_wrapper {
-    margin: 12px auto;
+    padding: 0px;
+    margin: 0px;
   }
   .h_section-label {
     margin: 6px 0 8px;

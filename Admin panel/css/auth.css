@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #607274;
+  color: #604652;
 }
 
 /* Container */
@@ -29,7 +29,7 @@ body {
 .text-section .brand {
   font-size: 42px;
   font-weight: 700;
-  color: #607274;
+  color: #604652;
   margin: 0 0 10px 0;
 }
 
@@ -44,39 +44,39 @@ body {
 .form-control {
   border-radius: 8px;
   padding: 8px 14px;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   box-shadow: none;
   transition: 0.1s;
 }
 .form-control:hover {
-  border: 2px solid #607274;
+  border: 2px solid #604652;
 }
 .form-control:focus {
   box-shadow: none !important;
-  border-color: #607274;
+  border-color: #604652;
 }
 .form-check-input {
-  border-color: #607274;
+  border-color: #604652;
   border-radius: 4px !important;
 }
 .form-check-input:checked {
-  background-color: #607274 !important;
-  border-color: #607274 !important;
+  background-color: #604652 !important;
+  border-color: #604652 !important;
 }
 .form-check-input:focus {
-  border-color: #607274;
+  border-color: #604652;
   outline: 0;
   box-shadow: none !important;
 }
 /* Forgot link */
 .forgot-link {
   font-size: 14px;
-  color: #607274 !important;
-  text-decoration-color: #607274 !important;
+  color: #604652 !important;
+  text-decoration-color: #604652 !important;
 }
 .forgot-link:hover {
-  color: #607274 !important;
-  text-decoration-color: #607274 !important;
+  color: #604652 !important;
+  text-decoration-color: #604652 !important;
 }
 
 /* Checkbox label small */
@@ -90,15 +90,15 @@ body {
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #607274;
+  color: #604652;
 }
 .toggle-password:hover {
   color: #444;
 }
 /* Primary Sign In button (kept red like your design) */
 .btn-signin {
-  border: 1px solid #607274;
-  color: #607274;
+  border: 1px solid #604652;
+  color: #604652;
   font-size: 20px;
   font-weight: 600;
   padding: 5px 20px;
@@ -107,7 +107,7 @@ body {
   background-color: #fff;
 }
 .btn-signin:hover {
-  background-color: #607274;
+  background-color: #604652;
   color: #fff;
 }
 
@@ -124,7 +124,7 @@ body {
 .or-sep::after {
   content: "";
   height: 1px;
-  background: #6072745c;
+  background: #6046525c;
   flex: 1;
   display: block;
 }
@@ -135,7 +135,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   border-radius: 8px;
   padding: 10px;
   font-weight: 600;
@@ -144,7 +144,7 @@ body {
 }
 .btn-google:hover {
   background-color: #fff;
-  border: 1px solid #607274;
+  border: 1px solid #604652;
   box-shadow: 0 6px 18px rgba(34, 34, 34, 0.06);
   transform: translateY(-2px);
   color: #222;

@@ -64,3 +64,42 @@ function initSidebar() {
     
   });
 }
+function searchMenu(searchText) {
+  searchText = searchText.toLowerCase();
+  const menuItems = document.querySelectorAll('.nav-list > li'); // top-level li
+
+  menuItems.forEach(item => {
+    const label = item.textContent.toLowerCase();
+
+    if (item.classList.contains('has-dropdown')) {
+      // handle dropdown
+      const dropdownItems = item.querySelectorAll('.dropdown-menu li');
+      let hasVisibleChild = false;
+
+      dropdownItems.forEach(child => {
+        const childText = child.textContent.toLowerCase();
+        if (childText.includes(searchText)) {
+          child.style.display = '';
+          hasVisibleChild = true;
+        } else {
+          child.style.display = 'none';
+        }
+      });
+
+      // Show parent if it matches OR any child matches
+      if (label.includes(searchText) || hasVisibleChild || searchText === '') {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+
+    } else {
+      // normal (non-dropdown) item
+      if (label.includes(searchText) || searchText === '') {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    }
+  });
+}

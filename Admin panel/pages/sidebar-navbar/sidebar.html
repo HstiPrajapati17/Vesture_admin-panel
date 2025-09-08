@@ -11,7 +11,8 @@
 
     <!-- Search Bar -->
     <div class="sidebar-search mt-3 w-100">
-      <input type="text" class="search-input" placeholder="Search...">
+    <input type="text" class="search-input" placeholder="Search..." onkeyup="searchMenu(this.value)">
+
       <i class="bi bi-search search-icon"></i>
     </div>
   </div>
@@ -34,7 +35,9 @@
         <li><a href="/pages/components/Category/AddCategory.html"><i class="bi bi-plus-circle"></i> Add Category</a>
         </li>
       </ul>
-    </li>
+
+
+  
 
     <!-- Subcategory -->
     <li class="has-dropdown">
@@ -57,17 +60,17 @@
         <i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul class="dropdown-menu">
-        <li>
+        <!-- <li>
           <a href="/pages/components/Product/CurrentProduct.html">
             <i class="bi bi-boxes"></i> Current Products
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="/pages/components/Product/ProductList.html">
             <i class="bi bi-card-list"></i> Product List
           </a>
         </li>
-        <li>
+        <li class="d-none">
           <a href="/pages/components/Product/ViewProduct.html">
             <i class="bi bi-eye"></i> View Product
           </a>
@@ -92,12 +95,18 @@
     <i class="bi bi-chevron-down ms-auto"></i>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="/pages/components/Manufacturing/Manufacturers.html"><i class="bi bi-people"></i> Manufacturer List</a></li>
-    <li><a href="/pages/components/Manufacturing/AddManufacturer.html"><i class="bi bi-person-plus"></i> Add Manufacturer</a></li>
+     <li><a href="/pages/components/Manufacturing/Supplier.html"><i class="bi bi-people"></i> Supplier List</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddSupplier.html"><i class="bi bi-person-plus"></i> Add Supplier</a></li>
+    <!-- <li><a href="/pages/components/Manufacturing/Manufacturers.html"><i class="bi bi-people"></i> Manufacturer List</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddManufacturer.html"><i class="bi bi-person-plus"></i> Add Manufacturer</a></li> -->
     <li><a href="/pages/components/Manufacturing/ProductionOrders.html"><i class="bi bi-diagram-3"></i> Production Orders</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddProductionOrder.html"><i class="bi bi-diagram-3"></i> Production Orders</a></li>
     <li><a href="/pages/components/Manufacturing/RawMaterials.html"><i class="bi bi-box-seam"></i> Raw Materials</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddRawMaterial.html"><i class="bi bi-box-seam"></i> Raw Materials</a></li>
     <li><a href="/pages/components/Manufacturing/Inventory.html"><i class="bi bi-box2-heart"></i> Manufacturing Inventory</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddInventory.html"><i class="bi bi-box2-heart"></i> Manufacturing Inventory</a></li>
     <li><a href="/pages/components/Manufacturing/WorkReports.html"><i class="bi bi-clipboard-check"></i> Work Reports</a></li>
+    <li class="d-none"><a href="/pages/components/Manufacturing/AddWorkReport.html"><i class="bi bi-clipboard-check"></i> Work Reports</a></li>
   </ul>
 </li>
 
@@ -155,6 +164,7 @@
       </ul>
     </li>
 
+<<<<<<< HEAD
     <!-- supplier -->
     <li class="has-dropdown">
       <a href="#">
@@ -167,9 +177,12 @@
         </li>
       </ul>          
     </li>
+=======
+   
+>>>>>>> origin/denisha0809
 
     <!-- Customer -->
-    <li class="has-dropdown">
+    <!-- <li class="has-dropdown">
       <a href="#">
         <i class="bi-people"></i><span class="label"> Customers</span>
         <i class="bi bi-chevron-down ms-auto"></i>
@@ -179,7 +192,7 @@
         <li><a href="/pages/components/Customers/AddCustomer.html"><i class="bi bi-person-plus"></i> Add Customer</a>
         </li>
       </ul>
-    </li>
+    </li> -->
 
     <!-- Reports -->
     <li><a href="/pages/components/Reports/Reports.html"><i class="bi bi-graph-up"></i><span

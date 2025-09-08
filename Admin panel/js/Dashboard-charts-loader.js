@@ -23,13 +23,13 @@ window.initCharts = function initCharts() {
 			datasets: [{
 				label: 'Sales Revenue (CAD)',
 				data: [45000, 52000, 48000, 61000, 58000, 67000, 71000, 75430],
-				borderColor: '#607274',
+				borderColor: '#604652',
 				backgroundColor: gradient,
 				tension: 0.5,
 				fill: true,
 				pointRadius: 6,
 				pointHoverRadius: 10,
-				pointBackgroundColor: '#607274',
+				pointBackgroundColor: '#604652',
 				pointBorderColor: '#fff',
 				pointBorderWidth: 2,
 				borderWidth: 3, // thicker line
@@ -45,7 +45,7 @@ window.initCharts = function initCharts() {
 			plugins: {
 				legend: { display: false },
 				tooltip: {
-					backgroundColor: '#607274',
+					backgroundColor: '#604652',
 					titleColor: '#fff',
 					bodyColor: '#fff',
 					padding: 10,
@@ -60,14 +60,14 @@ window.initCharts = function initCharts() {
 					beginAtZero: true,
 					ticks: {
 						callback: v => 'CAD $' + v.toLocaleString(),
-						color: '#607274',
+						color: '#604652',
 						font: { weight: '500' }
 					},
 					grid: { color: 'rgba(96,114,116,0.1)' }
 				},
 				x: {
 					grid: { display: false },
-					ticks: { color: '#607274', font: { weight: '500' } }
+					ticks: { color: '#604652', font: { weight: '500' } }
 				}
 			}
 		}
@@ -81,7 +81,7 @@ window.initCharts = function initCharts() {
 			labels: ['T-Shirts', 'Jackets', 'Dresses', 'Hoodies', 'Shirts'],
 			datasets: [{
 				data: [350, 200, 85, 120, 180],
-				backgroundColor: ['#607274', '#8B9DC3', '#A9907E', '#A0A0A0', '#D1A980']
+				backgroundColor: ['#604652', '#8B9DC3', '#A9907E', '#A0A0A0', '#D1A980']
 			}]
 		},
 		options: {
@@ -100,7 +100,7 @@ window.initCharts = function initCharts() {
 				{
 					label: 'Production',
 					data: [1200, 1350, 1100, 1450, 1300, 1500],
-					backgroundColor: '#607274'
+					backgroundColor: '#604652'
 				},
 				{
 					label: 'Sales',

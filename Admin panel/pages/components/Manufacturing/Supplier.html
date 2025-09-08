@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier List — Clothing Manufacturing</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/Sidebar.css">
+    <link rel="stylesheet" href="/css/user.css">
+
+    <style>
+        /* Custom pagination styles */
+        .db_pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .db_pagination button {
+            border: none;
+            padding: 6px 14px;
+            background: #604652;
+            color: #f6f6f6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .db_pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .db_pagination span {
+            background: #604652;
+            color: #f6f6f6;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <main class="main-content" id="main-content">
+        <div class="container-fluid p-4">
+
+            <!-- Supplier Table -->
+            <div class="h_user-list mt-4">
+                <!-- Header Buttons -->
+                <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
+                    <h4 class="mb-0">Supplier Management</h4>
+                    <a href="../Manufacturing/AddSupplier.html">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Add Supplier
+                        </button>
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table h_custom-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Supplier Name</th>
+                                <th>Phone</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Custom Pagination -->
+                <div class="db_pagination" id="db_pagination">
+                    <button id="db_prevBtn">Prev</button>
+                    <span id="db_pageIndicator">1/1</span>
+                    <button id="db_nextBtn">Next</button>
+                </div>
+
+                <!-- View Modal -->
+                <div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content" style="background-color:#f6f6f6; color:#604652;">
+                            <div class="modal-header" style="background-color:#604652; color:#f6f6f6;">
+                                <h5 class="modal-title">Supplier Details</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h6 class="card-title mb-3">Basic Information</h6>
+                                                <p class="mb-2"><strong>Supplier ID:</strong> <span id="db_viewId"></span></p>
+                                                <p class="mb-2"><strong>Name:</strong> <span id="db_viewName"></span></p>
+                                                <p class="mb-2"><strong>Phone:</strong> <span id="db_viewPhone"></span></p>
+                                                <p class="mb-2"><strong>Contact:</strong> <span id="db_viewContact"></span></p>
+                                                <p class="mb-2"><strong>Email:</strong> <span id="db_viewEmail"></span></p>
+                                                <p class="mb-2"><strong>Category:</strong> <span id="db_viewCategory"></span></p>
+                                                <p class="mb-0"><strong>Status:</strong> <span id="db_viewStatus"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h6 class="card-title mb-3">Location Details</h6>
+                                                <p class="mb-2"><strong>Address:</strong> <span id="db_viewAddress"></span></p>
+                                                <p class="mb-2"><strong>City:</strong> <span id="db_viewCity"></span></p>
+                                                <p class="mb-2"><strong>State:</strong> <span id="db_viewState"></span></p>
+                                                <p class="mb-0"><strong>Country:</strong> <span id="db_viewCountry"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title mb-3">Financial Information</h6>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="mb-2"><strong>GST/VAT:</strong> <span id="db_viewGst"></span></p>
+                                                        <p class="mb-0"><strong>Payment Terms:</strong> <span id="db_viewPayment"></span></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mb-0"><strong>Bank Details:</strong> <span id="db_viewBank"></span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" style="background-color:#604652; color:#f6f6f6;"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color:#f6f6f6; color:#604652;">
+                            <div class="modal-header" style="background-color:#604652; color:#f6f6f6;">
+                                <h5 class="modal-title">Delete Supplier</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    style="background-color:#604652; color:#f6f6f6;" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger"
+                                    style="background-color:#604652; color:#f6f6f6;">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sidebar-loader.js"></script>
+    <script src="/js/navbar-loader.js"></script>
+
+    <script>
+        const suppliers = [
+            {
+                supplierId: "SUP-001",
+                supplierName: "Textile Corp",
+                phone: "+91 9876543210",
+                contact: "David Supplier",
+                email: "david@textile.com",
+                category: "Fabric Supplier",
+                status: "Active",
+                gst: "GST1234",
+                address: "123 Street, City, State",
+                city: "City A",
+                state: "State A",
+                country: "Country A",
+                paymentTerms: "Net 30",
+                bankDetails: "Bank A / 123456"
+            },
+            {
+                supplierId: "SUP-002",
+                supplierName: "Cotton World",
+                phone: "+91 9123456780",
+                contact: "Emma Mills",
+                email: "emma@cottonworld.com",
+                category: "Fabric Supplier",
+                status: "Inactive",
+                gst: "GST5678",
+                address: "456 Avenue, City, State",
+                city: "City B",
+                state: "State B",
+                country: "Country B",
+                paymentTerms: "Net 15",
+                bankDetails: "Bank B / 654321"
+            },
+            {
+                supplierId: "SUP-003",
+                supplierName: "Button Hub",
+                phone: "+91 9988776655",
+                contact: "Oliver Stone",
+                email: "oliver@buttonhub.com",
+                category: "Accessories Supplier",
+                status: "Active",
+                gst: "GST9012",
+                address: "789 Road, City, State",
+                city: "City C",
+                state: "State C",
+                country: "Country C",
+                paymentTerms: "Advance",
+                bankDetails: "Bank C / 987654"
+            },
+            // Add more suppliers as needed
+        ];
+
+        // Pagination settings
+        let currentPage = 1;
+        const itemsPerPage = 5;
+
+        function renderSuppliers() {
+            const tbody = document.getElementById("supplierTableBody");
+            tbody.innerHTML = "";
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedSuppliers = suppliers.slice(start, end);
+
+            paginatedSuppliers.forEach((s) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${s.supplierName}</td>
+                    <td>${s.phone}</td>
+                    <td>${s.contact}</td>
+                    <td>${s.email}</td>
+                    <td>${s.category}</td>
+                    <td><span class="badge ${s.status === "Active" ? "bg-success" : "bg-secondary"}">${s.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#viewModal"
+                            onclick="openView('${s.supplierId}','${s.supplierName}','${s.phone}','${s.contact}','${s.email}','${s.category}','${s.status}','${s.gst}','${s.address}','${s.city}','${s.state}','${s.country}','${s.paymentTerms}','${s.bankDetails}')">
+                            <i class="bi bi-eye"></i>
+                        </button>
+  <button class="btn btn-sm h_user-list-btn" onclick='editSupplier(${JSON.stringify(s).replace(/'/g, "\\'")})'> 
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+                        <button class="btn btn-sm h_user-list-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            onclick="openDelete('${s.supplierName.replace(/'/g,"\\'")}')">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(suppliers.length / itemsPerPage);
+            const paginationDiv = document.getElementById("db_pagination");
+
+            if (totalPages <= 1) {
+                paginationDiv.style.display = "none";
+            } else {
+                paginationDiv.style.display = "flex";
+                document.getElementById("db_pageIndicator").textContent = `${currentPage}/${totalPages}`;
+                document.getElementById("db_prevBtn").disabled = currentPage === 1;
+                document.getElementById("db_nextBtn").disabled = currentPage === totalPages;
+            }
+        }
+
+        document.getElementById("db_prevBtn").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderSuppliers();
+            }
+        });
+
+        document.getElementById("db_nextBtn").addEventListener("click", () => {
+            const totalPages = Math.ceil(suppliers.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderSuppliers();
+            }
+        });
+
+        // View modal
+        function openView(id, name, phone, contact, email, category, status, gst, address, city, state, country, paymentTerms, bank) {
+            document.getElementById("db_viewId").textContent = id;
+            document.getElementById("db_viewName").textContent = name;
+            document.getElementById("db_viewPhone").textContent = phone;
+            document.getElementById("db_viewContact").textContent = contact;
+            document.getElementById("db_viewEmail").textContent = email;
+            document.getElementById("db_viewCategory").textContent = category;
+            document.getElementById("db_viewStatus").textContent = status;
+            document.getElementById("db_viewGst").textContent = gst;
+            document.getElementById("db_viewAddress").textContent = address;
+            document.getElementById("db_viewCity").textContent = city;
+            document.getElementById("db_viewState").textContent = state;
+            document.getElementById("db_viewCountry").textContent = country;
+            document.getElementById("db_viewPayment").textContent = paymentTerms;
+            document.getElementById("db_viewBank").textContent = bank;
+        }
+// Edit supplier
+function editSupplier(supplier) {
+    try {
+        // Convert supplier object to string with proper escaping
+        const supplierStr = JSON.stringify(supplier).replace(/"/g, '&quot;');
+        
+        localStorage.setItem('editSupplier', JSON.stringify(supplier));
+        window.location.href = '../Manufacturing/AddSupplier.html';
+    } catch (error) {
+        console.error('Error editing supplier:', error);
+    }
+}
+
+        // Delete modal
+        function openDelete(supplierName) {
+            document.querySelector("#deleteModal .modal-body p").innerHTML =
+                `Are you sure you want to delete <strong>${supplierName}</strong>?`;
+        }
+
+        renderSuppliers();
+    </script>
+</body>
+
+</html>
