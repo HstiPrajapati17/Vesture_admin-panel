@@ -13,7 +13,68 @@
   <link rel="stylesheet" href="/css/category.css">
   <link rel="stylesheet" href="/css/product.css">
   <style>
+ .custom-modal {
+    background: #fff;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  }
 
+  .custom-modal-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f6f6f6;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .custom-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .custom-modal-body .db_detail-card {
+    background: #f6f6f6;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+
+  .db_detail-card strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #604652;
+    margin-bottom: 0.25rem;
+  }
+
+  .db_detail-card span {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid #eee;
+    padding-top: 0.75rem;
+  }
+  @media (max-width: 576px) {
+    .custom-modal-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem 1rem;
+    font-size: 0.9rem;
+    padding: 0px;
+  }
+  }
   </style>
 </head>
 
@@ -73,7 +134,7 @@
   <div class="custom-modal-overlay" id="customDeleteModal">
     <div class="custom-modal">
       <div class="custom-modal-header">Delete Production Order</div>
-      <div class="custom-modal-body">Are you sure you want to delete this production order?</div>
+      <div class="custom-modal-body d-flex text-center align-items-center justify-content-center">Are you sure you want to delete this production order?</div>
       <div class="custom-modal-footer">
         <button class="custome_modal_btn h_cstm_modal-btn" id="cancelDeleteBtn">Cancel</button>
         <button class="custome_modal_btn h_cstm_modal-btn" id="confirmDeleteBtnCustom">Delete</button>
@@ -81,7 +142,7 @@
     </div>
   </div>
 
-  <!-- Custom View/Edit Modal -->
+  <!-- Custom View/Edit Modal
   <div class="custom-modal-overlay" id="customViewModal">
     <div class="custom-modal">
       <div class="custom-modal-header" id="viewModalTitle">Production Order Details</div>
@@ -113,8 +174,17 @@
         <button class="custome_modal_btn h_cstm_modal-btn" id="closeViewModal">Close</button>
       </div>
     </div>
+  </div> -->
+<!-- Custom View Modal -->
+<div class="custom-modal-overlay" id="customViewModal">
+  <div class="custom-modal">
+    <div class="custom-modal-header" id="viewModalTitle">Production Order Details</div>
+    <div class="custom-modal-body" id="viewContent"></div>
+    <div class="custom-modal-footer">
+      <button class="custome_modal_btn h_cstm_modal-btn" id="closeViewModal">Close</button>
+    </div>
   </div>
-
+</div>
 
   <!-- Overlay for mobile -->
   <div class="overlay"></div>
@@ -186,11 +256,29 @@
     }
 
     function renderPagination() {
-      const totalPages = Math.max(1, Math.ceil(orderData.length / itemsPerPage));
-      document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
-      document.getElementById("prev").disabled = currentPage === 1;
-      document.getElementById("next").disabled = currentPage === totalPages;
-    }
+  const totalPages = Math.max(1, Math.ceil(orderData.length / itemsPerPage));
+  document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
+
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+
+  if (currentPage === 1) {
+    prevBtn.setAttribute("disabled", true);
+    prevBtn.classList.add("disabled"); // Bootstrap look
+  } else {
+    prevBtn.removeAttribute("disabled");
+    prevBtn.classList.remove("disabled");
+  }
+
+  if (currentPage === totalPages) {
+    nextBtn.setAttribute("disabled", true);
+    nextBtn.classList.add("disabled");
+  } else {
+    nextBtn.removeAttribute("disabled");
+    nextBtn.classList.remove("disabled");
+  }
+}
+
 
     function confirmDeleteOrder(id) {
       orderToDeleteId = id;
@@ -218,17 +306,39 @@
     }
 
     function viewOrder(id) {
-      const order = orderData.find(o => o.id === id);
-      if (!order) return;
+  const order = orderData.find(o => o.id === id);
+  if (!order) return;
 
-      document.getElementById('viewProduct').value = order.product;
-      document.getElementById('viewQuantity').value = order.qty;
-      document.getElementById('viewManufacturer').value = order.manufacturer;
-      document.getElementById('viewStatus').value = order.status;
-      document.getElementById('viewDeadline').value = order.deadline;
+  document.getElementById("viewContent").innerHTML = `
+    <div class="db_detail-card">
+      <strong>ID</strong>
+      <span>${order.id}</span>
+    </div>
+    <div class="db_detail-card">
+      <strong>Product</strong>
+      <span>${order.product}</span>
+    </div>
+    <div class="db_detail-card">
+      <strong>Quantity</strong>
+      <span>${order.qty}</span>
+    </div>
+    <div class="db_detail-card">
+      <strong>Manufacturer</strong>
+      <span>${order.manufacturer}</span>
+    </div>
+    <div class="db_detail-card">
+      <strong>Status</strong>
+      <span>${order.status}</span>
+    </div>
+    <div class="db_detail-card">
+      <strong>Deadline</strong>
+      <span>${order.deadline}</span>
+    </div>
+  `;
 
-      viewModal.style.display = "flex";
-    }
+  viewModal.style.display = "flex";
+}
+
 
     closeViewBtn.onclick = () => {
       viewModal.style.display = "none";

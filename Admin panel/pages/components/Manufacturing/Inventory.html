@@ -28,9 +28,9 @@
   <main class="main-content" id="main-content">
     <div class="container-fluid">
       <div class="dashboard-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
           <h4>Manufacturing Inventory</h4>
-          <a href="AddInventory.html" class="action-btn">+ Add Inventory</a>
+          <a href="AddInventory.html" class="action-btn text-nowrap">+ Add Inventory</a>
         </div>
         <div class="table-responsive">
           <table class="subcategory-table align-middle">
@@ -132,11 +132,35 @@
     }
 
     function renderPagination() {
-      const totalPages = Math.max(1, Math.ceil(inventoryData.length / itemsPerPage));
-      document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
-      document.getElementById("prev").disabled = currentPage === 1;
-      document.getElementById("next").disabled = currentPage === totalPages;
-    }
+  const totalPages = Math.max(1, Math.ceil(inventoryData.length / itemsPerPage));
+
+  // Page indicator update
+  document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
+
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const prevLi = prevBtn.closest("li");
+  const nextLi = nextBtn.closest("li");
+
+  // Prev button disable/enable
+  if (currentPage === 1) {
+    prevBtn.disabled = true;
+    prevLi.classList.add("disabled");
+  } else {
+    prevBtn.disabled = false;
+    prevLi.classList.remove("disabled");
+  }
+
+  // Next button disable/enable
+  if (currentPage === totalPages) {
+    nextBtn.disabled = true;
+    nextLi.classList.add("disabled");
+  } else {
+    nextBtn.disabled = false;
+    nextLi.classList.remove("disabled");
+  }
+}
+
 
     document.getElementById("prev").addEventListener("click", () => {
       if (currentPage > 1) {

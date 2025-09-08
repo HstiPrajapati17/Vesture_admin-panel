@@ -1752,7 +1752,7 @@ body {
 .page-link.disabled {
   color: #fff;
   pointer-events: none;
-  background-color: #c4cccb;
+  background-color: #60465257;
   border-color: none;
 }
 .lowstock-btn {

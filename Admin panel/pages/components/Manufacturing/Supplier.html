@@ -13,7 +13,93 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="/css/Sidebar.css">
     <link rel="stylesheet" href="/css/user.css">
+<style>
+     .db_pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
+        .db_pagination button {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border: 1px solid #604652;
+            background: #604652;
+            color: #f6f6f6;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .db_pagination button:hover:not(:disabled) {
+            background: #604652;
+            color: white;
+        }
+
+        .db_pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #db_pageIndicator {
+            font-weight: bold;
+            color: #604652;
+        }
+
+        .custom-modal {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .custom-modal-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f6f6f6;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  .custom-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  .custom-modal-body p {
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    background: #f6f6f6;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+  }
+  .custom-modal-body strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #604652;
+    margin-bottom: 0.2rem;
+  }
+  .custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid #eee;
+    padding-top: 0.5rem;
+  } 
+  @media (max-width: 576px) {
+    .custom-modal-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  }
+</style>
 </head>
 
 <body>
@@ -30,7 +116,7 @@
                 <!-- Header Buttons -->
                 <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
                     <h4 class="mb-0">Supplier Management</h4>
-                    <a href="../Manufacturing/AddSupplier.html">
+                    <a class="mt-md-0 mt-2 " href="../Manufacturing/AddSupplier.html">
                         <button class="btn btn-primary">
                             <i class="bi bi-plus-circle"></i> Add Supplier
                         </button>
@@ -64,19 +150,19 @@
                 <!-- View Modal -->
                 <div class="custom-modal-overlay" id="viewModal">
                     <div class="custom-modal">
-                        <div class="custom-modal-header">Supplier Details</div>
-                        <div class="custom-modal-body" id="viewContent"></div>
-                        <div class="custom-modal-footer">
-                            <button class="custome_modal_btn h_cstm_modal-btn" onclick="closeModal('viewModal')">Close</button>
-                        </div>
+                      <div class="custom-modal-header">Supplier Details</div>
+                      <div class="custom-modal-body" id="viewContent"></div>
+                      <div class="custom-modal-footer">
+                        <button class="custome_modal_btn h_cstm_modal-btn" onclick="closeModal('viewModal')">Close</button>
+                      </div>
                     </div>
-                </div>
+                  </div>
 
                 <!-- Delete Modal -->
                 <div class="custom-modal-overlay" id="deleteModal">
                     <div class="custom-modal">
                         <div class="custom-modal-header">Delete Supplier</div>
-                        <div class="custom-modal-body" id="deleteContent"></div>
+                        <div class="custom-modal-body d-flex text-center align-items-center justify-content-center gap-1" id="deleteContent"></div>
                         <div class="custom-modal-footer">
                             <button class="custome_modal_btn h_cstm_modal-btn"
                                 onclick="closeModal('deleteModal')">Cancel</button>
@@ -98,6 +184,36 @@
     <script>
         const suppliers = [
             {
+                supplierId: "SUP-001",
+                supplierName: "Textile Corp",
+                phone: "+91 9876543210",
+                contact: "David Supplier",
+                email: "david@textile.com",
+                category: "Fabric Supplier",
+                status: "Active",
+                gst: "GST1234",
+                address: "123 Street, City, State",
+                city: "City A",
+                state: "State A",
+                country: "Country A",
+                paymentTerms: "Net 30",
+                bankDetails: "Bank A / 123456"
+            },{
+                supplierId: "SUP-001",
+                supplierName: "Textile Corp",
+                phone: "+91 9876543210",
+                contact: "David Supplier",
+                email: "david@textile.com",
+                category: "Fabric Supplier",
+                status: "Active",
+                gst: "GST1234",
+                address: "123 Street, City, State",
+                city: "City A",
+                state: "State A",
+                country: "Country A",
+                paymentTerms: "Net 30",
+                bankDetails: "Bank A / 123456"
+            },{
                 supplierId: "SUP-001",
                 supplierName: "Textile Corp",
                 phone: "+91 9876543210",
@@ -209,21 +325,22 @@
 
         // View supplier
         function openView(s) {
-            document.getElementById("viewContent").innerHTML = `
-        <p><strong>ID:</strong> ${s.supplierId}</p>
-        <p><strong>Name:</strong> ${s.supplierName}</p>
-        <p><strong>Phone:</strong> ${s.phone}</p>
-        <p><strong>Contact:</strong> ${s.contact}</p>
-        <p><strong>Email:</strong> ${s.email}</p>
-        <p><strong>Category:</strong> ${s.category}</p>
-        <p><strong>Status:</strong> ${s.status}</p>
-        <p><strong>GST/VAT:</strong> ${s.gst}</p>
-        <p><strong>Address:</strong> ${s.address}, ${s.city}, ${s.state}, ${s.country}</p>
-        <p><strong>Payment Terms:</strong> ${s.paymentTerms}</p>
-        <p><strong>Bank:</strong> ${s.bankDetails}</p>
-      `;
-            openModal("viewModal");
-        }
+  document.getElementById("viewContent").innerHTML = `
+    <p><strong>ID</strong>${s.supplierId}</p>
+    <p><strong>Name</strong>${s.supplierName}</p>
+    <p><strong>Phone</strong>${s.phone}</p>
+    <p><strong>Contact</strong>${s.contact}</p>
+    <p><strong>Email</strong>${s.email}</p>
+    <p><strong>Category</strong>${s.category}</p>
+    <p><strong>Status</strong>${s.status}</p>
+    <p><strong>GST/VAT</strong>${s.gst}</p>
+    <p><strong>Address</strong>${s.address}, ${s.city}, ${s.state}, ${s.country}</p>
+    <p><strong>Payment Terms</strong>${s.paymentTerms}</p>
+    <p><strong>Bank</strong>${s.bankDetails}</p>
+  `;
+  openModal("viewModal");
+}
+
 
         // Edit supplier
         function editSupplier(supplier) {
@@ -234,7 +351,7 @@
         // Delete supplier
         function openDelete(supplierName) {
             document.getElementById("deleteContent").innerHTML =
-                `Are you sure you want to delete <strong>${supplierName}</strong>?`;
+                `Are you sure you want to delete <strong class="mb-0">${supplierName}</strong>?`;
             openModal("deleteModal");
         }
 

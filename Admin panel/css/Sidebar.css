@@ -467,7 +467,7 @@ body.sidebar-collapsed #main-content {
 .page-link:focus {
   z-index: 3;
   color: inherit !important;
-  background-color: #58635c !important;
+  background-color: #423038 !important;
   outline: 0;
   box-shadow: inherit !important;
 }
