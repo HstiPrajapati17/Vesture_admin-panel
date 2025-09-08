@@ -381,9 +381,27 @@ body.sidebar-collapsed #main-content {
     padding: 8px;
   }
   .h_topbar_admin {
-    gap: 4px !important;
+    gap: 0px !important;
   }
   .topbar {
     padding: 0px 6px;
+  }
+  .topbar h5 {
+    font-size: 15px;
+  }
+  .topbar .bi-bell-fill {
+    font-size: 16px !important;
+  }
+  .h_topbar_admin-img {
+    height: 24px;
+    width: 24px;
+  }
+  .noti-icon span {
+    font-size: 10px;
+    right: -2px;
+    padding: 1px 2px 2px 2px;
+  }
+  .topbar .h_navbar_title span{
+    display: none;
   }
 }

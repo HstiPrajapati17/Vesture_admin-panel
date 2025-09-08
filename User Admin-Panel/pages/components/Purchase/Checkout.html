@@ -121,10 +121,21 @@
 												</div>
 
 												<div class="payment-panel d-none" data-method="cod">
-													<div class="p-3 border rounded-2 muted-small">Cash on delivery —
-														collect
-														payment at delivery. Mark order as COD in records.</div>
+													<div class="p-3 border rounded-2">
+														<p class="muted-small mb-2">Cash on delivery — collect payment
+															at delivery. Mark order as COD in records.</p>
+
+														<!-- Custom COD agreement checkbox -->
+														<div class="form-check custom-checkbox">
+															<input class="form-check-input" type="checkbox"
+																id="cod-agree">
+															<label class="form-check-label" for="cod-agree">
+																I agree to pay in cash upon delivery
+															</label>
+														</div>
+													</div>
 												</div>
+
 											</div>
 										</div>
 
@@ -211,7 +222,7 @@
 								<div class="d-grid gap-2">
 									<button class="btn btn-ghost">Create Shipping Label</button>
 									<button class="btn btn-ghost h_cancel-btn" id="cancel-order">Cancel Order</button>
-									<button class="btn btn-ghost">Add to Production Queue</button>
+									<button class="btn btn-ghost">Add to Production</button>
 								</div>
 							</div>
 						</div>
@@ -315,6 +326,23 @@
 			taxesEl.textContent = `$${taxes.toFixed(2)}`;
 			grandTotalEl.textContent = `$${total.toFixed(2)}`;
 		}
+
+		// Form submission
+		document.getElementById('checkout-form').addEventListener('submit', e => {
+			e.preventDefault();
+
+			const activeMethod = document.querySelector('.chip.active').dataset.pay;
+
+			if (activeMethod === 'cod') {
+				const codAgree = document.getElementById('cod-agree');
+				if (!codAgree.checked) {
+					alert('Please agree to pay in cash upon delivery before placing the order.');
+					return;
+				}
+			}
+
+			alert('Order submitted successfully!');
+		});
 
 		// Make the checkboxes behave like mutually-exclusive options (only one checked)
 		document.querySelectorAll('.shipping-checkbox').forEach(cb => {

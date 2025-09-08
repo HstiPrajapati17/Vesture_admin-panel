@@ -23,8 +23,8 @@
 
 	<main class="main-content add_coupon_container" id="main-content">
 		<div class="h_coupon-form-container">
-			<h2>Add Coupon</h2>
-			<form>
+			<h2 id="formTitle">Add Coupon</h2>
+			<form id="couponForm">
 				<div class="mb-3">
 					<label for="couponName" class="form-label">Coupon Name</label>
 					<input type="text" class="form-control" id="couponName" placeholder="Enter coupon name">
@@ -59,10 +59,30 @@
 					</select>
 				</div>
 
-				<button type="submit" class="btn btn-submit w-100 p-2">Add Coupon</button>
+				<button type="submit" class="btn btn-submit w-100 p-2" id="submitBtn">Add Coupon</button>
 			</form>
 		</div>
 	</main>
+
+	<!-- Coupon Updated Modal -->
+	<div class="modal fade" id="couponUpdatedModal" tabindex="-1" aria-labelledby="couponUpdatedLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="couponUpdatedLabel">Success</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Coupon has been updated successfully
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" id="modalOkBtn">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Overlay for mobile -->
 	<div class="overlay"></div>
@@ -71,6 +91,51 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/sidebar-loader.js"></script>
 	<script src="/js/navbar-loader.js"></script>
+
+	<script>
+		// Sample coupons list (you may fetch from API/localStorage instead)
+		let coupons = [
+			{ id: 'CUP-001', name: 'Flat 100', code: 'FLAT100', discount: '100', startDate: '2024-12-31', endDate: '2025-12-30', status: 'active' },
+			{ id: 'CUP-002', name: 'Summer Sale', code: 'SUMMER25', discount: '25', startDate: '2025-05-31', endDate: '2025-09-29', status: 'active' }
+		];
+
+		const params = new URLSearchParams(window.location.search);
+		const editId = params.get('edit');
+
+		if (editId) {
+			// Change title & button text
+			document.getElementById('formTitle').textContent = 'Edit Coupon';
+			document.getElementById('submitBtn').textContent = 'Update Coupon';
+
+			// Find coupon & prefill form
+			const coupon = coupons.find(c => c.id === editId);
+			if (coupon) {
+				document.getElementById('couponName').value = coupon.name || '';
+				document.getElementById('couponCode').value = coupon.code || '';
+				document.getElementById('discount').value = coupon.discount || '';
+				document.getElementById('startDate').value = coupon.startDate || '';
+				document.getElementById('endDate').value = coupon.endDate || '';
+				document.getElementById('status').value = coupon.status || 'active';
+			}
+		}
+
+		// Form submit
+		document.getElementById('couponForm').addEventListener('submit', e => {
+			e.preventDefault();
+
+			// Show modal
+			const couponModal = new bootstrap.Modal(document.getElementById('couponUpdatedModal'));
+			couponModal.show();
+
+			// On modal OK button → redirect
+			document.getElementById('modalOkBtn').addEventListener('click', () => {
+				couponModal.hide();
+				window.location.href = 'CouponList.html';
+			});
+		});
+
+	</script>
+
 </body>
 
 </html>

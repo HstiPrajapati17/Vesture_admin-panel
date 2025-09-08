@@ -478,7 +478,7 @@
 
         const productsEl = document.getElementById('products');
         const emptyEl = document.getElementById('empty');
-        const pageIndicator = document.getElementById('pageIndicator');
+        const pageIndicator = document.getElementById('page-indicator');
 
         function renderProducts() {
             let filtered = products.filter(p => {
@@ -520,31 +520,31 @@
                     else stockClass = 'stock-high';
 
                     productsEl.innerHTML += `
-          <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" class="product-img">
-            <div class="product-body">
-              <div class="product-category">${p.category}</div>
-              <a href="product.html?sku=${p.sku}" class="product-name">${p.name}</a>
-              <div class="product-rating">
-                ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '½' : ''} (${p.reviews})
-              </div>
-              <div class="price-stock">
-                <div class="price">$${p.price.toFixed(2)}</div>
-                <div class="stock-badge ${stockClass}">
-                  ${p.stock > 0 ? p.stock + ' in stock' : 'Sold Out'}
-                </div>
-              </div>
-              <div class="product-actions">
-                <button class="btn-action btn-wishlist ${wishlist.has(p.sku) ? 'active' : ''}" data-sku="${p.sku}">
-                  <i class="bi bi-heart"></i>
-                </button>
-                <button class="btn-action btn-add-cart" data-sku="${p.sku}" ${cart.has(p.sku) ? 'disabled' : ''}>
-                  ${cart.has(p.sku) ? '<i class="bi bi-cart-plus"></i> Added' : '<i class="bi bi-cart-plus"></i> Add'}
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
+                    <div class="product-card">
+                        <img src="${p.img}" alt="${p.name}" class="product-img">
+                        <div class="product-body">
+                        <div class="product-category">${p.category}</div>
+                        <a href="product.html?sku=${p.sku}" class="product-name">${p.name}</a>
+                        <div class="product-rating">
+                            ${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '½' : ''} (${p.reviews})
+                        </div>
+                        <div class="price-stock">
+                            <div class="price">$${p.price.toFixed(2)}</div>
+                            <div class="stock-badge ${stockClass}">
+                            ${p.stock > 0 ? p.stock + ' in stock' : 'Sold Out'}
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-action btn-wishlist ${wishlist.has(p.sku) ? 'active' : ''}" data-sku="${p.sku}">
+                            <i class="bi bi-heart"></i>
+                            </button>
+                            <button class="btn-action btn-add-cart" data-sku="${p.sku}" ${cart.has(p.sku) ? 'disabled' : ''}>
+                            ${cart.has(p.sku) ? '<i class="bi bi-cart-plus"></i> Added' : '<i class="bi bi-cart-plus"></i> Add'}
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    `;
                 });
             }
 

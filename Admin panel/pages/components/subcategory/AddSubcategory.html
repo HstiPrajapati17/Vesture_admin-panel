@@ -102,9 +102,8 @@
 								<button type="button" class="btn h_btn-outline-primary" id="cancelBtn"
 									onclick="window.location.href='SubcategoryList.html'"><i
 										class="bi bi-x-circle me-1"></i>Cancel</button>
-								<button type="submit"
-									class="btn h_btn-primary" id="saveBtn"><i class="bi bi-check2-circle me-1"></i><span
-										id="saveText">Add
+								<button type="submit" class="btn h_btn-primary" id="saveBtn"><i
+										class="bi bi-check2-circle me-1"></i><span id="saveText">Add
 										Subcategory</span></button>
 							</div>
 						</form>
@@ -123,7 +122,7 @@
 	<script src="/js/navbar-loader.js"></script>
 
 	<script>
-		// Header mode toggle based on ?mode=edit (made robust so missing elements won't error)
+		// Header mode toggle based on ?mode=edit
 		(function () {
 			const params = new URLSearchParams(window.location.search || '');
 			const isEdit = params.get('mode') === 'edit';
@@ -131,10 +130,25 @@
 			const saveTextEl = document.getElementById('saveText');
 			if (pageModeEl) pageModeEl.textContent = isEdit ? 'Edit Subcategory' : 'Add Subcategory';
 			if (saveTextEl) saveTextEl.textContent = isEdit ? 'Save Changes' : 'Add Subcategory';
-			// optional crumb update if you have a breadcrumb element with id 'crumbMode'
-			const crumb = document.getElementById('crumbMode');
-			if (crumb) crumb.textContent = isEdit ? 'Edit' : 'Add';
-			// if edit and you want to pre-populate values, fetch here or read from query params
+
+			// Pre-fill form fields if in edit mode
+			if (isEdit) {
+				document.getElementById('title').value = params.get('name') || '';
+				document.getElementById('parentCategoryInput').value = params.get('parent') || '';
+				document.getElementById('code').value = params.get('id') || '';
+				document.getElementById('description').value = params.get('desc') || '';
+				const status = params.get('status') || 'active';
+				document.getElementById('statusActive').checked = status === 'active';
+				document.getElementById('statusInactive').checked = status === 'inactive';
+
+				// Set image preview
+				const imagePreview = document.getElementById('singlePreview');
+				const imageUrl = params.get('image') || '';
+				if (imagePreview && imageUrl) {
+					imagePreview.src = imageUrl;
+					imagePreview.style.display = 'block';
+				}
+			}
 		})();
 
 		// Upload area behavior: supports multiple files + preview thumbnails
@@ -181,73 +195,34 @@
 			}
 		})();
 
-		// SEO preview update (title + description)
-		(function () {
-			const title = document.getElementById('title');
-			const desc = document.getElementById('description');
-			const seoTitle = document.getElementById('seoTitle');
-			const seoDesc = document.getElementById('seoDesc');
-
-			function update() {
-				// keep SEO elements if they exist
-				if (seoTitle) seoTitle.textContent = title && title.value ? title.value + ' - ClothMan' : 'Subcategory Title - ClothMan';
-				if (seoDesc) seoDesc.textContent = desc && desc.value ? desc.value.slice(0, 160) : 'Short description preview...';
-			}
-			if (title) title.addEventListener('input', update);
-			if (desc) desc.addEventListener('input', update);
-		})();
-
-		// Cancel button — go back
-		const cancelBtn = document.getElementById('cancelBtn');
-		if (cancelBtn) cancelBtn.addEventListener('click', () => history.back());
-
-		// slugify helper
-		function slugify(v) {
-			return String(v || '').toLowerCase()
-				.trim()
-				.replace(/[^\w\s-]/g, '')
-				.replace(/\s+/g, '-')
-				.replace(/--+/g, '-');
-		}
-
-		// Validation (Bootstrap style) and submit handling
+		// Validation and submit handling
 		(function () {
 			const form = document.getElementById('subcategoryForm');
 			if (!form) return;
 
 			form.addEventListener('submit', function (event) {
-				// ensure code exists
 				const codeEl = document.getElementById('code');
+				const parentInput = document.getElementById('parentCategoryInput');
+				const titleEl = document.getElementById('title');
+				const slugEl = document.getElementById('slug');
+
 				if (!codeEl.value.trim()) {
 					codeEl.classList.add('is-invalid');
 				} else {
 					codeEl.classList.remove('is-invalid');
 				}
 
-				// ensure parent category input is filled
-				const parentInput = document.getElementById('parentCategoryInput');
 				if (parentInput && !parentInput.value.trim()) {
 					parentInput.classList.add('is-invalid');
-					// add invalid-feedback if not already present
-					if (!parentInput.nextElementSibling || !parentInput.nextElementSibling.classList.contains('invalid-feedback')) {
-						const fb = document.createElement('div');
-						fb.className = 'invalid-feedback';
-						fb.textContent = 'Please enter a parent category.';
-						parentInput.parentNode.insertBefore(fb, parentInput.nextSibling);
-					}
 				} else if (parentInput) {
 					parentInput.classList.remove('is-invalid');
 				}
 
-				// if slug empty -> auto-generate from title
-				const slugEl = document.getElementById('slug');
-				const titleEl = document.getElementById('title');
 				if (slugEl && !slugEl.value.trim() && titleEl) {
 					slugEl.value = slugify(titleEl.value);
 				}
 
-				// final validity check
-				if (!form.checkValidity() || (codeEl && !codeEl.value.trim()) || (parentInput && !parentInput.value.trim())) {
+				if (!form.checkValidity() || !codeEl.value.trim() || (parentInput && !parentInput.value.trim())) {
 					event.preventDefault(); event.stopPropagation();
 					form.classList.add('was-validated');
 					return;
@@ -255,10 +230,7 @@
 
 				event.preventDefault(); // demo behavior: prevent actual submit
 
-				// Collect status radio value
 				const status = document.querySelector('input[name="statusRadio"]:checked')?.value || 'active';
-
-				// Gather data payload
 				const payload = {
 					title: titleEl?.value.trim() || '',
 					code: codeEl?.value.trim() || '',
@@ -266,10 +238,9 @@
 					description: document.getElementById('description')?.value.trim() || '',
 					visible: document.getElementById('isVisible')?.checked || false,
 					status: status,
-					parentCategory: document.getElementById('parentCategoryInput')?.value.trim() || ''
+					parentCategory: parentInput?.value.trim() || ''
 				};
 
-				// TODO: Replace with fetch() to your API endpoint (e.g. POST /api/subcategories)
 				console.log('Subcategory payload', payload);
 				alert('Subcategory saved (demo). Check console for payload.');
 

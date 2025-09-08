@@ -221,6 +221,28 @@
 			const tmp = document.createElement('div'); tmp.innerHTML = html.trim(); return tmp.firstChild;
 		}
 
+		// Parse query parameters
+		const urlParams = new URLSearchParams(window.location.search);
+		const isEditMode = urlParams.has('sku'); // Check if SKU exists in query params
+
+		// Update header title
+		const headerTitle = document.querySelector('.h_sheet-title');
+		if (isEditMode) {
+			headerTitle.innerHTML = '<i class="bi bi-box-seam-fill"></i> Edit Product';
+		}
+
+		// Pre-fill form fields if in edit mode
+		if (isEditMode) {
+			document.getElementById('h_name').value = urlParams.get('name') || '';
+			document.getElementById('h_sku').value = urlParams.get('sku') || '';
+			document.getElementById('h_category').value = urlParams.get('category') || '';
+			document.getElementById('h_price').value = urlParams.get('price') || '';
+			document.getElementById('h_stock').value = urlParams.get('stock') || '';
+			document.getElementById('h_brand').value = urlParams.get('brand') || '';
+			document.getElementById('h_barcode').value = urlParams.get('barcode') || '';
+			document.getElementById('h_description').value = urlParams.get('description') || '';
+		}
+
 		// ---------- form refs ----------
 		const form = document.getElementById('h_addProductForm');
 		const nameInput = document.getElementById('h_name');
@@ -268,12 +290,13 @@
 		function renderVariantRow(size, color) {
 			const id = 'v_' + Math.random().toString(36).slice(2, 9);
 			const row = createNode(`
-        <div class="h_variant-row" data-id="${id}">
-          <input class="h_input form-control form-control-sm" value="${size}" readonly>
-          <input class="h_input form-control form-control-sm" value="${color}" readonly>
-          <button type="button" class="btn btn-sm btn-outline-danger h_remove_variant"><i class="bi bi-trash"></i></button>
-        </div>
-      `);
+	<div class="h_variant-row" data-id="${id}">
+		<input class="h_input form-control form-control-sm" value="${size}" readonly>
+		<input class="h_input form-control form-control-sm" value="${color}" readonly>
+		<button type="button" class="btn btn-sm btn-outline-danger h_remove_variant"><i
+				class="bi bi-trash"></i></button>
+	</div>
+	`);
 			row.querySelector('.h_remove_variant').addEventListener('click', () => row.remove());
 			variantList.appendChild(row);
 			// ensure the newest row is visible on small screens

@@ -25,33 +25,18 @@
 			<div class="container-full">
 				<div class="d-flex align-items-center justify-content-between mb-3">
 					<h3 class="mb-0">Coupons</h3>
-					<div class="d-flex gap-2">
-						<button id="exportCSVBtn" class="btn btn-couponlist-custom">Export CSV</button>
-					</div>
 				</div>
 
 				<!-- Controls -->
 				<div class="card mb-3">
 					<div class="card-body p-0">
 						<div class="row g-2 align-items-center">
-							<div class="col-md-6">
-								<input id="searchInput" class="form-control custom"
-									placeholder="Search by code or description...">
-							</div>
 
 							<div class="col-md-2">
 								<select id="statusFilter" class="form-select custom">
 									<option value="all">All status</option>
 									<option value="active">Active</option>
 									<option value="inactive">Inactive</option>
-								</select>
-							</div>
-
-							<div class="col-md-2">
-								<select id="perPage" class="form-select custom">
-									<option value="5">5 / page</option>
-									<option value="10" selected>10 / page</option>
-									<option value="20">20 / page</option>
 								</select>
 							</div>
 
@@ -69,7 +54,6 @@
 				<!-- Table -->
 				<div class="card">
 					<div class="card-body p-0">
-						<!-- 👇 Add table-responsive wrapper -->
 						<div class="table-responsive">
 							<table class="custome-table table align-middle mb-0">
 								<thead class="table-light">
@@ -192,12 +176,10 @@
 			{ id: 'CUP-003', code: 'WELCOME10', discount: '10%', startDate: '2023-12-31', endDate: '2026-12-30', isActive: false, description: 'New customer coupon' }
 		];
 
-		let query = '', statusFilter = 'all', perPage = 10, currentPage = 1, sortBy = { key: 'code', dir: 'asc' }, selectedIds = new Set();
+		let statusFilter = 'all', sortBy = { key: 'code', dir: 'asc' }, selectedIds = new Set();
 
 		const tableBody = document.getElementById('tableBody');
-		const searchInput = document.getElementById('searchInput');
 		const statusFilterEl = document.getElementById('statusFilter');
-		const perPageEl = document.getElementById('perPage');
 		const sortSelect = document.getElementById('sortSelect');
 		const resultCount = document.getElementById('resultCount');
 		const pageInfo = document.getElementById('pageInfo');
@@ -207,14 +189,15 @@
 		const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
 		const exportCSVBtn = document.getElementById('exportCSVBtn');
 
-		// ===== Bootstrap modal helper for confirm/action =====
+		let currentPage = 1, perPage = 10;
+
+		// ===== Bootstrap modal helper =====
 		function showConfirm(message, callback) {
 			const modalEl = document.getElementById('confirmModal');
 			const modal = new bootstrap.Modal(modalEl);
 			document.getElementById('confirmModalBody').textContent = message;
 
 			const okBtn = document.getElementById('confirmModalOkBtn');
-			// Remove old listeners
 			okBtn.replaceWith(okBtn.cloneNode(true));
 			const newOkBtn = document.getElementById('confirmModalOkBtn');
 			newOkBtn.addEventListener('click', () => {
@@ -225,7 +208,7 @@
 			modal.show();
 		}
 
-		// ===== Helper functions =====
+		// ===== Helpers =====
 		function formatDate(d) {
 			if (!d) return '—';
 			const dt = new Date(d);
@@ -234,18 +217,14 @@
 		}
 
 		function escapeHtml(text) {
-			return text.replace(/[&<>"']/g, function (m) {
-				return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-			});
+			return text.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m]));
 		}
 
 		function getFilteredSorted() {
-			const q = query.trim().toLowerCase();
 			let arr = coupons.filter(c => {
 				if (statusFilter === 'active' && !c.isActive) return false;
 				if (statusFilter === 'inactive' && c.isActive) return false;
-				if (!q) return true;
-				return c.code.toLowerCase().includes(q) || (c.description && c.description.toLowerCase().includes(q));
+				return true;
 			});
 
 			arr.sort((a, b) => {
@@ -254,7 +233,6 @@
 				const B = (b[k] || '').toString().toLowerCase();
 				if (A < B) return -1 * dir; if (A > B) return 1 * dir; return 0;
 			});
-
 			return arr;
 		}
 
@@ -276,9 +254,9 @@
 					const tr = document.createElement('tr');
 					tr.innerHTML = `
 					<td>
-					<label class="form-check custom-check" title="Select">
-						<input class="row-select" data-id="${c.id}" type="checkbox" ${selectedIds.has(c.id) ? 'checked' : ''}>
-					</label>
+						<label class="form-check custom-check" title="Select">
+							<input class="row-select" data-id="${c.id}" type="checkbox" ${selectedIds.has(c.id) ? 'checked' : ''}>
+						</label>
 					</td>
 					<td><div class="fw-semibold">${escapeHtml(c.code)}</div></td>
 					<td>${escapeHtml(c.discount || '—')}</td>
@@ -286,17 +264,16 @@
 					<td class="desktop-only">${formatDate(c.endDate)}</td>
 					<td><span class="${c.isActive ? 'badge-active' : 'badge-inactive'} badge-status cursor-pointer" data-id="${c.id}">${c.isActive ? 'Active' : 'Inactive'}</span></td>
 					<td>
-					<div class="d-flex gap-2">
-						<button class="btn btn-sm btn-couponlist-custom btn-edit" data-id="${c.id}"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm btn-couponlist-custom btn-delete" data-id="${c.id}"><i class="bi bi-trash3"></i></button>
-					</div>
-					</td>
-				`;
+						<div class="d-flex gap-2">
+							<button class="btn btn-sm btn-couponlist-custom btn-edit" data-id="${c.id}"><i class="bi bi-pencil-square"></i></button>
+							<button class="btn btn-sm btn-couponlist-custom btn-delete" data-id="${c.id}"><i class="bi bi-trash3"></i></button>
+						</div>
+					</td>`;
 					tableBody.appendChild(tr);
 				});
 			}
 
-			// ===== Event listeners for rows =====
+			// Row events
 			document.querySelectorAll('.row-select').forEach(el => el.addEventListener('change', e => {
 				const id = e.target.dataset.id;
 				e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
@@ -314,32 +291,11 @@
 				});
 			});
 
-			// ===== Edit modal =====
 			document.querySelectorAll('.btn-edit').forEach(b => {
 				b.addEventListener('click', () => {
 					const id = b.dataset.id;
-					const coupon = coupons.find(c => c.id === id);
-					if (!coupon) return;
-					document.getElementById('editCode').value = coupon.code;
-					document.getElementById('editDiscount').value = coupon.discount || '';
-					document.getElementById('editDescription').value = coupon.description || '';
-					document.getElementById('editStartDate').value = coupon.startDate;
-					document.getElementById('editEndDate').value = coupon.endDate;
-					document.getElementById('editStatus').value = coupon.isActive ? 'active' : 'inactive';
-
-					const modal = new bootstrap.Modal(document.getElementById('editCouponModal'));
-					modal.show();
-
-					document.getElementById('saveEditBtn').onclick = () => {
-						coupon.code = document.getElementById('editCode').value;
-						coupon.discount = document.getElementById('editDiscount').value;
-						coupon.description = document.getElementById('editDescription').value;
-						coupon.startDate = document.getElementById('editStartDate').value;
-						coupon.endDate = document.getElementById('editEndDate').value;
-						coupon.isActive = document.getElementById('editStatus').value === 'active';
-						renderTable();
-						modal.hide();
-					};
+					// redirect to add coupon page with query param
+					window.location.href = `AddCoupon.html?edit=${id}`;
 				});
 			});
 
@@ -367,18 +323,11 @@
 			selectAll.indeterminate = !all && some;
 		}
 
-		// ===== Event listeners =====
-		searchInput.addEventListener('input', e => { query = e.target.value; currentPage = 1; renderTable(); });
+		// Event listeners
 		statusFilterEl.addEventListener('change', e => { statusFilter = e.target.value; currentPage = 1; renderTable(); });
-		perPageEl.addEventListener('change', e => { perPage = parseInt(e.target.value); currentPage = 1; renderTable(); });
-		sortSelect.addEventListener('change', e => {
-			const [k, dir] = e.target.value.split(':'); sortBy = { key: k, dir: dir }; renderTable();
-		});
+		sortSelect.addEventListener('change', e => { const [k, dir] = e.target.value.split(':'); sortBy = { key: k, dir: dir }; renderTable(); });
 		prevPageBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderTable(); } });
-		nextPageBtn.addEventListener('click', () => {
-			const totalPages = Math.max(1, Math.ceil(getFilteredSorted().length / perPage));
-			if (currentPage < totalPages) { currentPage++; renderTable(); }
-		});
+		nextPageBtn.addEventListener('click', () => { const totalPages = Math.max(1, Math.ceil(getFilteredSorted().length / perPage)); if (currentPage < totalPages) { currentPage++; renderTable(); } });
 		selectAll.addEventListener('change', e => {
 			document.querySelectorAll('.row-select').forEach(cb => cb.checked = e.target.checked);
 			selectedIds = new Set(Array.from(document.querySelectorAll('.row-select')).filter(cb => cb.checked).map(cb => cb.dataset.id));
@@ -394,16 +343,6 @@
 				selectedIds.clear();
 				renderTable();
 			});
-		});
-
-		exportCSVBtn.addEventListener('click', () => {
-			let csv = 'Code,Discount,Start Date,End Date,Status,Description\n';
-			getFilteredSorted().forEach(c => {
-				csv += `"${c.code}","${c.discount || ''}","${c.startDate || ''}","${c.endDate || ''}","${c.isActive ? 'Active' : 'Inactive'}","${c.description || ''}"\n`;
-			});
-			const blob = new Blob([csv], { type: 'text/csv' });
-			const url = URL.createObjectURL(blob);
-			const a = document.createElement('a'); a.href = url; a.download = 'coupons.csv'; a.click(); URL.revokeObjectURL(url);
 		});
 
 		renderTable();
