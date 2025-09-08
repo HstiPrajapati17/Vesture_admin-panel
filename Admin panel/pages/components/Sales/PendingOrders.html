@@ -193,9 +193,20 @@
 			document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
 
 			// Show/hide pagination
-			const paginationNav = document.querySelector("nav");
-			paginationNav.style.display = totalPages <= 1 ? "none" : "flex";
-		}
+			
+				// pagination show/hide
+	const pagination = document.querySelector("nav");
+	if (totalPages <= 1) {
+		pagination.classList.add("d-none");
+	} else {
+		pagination.classList.remove("d-none");
+	}
+
+	// ✅ Prev/Next disable logic
+	document.getElementById("prevBtn").disabled = (currentPage === 1);
+	document.getElementById("nextBtn").disabled = (currentPage === totalPages);
+}
+	
 
 		// Modal helpers
 		function openCustomModal(id) { document.getElementById(id).style.display = "flex"; }

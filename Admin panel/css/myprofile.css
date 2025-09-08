@@ -118,7 +118,7 @@ body {
 }
 
 .modal-header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary));
   color: #fff;
   border-bottom: 0;
 }
@@ -217,6 +217,7 @@ body {
     margin: 0px;
     padding: 0;
   }
+
 }
 .edit-profile_page .custom-modal {
   min-width: 750px;
@@ -225,5 +226,15 @@ body {
   .edit-profile_page .custom-modal {
     min-width: auto;
     margin: 12px;
+  }
+  .container{
+   --bs-gutter-x : 0rem !important;
+  }
+  .info-box {
+    padding: 7px;
+    
+  }
+  .profile-header {
+      padding: 20px 8px;
   }
 }

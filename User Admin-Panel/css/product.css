@@ -684,7 +684,7 @@ body::-webkit-scrollbar {
   gap: 8px;
   padding: 8px 12px;
   background: transparent;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border: none;
   cursor: pointer;
   color: #604652;
@@ -930,7 +930,19 @@ body::-webkit-scrollbar {
     overflow-x: auto;
   }
 }
-
+@media (max-width: 425px) {
+.h_badge-floating {
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    background: var(--h_brand);
+    color: var(--h_accent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+}
 /* Small utilities */
 .h_row {
   display: flex;

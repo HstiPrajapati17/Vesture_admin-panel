@@ -95,21 +95,92 @@
 	<script>
 		// Orders data
 		const orders = [
-			{ no: 1, customer: "Gail C. Anderson", id: "#583488/80", status: "Completed", total: "CAD $240.00", date: "2023-09-15", products: [{ name: "Casual Shirt", size: "M", color: "Blue", fabric: "Cotton", qty: 2 }, { name: "Formal Pants", size: "32", color: "Black", fabric: "Polyester", qty: 1 }] },
-			{ no: 2, customer: "Jung S. Ayala", id: "#456754/80", status: "Pending", total: "CAD $125.00", date: "2023-09-16", products: [{ name: "Winter Jacket", size: "L", color: "Grey", fabric: "Wool", qty: 1 }] },
-			{ no: 3, customer: "David A. Arnold", id: "#578246/80", status: "Completed", total: "CAD $399.00", date: "2023-09-17", products: [{ name: "Running Shoes", size: "42", color: "White", fabric: "Mesh", qty: 3 }] },
-			{ no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending", total: "CAD $89.00", date: "2023-09-18", products: [{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 }, { name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }] },
-			{ no: 5, customer: "William Moreno", id: "#391367/80", status: "Completed", total: "CAD $560.00", date: "2023-09-19", products: [{ name: "Hoodie", size: "XL", color: "Green", fabric: "Fleece", qty: 5 }] }
+			{
+				no: 1, customer: "Gail C. Anderson", id: "#583488/80", status: "Completed",
+				total: "CAD $240.00", date: "2023-09-15",
+				products: [
+					{ name: "Casual Shirt", size: "M", color: "Blue", fabric: "Cotton", qty: 2 },
+					{ name: "Formal Pants", size: "32", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 2, customer: "Jung S. Ayala", id: "#456754/80", status: "Pending",
+				total: "CAD $125.00", date: "2023-09-16",
+				products: [
+					{ name: "Winter Jacket", size: "L", color: "Grey", fabric: "Wool", qty: 1 }
+				]
+			},
+			{
+				no: 3, customer: "David A. Arnold", id: "#578246/80", status: "Completed",
+				total: "CAD $399.00", date: "2023-09-17",
+				products: [
+					{ name: "Running Shoes", size: "42", color: "White", fabric: "Mesh", qty: 3 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 4, customer: "Cecile D. Gordon", id: "#348930/80", status: "Pending",
+				total: "CAD $89.00", date: "2023-09-18",
+				products: [
+					{ name: "T-shirt", size: "S", color: "Red", fabric: "Cotton", qty: 1 },
+					{ name: "Shorts", size: "M", color: "Black", fabric: "Polyester", qty: 1 }
+				]
+			},
+			{
+				no: 5, customer: "William Moreno", id: "#391367/80", status: "Completed",
+				total: "CAD $560.00", date: "2023-09-19",
+				products: [
+					{ name: "Hoodie", size: "XL", color: "Green", fabric: "Fleece", qty: 5 }
+				]
+			}
 		];
 
 		const rowsPerPage = 5;
 		let currentPage = 1;
 		let orderToDelete = null;
 
-		// Render Table
 		function renderTable() {
-			const tableBody = document.getElementById('tableBody');
-			tableBody.innerHTML = "";
+	const tableBody = document.getElementById('tableBody');
+	tableBody.innerHTML = "";
 
 			const start = (currentPage - 1) * rowsPerPage;
 			const end = start + rowsPerPage;
@@ -134,8 +205,19 @@
 
 			const totalPages = Math.ceil(orders.length / rowsPerPage);
 			document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
-			document.querySelector("nav").classList.toggle("d-none", totalPages <= 1);
-		}
+			
+	// pagination show/hide
+	const pagination = document.querySelector("nav");
+	if (totalPages <= 1) {
+		pagination.classList.add("d-none");
+	} else {
+		pagination.classList.remove("d-none");
+	}
+
+	// ✅ Prev/Next disable logic
+	document.getElementById("prevBtn").disabled = (currentPage === 1);
+	document.getElementById("nextBtn").disabled = (currentPage === totalPages);
+}
 
 		// Open / Close modal
 		function openModal(id) {

@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 
-	<!-- Bootstrap (used by markup classes) -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/Sidebar.css">
@@ -15,10 +14,8 @@
 
 <body class="h-100">
 
-	<!-- Sidebar container -->
 	<div id="sidebar-container"></div>
 
-	<!-- Navbar container -->
 	<div id="navbar-container"></div>
 
 	<main class="main-content" id="main-content">
@@ -29,7 +26,6 @@
 				</div>
 
 				<div class="h_form">
-					<!-- RIGHT (now placed first) : images & quick settings (this will appear on left visually) -->
 					<div class="h_right">
 						<div class="d-flex flex-column gap-2">
 							<label class="h_label">Product Image</label>
@@ -78,12 +74,10 @@
 						</div>
 					</div>
 
-					<!-- LEFT (now placed second) : main form -->
 					<div class="h_left">
 						<form id="h_addProductForm" class="needs-validation" novalidate>
 							<div class="row g-3">
 								<h5 class="h_main_label">Product Basic Information</h5>
-								<!-- Basic -->
 								<div class="col-12">
 									<label class="h_label">Product Name *</label>
 									<input id="h_name" class="h_input" type="text" placeholder="e.g. Men's Classic Polo"
@@ -114,6 +108,7 @@
 										<option value="jackets">Jackets</option>
 										<option value="kurti">Kurti</option>
 										<option value="saree">Saree</option>
+										<option value="men_shirts">Men / Shirts</option>
 									</select>
 									<div class="invalid-feedback">Category required.</div>
 								</div>
@@ -128,7 +123,29 @@
 									</select>
 								</div>
 
-								<!-- price / stock -->
+								<div class="col-md-6">
+									<label class="h_label">Materials</label>
+									<input id="h_materials" class="h_input" type="text" placeholder="e.g. 100% Linen">
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Care Instructions</label>
+									<input id="h_care" class="h_input" type="text"
+										placeholder="e.g. Machine wash cold">
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Origin</label>
+									<input id="h_origin" class="h_input" type="text" placeholder="Made in Canada">
+								</div>
+
+								<div class="col-md-6">
+									<label class="h_label">Packaging</label>
+									<input id="h_packaging" class="h_input" type="text"
+										placeholder="e.g. compostable polybag">
+								</div>
+
+
 								<div class="col-md-4">
 									<label class="h_label">Price (CA$) *</label>
 									<input id="h_price" type="number" step="0.01" class="h_input" min="0"
@@ -146,7 +163,12 @@
 										required>
 									<div class="invalid-feedback">Stock quantity required.</div>
 								</div>
-
+								<div class="col-md-4">
+									<label class="h_label">Low Quantity Threshold</label>
+									<input id="h_lowStock" type="number" class="h_input" min="0" placeholder="e.g. 5">
+									<div class="h_help">When stock falls below this, product will be flagged as low
+										stock.</div>
+								</div>
 								<div class="col-md-4">
 									<label class="h_label">Tax %</label>
 									<input id="h_tax" type="number" step="0.1" class="h_input" min="0"
@@ -170,12 +192,16 @@
 									<div class="h_help">Separate tags with commas.</div>
 								</div>
 
-								<!-- Variants -->
+								<div class="col-12">
+									<label class="h_label">Supplier Notes</label>
+									<textarea id="h_supplierNotes" class="h_textarea"
+										placeholder="e.g. MOQ is 100 per color"></textarea>
+								</div>
+
 								<div class="col-12">
 									<label class="h_label">Variants (Sizes / Colors)</label>
 									<div class="h_variant-list" id="h_variantList">
-										<!-- dynamic rows go here -->
-									</div>
+										</div>
 
 									<div class="d-flex gap-2 mt-2" style="flex-wrap:wrap;">
 										<input id="h_variantSize" class="h_input" placeholder="Size (e.g. M, L, 32)"
@@ -205,10 +231,8 @@
 		</div>
 	</main>
 
-	<!-- Overlay for mobile -->
 	<div class="overlay"></div>
 
-	<!-- Bootstrap JS bundle -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/sidebar-loader.js"></script>
 	<script src="/js/navbar-loader.js"></script>
@@ -233,14 +257,36 @@
 
 		// Pre-fill form fields if in edit mode
 		if (isEditMode) {
-			document.getElementById('h_name').value = urlParams.get('name') || '';
-			document.getElementById('h_sku').value = urlParams.get('sku') || '';
-			document.getElementById('h_category').value = urlParams.get('category') || '';
-			document.getElementById('h_price').value = urlParams.get('price') || '';
-			document.getElementById('h_stock').value = urlParams.get('stock') || '';
-			document.getElementById('h_brand').value = urlParams.get('brand') || '';
-			document.getElementById('h_barcode').value = urlParams.get('barcode') || '';
-			document.getElementById('h_description').value = urlParams.get('description') || '';
+			document.getElementById('h_name').value = urlParams.get('name') || 'Classic Linen Shirt';
+			document.getElementById('h_sku').value = urlParams.get('sku') || 'CLSH-2345';
+			document.getElementById('h_brand').value = urlParams.get('brand') || 'StitchWorks';
+			document.getElementById('h_category').value = urlParams.get('category') || 'men_shirts';
+			document.getElementById('h_subcategory').value = urlParams.get('subcategory') || 'Men';
+			document.getElementById('h_price').value = urlParams.get('price') || '49.99';
+			document.getElementById('h_stock').value = urlParams.get('stock') || '120';
+			document.getElementById('h_lowStock').value = urlParams.get('lowStock') || '20';
+			document.getElementById('h_description').value = urlParams.get('description') || 'The Classic Linen Shirt is designed for breathability and ease during warm-weather wear. Cut in a classic, relaxed silhouette with reinforced seams on high-stress areas, this piece balances casual comfort with refined finishings (mother-of-pearl buttons, single-needle hems).';
+			document.getElementById('h_short').value = urlParams.get('short') || 'Soft breathable linen shirt tailored for comfort. Manufactured using sustainable processes and premium threads — ideal for warm-weather collections.';
+
+			// NEW FIELDS
+			document.getElementById('h_materials').value = urlParams.get('materials') || '100% Linen';
+			document.getElementById('h_care').value = urlParams.get('care') || 'Machine wash cold';
+			document.getElementById('h_origin').value = urlParams.get('origin') || 'Made in Canada (factory: StitchWorks — Plant 3)';
+			document.getElementById('h_packaging').value = urlParams.get('packaging') || 'Inner folded — compostable polybag; outer carton 50 units / carton';
+			document.getElementById('h_supplierNotes').value = urlParams.get('supplierNotes') || 'StitchWorks recommends a minimum order quantity (MOQ) of 100 per color. Lead time is currently ~21 working days.';
+			document.getElementById('h_tags').value = urlParams.get('tags') || 'summer, natural fibers, breathable';
+
+			// Variants from ViewProduct.html
+			renderVariantRow('S', 'Sand (BE)');
+			renderVariantRow('M', 'Sand (BE)');
+			renderVariantRow('L', 'Sand (BE)');
+			renderVariantRow('S', 'Navy (NV)');
+			renderVariantRow('M', 'Navy (NV)');
+			renderVariantRow('L', 'Navy (NV)');
+			renderVariantRow('S', 'White (WT)');
+			renderVariantRow('M', 'White (WT)');
+			renderVariantRow('L', 'White (WT)');
+			
 		}
 
 		// ---------- form refs ----------
@@ -290,13 +336,13 @@
 		function renderVariantRow(size, color) {
 			const id = 'v_' + Math.random().toString(36).slice(2, 9);
 			const row = createNode(`
-	<div class="h_variant-row" data-id="${id}">
-		<input class="h_input form-control form-control-sm" value="${size}" readonly>
-		<input class="h_input form-control form-control-sm" value="${color}" readonly>
-		<button type="button" class="btn btn-sm btn-outline-danger h_remove_variant"><i
-				class="bi bi-trash"></i></button>
-	</div>
-	`);
+				<div class="h_variant-row" data-id="${id}">
+					<input class="h_input form-control form-control-sm" value="${size}" readonly>
+					<input class="h_input form-control form-control-sm" value="${color}" readonly>
+					<button type="button" class="btn btn-sm btn-outline-danger h_remove_variant"><i
+							class="bi bi-trash"></i></button>
+				</div>
+				`);
 			row.querySelector('.h_remove_variant').addEventListener('click', () => row.remove());
 			variantList.appendChild(row);
 			// ensure the newest row is visible on small screens
@@ -376,11 +422,20 @@
 					brand: document.getElementById('h_brand').value.trim(),
 					price: parseFloat(priceInput.value || 0),
 					stock: parseInt(stockInput.value || 0),
+					lowStock: parseInt(document.getElementById('h_lowStock').value || 0), // 👈 added
 					category: document.getElementById('h_category').value,
 					subcategory: document.getElementById('h_subcategory').value,
 					short: document.getElementById('h_short').value.trim(),
 					description: document.getElementById('h_description').value.trim(),
 					tags: (document.getElementById('h_tags').value || '').split(',').map(t => t.trim()).filter(Boolean),
+					
+					// NEW FIELDS
+					materials: document.getElementById('h_materials').value.trim(),
+					care: document.getElementById('h_care').value.trim(),
+					origin: document.getElementById('h_origin').value.trim(),
+					packaging: document.getElementById('h_packaging').value.trim(),
+					supplierNotes: document.getElementById('h_supplierNotes').value.trim(),
+
 					variants,
 					active: hiddenActive.value === '1',
 					featured: hiddenFeatured.value === '1',

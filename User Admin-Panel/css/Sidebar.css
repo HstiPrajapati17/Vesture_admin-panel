@@ -405,3 +405,10 @@ body.sidebar-collapsed #main-content {
     display: none;
   }
 }
+.page-link:focus {
+    z-index: 3;
+    color: var(--bs-pagination-focus-color);
+    background-color: #604652 !important;
+    outline: 0;
+    box-shadow: #60465252 0px 0px 0px 0.25rem;
+}

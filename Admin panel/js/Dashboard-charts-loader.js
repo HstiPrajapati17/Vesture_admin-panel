@@ -81,7 +81,7 @@ window.initCharts = function initCharts() {
 			labels: ['T-Shirts', 'Jackets', 'Dresses', 'Hoodies', 'Shirts'],
 			datasets: [{
 				data: [350, 200, 85, 120, 180],
-				backgroundColor: ['#604652', '#8B9DC3', '#A9907E', '#A0A0A0', '#D1A980']
+				backgroundColor: ['#604652', '#EBD9D1', '#B2A59B', '#A0A0A0', '#896C6C']
 			}]
 		},
 		options: {
@@ -105,7 +105,7 @@ window.initCharts = function initCharts() {
 				{
 					label: 'Sales',
 					data: [1150, 1300, 1050, 1420, 1280, 1480],
-					backgroundColor: '#A9907E'
+					backgroundColor: '#B2A59B'
 				}
 			]
 		},

@@ -166,43 +166,48 @@
 		let currentPage = 1;
 		let userToDelete = null;
 
-		function renderTable() {
-			const tableBody = document.getElementById("userTableBody");
-			tableBody.innerHTML = "";
+	function renderTable() {
+	const tableBody = document.getElementById("userTableBody");
+	tableBody.innerHTML = "";
 
-			const start = (currentPage - 1) * rowsPerPage;
-			const end = start + rowsPerPage;
-			const paginatedUsers = users.slice(start, end);
+	const start = (currentPage - 1) * rowsPerPage;
+	const end = start + rowsPerPage;
+	const paginatedUsers = users.slice(start, end);
 
-			paginatedUsers.forEach(u => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-					<td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
-					<td>${u.email}</td>
-					<td>${u.phone}</td>
-					<td>${u.city}</td>
-					<td>${u.role}</td>
-					<td>
-						<button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
-						<button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
-					</td>
-				`;
-				tableBody.appendChild(tr);
-			});
+	paginatedUsers.forEach(u => {
+		const tr = document.createElement("tr");
+		tr.innerHTML = `
+			<td class="user-info"><img src="${u.image}" class="user-img"> ${u.name}</td>
+			<td>${u.email}</td>
+			<td>${u.phone}</td>
+			<td>${u.city}</td>
+			<td>${u.role}</td>
+			<td>
+				<button class="btn btn-sm h_user-list-btn" onclick="openView('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-eye"></i></button>
+				<button class="btn btn-sm h_user-list-btn" onclick="openEdit('${u.name}','${u.email}','${u.phone}','${u.city}','${u.role}')"><i class="bi bi-pencil-square"></i></button>
+				<button class="btn btn-sm h_user-list-btn" onclick="openDelete('${u.name}')"><i class="bi bi-trash3"></i></button>
+			</td>
+		`;
+		tableBody.appendChild(tr);
+	});
 
-			// pagination info
-			const totalPages = Math.ceil(users.length / rowsPerPage);
-			document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
+	// pagination info
+	const totalPages = Math.ceil(users.length / rowsPerPage);
+	document.getElementById("pageInfo").innerText = `${currentPage}/${totalPages}`;
 
-			// show/hide pagination
-			const pagination = document.getElementById("paginationNav");
-			if (totalPages <= 1) {
-				pagination.classList.add("d-none");
-			} else {
-				pagination.classList.remove("d-none");
-			}
-		}
+	// show/hide pagination
+	const pagination = document.getElementById("paginationNav");
+	if (totalPages <= 1) {
+		pagination.classList.add("d-none");
+	} else {
+		pagination.classList.remove("d-none");
+	}
+
+	// disable prev/next button at limits
+	document.getElementById("prevBtn").disabled = currentPage === 1;
+	document.getElementById("nextBtn").disabled = currentPage === totalPages;
+}
+
 
 		// View
 		function openView(name, email, phone, city, role) {
