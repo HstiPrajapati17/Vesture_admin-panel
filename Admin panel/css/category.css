@@ -451,6 +451,14 @@ input:checked + .mv_slider:before {
   color: #fff;
 }
 
+.rawmaterial-btns {
+  background-color: #604652;
+  color: #fff;
+}
+.rawmaterial-btns:hover {
+  background-color: #44323a;
+  color: #fff;
+}
 @media (max-width: 768px) {
   .container-fluid {
     padding: 0px;

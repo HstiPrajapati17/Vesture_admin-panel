@@ -70,14 +70,14 @@
 
   <script>
     const materialData = [
-      { id: 1, name: "Cotton Fabric", supplier: "ABC Textiles", stock: 2000, unit: "meters", reorder: 500, status: "active", image: "/images/cotton.jpg" },
-      { id: 2, name: "Buttons", supplier: "XYZ Accessories", stock: 5000, unit: "pcs", reorder: 1000, status: "active", image: "/images/buttons.jpg" },
-      { id: 3, name: "Zippers", supplier: "FastenPro", stock: 3000, unit: "pcs", reorder: 800, status: "inactive", image: "/images/zippers.jpg" },
-      { id: 4, name: "Thread", supplier: "ThreadMaster", stock: 1500, unit: "spools", reorder: 300, status: "active", image: "/images/thread.jpg" },
-      { id: 5, name: "Elastic Bands", supplier: "ElasticWorld", stock: 1200, unit: "meters", reorder: 200, status: "active", image: "/images/elastic.jpg" },
-      { id: 6, name: "Labels", supplier: "LabelCraft", stock: 8000, unit: "pcs", reorder: 1500, status: "inactive", image: "/images/labels.jpg" },
-      { id: 7, name: "Interfacing", supplier: "InterfacePro", stock: 600, unit: "meters", reorder: 100, status: "active", image: "/images/interfacing.jpg" },
-      { id: 8, name: "Lining Fabric", supplier: "LineMaster", stock: 4000, unit: "meters", reorder: 700, status: "active", image: "/images/lining.jpg" }
+      { id: 1, name: "Cotton Fabric", supplier: "ABC Textiles", stock: 2000, unit: "meters", reorder: 500, status: "active", image: "/Assets/supplier-fabric.jpg" },
+      { id: 2, name: "Buttons", supplier: "XYZ Accessories", stock: 5000, unit: "pcs", reorder: 1000, status: "active", image: "/Assets/supplier-btns.jpg" },
+      { id: 3, name: "Zippers", supplier: "FastenPro", stock: 3000, unit: "pcs", reorder: 800, status: "inactive", image: "/Assets/supplier-zipper.jpg" },
+      { id: 4, name: "Thread", supplier: "ThreadMaster", stock: 1500, unit: "spools", reorder: 300, status: "active", image: "/Assets/supplier-thread.jpg" },
+      { id: 5, name: "Elastic Bands", supplier: "ElasticWorld", stock: 1200, unit: "meters", reorder: 200, status: "active", image: "/Assets/supplier-ElasticBands.jpg" },
+      { id: 6, name: "Labels", supplier: "LabelCraft", stock: 8000, unit: "pcs", reorder: 1500, status: "inactive", image: "/Assets/supplier-labels.jpg" },
+      { id: 7, name: "Interfacing", supplier: "InterfacePro", stock: 600, unit: "meters", reorder: 100, status: "active", image: "/Assets/supplier-interfacing.jpg" },
+      { id: 8, name: "Lining Fabric", supplier: "LineMaster", stock: 4000, unit: "meters", reorder: 700, status: "active", image: "/Assets/supplier-liningFabric.jpg"},
     ];
 
     const tableBody = document.getElementById("materialTableBody");
@@ -108,7 +108,7 @@
             </label>
           </td>
           <td>
-            <button class="btn btn-sm btn-secondary" onclick="editMaterial(${m.id})">
+            <button class="btn btn-sm rawmaterial-btns" onclick="editMaterial(${m.id})">
               <i class="bi bi-pencil-square"></i>
             </button>
           </td>`;
