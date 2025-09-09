@@ -51,9 +51,9 @@
                 <div class="sidebar-section">
                     <h6 class="sidebar-title">Price Range</h6>
                     <div class="price-range">
-                        <input type="number" id="minPrice" placeholder="Min">
+                        <input type="number" min="1" id="minPrice" placeholder="Min">
                         <span>–</span>
-                        <input type="number" id="maxPrice" placeholder="Max">
+                        <input type="number" min="1" id="maxPrice" placeholder="Max">
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                     <i class="bi bi-box-seam"></i>
                     <h4>No products found!</h4>
                     <p>Try adjusting your filters or search query.</p>
-                    <button id="empty-refresh" class="btn btn-primary mt-3">
+                    <button id="empty-refresh" class="btn btn-primary page-btn mt-3">
                         <i class="bi bi-arrow-clockwise me-2"></i>Browse All
                     </button>
                 </div>
@@ -126,7 +126,7 @@
         ];
 
         let currentPage = 1;
-        const pageSize = 8;
+        const pageSize = 12;
         let currentFilter = 'all';
         let currentSort = 'default';
         let currentQuery = '';

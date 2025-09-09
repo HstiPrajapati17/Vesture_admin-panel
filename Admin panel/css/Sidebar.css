@@ -490,3 +490,29 @@ body.sidebar-collapsed #main-content {
   background-color: #604652;
   color: #fff;
 }
+.form-check-input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(255, 255, 255, 0);
+}
+
+/* Custom caret with spacing */
+.h_dark-input-select {
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+
+  /* caret ne hide karo (browser no default) */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+
+  /* custom caret add karo */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important; /* caret ne right side thi spacing */
+  background-size: 22px !important;
+  padding-right: 2rem !important; /* text ne caret sathe overlap thava na de */
+}

@@ -243,7 +243,7 @@ body {
 }
 
 .empty-state i {
-  font-size: 25px;
+  font-size: 17px;
   margin-bottom: 20px;
 }
 
@@ -264,6 +264,11 @@ body {
   color: #ffffff;
   border: none;
 }
+.page-btn:hover,.page-btn:active{
+  color: #F6F6F6 !important;
+    background-color: #4e3741;
+    border-color: #4e3741;
+}
 
 .page-btn:disabled {
   background: #7f6d75;
@@ -283,7 +288,7 @@ body {
 .btn.show,
 .btn:first-child:active,
 :not(.btn-check) + .btn:active {
-  color: #282828;
+  color: inherit;
   background-color: #604652;
   border-color: #fbfbfb;
 }
