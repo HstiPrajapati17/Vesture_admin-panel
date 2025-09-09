@@ -45,6 +45,7 @@
 									<th>Size</th>
 									<th>Date Added</th>
 									<th>Status</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody id="tableBody"></tbody>
@@ -65,6 +66,18 @@
 							</li>
 						</ul>
 					</nav>
+				</div>
+			</div>
+			<!-- Custom Delete Modal -->
+			<div class="custom-modal-overlay" id="deleteModal">
+				<div class="custom-modal">
+					<div class="custom-modal-header">Delete Item</div>
+					<div class="custom-modal-body" id="deleteContent"></div>
+					<div class="custom-modal-footer">
+						<button class="custome_modal_btn h_cstm_modal-btn"
+							onclick="closeModal('deleteModal')">Cancel</button>
+						<button class="custome_modal_btn h_cstm_modal-btn" onclick="confirmDelete()">Delete</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -98,60 +111,121 @@
 		const paginationNav = document.getElementById("paginationNav");
 
 		function renderTable() {
-			tableBody.innerHTML = "";
-			const start = (currentPage - 1) * itemsPerPage;
-			const end = start + itemsPerPage;
-			const pageItems = wishlistData.slice(start, end);
+	tableBody.innerHTML = "";
+	const start = (currentPage - 1) * itemsPerPage;
+	const end = start + itemsPerPage;
+	const pageItems = wishlistData.slice(start, end);
 
-			pageItems.forEach((item) => {
-				const tr = document.createElement("tr");
-				tr.innerHTML = `
-					<td>#${item.id}</td>
-					<td>${item.customer}</td>
-					<td>${item.product}</td>
-					<td>${item.fabric}</td>
-					<td>${item.color}</td>
-					<td>${item.size}</td>
-					<td>${item.date}</td>
-					<td>${item.status}</td>
-				`;
-				tableBody.appendChild(tr);
-			});
+	pageItems.forEach((item, index) => {
+		const tr = document.createElement("tr");
+		tr.innerHTML = `
+			<td>#${item.id}</td>
+			<td>${item.customer}</td>
+			<td>${item.product}</td>
+			<td>${item.fabric}</td>
+			<td>${item.color}</td>
+			<td>${item.size}</td>
+			<td>${item.date}</td>
+			<td>${item.status}</td>
+			<td>
+				<button class="btn btn-sm page-btn me-2 delete-btn" data-id="${item.id}" title="Delete">
+					<i class="bi bi-trash"></i>
+				</button>
+				<button class="btn btn-sm page-btn cart-btn" data-id="${item.id}" title="Add to Cart">
+					<i class="bi bi-cart-plus"></i>
+				</button>
+			</td>
+		`;
+		tableBody.appendChild(tr);
+	});
 
-			const totalPages = Math.ceil(wishlistData.length / itemsPerPage);
-			if(totalPages <= 1) {
-				paginationNav.style.display = 'none';
-			} else {
-				paginationNav.style.display = 'block';
-				renderPagination();
+	const totalPages = Math.ceil(wishlistData.length / itemsPerPage);
+	if (totalPages <= 1) {
+		paginationNav.style.display = "none";
+	} else {
+		paginationNav.style.display = "block";
+		renderPagination();
+	}
+
+	// ✅ Delete button event
+	document.querySelectorAll(".delete-btn").forEach(btn => {
+		btn.addEventListener("click", () => {
+			const id = btn.getAttribute("data-id");
+			openDeleteModal(id);
+		});
+	});
+
+	// ✅ Add to Cart button event
+	document.querySelectorAll(".cart-btn").forEach(btn => {
+		btn.addEventListener("click", () => {
+			const id = btn.getAttribute("data-id");
+			moveToCart(id);
+		});
+	});
+}
+
+// ------------------ ADD TO CART FUNCTION ------------------ //
+function moveToCart(id) {
+	const item = wishlistData.find(x => x.id === id);
+	if (item) {
+		item.status = "Moved to Cart"; // update status
+		renderTable(); // re-render table
+	}
+}
+
+		// ------------------ MODAL HANDLING ------------------ //
+		let deleteId = null;
+
+		function openDeleteModal(id) {
+			deleteId = id;
+			document.getElementById("deleteContent").textContent =
+				`Are you sure you want to delete wishlist item #${id}?`;
+			document.getElementById("deleteModal").style.display = "flex";
+		}
+
+		function closeModal(modalId) {
+			document.getElementById(modalId).style.display = "none";
+		}
+
+		function confirmDelete() {
+			if (deleteId) {
+				// remove item from array
+				const index = wishlistData.findIndex(item => item.id === deleteId);
+				if (index !== -1) {
+					wishlistData.splice(index, 1);
+				}
+				renderTable();
+				closeModal("deleteModal");
+				deleteId = null;
 			}
 		}
 
-	function renderPagination() {
-	const totalPages = Math.max(1, Math.ceil(wishlistData.length / itemsPerPage));
-	document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
 
-	const prevBtn = document.getElementById("prev").parentElement;
-	const nextBtn = document.getElementById("next").parentElement;
+		function renderPagination() {
+			const totalPages = Math.max(1, Math.ceil(wishlistData.length / itemsPerPage));
+			document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
 
-	// Prev button disable/enable
-	if (currentPage === 1) {
-		document.getElementById("prev").disabled = true;
-		prevBtn.classList.add("disabled");
-	} else {
-		document.getElementById("prev").disabled = false;
-		prevBtn.classList.remove("disabled");
-	}
+			const prevBtn = document.getElementById("prev").parentElement;
+			const nextBtn = document.getElementById("next").parentElement;
 
-	// Next button disable/enable
-	if (currentPage === totalPages) {
-		document.getElementById("next").disabled = true;
-		nextBtn.classList.add("disabled");
-	} else {
-		document.getElementById("next").disabled = false;
-		nextBtn.classList.remove("disabled");
-	}
-}
+			// Prev button disable/enable
+			if (currentPage === 1) {
+				document.getElementById("prev").disabled = true;
+				prevBtn.classList.add("disabled");
+			} else {
+				document.getElementById("prev").disabled = false;
+				prevBtn.classList.remove("disabled");
+			}
+
+			// Next button disable/enable
+			if (currentPage === totalPages) {
+				document.getElementById("next").disabled = true;
+				nextBtn.classList.add("disabled");
+			} else {
+				document.getElementById("next").disabled = false;
+				nextBtn.classList.remove("disabled");
+			}
+		}
 
 
 		document.getElementById("prev").addEventListener("click", () => {

@@ -295,12 +295,14 @@
         openModal("viewModal");
     }
 function openEdit(name, email, phone, city, role) {
-            document.getElementById("editName").value = name;
-            document.getElementById("editEmail").value = email;
-            document.getElementById("editPhone").value = phone;
-            document.getElementById("editCity").value = city;
-            document.getElementById("editRole").value = role;
-            new bootstrap.Modal(document.getElementById("editModal")).show();
+            // Persist selected user data and redirect to AddUser as Edit mode
+            const editUser = { name, email, phone, city, role };
+            try {
+                localStorage.setItem("editUser", JSON.stringify(editUser));
+            } catch (e) {
+                console.warn("Unable to store editUser in localStorage", e);
+            }
+            window.location.href = "/pages/components/User/AddUser.html?edit=true";
         }
 
         function openDelete(name) {

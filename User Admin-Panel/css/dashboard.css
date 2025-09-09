@@ -19,7 +19,8 @@
 /* Cards */
 .h_main-cards .card {
   border-radius: 0.5rem;
-  background: linear-gradient(135deg, #eeeeee, #edededef, #604652);
+  background-color: #583c4338;
+  /* background: linear-gradient(135deg, #eeeeee, #edededef, #604652); */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   font-weight: 600;
   height: -webkit-fill-available ;

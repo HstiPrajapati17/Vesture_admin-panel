@@ -145,7 +145,7 @@ body::-webkit-scrollbar {
 .h_dark-input:focus {
   outline: none;
   border-color: var(--primary);
-  background: #f6f6f6;
+  background-color: #f6f6f6;
   box-shadow: none;
 }
 
