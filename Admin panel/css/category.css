@@ -442,11 +442,11 @@ input:checked + .mv_slider:before {
   transform: translateX(20px);
 }
 
-.h_btn-outline-primary:hover{
+.h_btn-outline-primary:hover {
   background-color: #604652;
   color: #fff;
 }
-.btn:disabled{
+.btn:disabled {
   background-color: #604652;
   color: #fff;
 }
@@ -454,6 +454,9 @@ input:checked + .mv_slider:before {
 @media (max-width: 768px) {
   .container-fluid {
     padding: 0px;
+  }
+  .dashboard-card {
+    padding: 12px;
   }
 }
 @media (max-width: 576px) {

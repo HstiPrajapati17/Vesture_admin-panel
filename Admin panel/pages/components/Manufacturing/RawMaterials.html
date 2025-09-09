@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="/css/Sidebar.css">
   <link rel="stylesheet" href="/css/product.css">
   <link rel="stylesheet" href="/css/category.css">
-  <link rel="stylesheet" href="/css/user.css">
 </head>
 
 <body>
@@ -71,14 +70,14 @@
 
   <script>
     const materialData = [
-      { id: 1, name: "Cotton Fabric", supplier: "ABC Textiles", stock: 2000, unit: "meters", reorder: 500, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyctR8jEr_jY0BOOY8woyQyOhEfsucaM-i4A&s" },
-      { id: 2, name: "Buttons", supplier: "XYZ Accessories", stock: 5000, unit: "pcs", reorder: 1000, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNHGN05NChuEQgqGqqUG-o68vf2TgdQlbg4w&s" },
-      { id: 3, name: "Zippers", supplier: "FastenPro", stock: 3000, unit: "pcs", reorder: 800, status: "inactive", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv6jteTDTgEozoqCA5fFpptoQWI40gog2T2g&s" },
-      { id: 4, name: "Thread", supplier: "ThreadMaster", stock: 1500, unit: "spools", reorder: 300, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdyDk8hwwFTxNJ0LKmHd5HS0PRuJg53O8ZAA&s" },
-      { id: 5, name: "Elastic Bands", supplier: "ElasticWorld", stock: 1200, unit: "meters", reorder: 200, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1s7GMCRz5DqVVSklYGHV_Yw5xv_BFUy6mNg&s" },
-      { id: 6, name: "Labels", supplier: "LabelCraft", stock: 8000, unit: "pcs", reorder: 1500, status: "inactive", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE7TPTOX_hENuGSu4SYf-QUhoKdFnjiuIdYA&s" },
-      { id: 7, name: "Interfacing", supplier: "InterfacePro", stock: 600, unit: "meters", reorder: 100, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPlTVPN6wAkZLRw6EusCXdG93x6JheGJHBYw&s" },
-      { id: 8, name: "Lining Fabric", supplier: "LineMaster", stock: 4000, unit: "meters", reorder: 700, status: "active", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRibtoDQUnb26fsyg6hhP2efIYG0N5MTe12pg&s" }
+      { id: 1, name: "Cotton Fabric", supplier: "ABC Textiles", stock: 2000, unit: "meters", reorder: 500, status: "active", image: "/images/cotton.jpg" },
+      { id: 2, name: "Buttons", supplier: "XYZ Accessories", stock: 5000, unit: "pcs", reorder: 1000, status: "active", image: "/images/buttons.jpg" },
+      { id: 3, name: "Zippers", supplier: "FastenPro", stock: 3000, unit: "pcs", reorder: 800, status: "inactive", image: "/images/zippers.jpg" },
+      { id: 4, name: "Thread", supplier: "ThreadMaster", stock: 1500, unit: "spools", reorder: 300, status: "active", image: "/images/thread.jpg" },
+      { id: 5, name: "Elastic Bands", supplier: "ElasticWorld", stock: 1200, unit: "meters", reorder: 200, status: "active", image: "/images/elastic.jpg" },
+      { id: 6, name: "Labels", supplier: "LabelCraft", stock: 8000, unit: "pcs", reorder: 1500, status: "inactive", image: "/images/labels.jpg" },
+      { id: 7, name: "Interfacing", supplier: "InterfacePro", stock: 600, unit: "meters", reorder: 100, status: "active", image: "/images/interfacing.jpg" },
+      { id: 8, name: "Lining Fabric", supplier: "LineMaster", stock: 4000, unit: "meters", reorder: 700, status: "active", image: "/images/lining.jpg" }
     ];
 
     const tableBody = document.getElementById("materialTableBody");
@@ -109,7 +108,7 @@
             </label>
           </td>
           <td>
-            <button class="btn btn-sm btn-secondary h_user-list-btn" onclick="editMaterial(${m.id})">
+            <button class="btn btn-sm btn-secondary" onclick="editMaterial(${m.id})">
               <i class="bi bi-pencil-square"></i>
             </button>
           </td>`;
@@ -132,33 +131,11 @@
     }
 
     function renderPagination() {
-  const totalPages = Math.max(1, Math.ceil(materialData.length / itemsPerPage));
-  document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
-
-  const prevBtn = document.getElementById("prev");
-  const nextBtn = document.getElementById("next");
-  const prevLi = prevBtn.closest(".page-item");
-  const nextLi = nextBtn.closest(".page-item");
-
-  // disable prev if first page
-  if (currentPage === 1) {
-    prevBtn.disabled = true;
-    prevLi.classList.add("disabled");
-  } else {
-    prevBtn.disabled = false;
-    prevLi.classList.remove("disabled");
-  }
-
-  // disable next if last page
-  if (currentPage === totalPages) {
-    nextBtn.disabled = true;
-    nextLi.classList.add("disabled");
-  } else {
-    nextBtn.disabled = false;
-    nextLi.classList.remove("disabled");
-  }
-}
-
+      const totalPages = Math.max(1, Math.ceil(materialData.length / itemsPerPage));
+      document.getElementById("page-indicator").textContent = `${currentPage}/${totalPages}`;
+      document.getElementById("prev").disabled = currentPage === 1;
+      document.getElementById("next").disabled = currentPage === totalPages;
+    }
 
     function editMaterial(id) {
       // Find material by ID

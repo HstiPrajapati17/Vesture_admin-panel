@@ -325,4 +325,10 @@
   .h_main_topbar {
     padding: 8px 8px;
   }
+  .h_dashboard_root .h_chart-card {
+    padding: 6px;
+  }
+  .h_dashboard_intro{
+    padding: 12px !important;
+  }
 }

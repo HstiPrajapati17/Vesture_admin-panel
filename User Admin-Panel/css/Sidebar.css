@@ -400,7 +400,7 @@ body.sidebar-collapsed #main-content {
     right: -2px;
     padding: 1px 2px 2px 2px;
   }
-  .topbar .h_navbar_title span{
+  .topbar .h_navbar_title span {
     display: none;
   }
 }
@@ -426,7 +426,7 @@ body.sidebar-collapsed #main-content {
   animation: scaleIn 0.25s ease;
   max-height: 90vh;
   overflow-y: auto;
- -ms-overflow-style: none;
+  -ms-overflow-style: none;
 }
 
 .custom-modal::-webkit-scrollbar {
@@ -487,9 +487,14 @@ body.sidebar-collapsed #main-content {
 /* end custome modal css */
 
 .page-link:focus {
-    z-index: 3;
-    color: var(--bs-pagination-focus-color);
-    background-color: #604652 !important;
-    outline: 0;
-    box-shadow: #60465252 0px 0px 0px 0.25rem;
+  z-index: 3;
+  color: var(--bs-pagination-focus-color);
+  background-color: #604652 !important;
+  outline: 0;
+  box-shadow: #60465252 0px 0px 0px 0.25rem;
+}
+.btn:disabled {
+  background: #44323aad;
+  color: #fff;
+  border: none;
 }
