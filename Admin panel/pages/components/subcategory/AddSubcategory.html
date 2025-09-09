@@ -12,6 +12,30 @@
 	<link rel="stylesheet" href="/css/Sidebar.css">
 	<link rel="stylesheet" href="/css/subcategory.css">
 	<link rel="stylesheet" href="/css/myprofile.css">
+	<style>
+/* Custom caret with spacing */
+.h_dark-input-select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  width: 100%;
+
+  /* caret ne hide karo (browser no default) */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* custom caret add karo */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center; /* caret ne right side thi spacing */
+  background-size: 22px;
+  padding-right: 2rem; /* text ne caret sathe overlap thava na de */
+}
+
+
+	</style>
 </head>
 
 <body>
@@ -49,8 +73,6 @@
 
 						<h6 class="h_section-label">Quick Settings</h6>
 
-
-
 						<div class="form-check form-switch h_form-switch mb-2">
 							<input class="form-check-input" type="checkbox" id="isVisible" checked>
 							<label class="form-check-label ms-2" for="isVisible">Visible on store</label>
@@ -83,10 +105,17 @@
 									required>
 								<div class="invalid-feedback">Please enter a subcategory name.</div>
 							</div>
-							<!-- Parent Category as an input field (same style as Subcategory Name) -->
+
+							<!-- Parent Category as a dropdown -->
 							<label class="h_field-label" for="parentCategoryInput">Category Name</label>
-							<input id="parentCategoryInput" name="parentCategory" type="text" class="h_dark-input mb-3"
-								placeholder="Enter Category Name">
+							<select id="parentCategoryInput" name="parentCategory" class="h_dark-input h_dark-input-select mb-3" required>
+								<option value="">-- Select Category --</option>
+								<option value="Men">Men</option>
+								<option value="Women">Women</option>
+								<option value="Kids">Kids</option>
+								<option value="Accessories">Accessories</option>
+							</select>
+							<div class="invalid-feedback">Please select a category.</div>
 
 							<label class="h_field-label" for="code">Subcategory Code</label>
 							<input id="code" type="text" class="h_dark-input mb-3" placeholder="E.g. SUB-MEN-001"
@@ -152,7 +181,7 @@
 			}
 		})();
 
-		// Upload area behavior: supports multiple files + preview thumbnails
+		// Upload area behavior
 		(function () {
 			const zone = document.getElementById('uploadZone');
 			const input = document.getElementById('subcategoryImage');
@@ -205,7 +234,6 @@
 				const codeEl = document.getElementById('code');
 				const parentInput = document.getElementById('parentCategoryInput');
 				const titleEl = document.getElementById('title');
-				const slugEl = document.getElementById('slug');
 
 				if (!codeEl.value.trim()) {
 					codeEl.classList.add('is-invalid');
@@ -219,23 +247,18 @@
 					parentInput.classList.remove('is-invalid');
 				}
 
-				if (slugEl && !slugEl.value.trim() && titleEl) {
-					slugEl.value = slugify(titleEl.value);
-				}
-
 				if (!form.checkValidity() || !codeEl.value.trim() || (parentInput && !parentInput.value.trim())) {
 					event.preventDefault(); event.stopPropagation();
 					form.classList.add('was-validated');
 					return;
 				}
 
-				event.preventDefault(); // demo behavior: prevent actual submit
+				event.preventDefault(); // demo behavior
 
 				const status = document.querySelector('input[name="statusRadio"]:checked')?.value || 'active';
 				const payload = {
 					title: titleEl?.value.trim() || '',
 					code: codeEl?.value.trim() || '',
-					slug: slugEl?.value.trim() || '',
 					description: document.getElementById('description')?.value.trim() || '',
 					visible: document.getElementById('isVisible')?.checked || false,
 					status: status,

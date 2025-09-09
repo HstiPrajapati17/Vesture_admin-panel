@@ -79,7 +79,7 @@
 
               <div class="mb-3">
                 <label class="h_field-label" for="supplier">Supplier</label>
-                <select id="supplier" class="h_dark-input" required>
+                <select id="supplier" class="h_dark-input h_dark-input-select" required>
                   <option value="">Select supplier</option>
                   <option value="1">ABC Suppliers</option>
                   <option value="2">XYZ Trading</option>
@@ -92,7 +92,7 @@
 
               <div class="mb-3">
                 <label class="h_field-label" for="stock">Stock</label>
-                <input id="stock" type="number" class="h_dark-input" placeholder="Enter stock quantity" required>
+                <input id="stock" type="number" min="1" class="h_dark-input" placeholder="Enter stock quantity" required>
                 <div class="invalid-feedback">Please enter stock quantity.</div>
               </div>
 
@@ -104,7 +104,7 @@
 
               <div class="mb-3">
                 <label class="h_field-label" for="reorderLevel">Reorder Level</label>
-                <input id="reorderLevel" type="number" class="h_dark-input" placeholder="Enter reorder level" required>
+                <input id="reorderLevel" type="number" min="1" class="h_dark-input" placeholder="Enter reorder level" required>
                 <div class="invalid-feedback">Please enter reorder level.</div>
               </div>
 
