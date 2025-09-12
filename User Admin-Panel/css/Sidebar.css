@@ -370,17 +370,13 @@ body.sidebar-collapsed #main-content {
   .h_topbar_admin-name {
     display: none;
   }
-  .h_topbar_admin-img {
-    height: 28px;
-    width: 28px;
-  }
 }
 @media (max-width: 420px) {
   .main-content {
     padding: 8px;
   }
   .h_topbar_admin {
-    gap: 0px !important;
+    gap: 2px !important;
   }
   .topbar {
     padding: 0px 6px;
@@ -390,10 +386,6 @@ body.sidebar-collapsed #main-content {
   }
   .topbar .bi-bell-fill {
     font-size: 16px !important;
-  }
-  .h_topbar_admin-img {
-    height: 24px;
-    width: 24px;
   }
   .noti-icon span {
     font-size: 10px;

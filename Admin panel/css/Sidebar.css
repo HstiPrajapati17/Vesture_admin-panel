@@ -368,10 +368,6 @@ body.sidebar-collapsed #main-content {
   .h_topbar_admin-name {
     display: none;
   }
-  .h_topbar_admin-img {
-    height: 28px;
-    width: 28px;
-  }
 }
 @media (max-width: 420px) {
   .main-content {

@@ -11,6 +11,35 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/Sidebar.css">
 	<link rel="stylesheet" href="/css/product.css">
+	<style>
+		th {
+			padding: 0 !important;
+		}
+
+		@media (max-width: 460px) {
+			.h_tabpanel {
+				padding: 10px;
+			}
+
+			.h_specs_table td {
+				padding: 5px;
+				font-size: 12px;
+			}
+
+			.h_specs_table th {
+				padding: 8px 12px;
+				border-bottom: 1px dashed #604652;
+				color: #242323;
+				font-size: 12px;
+			}
+		}
+
+		@media (max-width: 423px) {
+			.h_meta .h_item {
+				margin: 0px;
+			}
+		}
+	</style>
 </head>
 
 <body class="h-100">
@@ -146,39 +175,39 @@
 
 									<table class="h_specs_table">
 										<tr>
-											<th>Product code (base)</th>
+											<th>Product code (base):</th>
 											<td>CLSH-2345</td>
 										</tr>
 										<tr>
-											<th>Available colors</th>
+											<th>Available colors:</th>
 											<td>Sand (BE), Navy (NV), White (WT)</td>
 										</tr>
 										<tr>
-											<th>Available sizes</th>
+											<th>Available sizes:</th>
 											<td>S, M, L, XL</td>
 										</tr>
 										<tr>
-											<th>Weight (size M)</th>
+											<th>Weight (size M):</th>
 											<td>Approx. 210 g</td>
 										</tr>
 										<tr>
-											<th>Fit</th>
+											<th>Fit:</th>
 											<td>Regular fit — 1.5\" room in chest compared to slim</td>
 										</tr>
 										<tr>
-											<th>Care instructions</th>
+											<th>Care instructions:</th>
 											<td>Machine wash cold, tumble low or hang dry, warm iron if needed</td>
 										</tr>
 										<tr>
-											<th>Origin</th>
+											<th>Origin:</th>
 											<td>Made in Canada (factory: StitchWorks — Plant 3)</td>
 										</tr>
 										<tr>
-											<th>Packaging</th>
+											<th>Packaging:</th>
 											<td>Inner folded — compostable polybag; outer carton 50 units / carton</td>
 										</tr>
 										<tr>
-											<th>Variant SKUs (examples)</th>
+											<th>Variant SKUs (examples) :</th>
 											<td>
 												<div>CLSH-2345-BE-M — Sand / M</div>
 												<div>CLSH-2345-BE-L — Sand / L</div>
@@ -186,7 +215,7 @@
 											</td>
 										</tr>
 										<tr>
-											<th>Compliance</th>
+											<th>Compliance:</th>
 											<td>Oeko-Tex® supplier certificate (on file), supplier social compliance
 												audit:
 												SA8000 (2024)</td>
@@ -318,7 +347,7 @@
 
 		<!-- Modal: image preview -->
 		<div class="modal fade" id="h_imgModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-body p-0">
 						<img id="h_modalImage" src="" alt="Preview"
@@ -387,6 +416,11 @@
 			// ---------------------------
 			// Tab behaviour (custom)
 			// ---------------------------
+
+			function goToTabsRoot() {
+				document.getElementById('h_tabsRoot').scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+
 			const tabButtons = {
 				desc: document.getElementById('h_tab_desc_btn'),
 				specs: document.getElementById('h_tab_specs_btn'),
@@ -419,9 +453,22 @@
 			}
 
 			// attach click handlers
-			tabButtons.desc.addEventListener('click', () => selectTab('desc'));
-			tabButtons.specs.addEventListener('click', () => selectTab('specs'));
-			tabButtons.history.addEventListener('click', () => selectTab('history'));
+			Object.keys(tabButtons).forEach(key => {
+				tabButtons[key].addEventListener('click', () => {
+					selectTab(key);
+
+					// Active button ne tabbar ni first position ma muki do
+					const tabbar = document.querySelector('.h_tabbar');
+					const activeBtn = tabButtons[key];
+					tabbar.prepend(activeBtn);
+
+					// Scroll tabbar visible top ma lai jau (optional mobile view)
+					tabbar.scrollTo({ left: 0, behavior: 'smooth' });
+
+					// Scroll page to tabs root
+					document.getElementById('h_tabsRoot').scrollIntoView({ behavior: 'smooth', block: 'start' });
+				});
+			});
 
 			// keyboard support (left/right)
 			const order = ['desc', 'specs', 'history'];

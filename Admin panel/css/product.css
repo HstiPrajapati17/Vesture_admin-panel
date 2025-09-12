@@ -767,8 +767,9 @@ body::-webkit-scrollbar {
 }
 
 .h_item_value {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   margin-right: 2px;
+  color: #000;
 }
 
 /* Tabs (redesign) */
@@ -782,7 +783,7 @@ body::-webkit-scrollbar {
   gap: 8px;
   align-items: center;
   background: rgba(96, 114, 116, 0.02);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   border: 1px solid rgba(96, 114, 116, 0.04);
 }
 
@@ -1054,6 +1055,9 @@ body::-webkit-scrollbar {
   .h_tabpanel,
   .h_specs_table th {
     padding: 9px;
+  }
+  .h_tabpanel {
+    padding: 8px;
   }
 }
 @media (max-width: 400px) {
@@ -1729,7 +1733,7 @@ body {
   padding: 12px;
   border: none;
 }
-.low-stock-page .page-btn:hover{
+.low-stock-page .page-btn:hover {
   background-color: #44323a;
 }
 

@@ -39,6 +39,7 @@
 								<tr>
 									<th>Wishlist ID</th>
 									<th>Customer</th>
+									<th>Image</th>
 									<th>Product</th>
 									<th>Fabric</th>
 									<th>Color</th>
@@ -93,15 +94,15 @@
 
 	<script>
 		const wishlistData = [
-			{ id: "W001", customer: "Rahul", product: "Cotton Shirt", fabric: "Cotton", color: "Red", size: "M", date: "20-Aug-2025", status: "Available" },
-			{ id: "W002", customer: "Sneha", product: "Denim Jeans", fabric: "Denim", color: "Blue", size: "L", date: "19-Aug-2025", status: "Out of Stock" },
-			{ id: "W003", customer: "Arjun", product: "Silk Kurta", fabric: "Silk", color: "Green", size: "S", date: "15-Aug-2025", status: "Moved to Cart" },
-			{ id: "W004", customer: "Sagar", product: "Leather Jacket", fabric: "Leather", color: "Brown", size: "L", date: "05-Aug-2025", status: "Available" },
-			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
-			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
-			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
-			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
-			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available" },
+			{ id: "W001", customer: "Rahul", product: "Cotton Shirt", fabric: "Cotton", color: "Red", size: "M", date: "20-Aug-2025", status: "Available", image: "https://m.media-amazon.com/images/I/810YTekmFJL._UY1100_.jpg" },
+			{ id: "W002", customer: "Sneha", product: "Denim Jeans", fabric: "Denim", color: "Blue", size: "L", date: "19-Aug-2025", status: "Out of Stock", image: "https://freakins.com/cdn/shop/files/8JULY24_17169-Edit_4aec46f8-78bd-49cd-aab4-49477207c9cd.jpg?v=1749906581&width=1001" },
+			{ id: "W003", customer: "Arjun", product: "Silk Kurta", fabric: "Silk", color: "Green", size: "S", date: "15-Aug-2025", status: "Moved to Cart", image: "https://img.faballey.com/images/Product/XMS00238E/3.jpg" },
+			{ id: "W004", customer: "Sagar", product: "Leather Jacket", fabric: "Leather", color: "Brown", size: "L", date: "05-Aug-2025", status: "Available", image: "https://cdn.fynd.com/v2/falling-surf-7c8bb8/fyprod/wrkr/products/pictures/item/free/original/000000410499092004/jD16RqXjMT-1.jpg" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available", image: "https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available", image: "https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available", image: "https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available", image: "https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp" },
+			{ id: "W005", customer: "Meera", product: "Wool Sweater", fabric: "Wool", color: "Black", size: "M", date: "10-Aug-2025", status: "Available", image: "https://pachamamaknitwear.com/products/elvcm/c2feef3048b55ae5c9a2bbcdf856a1cd.webp" },
 		];
 
 		let currentPage = 1;
@@ -111,67 +112,70 @@
 		const paginationNav = document.getElementById("paginationNav");
 
 		function renderTable() {
-	tableBody.innerHTML = "";
-	const start = (currentPage - 1) * itemsPerPage;
-	const end = start + itemsPerPage;
-	const pageItems = wishlistData.slice(start, end);
+			tableBody.innerHTML = "";
+			const start = (currentPage - 1) * itemsPerPage;
+			const end = start + itemsPerPage;
+			const pageItems = wishlistData.slice(start, end);
 
-	pageItems.forEach((item, index) => {
-		const tr = document.createElement("tr");
-		tr.innerHTML = `
-			<td>#${item.id}</td>
-			<td>${item.customer}</td>
-			<td>${item.product}</td>
-			<td>${item.fabric}</td>
-			<td>${item.color}</td>
-			<td>${item.size}</td>
-			<td>${item.date}</td>
-			<td>${item.status}</td>
-			<td>
-				<button class="btn btn-sm page-btn me-2 delete-btn" data-id="${item.id}" title="Delete">
-					<i class="bi bi-trash"></i>
-				</button>
-				<button class="btn btn-sm page-btn cart-btn" data-id="${item.id}" title="Add to Cart">
-					<i class="bi bi-cart-plus"></i>
-				</button>
-			</td>
-		`;
-		tableBody.appendChild(tr);
-	});
+			pageItems.forEach((item, index) => {
+				const tr = document.createElement("tr");
+				tr.innerHTML = `
+					<td>#${item.id}</td>
+					<td>${item.customer}</td>
+					<td>
+						<img src="${item.image}" alt="${item.product}" class="img-thumbnail" style="width:50px; height:50px; object-fit:cover;">
+					</td>
+					<td>${item.product}</td>
+					<td>${item.fabric}</td>
+					<td>${item.color}</td>
+					<td>${item.size}</td>
+					<td>${item.date}</td>
+					<td>${item.status}</td>
+					<td>
+						<button class="btn btn-sm page-btn me-2 delete-btn" data-id="${item.id}" title="Delete">
+						<i class="bi bi-trash"></i>
+						</button>
+						<button class="btn btn-sm page-btn cart-btn" data-id="${item.id}" title="Add to Cart">
+						<i class="bi bi-cart-plus"></i>
+						</button>
+					</td>
+					`;
+				tableBody.appendChild(tr);
+			});
 
-	const totalPages = Math.ceil(wishlistData.length / itemsPerPage);
-	if (totalPages <= 1) {
-		paginationNav.style.display = "none";
-	} else {
-		paginationNav.style.display = "block";
-		renderPagination();
-	}
+			const totalPages = Math.ceil(wishlistData.length / itemsPerPage);
+			if (totalPages <= 1) {
+				paginationNav.style.display = "none";
+			} else {
+				paginationNav.style.display = "block";
+				renderPagination();
+			}
 
-	// ✅ Delete button event
-	document.querySelectorAll(".delete-btn").forEach(btn => {
-		btn.addEventListener("click", () => {
-			const id = btn.getAttribute("data-id");
-			openDeleteModal(id);
-		});
-	});
+			// ✅ Delete button event
+			document.querySelectorAll(".delete-btn").forEach(btn => {
+				btn.addEventListener("click", () => {
+					const id = btn.getAttribute("data-id");
+					openDeleteModal(id);
+				});
+			});
 
-	// ✅ Add to Cart button event
-	document.querySelectorAll(".cart-btn").forEach(btn => {
-		btn.addEventListener("click", () => {
-			const id = btn.getAttribute("data-id");
-			moveToCart(id);
-		});
-	});
-}
+			// ✅ Add to Cart button event
+			document.querySelectorAll(".cart-btn").forEach(btn => {
+				btn.addEventListener("click", () => {
+					const id = btn.getAttribute("data-id");
+					moveToCart(id);
+				});
+			});
+		}
 
-// ------------------ ADD TO CART FUNCTION ------------------ //
-function moveToCart(id) {
-	const item = wishlistData.find(x => x.id === id);
-	if (item) {
-		item.status = "Moved to Cart"; // update status
-		renderTable(); // re-render table
-	}
-}
+		// ------------------ ADD TO CART FUNCTION ------------------ //
+		function moveToCart(id) {
+			const item = wishlistData.find(x => x.id === id);
+			if (item) {
+				item.status = "Moved to Cart"; // update status
+				renderTable(); // re-render table
+			}
+		}
 
 		// ------------------ MODAL HANDLING ------------------ //
 		let deleteId = null;

@@ -264,10 +264,11 @@ body {
   color: #ffffff;
   border: none;
 }
-.page-btn:hover,.page-btn:active{
-  color: #F6F6F6 !important;
-    background-color: #4e3741;
-    border-color: #4e3741;
+.page-btn:hover,
+.page-btn:active {
+  color: #f6f6f6 !important;
+  background-color: #4e3741;
+  border-color: #4e3741;
 }
 
 .page-btn:disabled {
@@ -428,7 +429,6 @@ body {
   .shop-layout {
     flex-direction: column;
   }
-
 
   .shop-layout,
   .shop-sidebar,
@@ -664,8 +664,9 @@ body::-webkit-scrollbar {
 }
 
 .h_item_value {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   margin-right: 2px;
+  color: #000;
 }
 
 /* Tabs (redesign)  */
@@ -679,7 +680,7 @@ body::-webkit-scrollbar {
   gap: 8px;
   align-items: center;
   background: rgba(96, 114, 116, 0.02);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   border: 1px solid rgba(96, 114, 116, 0.04);
 }
 
@@ -713,8 +714,8 @@ body::-webkit-scrollbar {
 }
 
 .h_tabbtn[aria-selected="true"] {
-  background: #f6f6f6;
-  color: var(--h_brand);
+  background: #604652;
+  color: #ffffff;
   box-shadow: 0 8px 20px rgba(96, 114, 116, 0.08);
 }
 
@@ -737,7 +738,7 @@ body::-webkit-scrollbar {
 .h_specs_table th {
   text-align: left;
   padding: 8px 12px;
-  width: 260px;
+  /* width: 260px; */
   color: #42514f;
   font-weight: 700;
   vertical-align: top;
@@ -936,7 +937,7 @@ body::-webkit-scrollbar {
   }
 }
 @media (max-width: 425px) {
-.h_badge-floating {
+  .h_badge-floating {
     position: absolute;
     left: 3px;
     top: 4px;
@@ -946,7 +947,7 @@ body::-webkit-scrollbar {
     border-radius: 999px;
     font-weight: 600;
     font-size: 0.7rem;
-}
+  }
 }
 /* Small utilities */
 .h_row {

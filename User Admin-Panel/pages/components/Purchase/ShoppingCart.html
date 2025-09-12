@@ -470,7 +470,7 @@
 
 				const grand = Math.max(0, subtotal + tax + FREIGHT - promoVal - bulkVal);
 
-				els.cartCount.textContent = document.querySelectorAll(".cart-item").length;
+				els.cartCount.textContent = els.items().length;
 				els.piecesTotal.textContent = pieces;
 				els.subTotal.textContent = money(subtotal);
 				els.taxTotal.textContent = money(tax);
@@ -483,11 +483,11 @@
 			function attachItemEvents(item) {
 				const qty = item.querySelector(".qty");
 				item.querySelector(".btn-inc").addEventListener("click", () => {
-					qty.value = Math.max(1, parseInt(qty.value || 1, 10) + 50);
+					qty.value = Math.max(1, parseInt(qty.value || 1, 10) + 1);
 					refreshItem(item); refreshSummary();
 				});
 				item.querySelector(".btn-dec").addEventListener("click", () => {
-					qty.value = Math.max(1, parseInt(qty.value || 1, 10) - 50);
+					qty.value = Math.max(1, parseInt(qty.value || 1, 10) - 1);
 					refreshItem(item); refreshSummary();
 				});
 				qty.addEventListener("input", () => {
@@ -513,30 +513,21 @@
 				refreshSummary();
 			});
 
-			// Promo: show message ONLY when valid; nothing otherwise
+			// Apply promo
 			els.applyPromo.addEventListener("click", () => {
 				const code = (els.promoInput.value || "").trim().toUpperCase();
-
-				// reset feedback area
-				els.promoFeedback.textContent = "";
-				els.promoFeedback.className = "mt-2";
-
 				if (code === PROMO_CODE) {
 					promoAppliedPct = PROMO_PCT;
-					refreshSummary();
-
-					// show ephemeral success note
-					els.promoFeedback.classList.add("text-success");
-					els.promoFeedback.textContent = "Promo applied.";
-					setTimeout(() => { els.promoFeedback.textContent = ""; els.promoFeedback.className = "mt-2"; }, 2000);
+					els.promoFeedback.innerHTML = `<span class="text-success">Promo code applied! You saved ${PROMO_PCT * 100}%.</span>`;
 				} else {
-					// invalid or empty: no message, just ensure no promo is applied
 					promoAppliedPct = 0;
-					refreshSummary();
+					els.promoFeedback.innerHTML = `<span class="text-danger">Invalid promo code.</span>`;
 				}
+				refreshSummary();
 			});
 		})();
 	</script>
+
 </body>
 
 </html>
