@@ -83,4 +83,5 @@
 .h_order-list-filter-btn:disabled{
   background-color: #866c78;
   color: #fff;
+  border: none;
 }

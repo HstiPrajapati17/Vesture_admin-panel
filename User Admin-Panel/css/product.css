@@ -272,6 +272,7 @@ body {
 
 .page-btn:disabled {
   background: #7f6d75;
+  border: none;
 }
 
 .btn-outline-dark {

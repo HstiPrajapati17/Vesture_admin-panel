@@ -111,6 +111,7 @@
   background: #ffffff;
   border-bottom: 1px solid #eef1f6;
   text-align: left;
+  text-wrap: nowrap;
 }
 .h_recent-orders-table tbody tr {
   border-bottom: 1px solid #f2f4f8;
@@ -129,6 +130,7 @@
   white-space: nowrap;
   font-size: 15px;
   font-weight: 600;
+  text-wrap: nowrap;
 }
 
 /* badge */

@@ -57,6 +57,7 @@ body::-webkit-scrollbar {
   color: #f6f6f6;
   border-bottom: 2px solid rgba(0, 0, 0, 0.06);
   font-weight: 600;
+  text-wrap: nowrap;
 }
 
 .h_custom-table tbody tr {
@@ -66,9 +67,10 @@ body::-webkit-scrollbar {
 }
 
 .h_custom-table tbody td {
-  /* background: #604652; */
+  background: #f6f6f6 !important;
   color: #000;
   padding: 12px;
+  text-wrap: nowrap;
   text-align: center;
   vertical-align: middle;
 }

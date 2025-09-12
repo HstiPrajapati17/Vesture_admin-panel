@@ -72,12 +72,14 @@ h1 {
   background-color: var(--muted);
   vertical-align: middle;
   color: #fff;
+  text-wrap: nowrap;
 }
 
 .custome-table tbody td {
   background-color: #f6f6f6;
   vertical-align: middle;
   color: #000;
+  text-wrap: nowrap;
 }
 
 .badge-active {

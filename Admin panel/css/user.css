@@ -25,6 +25,7 @@ body {
   text-align: center;
   background: #604652;
   color: #f6f6f6;
+  text-wrap: nowrap;
 }
 
 .h_custom-table tbody tr {
@@ -40,6 +41,7 @@ body {
   vertical-align: middle;
   text-align: center;
   white-space: nowrap;
+  text-wrap: nowrap;
 }
 
 .user-img {
