@@ -291,7 +291,7 @@ body.sidebar-collapsed #main-content {
   .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -63px;
     width: var(--sidebar-collapsed-width);
     height: 100%;
     background: var(--sidebar-bg);
@@ -319,6 +319,7 @@ body.sidebar-collapsed #main-content {
   /* Expanded off-canvas full width */
   .sidebar.expanded {
     width: var(--sidebar-width);
+    left: 0px;
   }
   .sidebar.expanded .sidebar-search {
     display: block;
@@ -337,11 +338,11 @@ body.sidebar-collapsed #main-content {
 
   /* Topbar + content aligned with collapsed state */
   .topbar {
-    left: var(--sidebar-collapsed-width);
+    left: 0px;
     padding: 0px 10px;
   }
   #main-content {
-    margin-left: var(--sidebar-collapsed-width);
+    margin-left: 0px;
     padding: 12px;
   }
   .topbar .h_nav-toggle {
@@ -440,9 +441,10 @@ body.sidebar-collapsed #main-content {
 
 .custom-modal-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   padding: 12px;
+
 }
 
 .custome_modal_btn {
@@ -485,6 +487,7 @@ body.sidebar-collapsed #main-content {
 .btn:disabled{
   background-color: #604652;
   color: #fff;
+  border: none;
 }
 .form-check-input:focus {
     border-color: #86b7fe;

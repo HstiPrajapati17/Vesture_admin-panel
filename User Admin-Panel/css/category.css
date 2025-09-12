@@ -336,6 +336,7 @@ h4 {
   text-align: center;
   padding: 12px;
   border-bottom: none;
+  text-wrap: nowrap;
 }
 
 .category-table tbody tr {
@@ -354,6 +355,7 @@ h4 {
   padding: 12px;
   text-align: center;
   vertical-align: middle;
+  text-wrap: nowrap;
 }
 
 .category-table img {

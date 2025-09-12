@@ -246,6 +246,7 @@ body {
   border: none;
   border-top: 0;
   border: none;
+  text-wrap: nowrap;
 }
 
 .table {
@@ -851,6 +852,7 @@ body::-webkit-scrollbar {
   padding: 8px 12px;
   border-top: 1px dashed rgba(37, 50, 53, 0.06);
   color: #253235;
+  text-wrap: nowrap;
 }
 
 /* History timeline */
@@ -1732,6 +1734,7 @@ body {
   text-align: center;
   padding: 12px;
   border: none;
+  text-wrap: nowrap;
 }
 .low-stock-page .page-btn:hover {
   background-color: #44323a;
@@ -1744,6 +1747,7 @@ body {
   text-align: center;
   vertical-align: middle;
   border: none;
+  text-wrap: nowrap;
 }
 .currunt-product-page .product-page-size-selector {
   width: 40% !important;

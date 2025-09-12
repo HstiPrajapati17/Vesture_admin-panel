@@ -19,7 +19,7 @@
     <div id="navbar-container"></div>
 
     <main class="main-content" id="main-content">
-        <div class="container-fluid">
+        <div class="container-fluid p-0">
             <div class="dashboard-card">
                 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                     <h4>Work Reports <i class="bi bi-file-earmark-bar-graph"></i></h4>
@@ -66,7 +66,7 @@
                 <form id="editReportForm" class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label class="h_field-label">Status</label>
-                        <div class="d-flex align-items-center gap-4">
+                        <div class="d-flex align-items-center justify-content-center gap-4">
                             <label class="h_radio"><input type="radio" name="editStatusRadio" value="ongoing">
                                 Ongoing</label>
                             <label class="h_radio"><input type="radio" name="editStatusRadio" value="completed">
@@ -112,18 +112,18 @@
         const reportData = [
             { id: 1, productionOrder: "PO-001", manufacturer: "ABC Manufacturers", date: "2025-09-02", progress: "50% stitching done", status: "ongoing" },
             { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 2, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
-            { id: 3, productionOrder: "PO-003", manufacturer: "LMN Manufacturers", date: "2025-09-04", progress: "Dyeing in progress", status: "ongoing" }
+            { id: 3, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 4, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 5, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 6, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 7, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 8, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 9, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 10, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 11, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 12, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 13, productionOrder: "PO-002", manufacturer: "XYZ Manufacturers", date: "2025-09-03", progress: "Cutting completed", status: "completed" },
+            { id: 14, productionOrder: "PO-003", manufacturer: "LMN Manufacturers", date: "2025-09-04", progress: "Dyeing in progress", status: "ongoing" }
         ];
 
         const tableBody = document.getElementById("reportTableBody");
@@ -207,6 +207,7 @@
         function closeCustomModal() {
             document.getElementById("customEditModal").style.display = "none";
         }
+      
 
         function editReport(id) {
             reportToEditId = id;
@@ -227,7 +228,7 @@
             const manufacturer = selectedOption.dataset.manufacturer || '';
             document.getElementById('editManufacturer').value = manufacturer;
         });
-
+        
         document.getElementById('saveEditReportBtn').addEventListener('click', () => {
             const report = reportData.find(r => r.id === reportToEditId);
             if (!report) return;
@@ -241,7 +242,11 @@
             renderTable();
             closeCustomModal();
         });
-
+document.getElementById('customEditModal').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closeCustomModal(); // Use the correct function name here
+    }
+});
         renderTable();
     </script>
 </body>
